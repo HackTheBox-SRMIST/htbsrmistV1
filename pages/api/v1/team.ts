@@ -4,10 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { db } = await connectToDatabase();
-        const teamData = await db
-            .collection("teams")
-            .find({ team: req.query.domain })
-            .toArray();
+        //verify connection
+        await db.command({ ping: 1 });
+        const teamData = await db.collection("teams").find().toArray();
 
         res.status(200).json({
             success: true,
