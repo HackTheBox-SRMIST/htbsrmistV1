@@ -1,17 +1,25 @@
+import { connectToDatabase } from "../../../utils/db.connect";
 import { NextApiRequest, NextApiResponse } from "next";
-import { Team } from "../../../utils/schema/TeamSchema";
-import { connectToDatabase } from "../../../utils/connect";
-//Static Routing
-export default async function getTeams(
-    req: NextApiRequest,
-    res: NextApiResponse
-) {
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        await connectToDatabase();
-        const teams = await Team.find();
-        res.json(teams);
-    } catch (err) {
-        console.log(err);
-        res.status(500).send("error");
+        const { db } = await connectToDatabase();
+        const teamData = await db
+            .collection("teams")
+            .find({ team: req.query.domain })
+            .toArray();
+
+        res.status(200).json({
+            success: true,
+            message: "Successfully fetched!",
+            data: teamData
+        });
+    } catch (err: any) {
+        console.error(err.message);
+        res.status(500).json({
+            success: false,
+            message:
+                "It seems as the database refused to connect. Kindly check your connection."
+        });
     }
-}
+};
