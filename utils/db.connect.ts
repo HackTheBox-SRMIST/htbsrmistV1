@@ -1,51 +1,50 @@
-import { MongoClient } from "mongodb";
+import { Collection, MongoClient, MongoError } from "mongodb";
 
-const MONGODB_URI: string | undefined =
-    process.env.MONGODB_URI || "mongodb://localhost:27017/htbsrmist";
+// Singleton DBInstance Class
+export class DBInstance {
+    private static instance: DBInstance;
 
-export let connectToDatabase = () => {
-    const opts: object = {
+    //Connection Configutation
+    private opts: object = {
         useNewUrlParser: true,
         useUnifiedTopology: true
     };
-    return MongoClient.connect(MONGODB_URI, opts).then((client) => {
-        return {
-            client,
-            db: client.db()
-        };
-    });
-};
 
-if (process.env.NODE_ENV !== "production") {
-    connectToDatabase = async () => {
-        const globalAny: any = global;
-        let cached = globalAny.mongo;
+    //Database Credentials
+    private URL: string =
+        process.env.MONGODB_URI || "mongodb://localhost:27017/";
+    private dbName: string = process.env.DB_NAME || "htbsrmist";
+    private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
+    //Constructor
 
-        if (!cached) {
-            cached = globalAny.mongo = { conn: null, promise: null };
+    private constructor() {
+        console.log("🔶 Instance was Called!!");
+    }
+    //Connect Function
+
+    private initialize = async (): Promise<void> => {
+        try {
+            await this.dbClient.connect();
+            console.log("✅ Connected to MongoDB");
+        } catch (err) {
+            console.error("❌ Could not connect to MongoDB\n%o", err);
+            throw MongoError;
+        } finally {
+            () => this.dbClient.close();
         }
+    };
 
-        if (cached.conn) {
-            return cached.conn;
+    //Singleton Function Impleent
+    public static getInstance = (): DBInstance => {
+        if (!DBInstance.instance) {
+            DBInstance.instance = new DBInstance();
         }
+        return DBInstance.instance;
+    };
 
-        if (!cached.promise) {
-            const opts: object = {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            };
-
-            cached.promise = MongoClient.connect(MONGODB_URI, opts).then(
-                (client) => {
-                    return {
-                        client,
-                        db: client.db()
-                    };
-                }
-            );
-        }
-
-        cached.conn = await cached.promise;
-        return cached.conn;
+    //Usable Fuction Component to get data according to Collection Name
+    public getCollection = async (collection: string): Promise<Collection> => {
+        await this.initialize();
+        return this.dbClient.db(this.dbName).collection(collection);
     };
 }
