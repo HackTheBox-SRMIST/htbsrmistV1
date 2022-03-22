@@ -1,13 +1,15 @@
-import { Collection, MongoClient, MongoError } from "mongodb";
+import { Db, Collection, MongoClient, MongoError } from "mongodb";
 
 // Singleton DBInstance Class
 export class DBInstance {
     private static instance: DBInstance;
+    private static db: Db;
 
     //Connection Configutation
     private opts: object = {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        maxIdleTimeMS: 5000
     };
 
     //Database Credentials
@@ -15,22 +17,21 @@ export class DBInstance {
         process.env.MONGODB_URI || "mongodb://localhost:27017/";
     private dbName: string = process.env.DB_NAME || "htbsrmist";
     private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
-    //Constructor
 
+    //Constructor
     private constructor() {
         console.log("🔶 Instance was Called!!");
     }
-    //Connect Function
 
+    //Connect Function
     private initialize = async (): Promise<void> => {
         try {
-            await this.dbClient.connect();
-            console.log("✅ Connected to MongoDB");
+            const connClient = await this.dbClient.connect();
+            //console.log(connClient);
+            DBInstance.db = connClient.db(this.dbName);
         } catch (err) {
             console.error("❌ Could not connect to MongoDB\n%o", err);
             throw MongoError;
-        } finally {
-            () => this.dbClient.close();
         }
     };
 
@@ -42,9 +43,18 @@ export class DBInstance {
         return DBInstance.instance;
     };
 
+    //MongoDB Database cache
+    private callDb = async (): Promise<Db> => {
+        if (!DBInstance.db) {
+            await this.initialize();
+            console.log(`✅ Connected to MongoDB: ${this.dbName}`);
+        }
+        return DBInstance.db;
+    };
+
     //Usable Fuction Component to get data according to Collection Name
     public getCollection = async (collection: string): Promise<Collection> => {
-        await this.initialize();
-        return this.dbClient.db(this.dbName).collection(collection);
+        const getDb: Db = await this.callDb();
+        return getDb.collection(collection);
     };
 }

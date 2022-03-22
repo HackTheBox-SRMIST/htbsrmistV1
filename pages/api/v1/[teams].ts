@@ -3,7 +3,9 @@ import { Teams } from "../../../utils/services/teams.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const teamData = await Teams();
+        //console.log(req.query.teams);
+        const teamData = await Teams(req.query.teams);
+
         res.status(200).json({
             success: true,
             message: "✅ Successfully fetched!",
