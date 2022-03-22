@@ -19,42 +19,31 @@ export class DBInstance {
     private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
 
     //Constructor
-    private constructor() {
-        console.log("🔶 Instance was Called!!");
-    }
+    private constructor() {}
 
-    //Connect Function
-    private initialize = async (): Promise<void> => {
+    private async initialize() {
         try {
+            console.log("🔶 Instance was Called!!");
             const connClient = await this.dbClient.connect();
-            //console.log(connClient);
             DBInstance.db = connClient.db(this.dbName);
+            console.log(`✅ Connected to MongoDB: ${this.dbName}`);
         } catch (err) {
             console.error("❌ Could not connect to MongoDB\n%o", err);
             throw MongoError;
         }
-    };
+    }
 
-    //Singleton Function Impleent
-    public static getInstance = (): DBInstance => {
+    //Singleton Function Implement
+    public static getInstance = async (): Promise<DBInstance> => {
         if (!DBInstance.instance) {
             DBInstance.instance = new DBInstance();
+            await DBInstance.instance.initialize();
         }
         return DBInstance.instance;
     };
 
-    //MongoDB Database cache
-    private callDb = async (): Promise<Db> => {
-        if (!DBInstance.db) {
-            await this.initialize();
-            console.log(`✅ Connected to MongoDB: ${this.dbName}`);
-        }
-        return DBInstance.db;
-    };
-
-    //Usable Fuction Component to get data according to Collection Name
+    //Usable Function Component to get data according to Collection Name
     public getCollection = async (collection: string): Promise<Collection> => {
-        const getDb: Db = await this.callDb();
-        return getDb.collection(collection);
+        return DBInstance.db.collection(collection);
     };
 }

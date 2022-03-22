@@ -3,7 +3,9 @@ import { DBInstance } from "../db.connect";
 
 export const Teams = async (): Promise<Document> => {
     try {
-        const db = await DBInstance.getInstance().getCollection("teams");
+        const db = await (
+            await DBInstance.getInstance()
+        ).getCollection("teams");
 
         const teamItems = await db.find({}).toArray();
         return teamItems;
