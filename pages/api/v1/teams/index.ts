@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Teams } from "../../../utils/services/teams.service";
+import { Teams } from "../../../../utils/services/teams.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
