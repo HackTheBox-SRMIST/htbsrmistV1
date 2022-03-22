@@ -1,12 +1,11 @@
 import { Document } from "mongodb";
 import { DBInstance } from "../db.connect";
 
-export const Teams = async (query: string | string[]): Promise<Document> => {
+export const Teams = async (): Promise<Document> => {
     try {
         const db = await DBInstance.getInstance().getCollection("teams");
-        //console.log(query);
 
-        const teamItems = await db.find({ category: query }).toArray();
+        const teamItems = await db.find({}).toArray();
         return teamItems;
     } catch (err: any) {
         console.error(err.message);
