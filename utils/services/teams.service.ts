@@ -12,7 +12,7 @@ export const Teams = async (
 
         const teamItems = await db
             .find<teamsDBSchema>(
-                { current: fetchCurrent },
+                { isCurrent: fetchCurrent },
                 { sort: { index: 1 } }
             )
             .toArray();
