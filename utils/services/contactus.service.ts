@@ -1,22 +1,31 @@
 import { DBInstance } from "../db.connect";
 import { contactUsDBSchema } from "../types/contact";
+import {
+    contactUsReqSchema,
+    yupContactUsSchema
+} from "../middleware/contactValidator";
 
 export const ContactUs = async (
-    contactUsData: contactUsDBSchema
-): Promise<String> => {
+    contactUsData: contactUsReqSchema
+): Promise<{ message: String; success: boolean }> => {
     try {
-        const db = await (
-            await DBInstance.getInstance()
-        ).getCollection("contactus");
-        const verifier = db.insertOne({
-            name: contactUsData.name,
-            email: contactUsData.email,
-            question: contactUsData.question,
-            contactNo: contactUsData.contactNo
-        });
-        return "✅ Data successfully Added!";
+        if (await yupContactUsSchema.isValid(contactUsData)) {
+            const db = await (
+                await DBInstance.getInstance()
+            ).getCollection("contactus");
+            db.insertOne({
+                name: contactUsData.name,
+                email: contactUsData.email,
+                question: contactUsData.question,
+                countryCode: contactUsData.countryCode,
+                contactNo: contactUsData.contactNo
+            });
+            return { message: "✅ Data successfully Added!", success: true };
+        } else {
+            throw "🚩 Invalid Input";
+        }
     } catch (err: any) {
-        console.error(err.message);
-        return err.message;
+        console.error(err);
+        return { message: err, success: false };
     }
 };
