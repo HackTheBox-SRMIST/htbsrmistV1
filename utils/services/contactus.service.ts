@@ -1,5 +1,6 @@
 import { DBInstance } from "../db.connect";
 import { contactUsDBSchema } from "../types/contact";
+import { snsPublisher } from "../../utils/awsServices/snsAWSPublisher";
 import {
     contactUsReqSchema,
     yupContactUsSchema
@@ -20,9 +21,10 @@ export const ContactUs = async (
                 countryCode: contactUsData.countryCode,
                 contactNo: contactUsData.contactNo
             });
+            await snsPublisher();
             return { message: "✅ Data successfully Added!", success: true };
         } else {
-            throw "🚩 Invalid Input";
+            throw "🚩 Invalid Input Format";
         }
     } catch (err: any) {
         console.error(err);
