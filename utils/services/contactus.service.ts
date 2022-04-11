@@ -1,5 +1,4 @@
 import { DBInstance } from "../db.connect";
-import { contactUsDBSchema } from "../types/contact";
 import { snsPublisher } from "../../utils/awsServices/snsAWSPublisher";
 import {
     contactUsReqSchema,
@@ -11,18 +10,24 @@ export const ContactUs = async (
 ): Promise<{ message: String; success: boolean }> => {
     try {
         if (await yupContactUsSchema.isValid(contactUsData)) {
-            const db = await (
-                await DBInstance.getInstance()
-            ).getCollection("contactus");
-            db.insertOne({
-                name: contactUsData.name,
-                email: contactUsData.email,
-                question: contactUsData.question,
-                countryCode: contactUsData.countryCode,
-                contactNo: contactUsData.contactNo
-            });
-            await snsPublisher();
-            return { message: "✅ Data successfully Added!", success: true };
+            const snsChecker = await snsPublisher(contactUsData);
+            if (snsChecker == 200) {
+                const db = await (
+                    await DBInstance.getInstance()
+                ).getCollection("contactus");
+                db.insertOne({
+                    name: contactUsData.name,
+                    email: contactUsData.email,
+                    question: contactUsData.question,
+                    countryCode: contactUsData.countryCode,
+                    contactNo: contactUsData.contactNo
+                });
+                return {
+                    message: "✅ Data successfully Added!",
+                    success: true
+                };
+            }
+            throw "📳️ AWS SNS Error!";
         } else {
             throw "🚩 Invalid Input Format";
         }
