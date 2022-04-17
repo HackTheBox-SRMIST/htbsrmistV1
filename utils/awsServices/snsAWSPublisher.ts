@@ -1,26 +1,20 @@
-import { SNSClient } from "@aws-sdk/client-sns";
-import { PublishCommand } from "@aws-sdk/client-sns";
+import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 import { contactUsReqSchema } from "../middleware/contactValidator";
 
 const REGION = "ap-south-1";
 const snsClient = new SNSClient({ region: REGION });
 
-export const snsPublisher = async (
-    data: contactUsReqSchema
-): Promise<number | undefined> => {
-    const snsMessage: string = "New contactUS Message from: " + data.email;
-
+export const snsPublisher = async (data: contactUsReqSchema): Promise<void> => {
+    //console.log(data);
     const params = {
-        Message: snsMessage, // MESSAGE_TEXT
+        Message: JSON.stringify(data, null, "\t"), // MESSAGE_TEXT
         TopicArn: process.env.AWS_SNS_TOPIC_ARN //TOPIC_ARN
     };
     try {
         const metaData = await snsClient.send(new PublishCommand(params));
-        console.log("MessageID: ", metaData.MessageId);
+        console.log("📨 MessageID: ", metaData.MessageId);
         //console.log(metaData);
-        return metaData.$metadata.httpStatusCode;
-    } catch (err) {
+    } catch (err: any) {
         console.log("Error", err);
-        return 400;
     }
 };

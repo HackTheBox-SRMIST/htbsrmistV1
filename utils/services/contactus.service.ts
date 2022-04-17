@@ -7,32 +7,22 @@ import {
 
 export const ContactUs = async (
     contactUsData: contactUsReqSchema
-): Promise<{ message: String; success: boolean }> => {
-    try {
-        if (await yupContactUsSchema.isValid(contactUsData)) {
-            const snsChecker = await snsPublisher(contactUsData);
-            if (snsChecker == 200) {
-                const db = await (
-                    await DBInstance.getInstance()
-                ).getCollection("contactus");
-                db.insertOne({
-                    name: contactUsData.name,
-                    email: contactUsData.email,
-                    question: contactUsData.question,
-                    countryCode: contactUsData.countryCode,
-                    contactNo: contactUsData.contactNo
-                });
-                return {
-                    message: "✅ Data successfully Added!",
-                    success: true
-                };
-            }
-            throw "📳️ AWS SNS Error!";
-        } else {
-            throw "🚩 Invalid Input Format";
-        }
-    } catch (err: any) {
-        console.error(err);
-        return { message: err, success: false };
-    }
+): Promise<void> => {
+    await yupContactUsSchema
+        .validate(contactUsData, { abortEarly: false })
+        .then(async (value) => {
+            // console.log("success", value);
+            const db = await (
+                await DBInstance.getInstance()
+            ).getCollection("contactus");
+            db.insertOne({
+                name: value.name,
+                email: value.email,
+                question: value.question,
+                countryCode: value.countryCode,
+                contactNo: value.contactNo
+            });
+            await snsPublisher(value);
+        });
+    // console.log(contactUsData);
 };
