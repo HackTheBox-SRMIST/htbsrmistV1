@@ -13,20 +13,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log("🚫", req.method, "was called and got error!!");
             res.status(405).json({
                 success: false,
-                message: "🚫 HTTP Method not Allowded"
+                message: "🚫 HTTP Method not Allowed"
             });
         }
     } catch (err: any) {
-        let message: string = "";
-        console.log(err.name); // => 'ValidationError'
-        err.errors.forEach((e: string) => {
-            message += `${e}. `;
-        }); // => [ 'Invalid Country Code!', 'Mobile Number is not valid!' ]
-        console.error(message);
-        //console.error(err.message);
-        res.status(500).json({
-            success: false,
-            message: "❌ Unknown Error Occured!!"
-        });
+        if (err.name === "ValidationError") {
+            let message: string = "";
+            err.errors?.forEach((e: string) => {
+                message += `${e}. `;
+            }); // => [ 'Invalid Country Code!', 'Mobile Number is not valid!' ]
+            console.error(`ValidationError: ${message}`);
+            res.status(400).json({
+                success: false,
+                message: message
+            });
+        } else {
+            res.status(500).json({
+                success: false,
+                message: "❌ Unknown Error Occurred!!"
+            });
+        }
     }
 };

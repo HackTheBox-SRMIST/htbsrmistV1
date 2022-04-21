@@ -1,9 +1,6 @@
 import { DBInstance } from "../db.connect";
 import { snsPublisher } from "../../utils/awsServices/snsAWSPublisher";
-import {
-    contactUsReqSchema,
-    yupContactUsSchema
-} from "../middleware/contactValidator";
+import { contactUsReqSchema, yupContactUsSchema } from "../types/contactus";
 
 export const ContactUs = async (
     contactUsData: contactUsReqSchema

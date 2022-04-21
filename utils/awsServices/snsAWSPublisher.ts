@@ -1,13 +1,18 @@
 import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
-import { contactUsReqSchema } from "../middleware/contactValidator";
+import { contactUsReqSchema } from "../types/contactus";
 
 const REGION = "ap-south-1";
 const snsClient = new SNSClient({ region: REGION });
 
 export const snsPublisher = async (data: contactUsReqSchema): Promise<void> => {
     //console.log(data);
+    const message = `
+    New Contact Us Query Received:\n
+    ${JSON.stringify(data, null, "\t")}\n
+    Timestamp: ${new Date().toISOString()}\n
+    `;
     const params = {
-        Message: JSON.stringify(data, null, "\t"), // MESSAGE_TEXT
+        Message: message, // MESSAGE_TEXT
         TopicArn: process.env.AWS_SNS_TOPIC_ARN //TOPIC_ARN
     };
     try {
@@ -15,6 +20,7 @@ export const snsPublisher = async (data: contactUsReqSchema): Promise<void> => {
         console.log("📨 MessageID: ", metaData.MessageId);
         //console.log(metaData);
     } catch (err: any) {
-        console.log("Error", err);
+        console.error("AWS Error:", err);
+        throw "AWS SNS Error!";
     }
 };
