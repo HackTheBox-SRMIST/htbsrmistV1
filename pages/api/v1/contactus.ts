@@ -28,6 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 message: message
             });
         } else {
+            console.error("Unknown Error Occurred!", err);
             res.status(500).json({
                 success: false,
                 message: "❌ Unknown Error Occurred!!"
