@@ -1,3 +1,5 @@
+import * as yup from "yup";
+
 export interface teamsDBSchema {
     index: number;
     name: string;
@@ -14,3 +16,10 @@ export interface teamsDBSchema {
         twitter?: string;
     };
 }
+
+export const yupTeamsSchema = yup
+    .string()
+    .trim()
+    .max(5, "Max characters exceeded!!");
+
+export type teamsReqSchema = yup.InferType<typeof yupTeamsSchema>;
