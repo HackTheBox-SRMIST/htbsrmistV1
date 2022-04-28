@@ -2,7 +2,13 @@ import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 import { contactUsReqSchema } from "../types/contactus";
 
 const REGION = "ap-south-1";
-const snsClient = new SNSClient({ region: REGION });
+const snsClient = new SNSClient({
+    region: REGION,
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID_HTBSRMIST ?? "",
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY_HTBSRMIST ?? ""
+    }
+});
 
 export const snsPublisher = async (data: contactUsReqSchema): Promise<void> => {
     //console.log(data);
