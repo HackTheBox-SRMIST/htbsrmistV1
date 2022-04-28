@@ -4,7 +4,6 @@ import Footer from "../components/footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const url_root = process.env.BASE_URL_PREVIEW;
 const ContactUs = () => {
     const submitHandler = async (event: React.ChangeEvent<any>) => {
         event.preventDefault();
@@ -16,19 +15,22 @@ const ContactUs = () => {
             countryCode: event.target.countryCode.value
         });
         try {
-            const res = await fetch(`${url_root}/api/v1/contactus`, {
-                body: JSON.stringify({
-                    name: event.target.name.value,
-                    email: event.target.email.value,
-                    contactNo: event.target.number.value,
-                    question: event.target.message.value,
-                    countryCode: event.target.countryCode.value
-                }),
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                method: "POST"
-            });
+            const res = await fetch(
+                `${process.env.BASE_URL_PREVIEW}/api/v1/contactus`,
+                {
+                    body: JSON.stringify({
+                        name: event.target.name.value,
+                        email: event.target.email.value,
+                        contactNo: event.target.number.value,
+                        question: event.target.message.value,
+                        countryCode: event.target.countryCode.value
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "POST"
+                }
+            );
             const result = await res.json();
             console.log(result.success);
             if (result.success) {
