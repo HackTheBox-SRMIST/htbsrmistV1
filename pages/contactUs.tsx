@@ -3,6 +3,8 @@ import Nav from "../components/navbar";
 import Footer from "../components/footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const url_root = process.env.BASE_URL_PREVIEW;
 const ContactUs = () => {
     const submitHandler = async (event: React.ChangeEvent<any>) => {
         event.preventDefault();
@@ -14,7 +16,7 @@ const ContactUs = () => {
             countryCode: event.target.countryCode.value
         });
         try {
-            const res = await fetch("http://localhost:3000/api/v1/contactus", {
+            const res = await fetch(`${url_root}/api/v1/contactus`, {
                 body: JSON.stringify({
                     name: event.target.name.value,
                     email: event.target.email.value,

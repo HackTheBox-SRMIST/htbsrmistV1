@@ -5,13 +5,7 @@ import Footer from "../components/footer";
 import LinkedInLogo from "../utils/icons/LinkedInLogo";
 import GithubLogo from "../utils/icons/GithubLogo";
 import TwitterLogo from "../utils/icons/TwitterLogo";
-import {
-    ReactChild,
-    ReactChildren,
-    ReactFragment,
-    ReactPortal,
-    useEffect
-} from "react";
+import { ReactChild, ReactFragment, ReactPortal } from "react";
 const Team: NextPage = ({ data }: any) => {
     return (
         <div className="">
@@ -142,6 +136,7 @@ const Team: NextPage = ({ data }: any) => {
     );
 };
 
+const url_root = process.env.BASE_URL_PREVIEW;
 export async function getServerSideProps() {
     const TeamMember: {
         caption: string;
@@ -159,7 +154,7 @@ export async function getServerSideProps() {
             website: string;
         };
     }[] = [];
-    const res = await fetch(`http://localhost:3000/api/v1/teams/`);
+    const res = await fetch(`${url_root}/api/v1/teams/?current=true`);
     const body = await res.json();
     const data = body.data;
     return { props: { data } };
