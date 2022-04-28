@@ -4,6 +4,17 @@
 
 
 html,body, #__next{
-    @apply bg-node-black w-full h-full
-    overflow-hidden
+    @apply bg-node-black w-full h-full bg-hackerfooter bg-no-repeat bg-bottom bg-fixed
 }
+
+.post{
+    height: 200px;
+  width: 200px;
+}
+.st0 {
+    fill:#ED1C40;
+    }
+
+.message{
+      resize: none;
+    }
