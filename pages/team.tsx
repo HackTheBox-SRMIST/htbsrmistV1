@@ -60,7 +60,7 @@ const Team: NextPage = ({ data }: any) => {
                 {/* {members.map(member => ( */}
                 {data.map(
                     (member: {
-                        image: string | undefined;
+                        pictureUrl: string | undefined;
                         name:
                             | boolean
                             | ReactChild
@@ -85,7 +85,7 @@ const Team: NextPage = ({ data }: any) => {
                             <figure className="md:flex flex-col rounded-xl lg:p-8 md:p-0 hover:bg-hacker-grey hover:bg-opacity-70 dark:bg-slate-800 ">
                                 <img
                                     className="w-24 h-24 md:w-48 md:h-auto rounded-full mx-auto mt-4"
-                                    src={member.image}
+                                    src={member.pictureUrl}
                                     alt=""
                                     width="384"
                                     height="512"
