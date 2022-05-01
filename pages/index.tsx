@@ -8,7 +8,7 @@ import Posts from "../components/Posts";
 const Index: NextPage = () => {
     const posts = [""];
     return (
-        <div className="bg-hackerfooter bg-no-repeat bg-bottom text-white ml-8 md:ml-20">
+        <div className="text-white ml-8 md:ml-20">
             <p className="md:text-7xl ml-1.5 text-4xl my-2">
                 <strong>HACK</strong>THE<strong>BOX</strong>
             </p>
