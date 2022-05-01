@@ -2,19 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-
-html,body, #__next{
-    @apply bg-node-black w-full h-full bg-hackerfooter bg-no-repeat bg-bottom bg-fixed
+html,
+body,
+#__next {
+    @apply m-0 p-0 w-full h-full;
 }
 
-.post{
+body {
+    @apply bg-hackerfooter bg-no-repeat bg-bottom bg-fixed bg-contain bg-node-black;
+}
+
+.post {
     height: 200px;
-  width: 200px;
+    width: 200px;
 }
 .st0 {
-    fill:#ED1C40;
-    }
+    fill: #ed1c40;
+}
 
-.message{
-      resize: none;
-    }
+.message {
+    resize: none;
+}

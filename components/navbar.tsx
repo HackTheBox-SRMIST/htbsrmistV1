@@ -1,7 +1,7 @@
 import Logo from "../utils/icons/htblogo";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
   const { asPath } = useRouter();
@@ -21,7 +21,7 @@ const Nav = () => {
     },
     {
       name: "CONTACT US",
-      href: "/contactUs",
+      href: "/contact-us",
     },
   ];
   const showMenu = () => {
@@ -33,17 +33,12 @@ const Nav = () => {
         <Logo />
       </a>
       {/* Primary Nav Menu */}
-      <ul className=" text-white my-2 md:flex flex-row flex-nowrap mx-auto mt-8 hidden">
+      <ul className=" text-white my-2 md:flex flex-row flex-nowrap mx-auto mt-8 hidden gap-x-8">
         {links.map((link) => (
-          <li
-            key={link.href}
-            className={`${asPath === link.href ? "font-semibold text-htb-green underline underline-offset-8" : ""
-              } min-w-max transform hover:-translate-y-1 cursor-pointer mb-2 flex-auto hover:text-htb-green hover:underline underline-offset-8 md:text-sm`}
-          >
-            <Link href={link.href}>
-              <a className="mx-2 md:mx-5 ">{link.name}</a>
-            </Link>
-          </li>
+          <Link key={link.href} href={link.href}>
+            <a className={`${asPath === link.href ? "font-semibold text-htb-green" : ""
+              } transform hover:-translate-y-1 mb-2 flex-auto hover:text-htb-green hover:underline underline-offset-8 md:text-sm transition-all`}>{link.name}</a>
+          </Link>
         ))}
       </ul>
       {/* Mobile Hamburger Menu */}
@@ -63,23 +58,23 @@ const Nav = () => {
         </button>
       </div>
       {/* Mobile Hamburger Menu */}
-        {
-          navbarOpen &&
-          <div className="z-50">
+      {
+        navbarOpen &&
+        <div className="z-50">
 
           <ul className=" text-white my-2 mx-auto mt-8 absolute top-10 right-10 bg-node-black min-w-[85%] ">
-        {links.map((link) => (
-          <li
-          key={link.href}
-          className={`${asPath === link.href ? "font-semibold text-htb-green " : ""
-        } min-w-max transform hover:-translate-y-1 cursor-pointer mb-2 flex-auto hover:text-htb-green md:text-sm py-2 px-4 border-b-[2px] border-htb-green `}
-        >
-            <Link href={link.href}>
-              <a className="mx-2 md:mx-5 ">{link.name}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+            {links.map((link) => (
+              <li
+                key={link.href}
+                className={`${asPath === link.href ? "font-semibold text-htb-green " : ""
+                  } min-w-max transform hover:-translate-y-1 cursor-pointer mb-2 flex-auto hover:text-htb-green md:text-sm py-2 px-4 border-b-[2px] border-htb-green `}
+              >
+                <Link href={link.href}>
+                  <a className="mx-2 md:mx-5 ">{link.name}</a>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       }
 
