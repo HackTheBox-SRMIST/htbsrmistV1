@@ -18,21 +18,23 @@ const Index: NextPage = () => {
                     Supported by: SRMIST
                 </strong>
             </p>
-            <p className="ml-1.5 mb-2 mt-3 pr-8 text-justify">
+            <p className="ml-1.5 mb-2 mt-3 pr-8 text-justify text-lg">
                 HackTheBox SRMIST focuses on training the next-gen of
                 cyber-warriors transforming the cyber space in SRMIST and
                 beyond.
             </p>
             <button className="text-[#141D2B] bg-[#A4B1CD] px-8 inline-flex mt-6 rounded-md hover:bg-htb-green opacity-70 hover:opacity-100">
                 <MeetupLogo />
-                <p className="my-1 mx-2 font-bold">MEETUP FORM</p>
+                <p className="mt-2 mx-2 font-bold">MEETUP FORM</p>
             </button>
-            <p className="text-justify pr-8 md:pr-40 mt-6">
-                Anyone who is interested in cybersecurity and penetration
-                testing should join this group. The purpose of the meetup is to
-                meet other infosec enthusiasts, discuss, exchange knowledge
-                regarding cybersecurity, hack machines from Hack The Box
-                dedicated to this gathering, and enjoy.
+            <p className="text-justify pr-8 md:pr-40 mt-6 text-lg">
+                Hello! There Cyber Geeks!! Interested in cybersecurity and
+                penetration testing? What are you waiting for? Click on the
+                button and join the Hack the Box community meet-up . The primary
+                goal of this meet-up is to bring together information security
+                aficionados to debate and share their expertise about
+                cybersecurity, hack machines from Hack The Box dedicated to this
+                forum and whoop the cyber fever up!
             </p>
             <a
                 href="https://discord.gg/vpWEV7bhms"
@@ -40,15 +42,15 @@ const Index: NextPage = () => {
                 rel="noopener noreferrer"
             >
                 <button className="text-[#141D2B] bg-[#A4B1CD] px-5 inline-flex mt-8 rounded-md hover:bg-htb-green opacity-70 hover:opacity-100">
-                    <div className="mt-1">
+                    <div className="mt-1.5">
                         <DiscordLogo />
                     </div>
-                    <p className="my-1 font-bold px-3">DISCORD SERVER</p>
+                    <p className="my-1.5 font-bold px-3">DISCORD SERVER</p>
                 </button>
             </a>
-            <p className="mt-6">Open for all</p>
-            <p className="font-bold mt-6 mb-4 text-lg">
-                <strong>POSTS</strong>
+            <p className="mt-6 text-lg">Open for all</p>
+            <p className="font-bold mt-6 mb-4 text-lg uppercase">
+                Posts
             </p>
 
             <Posts />

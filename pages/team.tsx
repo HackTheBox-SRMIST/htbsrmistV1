@@ -22,7 +22,7 @@ interface TeamPageProps {
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     return (
         <section className="w-full min-h-fit bg-none">
-            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-htb-green font-bold md:ml-16 uppercase">
+            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase">
                 Our Team
             </h1>
 
@@ -44,9 +44,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             {member.name}
                         </p>
 
-                        <blockquote className="font-medium text-white text-center break-all mt-2">
-                            {member.caption}
-                        </blockquote>
+                        <p className="font-medium text-white text-center break-all mt-3 inline-flex gap-2  w-full justify-center">
+                           <p className="text-htb-green font-bold text-3xl -mt-2">#</p> {member.caption}
+                        </p>
 
                         <div className="flex justify-center space-x-8 mt-8">
                             {member.socials.linkedin && (
