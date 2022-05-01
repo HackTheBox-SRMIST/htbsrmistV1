@@ -13,6 +13,7 @@ interface MemberProps {
         linkedin: string | "";
         github: string | "";
         twitter: string | "";
+        website: string | "";
     };
 }
 
@@ -80,14 +81,14 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                     <TwitterLogo />
                                 </a>
                             )}
-                            {member.socials.twitter && (
+                            {member.socials.website && (
                                 <a
-                                    href={member.socials.twitter}
+                                    href={member.socials.website}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="rounded-full opacity-60 hover:opacity-100"
+                                    className="rounded-full opacity-60 hover:opacity-100 mt-1"
                                 >
-                                    <TwitterLogo />
+                                    <WebsiteLinkIcon />
                                 </a>
                             )}
                         </div>
