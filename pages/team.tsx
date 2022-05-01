@@ -3,6 +3,7 @@ import type { NextPage, GetServerSidePropsResult } from "next";
 import LinkedInLogo from "../utils/icons/LinkedInLogo";
 import GithubLogo from "../utils/icons/GithubLogo";
 import TwitterLogo from "../utils/icons/TwitterLogo";
+import WebsiteLinkIcon from "../utils/icons/WebsiteLinkIcon";
 
 interface MemberProps {
     pictureUrl: string | undefined;
@@ -67,6 +68,16 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                     className="rounded-full opacity-60 hover:opacity-100"
                                 >
                                     <GithubLogo />
+                                </a>
+                            )}
+                            {member.socials.twitter && (
+                                <a
+                                    href={member.socials.twitter}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="rounded-full opacity-60 hover:opacity-100"
+                                >
+                                    <TwitterLogo />
                                 </a>
                             )}
                             {member.socials.twitter && (

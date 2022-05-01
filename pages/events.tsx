@@ -7,10 +7,10 @@ import LocationLogo from "../utils/icons/LocationLogo";
 
 const Events = () => {
     return (
-        <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between">
-            <div className="ml-8 lg:w-5/12">
-                <h1 className="lg:text-6xl text-5xl text-white font-bold">
-                    LOREM IPSUM
+        <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0">
+            <div className="ml-8 lg:w-5/12 md:w-10/12">
+                <h1 className="lg:text-6xl text-5xl text-white font-bold uppercase">
+                    Zero Day
                 </h1>
                 <p className="text-white mt-2 text-justify lg:text-lg">
                     Anyone who is interested in cybersecurity and penetration
@@ -20,22 +20,22 @@ const Events = () => {
                     The Box dedicated to this gathering, and enjoy.
                 </p>
 
-                <div className="grid grid-cols-3 divide-x bg-hacker-grey py-4 rounded-md space-x-3 divide-solid lg:mx-0 ml-2 my-8">
-                    <div className="flex justify-evenly">
+                <div className="grid grid-cols-3 divide-x bg-hacker-grey py-4 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-8">
+                    <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                         <span className="w-8">
                             <LocationLogo />
                         </span>
                         <div>
-                            <h4 className="text-black font-bold text-sm uppercase">
+                            <h4 className="text-black font-bold text-sm uppercase ">
                                 Location
                             </h4>
-                            <p>SRMIST, Chennai</p>
+                            <p className="whitespace-normal">SRMIST, Chennai</p>
                         </div>
                     </div>
 
-                    <div className="flex justify-evenly">
+                    <div className="flex justify-evenly md:flex-row flex-col pl-2">
                         <span className="w-8">
-                            <LocationLogo />
+                            <EntryFees />
                         </span>
                         <div>
                             <h4 className="text-black font-bold text-sm uppercase">
@@ -45,9 +45,9 @@ const Events = () => {
                         </div>
                     </div>
 
-                    <div className="flex justify-evenly">
+                    <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
                         <span className="w-8">
-                            <LocationLogo />
+                            <DateLogo />
                         </span>
                         <div>
                             <h4 className="text-black font-bold text-sm uppercase">
@@ -62,19 +62,19 @@ const Events = () => {
                     href="https://www.google.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block ml-20 md:ml-64 lg:ml-0"
+                    className=""
                 >
-                    <button className="bg-htb-green px-20 py-3 font-semibold rounded-md ">
+                    <button className="bg-htb-green w-full  py-3 font-semibold rounded-md inline-block mt-4">
                         REGISTER
                     </button>
                 </a>
             </div>
 
-            <figure className="w-full lg:w-5/12">
+            <figure className="ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12">
                 <img
-                    src="/revealed_post.png"
+                    src="/EventPoster.jpg"
                     alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
-                    className="w-10/12 m-auto md:pr-0"
+                    className="w-full m-auto md:pr-0"
                 />
             </figure>
         </section>
