@@ -87,7 +87,7 @@ const ContactUs = () => {
                             autoComplete="name"
                             required
                             placeholder="Name"
-                            className="w-full p-4 bg-[#C4C4C4] required:border-red-500 "
+                            className="w-full p-4 bg-[#C4C4C4] required:border-red-500 placeholder-gray-800"
                         />
                     </div>
                     <div className="">
@@ -98,7 +98,7 @@ const ContactUs = () => {
                             autoComplete="email"
                             placeholder="Email"
                             required
-                            className="w-full p-4 bg-[#C4C4C4] "
+                            className="w-full p-4 bg-[#C4C4C4] placeholder-gray-800"
                         />
                     </div>
                     <div className="flex flex-row">
@@ -107,7 +107,7 @@ const ContactUs = () => {
                             name="countryCode"
                             autoComplete="countryCode"
                             placeholder="+91"
-                            className="flex-shrink md:w-16 w-12 pl-2"
+                            className="flex-shrink md:w-16 w-12 pl-2 placeholder-gray-800"
                         />
                         <input
                             id="number"
@@ -115,7 +115,7 @@ const ContactUs = () => {
                             type="text"
                             autoComplete="phone"
                             placeholder="Contact Number (Not Required)"
-                            className="w-full p-4 bg-[#C4C4C4] "
+                            className="w-full p-4 bg-[#C4C4C4] placeholder-gray-800"
                         />
                     </div>
                     <div className="">
@@ -125,7 +125,7 @@ const ContactUs = () => {
                             autoComplete="message"
                             required
                             placeholder="Message"
-                            className="w-full p-4 bg-[#C4C4C4] message"
+                            className="w-full p-4 bg-[#C4C4C4] message placeholder-gray-800"
                             rows={10}
                         ></textarea>
                     </div>
