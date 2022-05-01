@@ -28,7 +28,7 @@ const Nav = () => {
     setNavbarOpen(!navbarOpen);
   }
   return (
-    <nav className="flex flex-row mb-4 bg-base-black rounded-lg custom-scrollbar overflow-auto overflow-y-hidden py-2 px-4 ">
+    <nav className="flex flex-row mb-4 bg-base-black rounded-lg custom-scrollbar overflow-auto overflow-y-hidden py-2 px-4">
       <a href="/" rel="noopener noreferrer" className="flex-none">
         <Logo />
       </a>
@@ -65,7 +65,7 @@ const Nav = () => {
       {/* Mobile Hamburger Menu */}
         {
           navbarOpen &&
-          <div>
+          <div className="z-50">
 
           <ul className=" text-white my-2 mx-auto mt-8 absolute top-10 right-10 bg-node-black min-w-[85%] ">
         {links.map((link) => (

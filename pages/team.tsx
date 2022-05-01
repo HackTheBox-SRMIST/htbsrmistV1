@@ -93,7 +93,7 @@ const Team: NextPage = ({ data }: any) => {
                                 />
                                 <div className="pt-6 text-center space-y-4 px-8">
                                     <figcaption className="font-medium text-center ">
-                                        <div className="text-white text-xl font-bold hover:text-htb-green">
+                                        <div className="text-white text-2xl font-bold hover:text-htb-green">
                                             <strong>{member.name}</strong>
                                         </div>
                                     </figcaption>
