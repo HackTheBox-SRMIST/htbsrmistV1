@@ -65,7 +65,7 @@ const ContactUs = () => {
             </Head>
 
             <ToastContainer />
-            <section className="md:w-5/12 lg:w-4/12 text-center mx-auto flex flex-col space-y-6 p-4 md:p-0 md:mb-12">
+            <section className="md:w-6/12 lg:w-7/12 text-center mx-auto flex flex-col space-y-6 p-4 md:p-0 md:mb-12">
                 <h1 className="md:text-7xl ml-1.5 text-5xl my-2 text-white font-bold">
                     Contact Us
                 </h1>
