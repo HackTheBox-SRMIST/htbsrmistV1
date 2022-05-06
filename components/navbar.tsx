@@ -64,15 +64,15 @@ const Nav = () => {
 
           <ul className=" text-white my-2 mx-auto mt-8 absolute top-10 right-10 bg-node-black min-w-[85%] ">
             {links.map((link) => (
+              <Link href={link.href}>
               <li
                 key={link.href}
                 className={`${asPath === link.href ? "font-semibold text-htb-green " : ""
                   } min-w-max transform hover:-translate-y-1 cursor-pointer mb-2 flex-auto hover:text-htb-green md:text-sm py-2 px-4 border-b-[2px] border-htb-green `}
               >
-                <Link href={link.href}>
                   <a className="mx-2 md:mx-5 ">{link.name}</a>
-                </Link>
               </li>
+                </Link>
             ))}
           </ul>
         </div>
