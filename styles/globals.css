@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#__next {
+    @apply m-0 p-0 w-full h-full;
+}
 
-html,body, #__next{
-    @apply bg-node-black w-full h-full
-    overflow-hidden
+body {
+    @apply bg-hackerfooter bg-no-repeat bg-bottom bg-fixed bg-contain bg-node-black;
+}
+
+.post {
+    height: 200px;
+    width: 200px;
+}
+.st0 {
+    fill: #ed1c40;
+}
+
+.message {
+    resize: none;
 }

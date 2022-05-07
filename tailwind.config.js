@@ -1,8 +1,11 @@
+const { url } = require("inspector");
+
 // tailwind.config.js
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
+    "./utils/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -13,6 +16,9 @@ module.exports = {
       },
       fontFamily: {
         "sans-serif": ["Montserrat", "sans-serif"],
+      },
+      backgroundImage: {
+        "hackerfooter": "url('/hacker.png')"
       },
     },
   },

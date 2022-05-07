@@ -1,4 +1,3 @@
-import { Document } from "mongodb";
 import { DBInstance } from "../db.connect";
 import { teamsDBSchema } from "../types/team";
 
