@@ -144,7 +144,7 @@ const Events = () => {
 
                 <figure className="ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12">
                     <img
-                        src="/EventPoster.jpg"
+                        src="https://res.cloudinary.com/dlaxur3io/image/upload/v1651947169/htbsrmistv1/EventPosters/EventPoster_lh4gnr.jpg"
                         alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
                         className="w-full m-auto md:pr-0"
                     />
