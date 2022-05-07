@@ -131,7 +131,7 @@ const Events = () => {
                     </div>
 
                     <a
-                        href="https://www.google.com"
+                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
                         target="_blank"
                         rel="noopener noreferrer"
                         className=""
