@@ -22,16 +22,16 @@ const Footer = () => {
                         <div className="flex flex-row lg:flex-row gap-3 lg:gap-6 justify-center lg:justify-start">
 
                             <p className="mb-2">
-                                <a href="#!" className="text-gray-600">Home</a>
+                                <a href="/" className="text-gray-600">Home</a>
                             </p>
                             <p className="mb-2">
-                                <a href="#!" className="text-gray-600">Team</a>
+                                <a href="/team" className="text-gray-600">Team</a>
                             </p>
                             <p className="mb-2">
-                                <a href="#!" className="text-gray-600">Event</a>
+                                <a href="/events" className="text-gray-600">Event</a>
                             </p>
                             <p>
-                                <a href="#!" className="text-gray-600">Contact Us</a>
+                                <a href="/contact-us" className="text-gray-600">Contact Us</a>
                             </p>
                         </div>
                     </div>
