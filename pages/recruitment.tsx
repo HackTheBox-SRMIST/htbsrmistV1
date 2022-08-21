@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import { Widget } from "@typeform/embed-react";
 import Script from "next/script";
 const Recruitment: NextPage = () => {
     return (
