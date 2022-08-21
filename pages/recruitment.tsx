@@ -4,7 +4,7 @@ import Script from "next/script";
 const Recruitment: NextPage = () => {
     return (
         <>
-                <div className="flex flex-col lg:flex-row mx-auto w-[80%] text-white font-Montserrat gap-8">
+                <div className="flex flex-col lg:flex-row mx-auto w-[80%] text-white font-Montserrat gap-8 mb-16">
                     <div className="flex-[50%]">
                         <h1 className="text-7xl font-bold text-htb-green">
                             We're hiring!
@@ -38,7 +38,7 @@ const Recruitment: NextPage = () => {
                         <img
                             src="./RecruitmentPoster.png"
                             alt="Recruitments Poster"
-                            className="h-auto w-full "
+                            className="h-auto w-[512px] "
                         />
                     </div>
                 </div>
