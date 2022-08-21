@@ -23,6 +23,10 @@ const Nav = () => {
       name: "CONTACT US",
       href: "/contact-us",
     },
+    {
+      name: "RECRUITMENTS",
+      href: "/recruitment"
+    }
   ];
   const showMenu = () => {
     setNavbarOpen(!navbarOpen);
