@@ -4,8 +4,8 @@ const Recruitment: NextPage = () => {
     return (
         <>
                 <div className="flex flex-col lg:flex-row mx-auto w-[80%] text-white font-Montserrat gap-8 mb-16">
-                    <div className="flex-[50%]">
-                        <h1 className="text-7xl font-bold text-htb-green">
+                    <div className="flex-[50%] text-center lg:text-left">
+                        <h1 className="text-6xl lg:text-7xl font-bold text-htb-green">
                             We're hiring!
                         </h1>
                         <p className="mt-8 max-w-lg text-2xl">
@@ -17,8 +17,7 @@ const Recruitment: NextPage = () => {
                             experience and discover something new.
                             <br /> Come join our extremely energetic and driven
                             team.
-                            <br /> Apply now by clicking the Register Now
-                            Button.
+                            <br /> Apply now by clicking the button below.
                             
                         </p>
                         <div className="mt-12 ">
@@ -28,7 +27,7 @@ const Recruitment: NextPage = () => {
                                 data-tf-medium="snippet"
                                 className="recruitmentBtn "
                             >
-                                Register Now!
+                                Apply Now!
                             </button>
                             <Script src="//embed.typeform.com/next/embed.js" />
                         </div>
