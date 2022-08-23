@@ -15,9 +15,8 @@ const Recruitment: NextPage = () => {
                             <br />
                             Join HackTheBox SRMIST today for a chance to
                             experience and discover something new.
-                            <br /> Come join our extremely energetic and driven
-                            team.
-                            <br /> Apply now by clicking the button below.
+                            <br /> Come join our passionate team driven by black coffee and lack of sleep.
+                            <br /> Register by clicking the Apply Now button.
                             
                         </p>
                         <div className="mt-12 ">
