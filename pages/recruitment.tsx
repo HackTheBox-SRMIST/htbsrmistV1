@@ -17,7 +17,9 @@ const Recruitment: NextPage = () => {
                             experience and discover something new.
                             <br /> Come join our passionate team driven by black coffee and lack of sleep.
                             <br /> Register by clicking the Apply Now button.
-                            
+                            <br />
+                            <br />
+                            <p className="text-htb-green font-bold">Registrations are closed.</p> We will contact the applicants via emails. And will post updates on our Instagram page.<br/> Stay safe. Cyber safe ;).
                         </p>
                         <div className="mt-12 ">
                             <button
@@ -25,8 +27,9 @@ const Recruitment: NextPage = () => {
                                 data-tf-iframe-props="title=RECRUITMENT"
                                 data-tf-medium="snippet"
                                 className="recruitmentBtn "
+                                disabled={true}
                             >
-                                Apply Now!
+                                Registrations Closed
                             </button>
                             <Script src="//embed.typeform.com/next/embed.js" />
                         </div>
