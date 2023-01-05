@@ -12,7 +12,7 @@ const Events = () => {
             <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
                 <div className="ml-8 lg:w-5/12 md:w-10/12 bg-node-black">
                     <h1 className="lg:text-6xl text-5xl text-white font-bold uppercase">
-                        Z3r0-d4y
+                        Z3r0-d4
                     </h1>
                     <p className="text-white mt-4 text-justify text-xl ">
                         We, HackTheBox SRMIST (HTBSRMIST), are hosting our
