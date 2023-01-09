@@ -7,9 +7,9 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 const Footer = () => {
     return (
-        <footer className="text-center lg:text-left bg-hacker-grey mx-2 mb-6 lg:mt-6 rounded-md opacity-70 relative bottom-0 ">
+        <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md opacity- relative bottom-0 ">
             <div className="py-2 text-center lg:text-left">
-                <div className="grid grid-1 lg:grid-cols-8 gap-8">
+                <div className="grid grid-1 lg:grid-cols-8 gap-4">
                     <div className="mx-auto mt-1col-start-1 hidden lg:block">
                         <Logo />
                     </div>
@@ -20,83 +20,102 @@ const Footer = () => {
                                 beyond.
                             </h6>
                         </div>
-                        <div className="socials flex flex-col justify-around items-center">
-                            <h6 className="uppercase font-semibold text-base">
-                                Socials
-                            </h6>
-                            <div className="text-3xl flex gap-4">
-                                <a href="https://www.instagram.com/htbsrmist/">
+                        <div className="socials flex place-items-center flex-col justify-items-center items-center ">
+                            <div className="text-3xl flex flex-row gap-3 ">
+                                <a
+                                    href="https://www.instagram.com/htbsrmist/"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
                                     <FaInstagram></FaInstagram>
                                 </a>
-                                <a href="https://twitter.com/htbsrmist">
+                                <a
+                                    href="https://twitter.com/htbsrmist"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
                                     <RxTwitterLogo></RxTwitterLogo>
                                 </a>
-                                <a href="https://www.linkedin.com/company/htbsrmist/">
+                                <a
+                                    href="https://www.linkedin.com/company/htbsrmist/"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
                                     <FaLinkedinIn></FaLinkedinIn>
                                 </a>
-                                <a href="https://github.com/HackTheBox-SRMIST">
+                                <a
+                                    href="https://github.com/HackTheBox-SRMIST"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
                                     <FaGithub></FaGithub>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div className="lg:col-span-2 items-center">
-                        <h6 className="uppercase font-semibold mb-4 lg:mt-4 justify-center ">
+                    <div className="lg:col-span-2 items-center  justify-center">
+                        <h6 className="uppercase font-semibold mb-4 lg:mt-4 justify-center text-center ">
                             Explore
                         </h6>
 
-                        <div className="flex flex-row lg:flex-row gap-3 lg:gap-6 justify-center lg:justify-start">
-                            <p className="mb-2">
-                                <a href="/" className="text-gray-600">
+                        <div className=" lg:flex-row gap-3 lg:gap-6 justify-center  lg:justify-start">
+                            <p className="mb-2 text-center">
+                                <a
+                                    href="/"
+                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                >
                                     Home
                                 </a>
                             </p>
-                            <p className="mb-2">
-                                <a href="/team" className="text-gray-600">
+                            <p className="mb-2 text-center">
+                                <a
+                                    href="/team"
+                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                >
                                     Team
                                 </a>
                             </p>
-                            <p className="mb-2">
-                                <a href="/events" className="text-gray-600">
+                            <p className="mb-2 text-center">
+                                <a
+                                    href="/events"
+                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                >
                                     Event
                                 </a>
                             </p>
-                            <p>
-                                <a href="/contact-us" className="text-gray-600">
+                            <p className="text-center">
+                                <a
+                                    href="/contact-us"
+                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                >
                                     Contact Us
                                 </a>
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col lg:block">
+                    <div className="flex flex-col w-80">
                         <h6 className="uppercase font-semibold mb-4 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 ">
                             Contact
                         </h6>
-                        <div>
-                            <p className="items-center justify-center md:justify-start mb-1 space-x-2 inline-flex ">
-                                <span className="-mr-1 ml-2 md:ml-0 md:mr-0">
-                                    <svg
-                                        aria-hidden="true"
-                                        focusable="false"
-                                        data-prefix="fas"
-                                        data-icon="home"
-                                        className="w-5 "
-                                        role="img"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 576 512"
-                                    >
-                                        <path
-                                            fill="currentColor"
-                                            d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
-                                        ></path>
-                                    </svg>
-                                </span>
-                                <p className="">
-                                    SRM Kattankulathur, Chengalpattu, 603203, IN
-                                </p>
-                            </p>
+                        <div className="flex gap-3 items-center">
+                            {/* <p className=" items-center justify-center md:justify-start mb-1 space-x-4  inline-flex "> */}
+                            <span className="-mr-1 ml-2 md:ml-0 md:mr-0">
+                                <svg
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fas"
+                                    data-icon="home"
+                                    className="w-5 "
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 576 512"
+                                >
+                                    <path
+                                        fill="currentColor"
+                                        d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z"
+                                    ></path>
+                                </svg>
+                            </span>
+                            <p>SRM Kattankulathur , Chengalpattu, 603203, IN</p>
+                            {/* </p> */}
                         </div>
                         <div>
                             <p className=" items-center justify-center md:justify-start mb-1 space-x-2 inline-flex">
