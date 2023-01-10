@@ -4,13 +4,14 @@ import { useRouter } from "next/router";
 import { FaInstagram } from "react-icons/fa";
 import { RxTwitterLogo } from "react-icons/rx";
 import { FaLinkedinIn } from "react-icons/fa";
+import { FaDiscord } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 const Footer = () => {
     return (
-        <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md opacity- relative bottom-0 ">
+        <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 ">
             <div className="py-2 text-center lg:text-left">
-                <div className="grid grid-1 lg:grid-cols-8 gap-4">
-                    <div className="mx-auto mt-1col-start-1 hidden lg:block">
+                <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
+                    <div className="mx-auto mt-1 col-start-1 hidden lg:block pt-8">
                         <Logo />
                     </div>
                     <div className="lg:col-span-3 flex flex-col justify-around">
@@ -21,7 +22,7 @@ const Footer = () => {
                             </h6>
                         </div>
                         <div className="socials flex place-items-center flex-col justify-items-center items-center ">
-                            <div className="text-3xl flex flex-row gap-3 ">
+                            <div className="text-3xl flex flex-row gap-5 sm:gap-10">
                                 <a
                                     href="https://www.instagram.com/htbsrmist/"
                                     className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
@@ -46,17 +47,26 @@ const Footer = () => {
                                 >
                                     <FaGithub></FaGithub>
                                 </a>
+                                <a
+                                    href="https://discord.gg/8uT6ZnQN6N"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
+                                    <FaDiscord></FaDiscord>
+                                </a>
                             </div>
                         </div>
                     </div>
 
                     <div className="lg:col-span-2 items-center  justify-center">
-                        <h6 className="uppercase font-semibold mb-4 lg:mt-4 justify-center text-center ">
+                        <h6 className="uppercase font-semibold mb-4 lg:mt-4  px-32 ">
                             Explore
                         </h6>
 
-                        <div className=" lg:flex-row gap-3 lg:gap-6 justify-center  lg:justify-start">
-                            <p className="mb-2 text-center">
+                        <div
+                            className=" flex flex-row lg:flex-col justify-center gap-4 md:gap-2 md:justify-left
+                          lg:justify-start"
+                        >
+                            <p className="lg:mb-2 lg:px-32">
                                 <a
                                     href="/"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -64,7 +74,7 @@ const Footer = () => {
                                     Home
                                 </a>
                             </p>
-                            <p className="mb-2 text-center">
+                            <p className="lg:mb-2 lg:px-32">
                                 <a
                                     href="/team"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -72,7 +82,7 @@ const Footer = () => {
                                     Team
                                 </a>
                             </p>
-                            <p className="mb-2 text-center">
+                            <p className="lg:mb-2 lg:px-32">
                                 <a
                                     href="/events"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -80,7 +90,7 @@ const Footer = () => {
                                     Event
                                 </a>
                             </p>
-                            <p className="text-center">
+                            <p className="lg:px-32">
                                 <a
                                     href="/contact-us"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -91,11 +101,11 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col w-80">
+                    <div className="flex flex-col w-52">
                         <h6 className="uppercase font-semibold mb-4 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 ">
                             Contact
                         </h6>
-                        <div className="flex gap-3 items-center">
+                        <div className="flex gap-3 items-top">
                             {/* <p className=" items-center justify-center md:justify-start mb-1 space-x-4  inline-flex "> */}
                             <span className="-mr-1 ml-2 md:ml-0 md:mr-0">
                                 <svg
