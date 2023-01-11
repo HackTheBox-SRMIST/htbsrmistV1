@@ -70,7 +70,7 @@ const ContactUs = () => {
             </Head>
 
             <ToastContainer />
-            <section className="md:w-6/12 text-center mx-auto flex flex-col space-y-6 p-4 md:p-12 border-htb-green/50 border-2 border-solid rounded-3xl md:mb-12 backdrop-blur-3xl ">
+            <section className="mx-6 md:w-6/12 text-center md:mx-auto flex flex-col space-y-6 p-4 md:p-12 border-htb-green/50 border-2 border-solid rounded-3xl md:mb-12 backdrop-blur-3xl ">
                 <div className="mb-5">
                     <span className="md:text-7xl text-5xl text-white font-bold border-b-2 border-solid border-htb-green/50">
                         Contact Us
