@@ -12,7 +12,8 @@ const ContactUs = () => {
     const submitHandler = async (event: React.ChangeEvent<any>) => {
         event.preventDefault();
         const body = JSON.stringify({
-            name: event.target.name.value,
+            firstName: event.target.firstName.value,
+            lastName: event.target.lastName.value,
             email: event.target.email.value,
             contactNo: event.target.number.value,
             question: event.target.message.value,
@@ -20,6 +21,7 @@ const ContactUs = () => {
         });
         try {
             console.log(base_url);
+            console.log(body);
 
             const res = await fetch(`/api/v1/contactus`, {
                 body: JSON.stringify({
@@ -89,7 +91,7 @@ const ContactUs = () => {
                 >
                     <div className="flex justify-between">
                         <input
-                            id="name"
+                            id="firstName"
                             name="name"
                             type="text"
                             autoComplete="name"
@@ -98,7 +100,7 @@ const ContactUs = () => {
                             className="w-[48%] p-3 bg-[#1e2a3e] required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none"
                         />
                         <input
-                            id="name"
+                            id="lastName"
                             name="name"
                             type="text"
                             autoComplete="name"
@@ -120,6 +122,7 @@ const ContactUs = () => {
                     </div>
                     <div className="flex flex-row">
                         <input
+                            disabled
                             id="countryCode"
                             name="countryCode"
                             required
