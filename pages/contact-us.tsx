@@ -11,26 +11,22 @@ const ContactUs = () => {
 
     const submitHandler = async (event: React.ChangeEvent<any>) => {
         event.preventDefault();
-        const body = JSON.stringify({
-            firstName: event.target.firstName.value,
-            lastName: event.target.lastName.value,
+        const sendBody = JSON.stringify({
+            name:
+                event.target.firstName.value +
+                " " +
+                event.target.lastName.value,
             email: event.target.email.value,
             contactNo: event.target.number.value,
             question: event.target.message.value,
             countryCode: event.target.countryCode.value
         });
         try {
-            console.log(base_url);
-            console.log(body);
+            // console.log(base_url);
+            // console.log(sendBody);
 
             const res = await fetch(`/api/v1/contactus`, {
-                body: JSON.stringify({
-                    name: event.target.name.value,
-                    email: event.target.email.value,
-                    contactNo: event.target.number.value,
-                    question: event.target.message.value,
-                    countryCode: event.target.countryCode.value
-                }),
+                body: sendBody,
                 headers: {
                     "Content-Type": "application/json"
                 },
