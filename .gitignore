@@ -39,3 +39,4 @@ yarn-error.log*
 
 #dev container
 .devcontainer
+.vscode/symbols.json
