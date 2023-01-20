@@ -41,7 +41,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 Our Team
             </h1>
 
-            <div className="w-[100%] xl:w-[75%] backdrop-blur-[3px]">
+            <div className="w-[90%] xl:w-[75%] backdrop-blur-[3px] text-center">
                 {hierarchy.map((el) => {
                     const domainMembers = members.filter(
                         (mem) => mem.position === el.name
