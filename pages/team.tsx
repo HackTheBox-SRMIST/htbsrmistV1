@@ -1,9 +1,10 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
-
+import axios, { isCancel, AxiosError } from "axios";
 import LinkedInLogo from "../utils/icons/LinkedInLogo";
 import GithubLogo from "../utils/icons/GithubLogo";
 import TwitterLogo from "../utils/icons/TwitterLogo";
 import WebsiteLinkIcon from "../utils/icons/WebsiteLinkIcon";
+import Member from "../components/teams/member";
 
 interface MemberProps {
     pictureUrl: string | undefined;
@@ -21,6 +22,15 @@ interface TeamPageProps {
     members: MemberProps[];
 }
 
+const hierarchy = [
+    { role: "Mainframe", name: "Faculty Convener" },
+    { role: "Kernels", name: "Co-Organisers" },
+    { role: "Roots", name: "Admins" },
+    { role: "Sudoers", name: "Leads" },
+    { role: "Sticky Bits", name: "Associates" },
+    { role: "Binaries", name: "Members" }
+];
+
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     return (
         <section className="w-full min-h-fit bg-none ">
@@ -29,7 +39,13 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             </h1>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                {members.map((member) => (
+                {/* {members.map((el) => (
+                    <Member />
+                ))} */}
+                {hierarchy.map((el) => {
+                    return <>{el.role}</>;
+                })}
+                {/* {members.map((member) => (
                     <div
                         key={member.name}
                         className="hover:bg-hacker-grey hover:bg-opacity-70 rounded-xl p-4 transition-all"
@@ -47,7 +63,10 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         </p>
 
                         <p className="font-medium text-white text-center break-all mt-3 inline-flex gap-2  w-full justify-center font-mono">
-                           <p className="text-htb-green font-bold text-3xl -mt-2 ">#</p> {member.caption}
+                            <p className="text-htb-green font-bold text-3xl -mt-2 ">
+                                #
+                            </p>{" "}
+                            {member.caption}
                         </p>
 
                         <div className="flex justify-center space-x-8 mt-8">
@@ -93,7 +112,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             )}
                         </div>
                     </div>
-                ))}
+                ))} */}
             </div>
         </section>
     );
@@ -105,10 +124,8 @@ export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<TeamPageProps>
 > {
     try {
-        const { data: members } = await (
-            await fetch(`${url_root}/api/v1/teams/?current=true`)
-        ).json();
-
+        const data = await axios.get(`${url_root}/api/v1/teams/?current=true`);
+        const members: MemberProps[] = data.data.data;
         return { props: { members } };
     } catch (error) {
         console.log(error);
