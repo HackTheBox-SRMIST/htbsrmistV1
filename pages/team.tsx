@@ -37,17 +37,17 @@ const hierarchy = [
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
-            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase">
+            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase pb-10">
                 Our Team
             </h1>
 
-            <div className="w-[100%] xl:w-[75%]">
+            <div className="w-[100%] xl:w-[75%] backdrop-blur-[3px]">
                 {hierarchy.map((el) => {
                     const domainMembers = members.filter(
                         (mem) => mem.position === el.name
                     );
                     return (
-                        <div key={el.role}>
+                        <div key={el.role} className="py-12">
                             <Roles
                                 role={el.role}
                                 name={el.name}
@@ -62,6 +62,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                             position={mem.position}
                                             caption={mem.caption}
                                             domain={mem.domain}
+                                            socials={mem.socials}
                                         />
                                     );
                                 })}
