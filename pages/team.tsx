@@ -12,6 +12,7 @@ interface MemberProps {
     name: string;
     caption: string;
     position: string;
+    domain: string;
     socials: {
         linkedin: string | "";
         github: string | "";
@@ -35,12 +36,12 @@ const hierarchy = [
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     return (
-        <section className="w-full min-h-fit bg-none ">
+        <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
             <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase">
                 Our Team
             </h1>
 
-            <div className="">
+            <div className="w-[100%] xl:w-[75%]">
                 {hierarchy.map((el) => {
                     const domainMembers = members.filter(
                         (mem) => mem.position === el.name
@@ -58,6 +59,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                         <Member
                                             name={mem.name}
                                             image={mem.pictureUrl}
+                                            position={mem.position}
+                                            caption={mem.caption}
+                                            domain={mem.domain}
                                         />
                                     );
                                 })}
