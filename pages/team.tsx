@@ -5,11 +5,13 @@ import GithubLogo from "../utils/icons/GithubLogo";
 import TwitterLogo from "../utils/icons/TwitterLogo";
 import WebsiteLinkIcon from "../utils/icons/WebsiteLinkIcon";
 import Member from "../components/teams/member";
+import Roles from "../components/teams/roles";
 
 interface MemberProps {
     pictureUrl: string | undefined;
     name: string;
     caption: string;
+    position: string;
     socials: {
         linkedin: string | "";
         github: string | "";
@@ -24,11 +26,11 @@ interface TeamPageProps {
 
 const hierarchy = [
     { role: "Mainframe", name: "Faculty Convener" },
-    { role: "Kernels", name: "Co-Organisers" },
-    { role: "Roots", name: "Admins" },
-    { role: "Sudoers", name: "Leads" },
-    { role: "Sticky Bits", name: "Associates" },
-    { role: "Binaries", name: "Members" }
+    { role: "Kernels", name: "Co-organizer" },
+    { role: "Roots", name: "Admin" }
+    // { role: "Sudoers", name: "Leads" },
+    // { role: "Sticky Bits", name: "Associates" },
+    // { role: "Binaries", name: "Members" }
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
@@ -38,12 +40,30 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 Our Team
             </h1>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                {/* {members.map((el) => (
-                    <Member />
-                ))} */}
+            <div className="">
                 {hierarchy.map((el) => {
-                    return <>{el.role}</>;
+                    const domainMembers = members.filter(
+                        (mem) => mem.position === el.name
+                    );
+                    return (
+                        <div key={el.role}>
+                            <Roles
+                                role={el.role}
+                                name={el.name}
+                                key={el.role}
+                            />
+                            <div className="flex justify-center items-center flex-wrap">
+                                {domainMembers.map((mem) => {
+                                    return (
+                                        <Member
+                                            name={mem.name}
+                                            image={mem.pictureUrl}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    );
                 })}
                 {/* {members.map((member) => (
                     <div
