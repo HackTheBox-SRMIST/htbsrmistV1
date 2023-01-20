@@ -37,9 +37,10 @@ const hierarchy = [
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
-            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase pb-10">
+            {/* <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase pb-10">
                 Our Team
-            </h1>
+            </h1> */}
+            <img src="./team.svg" className="h-20" />
 
             <div className="w-[90%] xl:w-[75%] backdrop-blur-[3px] text-center">
                 {hierarchy.map((el) => {
