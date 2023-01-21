@@ -71,31 +71,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 </>
                             );
                         })}
-                        {/* <strong className="text-htb-green ">
-                            Mr. Chandran Subramanian
-                        </strong>
-                        , Founder, and Director of CyberFort Solution Private
-                        Ltd.
-                        <br />
-                        <br />
-                        <strong className="text-htb-green">
-                            Prof. T. V. GOPAL
-                        </strong>
-                        , Dean, College of Engineering and Technology, SRMIST.
-                        <br />
-                        <br />{" "}
-                        <strong className="text-htb-green">
-                            Dr. Revathi Venkataraman
-                        </strong>
-                        , Professor & Chairperson School of Computing SRMIST.
-                        <br />
-                        <br />{" "}
-                        <strong className="text-htb-green">
-                            Dr. Annapurani Panaiyappan K.
-                        </strong>
-                        , Associate Professor, HoD Networking and
-                        Communications.
-                        <br /> */}
                         <br /> Following the inauguration, a hands-on workshop
                         will take place in Mini Hall 1 & 2. The mentors will
                         conduct a walk through of machines provided by the
@@ -107,34 +82,20 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </h2>
                         <br />
                         <ul className="list-disc list-inside">
-                            <li>Laptop</li>
-                            <li>
-                                <a
-                                    href="https://www.vmware.com/in/products/workstation-player/workstation-player-evaluation.html"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-htb-green hover:font-bold"
-                                >
-                                    VMWare
-                                </a>{" "}
-                                or{" "}
-                                <a
-                                    href="https://www.virtualbox.org/wiki/Downloads"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-htb-green hover:font-bold"
-                                >
-                                    Virtual Box
-                                </a>
-                            </li>
-                            <li>
-                                Preinstalled. - Security Oriented Operating
-                                System(Kali Linux is recommended) installed in
-                                the above mentioned Virtualization tools.
-                            </li>
+                            {(() => {
+                                let prereq_len: number = Number(
+                                    event?.prerequisites.length
+                                );
+                                let prereq = [];
+                                for (let i = 0; i < prereq_len; i++) {
+                                    prereq.push(
+                                        <li>{event?.prerequisites[i]}</li>
+                                    );
+                                }
+                                return prereq;
+                            })()}
                         </ul>
                     </p>
-
                     <div className="grid grid-cols-3 divide-x bg-hacker-grey py-4 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-8">
                         <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                             <span className="w-8">
