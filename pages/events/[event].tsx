@@ -1,0 +1,220 @@
+import type { NextPage, GetServerSidePropsResult } from "next";
+import Link from "next/link";
+import Head from "next/head";
+import Nav from "../../components/navbar";
+import Footer from "../../components/footer";
+import Image from "next/image";
+import React from "react";
+
+import { useRouter } from "next/router";
+import LocationLogo from "../../utils/icons/LocationLogo";
+import EntryFees from "../../utils/icons/EntryFees";
+import DateLogo from "../../utils/icons/DateLogo";
+
+interface EventProps {
+    event_name: string;
+    event_description: string;
+    poster_url: string;
+    speakers_details: [
+        {
+            name: string;
+            designation: string;
+            details: string;
+        }
+    ];
+    event_date: Date;
+    is_active: boolean;
+    venue: string;
+    sponsors_details: [
+        {
+            name: string;
+            place: string;
+            details: string;
+        }
+    ];
+    duration: Number;
+    prerequisites: string;
+    cost: number;
+}
+
+interface EventsPageProps {
+    events: EventProps[];
+}
+
+const Event: NextPage<EventsPageProps> = ({ events }) => {
+    const router = useRouter();
+    const event_id = router.query.event;
+    const event = events.find((event) => event_id);
+    return (
+        <>
+            <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
+                <div className="ml-8 lg:w-5/12 md:w-10/12 bg-node-black">
+                    <h1 className="lg:text-6xl text-5xl text-white font-bold uppercase">
+                        {event?.event_name}
+                    </h1>
+                    <p className="text-white mt-4 text-justify text-xl ">
+                        {event?.event_description}. <br />
+                        <br />
+                        The Elite panel of guests who will inaugurate the event
+                        are:-
+                        <br />
+                        <br />
+                        {event?.speakers_details.map((speaker) => {
+                            return (
+                                <>
+                                    <strong className="text-htb-green">
+                                        {speaker.name}
+                                    </strong>
+                                    <strong>, {speaker.designation}</strong>
+                                    <br />
+                                    <br />{" "}
+                                </>
+                            );
+                        })}
+                        {/* <strong className="text-htb-green ">
+                            Mr. Chandran Subramanian
+                        </strong>
+                        , Founder, and Director of CyberFort Solution Private
+                        Ltd.
+                        <br />
+                        <br />
+                        <strong className="text-htb-green">
+                            Prof. T. V. GOPAL
+                        </strong>
+                        , Dean, College of Engineering and Technology, SRMIST.
+                        <br />
+                        <br />{" "}
+                        <strong className="text-htb-green">
+                            Dr. Revathi Venkataraman
+                        </strong>
+                        , Professor & Chairperson School of Computing SRMIST.
+                        <br />
+                        <br />{" "}
+                        <strong className="text-htb-green">
+                            Dr. Annapurani Panaiyappan K.
+                        </strong>
+                        , Associate Professor, HoD Networking and
+                        Communications.
+                        <br /> */}
+                        <br /> Following the inauguration, a hands-on workshop
+                        will take place in Mini Hall 1 & 2. The mentors will
+                        conduct a walk through of machines provided by the
+                        HackTheBox team. Students will follow along the mentors.
+                        <br />
+                        <br />
+                        <h2 className="text-2xl font-bold">
+                            Prerequisites for the Hands-on Workshop:-
+                        </h2>
+                        <br />
+                        <ul className="list-disc list-inside">
+                            <li>Laptop</li>
+                            <li>
+                                <a
+                                    href="https://www.vmware.com/in/products/workstation-player/workstation-player-evaluation.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-htb-green hover:font-bold"
+                                >
+                                    VMWare
+                                </a>{" "}
+                                or{" "}
+                                <a
+                                    href="https://www.virtualbox.org/wiki/Downloads"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-htb-green hover:font-bold"
+                                >
+                                    Virtual Box
+                                </a>
+                            </li>
+                            <li>
+                                Preinstalled. - Security Oriented Operating
+                                System(Kali Linux is recommended) installed in
+                                the above mentioned Virtualization tools.
+                            </li>
+                        </ul>
+                    </p>
+
+                    <div className="grid grid-cols-3 divide-x bg-hacker-grey py-4 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-8">
+                        <div className="flex justify-evenly md:flex-row flex-col space-y-2">
+                            <span className="w-8">
+                                <LocationLogo />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase ">
+                                    Location
+                                </h4>
+                                <p className="whitespace-normal">
+                                    {event?.venue}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-evenly md:flex-row flex-col pl-2">
+                            <span className="w-8">
+                                <EntryFees />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase">
+                                    Price
+                                </h4>
+                                <p>Free of Cost</p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
+                            <span className="w-8">
+                                <DateLogo />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase">
+                                    Date
+                                </h4>
+                                <p>{event?.event_date}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a
+                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className=""
+                    >
+                        <button className="bg-htb-green w-full  py-3 font-semibold rounded-md inline-block mt-4">
+                            REGISTER
+                        </button>
+                    </a>
+                </div>
+
+                <figure className="ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12">
+                    <img
+                        src="https://res.cloudinary.com/dlaxur3io/image/upload/v1651947169/htbsrmistv1/EventPosters/EventPoster_lh4gnr.jpg"
+                        alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
+                        className="w-full m-auto md:pr-0"
+                    />
+                </figure>
+            </section>
+        </>
+    );
+};
+
+const url_root = process.env.BASE_URL_PREVIEW;
+
+export async function getServerSideProps(): Promise<
+    GetServerSidePropsResult<EventsPageProps>
+> {
+    try {
+        const { data: events } = await (
+            await fetch(`${url_root}/api/v1/events?active=false`)
+        ).json();
+        console.log(events);
+
+        return { props: { events } };
+    } catch (error) {
+        console.log(error);
+        return { notFound: true };
+    }
+}
+
+export default Event;
