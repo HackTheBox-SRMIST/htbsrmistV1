@@ -48,7 +48,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     return (
         <>
             <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
-                <div className="ml-8 lg:w-5/12 md:w-10/12 bg-node-black">
+                <div className="ml-8 lg:w-5/12 md:w-10/12 p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
                     <h1 className="lg:text-6xl text-5xl text-white font-bold uppercase">
                         {event?.event_name}
                     </h1>
@@ -121,7 +121,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 <h4 className="text-black font-bold text-sm uppercase">
                                     Price
                                 </h4>
-                                <p>Free of Cost</p>
+                                {(() => {
+                                    let price = [];
+                                    if (event?.cost == 0) {
+                                        price.push(<p>Free of Cost</p>);
+                                    } else {
+                                        price.push(<p>{event?.cost}/-</p>);
+                                    }
+                                    return price;
+                                })()}
                             </div>
                         </div>
 
@@ -152,7 +160,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
                 <figure className="ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12">
                     <img
-                        src="https://res.cloudinary.com/dlaxur3io/image/upload/v1651947169/htbsrmistv1/EventPosters/EventPoster_lh4gnr.jpg"
+                        src={event?.poster_url}
                         alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
                         className="w-full m-auto md:pr-0"
                     />
