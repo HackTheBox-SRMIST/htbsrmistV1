@@ -30,15 +30,18 @@ const Index: NextPage = () => {
                     <Image src={heroImage} alt="HACKTHEBOX"></Image>
                 </div>
             </div>
+            <div className="mx-auto w-4/5 md:hidden">
+                <Image src={heroImage} alt="HACKTHEBOX"></Image>
+            </div>
             <div className="md:flex w-4/5 m-auto justify-start">
-                <div className=" text-xl font-medium">
+                <div className=" text-2xl">
                     <p className="md:w-5/12 md:m-0 mt-4">
                         HackTheBox SRMIST focuses on training the next-gen of
                         cyber-warriors transforming the cyber space in SRMIST
                         and beyond.
                     </p>
                 </div>
-                <div className="mt-8 -ml-[40%] rotate-[-7deg] md:block hidden">
+                <div className="mt-8 -ml-[50%] rotate-[-7deg] md:block hidden">
                     <Image src={homeArrow} alt="HACKTHEBOX"></Image>
                 </div>
                 <div className="flex justify-center">
@@ -49,7 +52,7 @@ const Index: NextPage = () => {
                         rel="noopener noreferrer"
                     >
                         <button className="text-[#141D2B] bg-[#9FEF00] px-5 inline-flex mt-8 rounded-md hover:bg-htb-green opacity-70 hover:opacity-100">
-                            <div className="mt-1.5">
+                            <div>
                                 <MeetupLogo />
                             </div>
                             <p className="my-1.5 font-bold px-3">MEETUP FORM</p>
@@ -57,6 +60,7 @@ const Index: NextPage = () => {
                     </a>
                 </div>
             </div>
+
             <div className="border-t border-[#9FEF00] md:w-4/12 w-10/12 m-auto my-20"></div>
             <div className="flex w-4/5 mx-auto">
                 <p className="text-justify pr-0 md:pr-40 mt-6 text-2xl">
