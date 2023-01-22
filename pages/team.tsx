@@ -58,6 +58,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                 {domainMembers.map((mem) => {
                                     return (
                                         <Member
+                                            key={mem.name}
                                             name={mem.name}
                                             image={mem.pictureUrl}
                                             position={mem.position}
