@@ -3,6 +3,7 @@ import axios, { isCancel, AxiosError } from "axios";
 import Member from "../components/teams/member";
 import Roles from "../components/teams/roles";
 import { useState } from "react";
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 
 interface MemberProps {
     pictureUrl: string | undefined;
@@ -114,10 +115,20 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                 <Roles role="Members" name="Binary" />
 
-                <div className="flex justify-around items-center">
-                    <button onClick={prevDomainChangeHandler}>prev</button>
-                    <span>{activeDomain}</span>
-                    <button onClick={nextDomainChangeHandler}>next</button>
+                <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
+                    <button
+                        onClick={prevDomainChangeHandler}
+                        className="text-htb-green bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
+                    >
+                        <GrLinkPrevious />
+                    </button>
+                    <span className="">{activeDomain}</span>
+                    <button
+                        onClick={nextDomainChangeHandler}
+                        className="bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
+                    >
+                        <GrLinkNext />
+                    </button>
                 </div>
                 <div className="flex justify-center items-center flex-wrap">
                     {binaries[activeDomain].map((mem: MemberProps) => {
