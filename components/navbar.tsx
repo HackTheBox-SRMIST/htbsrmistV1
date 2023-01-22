@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const Nav = () => {
     const { asPath } = useRouter();
     const [navbarOpen, setNavbarOpen] = useState(false);
+
     const links: { name: string; href: string }[] = [
         {
             name: "HOME",
@@ -86,7 +87,12 @@ const Nav = () => {
                                             : ""
                                     } min-w-max transform hover:-translate-y-1 cursor-pointer mb-2 flex-auto hover:text-htb-green md:text-sm py-2 px-4 border-b-[2px] border-htb-green `}
                                 >
-                                    <a className="mx-2 md:mx-5 ">{link.name}</a>
+                                    <a
+                                        className="mx-2 md:mx-5 "
+                                        onClick={showMenu}
+                                    >
+                                        {link.name}
+                                    </a>
                                 </li>
                             </Link>
                         ))}
