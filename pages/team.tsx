@@ -26,12 +26,12 @@ interface TeamPageProps {
 }
 
 const hierarchy = [
-    { role: "Mainframe", name: "Faculty Convener" },
-    { role: "Kernels", name: "Co-organizer" },
-    { role: "Roots", name: "Admin" }
+    { role: "Mainframe", name: "Mainframe" },
+    { role: "Kernels", name: "Kernel" },
+    { role: "Roots", name: "Root" },
     // { role: "Sudoers", name: "Leads" },
     // { role: "Sticky Bits", name: "Associates" },
-    // { role: "Binaries", name: "Members" }
+    { role: "Binaries", name: "Binary" }
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
