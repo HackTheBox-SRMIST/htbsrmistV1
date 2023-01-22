@@ -22,7 +22,9 @@ const Member = (props: any) => {
                 {props.name}
             </span>
             <span className="text-xl text-htb-green">{props.domain}</span>
-            <span className="text-center break-all w-80">{props.caption}</span>
+            <span className="text-center break-words w-80">
+                {props.caption}
+            </span>
             <span className="flex pt-5 gap-3">
                 {props.socials.linkedin ? (
                     <Social
