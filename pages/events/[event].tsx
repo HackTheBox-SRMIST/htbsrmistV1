@@ -89,7 +89,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 let prereq = [];
                                 for (let i = 0; i < prereq_len; i++) {
                                     prereq.push(
-                                        <li>{event?.prerequisites[i]}</li>
+                                        <li key={event?.prerequisites[i]}>
+                                            {event?.prerequisites[i]}
+                                        </li>
                                     );
                                 }
                                 return prereq;
