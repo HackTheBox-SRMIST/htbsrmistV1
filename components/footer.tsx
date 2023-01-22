@@ -101,11 +101,11 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col w-52">
+                    <div className="flex flex-col m-auto">
                         <h6 className="uppercase font-semibold mb-4 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 ">
                             Contact
                         </h6>
-                        <div className="flex gap-3 items-top">
+                        <div className="flex  gap-3 items-top">
                             {/* <p className=" items-center justify-center md:justify-start mb-1 space-x-4  inline-flex "> */}
                             <span className="-mr-1 ml-2 md:ml-0 md:mr-0">
                                 <svg
@@ -127,8 +127,8 @@ const Footer = () => {
                             <p>SRM Kattankulathur , Chengalpattu, 603203, IN</p>
                             {/* </p> */}
                         </div>
-                        <div>
-                            <p className=" items-center justify-center md:justify-start mb-1 space-x-2 inline-flex">
+                        <div className="text-left ml-2 md:ml-0">
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex">
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"
