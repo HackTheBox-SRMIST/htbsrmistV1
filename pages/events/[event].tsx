@@ -47,14 +47,56 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const event = events.find((event) => event_id);
     return (
         <>
-            <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
-                <div className="ml-8 lg:w-5/12 md:w-10/12 p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
-                    <h1 className="lg:text-6xl text-5xl text-white font-bold uppercase">
-                        {event?.event_name}
+            {/* main div mt-10 sm:mt-32 lg:mt-0 w-full lg:w-11/12 flex md:items-start items-center md:mx-0 justify-center md:justify-start flex-col z-10 px-0 sm:px-5 md:px-12  mx-10 */}
+            <div className="flex-col lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
+                {/* h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24 */}
+                <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
+                    {/* w-full md:w-1/2 */}
+                    <div className="w-full md:w-1/2">
+                        {/* mb-4 text-center md:text-left */}
+                        <div className="mb-4 text-center md:text-left">
+                            {/* text-white text-3xl sm:text-5xl  font-semibold mt-10 */}
+                            <h1 className="text-white text-3xl sm:text-5xl  font-semibold ">
+                                {event?.event_name}
+                            </h1>
+                            {/* text-white sm:text-xl mt-4 text-center md:text-left text-sm */}
+                            <p className="text-white sm:text-xl mt-4 text-center md:text-left text-sm ">
+                                {event?.event_description}. <br />
+                                <br />
+                            </p>
+                        </div>
+                        {/* flex items-center md:items-start justify-center md:justify-start */}
+                        <div className="flex items-center md:items-start justify-center md:justify-start">
+                            <div>
+                                {/* bg-gray-600 px-9 py-3 rounded-full font-bold lg:my-10 my-10 text-white  */}
+                                <p className="bg-hacker-grey  px-9 py-3 rounded-full font-bold lg:my-10 my-10 text-white text-mono">
+                                    Event ended
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
+                    <div className="lg:w-2/4 w-full  lg:mx-0 mx-auto transform px-2">
+                        {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
+                        <figure className="ml-8 mb-8 ">
+                            <img
+                                src={event?.poster_url}
+                                alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
+                                // className="w-full m-auto md:pr-0"
+                            />
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex-col mx-10 px-20">
+                <div className="text-center mb-10">
+                    <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
+                        Speakers
                     </h1>
-                    <p className="text-white mt-4 text-justify text-xl ">
-                        {event?.event_description}. <br />
-                        <br />
+                </div>
+                <div className="p-5 rounded-3xl bg-node-black border-4 border-htb-green/50 mb-10">
+                    <p className="text-white mt-4 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
                         <br />
@@ -71,10 +113,126 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 </>
                             );
                         })}
-                        <br /> Following the inauguration, a hands-on workshop
-                        will take place in Mini Hall 1 & 2. The mentors will
-                        conduct a walk through of machines provided by the
-                        HackTheBox team. Students will follow along the mentors.
+                        <br />
+                    </p>
+                </div>
+            </div>
+
+            <div className="mt-10 flex-col mx-10 px-20">
+                <div className="text-center mb-10">
+                    <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
+                        Prerequisites
+                    </h1>
+                </div>
+                <div className="p-5 rounded-3xl bg-node-black border-4 border-htb-green/50 mb-10">
+                    <p className="text-white mt-4 text-justify text-xl">
+                        <h2 className="text-2xl font-bold">
+                            Prerequisites for the Hands-on Workshop:-
+                        </h2>
+                        <br />
+                        <ul className="list-disc list-inside">
+                            {(() => {
+                                let prereq_len: number = Number(
+                                    event?.prerequisites.length
+                                );
+                                let prereq = [];
+                                for (let i = 0; i < prereq_len; i++) {
+                                    prereq.push(
+                                        <li key={event?.prerequisites[i]}>
+                                            {event?.prerequisites[i]}
+                                        </li>
+                                    );
+                                }
+                                return prereq;
+                            })()}
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <div className="w-6/12 mt-10 mx-auto px-20 ">
+                <div className=" p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
+                    <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-5">
+                        <div className="flex justify-evenly md:flex-row flex-col space-y-2">
+                            <span className="w-8">
+                                <LocationLogo />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase ">
+                                    Location
+                                </h4>
+                                <p className="whitespace-normal">
+                                    {event?.venue}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-evenly md:flex-row flex-col pl-2">
+                            <span className="w-8">
+                                <EntryFees />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase">
+                                    Price
+                                </h4>
+                                {(() => {
+                                    let price = [];
+                                    if (event?.cost == 0) {
+                                        price.push(<p>Free of Cost</p>);
+                                    } else {
+                                        price.push(<p>{event?.cost}/-</p>);
+                                    }
+                                    return price;
+                                })()}
+                            </div>
+                        </div>
+
+                        <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
+                            <span className="w-8">
+                                <DateLogo />
+                            </span>
+                            <div>
+                                <h4 className="text-black font-bold text-sm uppercase">
+                                    Date
+                                </h4>
+                                <p>{event?.event_date}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center ">
+                        <a
+                            href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className=""
+                        >
+                            <button className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-4">
+                                REGISTER NOW
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            {/* <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
+                <div className="ml-8 lg:w-6/12 md:w-10/12 p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
+                    <p className="text-white mt-4 text-justify text-xl ">
+                        The Elite panel of guests who will inaugurate the event
+                        are:-
+                        <br />
+                        <br />
+                        {event?.speakers_details.map((speaker) => {
+                            return (
+                                <>
+                                    <strong className="text-htb-green">
+                                        {speaker.name}
+                                    </strong>
+                                    <strong>, {speaker.designation}</strong>
+                                    <br />
+                                    <br />{" "}
+                                </>
+                            );
+                        })}
                         <br />
                         <br />
                         <h2 className="text-2xl font-bold">
@@ -157,15 +315,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </button>
                     </a>
                 </div>
-
-                <figure className="ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12">
-                    <img
-                        src={event?.poster_url}
-                        alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
-                        className="w-full m-auto md:pr-0"
-                    />
-                </figure>
-            </section>
+            </section> */}
         </>
     );
 };
