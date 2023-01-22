@@ -49,13 +49,27 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <meta property="twitter:image" content="/favicon.svg" />
                 <link rel="icon" href="/favicon.svg" />
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    // crossorigin
+                />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap"
+                    rel="stylesheet"
+                />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+                    rel="stylesheet"
+                ></link>
             </Head>
 
             <Nav />
             <Component {...pageProps} />
             <Footer />
         </>
-    )
+    );
 }
 
 export default MyApp;
