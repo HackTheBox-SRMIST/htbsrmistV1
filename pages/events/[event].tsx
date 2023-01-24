@@ -48,7 +48,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     return (
         <>
             {/* main div mt-10 sm:mt-32 lg:mt-0 w-full lg:w-11/12 flex md:items-start items-center md:mx-0 justify-center md:justify-start flex-col z-10 px-0 sm:px-5 md:px-12  mx-10 */}
-            <div className="flex-col lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
+            <div className="flex-col  lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
                 {/* h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24 */}
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     {/* w-full md:w-1/2 */}
@@ -66,12 +66,71 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </p>
                         </div>
                         {/* flex items-center md:items-start justify-center md:justify-start */}
-                        <div className="flex items-center md:items-start justify-center md:justify-start">
-                            <div>
-                                {/* bg-gray-600 px-9 py-3 rounded-full font-bold lg:my-10 my-10 text-white  */}
-                                <p className="bg-hacker-grey  px-9 py-3 rounded-full font-bold lg:my-10 my-10 text-white text-mono">
-                                    Event ended
-                                </p>
+                        <div className="">
+                            {/* rounded-3xl bg-node-black border-4 border-htb-green/50 */}
+                            <div className="rounded-3xl bg-node-black">
+                                <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
+                                    <div className="flex justify-evenly md:flex-row flex-col space-y-2">
+                                        <span className="w-8">
+                                            <LocationLogo />
+                                        </span>
+                                        <div className="text-center">
+                                            <h4 className="text-black font-bold text-sm uppercase ">
+                                                Location
+                                            </h4>
+                                            <p className="whitespace-normal">
+                                                {event?.venue}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-evenly md:flex-row flex-col pl-2">
+                                        <span className="w-8">
+                                            <EntryFees />
+                                        </span>
+                                        <div className="text-center">
+                                            <h4 className="text-black font-bold text-sm uppercase">
+                                                Price
+                                            </h4>
+                                            {(() => {
+                                                let price = [];
+                                                if (event?.cost == 0) {
+                                                    price.push(
+                                                        <p>Free of Cost</p>
+                                                    );
+                                                } else {
+                                                    price.push(
+                                                        <p>{event?.cost}/-</p>
+                                                    );
+                                                }
+                                                return price;
+                                            })()}
+                                        </div>
+                                    </div>
+                                    <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
+                                        <span className="w-8">
+                                            <DateLogo />
+                                        </span>
+                                        <div className="text-center">
+                                            <h4 className="text-black font-bold text-sm uppercase">
+                                                Date
+                                            </h4>
+                                            <p>{event?.event_date}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center ">
+                                    <a
+                                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className=""
+                                    >
+                                        <button className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-2">
+                                            REGISTER NOW
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -149,173 +208,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </p>
                 </div>
             </div>
-
-            <div className="w-6/12 mt-10 mx-auto px-20 ">
-                <div className=" p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
-                    <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-5">
-                        <div className="flex justify-evenly md:flex-row flex-col space-y-2">
-                            <span className="w-8">
-                                <LocationLogo />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase ">
-                                    Location
-                                </h4>
-                                <p className="whitespace-normal">
-                                    {event?.venue}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex justify-evenly md:flex-row flex-col pl-2">
-                            <span className="w-8">
-                                <EntryFees />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase">
-                                    Price
-                                </h4>
-                                {(() => {
-                                    let price = [];
-                                    if (event?.cost == 0) {
-                                        price.push(<p>Free of Cost</p>);
-                                    } else {
-                                        price.push(<p>{event?.cost}/-</p>);
-                                    }
-                                    return price;
-                                })()}
-                            </div>
-                        </div>
-
-                        <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
-                            <span className="w-8">
-                                <DateLogo />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase">
-                                    Date
-                                </h4>
-                                <p>{event?.event_date}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-center ">
-                        <a
-                            href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className=""
-                        >
-                            <button className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-4">
-                                REGISTER NOW
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            {/* <section className="lg:flex-row flex-col flex lg:mx-20 mx-auto lg:gap-4 items-center justify-between pr-8 md:pr-0 font-mono">
-                <div className="ml-8 lg:w-6/12 md:w-10/12 p-5 rounded-3xl bg-node-black border-4 border-htb-green/50">
-                    <p className="text-white mt-4 text-justify text-xl ">
-                        The Elite panel of guests who will inaugurate the event
-                        are:-
-                        <br />
-                        <br />
-                        {event?.speakers_details.map((speaker) => {
-                            return (
-                                <>
-                                    <strong className="text-htb-green">
-                                        {speaker.name}
-                                    </strong>
-                                    <strong>, {speaker.designation}</strong>
-                                    <br />
-                                    <br />{" "}
-                                </>
-                            );
-                        })}
-                        <br />
-                        <br />
-                        <h2 className="text-2xl font-bold">
-                            Prerequisites for the Hands-on Workshop:-
-                        </h2>
-                        <br />
-                        <ul className="list-disc list-inside">
-                            {(() => {
-                                let prereq_len: number = Number(
-                                    event?.prerequisites.length
-                                );
-                                let prereq = [];
-                                for (let i = 0; i < prereq_len; i++) {
-                                    prereq.push(
-                                        <li key={event?.prerequisites[i]}>
-                                            {event?.prerequisites[i]}
-                                        </li>
-                                    );
-                                }
-                                return prereq;
-                            })()}
-                        </ul>
-                    </p>
-                    <div className="grid grid-cols-3 divide-x bg-hacker-grey py-4 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0 pl-2 my-8">
-                        <div className="flex justify-evenly md:flex-row flex-col space-y-2">
-                            <span className="w-8">
-                                <LocationLogo />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase ">
-                                    Location
-                                </h4>
-                                <p className="whitespace-normal">
-                                    {event?.venue}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex justify-evenly md:flex-row flex-col pl-2">
-                            <span className="w-8">
-                                <EntryFees />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase">
-                                    Price
-                                </h4>
-                                {(() => {
-                                    let price = [];
-                                    if (event?.cost == 0) {
-                                        price.push(<p>Free of Cost</p>);
-                                    } else {
-                                        price.push(<p>{event?.cost}/-</p>);
-                                    }
-                                    return price;
-                                })()}
-                            </div>
-                        </div>
-
-                        <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
-                            <span className="w-8">
-                                <DateLogo />
-                            </span>
-                            <div>
-                                <h4 className="text-black font-bold text-sm uppercase">
-                                    Date
-                                </h4>
-                                <p>{event?.event_date}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a
-                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className=""
-                    >
-                        <button className="bg-htb-green w-full  py-3 font-semibold rounded-md inline-block mt-4">
-                            REGISTER
-                        </button>
-                    </a>
-                </div>
-            </section> */}
         </>
     );
 };
@@ -329,7 +221,6 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events?active=false`)
         ).json();
-        console.log(events);
 
         return { props: { events } };
     } catch (error) {
