@@ -23,8 +23,12 @@ interface TeamPageProps {
     members: MemberProps[];
 }
 
-const domains: ("Development" | "Creatives" | "Corporate" | "CyberSecurity")[] =
-    ["Development", "Creatives", "CyberSecurity", "Corporate"];
+const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
+    "Development",
+    "Creatives",
+    "Security",
+    "Corporate"
+];
 
 const hierarchy = [
     { role: "Faculty Convenor", name: "Mainframe" },
@@ -36,7 +40,7 @@ const hierarchy = [
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     const [activeDomain, changeDomain] = useState<
-        "Development" | "Creatives" | "Corporate" | "CyberSecurity"
+        "Development" | "Creatives" | "Corporate" | "Security"
     >("Development");
 
     const Creatives = members.filter(
@@ -51,7 +55,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         (el) => el.domain === "Corporate" && el.position === "Binary"
     );
 
-    const CyberSecurity = members.filter(
+    const Security = members.filter(
         (el) => el.domain === "Cyber Security" && el.position === "Binary"
     );
 
@@ -59,16 +63,13 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         Creatives,
         Development,
         Corporate,
-        CyberSecurity
+        Security
     };
 
     const prevDomainChangeHandler = () => {
         const curr = domains.indexOf(activeDomain);
-        const prev:
-            | "Development"
-            | "Creatives"
-            | "Corporate"
-            | "CyberSecurity" = domains[curr === 0 ? 3 : curr - 1];
+        const prev: "Development" | "Creatives" | "Corporate" | "Security" =
+            domains[curr === 0 ? 3 : curr - 1];
         changeDomain(prev);
     };
 
