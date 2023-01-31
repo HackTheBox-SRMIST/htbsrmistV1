@@ -7,7 +7,7 @@ export const Events = async (
     try {
         const db = await (
             await DBInstance.getInstance()
-        ).getCollection("event");
+        ).getCollection("events");
 
         const eventItems = await db
             .find<eventsDBSchema>(
