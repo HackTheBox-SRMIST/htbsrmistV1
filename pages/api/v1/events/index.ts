@@ -3,9 +3,9 @@ import { Events } from "../../../../utils/services/events.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const { current } = req.query;
-        const fetchCurrent = current === "false" ? false : true;
-        const eventData = await Events(fetchCurrent);
+        const { active } = req.query;
+        const fetchActive = active === "false" ? false : true;
+        const eventData = await Events(fetchActive);
 
         res.status(200).json({
             success: true,

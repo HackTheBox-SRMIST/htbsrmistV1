@@ -2,7 +2,7 @@ import { DBInstance } from "../db.connect";
 import { eventsDBSchema } from "../types/event";
 
 export const Events = async (
-    fetchCurrent: boolean
+    fetchActive: boolean
 ): Promise<eventsDBSchema[]> => {
     try {
         const db = await (
@@ -11,7 +11,7 @@ export const Events = async (
 
         const eventItems = await db
             .find<eventsDBSchema>(
-                { isCurrent: fetchCurrent },
+                { isCurrent: fetchActive },
                 { sort: { index: 1 } }
             )
             .toArray();
