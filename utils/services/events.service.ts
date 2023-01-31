@@ -11,7 +11,7 @@ export const Events = async (
 
         const eventItems = await db
             .find<eventsDBSchema>(
-                { isCurrent: fetchActive },
+                { is_active: fetchActive },
                 { sort: { index: 1 } }
             )
             .toArray();
