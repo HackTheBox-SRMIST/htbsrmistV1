@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { ContactUs } from "../../../utils/services/contactus.service";
+import errorHandler from "../../../utils/error/errorHandler";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -17,22 +18,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
         }
     } catch (err: any) {
-        if (err.name === "ValidationError") {
-            let message: string = "";
-            err.errors?.forEach((e: string) => {
-                message += `${e}. `;
-            }); // => [ 'Invalid Country Code!', 'Mobile Number is not valid!' ]
-            console.error(`ValidationError: ${message}`);
-            res.status(400).json({
-                success: false,
-                message: message
-            });
-        } else {
-            console.error("Unknown Error Occurred!", err);
-            res.status(500).json({
-                success: false,
-                message: "❌ Unknown Error Occurred!!"
-            });
-        }
+        errorHandler(err, res, "INTERNAL_SERVER_ERROR");
     }
 };

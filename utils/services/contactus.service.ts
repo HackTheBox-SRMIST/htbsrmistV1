@@ -8,7 +8,7 @@ export const ContactUs = async (
     await yupContactUsSchema
         .validate(contactUsData, { abortEarly: false })
         .then(async (value) => {
-            // console.log("success", value);
+            //console.log("success", value);
             const db = await (
                 await DBInstance.getInstance()
             ).getCollection("contactus");

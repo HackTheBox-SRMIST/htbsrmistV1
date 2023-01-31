@@ -24,26 +24,27 @@ body {
     resize: none;
 }
 
-.recruitmentBtn{
-    all:unset;
-    font-family:Helvetica,Arial,sans-serif;display:inline-block;
-    max-width:100%;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    color:#000000;
-    font-size:20px;
-    border-radius:25px;
-    padding:0 33px;
-    font-weight:bold;
-    height:50px;
-    cursor:pointer;
-    line-height:50px;
-    text-align:center;
-    text-decoration:none;
+.recruitmentBtn {
+    all: unset;
+    font-family: Helvetica, Arial, sans-serif;
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000000;
+    font-size: 20px;
+    border-radius: 25px;
+    padding: 0 33px;
+    font-weight: bold;
+    height: 50px;
+    cursor: pointer;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
 }
-.btnactive{
-    background-color:#9FEF00;
+.btnactive {
+    background-color: #9fef00;
 }
 
 .btninactive{
