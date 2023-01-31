@@ -47,6 +47,31 @@ body {
     background-color: #9fef00;
 }
 
-.btninactive {
-    background-color: #4b5563;
+.btninactive{
+    background-color:#4b5563;
+}
+
+.container{
+    position:relative;
+}
+
+.center-button{
+    margin:0;
+    position:absolute;
+    justify-content: center;
+    left: 150px;
+
+}
+
+
+.hide{
+    display:none;
+    position:absolute;
+    bottom: 200px;
+
+}
+
+.myDiv:hover + .hide{
+    position: relative;
+    display:block;
 }

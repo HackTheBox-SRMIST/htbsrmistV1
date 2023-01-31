@@ -1,14 +1,23 @@
 import { DBInstance } from "../db.connect";
-import { teamsDBSchema, yupTeamsSchema, teamsReqSchema } from "../types/teams";
+import { eventsDBSchema } from "../types/event";
 
 export const Events = async (
-    active: teamsReqSchema | string[]
-): Promise<any[]> => {
-    // await yupTeamsSchema.validate(active);
-    const fetchActive = active === "false" ? false : true;
-    const db = await (await DBInstance.getInstance()).getCollection("events");
-    const eventItems = await db
-        .find<any>({ is_active: fetchActive }, { sort: { index: 1 } })
-        .toArray();
-    return eventItems;
+    fetchCurrent: boolean
+): Promise<eventsDBSchema[]> => {
+    try {
+        const db = await (
+            await DBInstance.getInstance()
+        ).getCollection("events");
+
+        const eventItems = await db
+            .find<eventsDBSchema>(
+                { isCurrent: fetchCurrent },
+                { sort: { index: 1 } }
+            )
+            .toArray();
+        return eventItems;
+    } catch (err: any) {
+        console.error(err.message);
+        return err.message;
+    }
 };

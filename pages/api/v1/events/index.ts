@@ -1,0 +1,22 @@
+import { NextApiRequest, NextApiResponse } from "next";
+import { Events } from "../../../../utils/services/events.service";
+
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        const { current } = req.query;
+        const fetchCurrent = current === "false" ? false : true;
+        const eventData = await Events(fetchCurrent);
+
+        res.status(200).json({
+            success: true,
+            message: "✅ Successfully fetched!",
+            data: eventData
+        });
+    } catch (err: any) {
+        console.error(err.message);
+        res.status(500).json({
+            success: false,
+            message: "❌ Database connected but failed to fetch the data!"
+        });
+    }
+};
