@@ -77,6 +77,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 const url_root = process.env.BASE_URL_PREVIEW;
 
 // Vercel Deploy main had no backend for events but staging had and baseurl was main
+// Page loading but no data
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
 > {
