@@ -51,15 +51,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             <div className="flex-col  lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
                 {/* h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24 */}
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
-                    {/* w-full md:w-1/2 */}
                     <div className="w-full md:w-1/2">
-                        {/* mb-4 text-center md:text-left */}
                         <div className="mb-4 text-center md:text-left">
-                            {/* text-white text-3xl sm:text-5xl  font-semibold mt-10 */}
                             <h1 className="text-white text-3xl sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            {/* text-white sm:text-xl mt-4 text-center md:text-left text-sm */}
                             <p className="text-white sm:text-xl mt-4 text-center md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
