@@ -57,7 +57,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                 />
                             </figure>
                             <div className="hidebtn flex flex-row px-5">
-                                <a href="#">
+                                <a href="#" target="_blank">
                                     <button className=" bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mx-10 rounded-full">
                                         Register
                                     </button>
