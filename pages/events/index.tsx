@@ -47,21 +47,23 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                     {events.map((event) => (
                         <div
                             key={event.event_name}
-                            className="hover:cursor-pointer rounded-xl transition-all"
+                            className="pcontainer hover:cursor-pointer rounded-xl transition-all"
                         >
-                            <figure className="myDiv h-691 w-864 flex flex-col md:p-0 items-center hover:opacity-50">
+                            <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:opacity-50">
                                 <img
                                     src={event.poster_url}
                                     className="h-691 w-864 mx-auto  border-4 border-htb-green/50 object-cover"
                                     alt={`HackTheBox SRMIST - ${event.event_name}`}
                                 />
                             </figure>
-                            <div className="flex flex-row px-5 hide">
-                                <button className="bg-htb-green  hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mx-10 rounded-full">
-                                    Register
-                                </button>
+                            <div className="hidebtn flex flex-row px-5">
+                                <a href="#" target="_blank">
+                                    <button className=" bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mx-10 rounded-full">
+                                        Register
+                                    </button>
+                                </a>
                                 <a href={`/events/${event.event_name}`}>
-                                    <button className="bg-htb-green  hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
+                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
                                         Learn More
                                     </button>
                                 </a>
@@ -76,8 +78,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
-// Vercel Deploy main had no backend for events but staging had and baseurl was main
-// Page loading but no data
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
 > {
