@@ -21,4 +21,5 @@ export interface eventsDBSchema {
     duration: Number
     prerequisites: string
     cost: number
+    registration_url:string
 }

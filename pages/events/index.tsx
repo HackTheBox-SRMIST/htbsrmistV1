@@ -30,6 +30,7 @@ interface EventProps {
     duration: Number;
     prerequisites: string;
     cost: number;
+    registration_url: string;
 }
 
 interface EventsPageProps {
@@ -57,14 +58,20 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                 />
                             </figure>
                             <div className="hidebtn lg:top-52 lg:flex-row sm:flex-col md:px-2 md:top-10 sm:top-20 sm:px-20 lg:px-5 ">
-                                <a href="#" target="_blank">
-                                    <button className=" bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mx-10 rounded-full">
-                                        Register
+                                <a href={`/events/${event.event_name}`}>
+                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mx-10 rounded-full">
+                                        Learn More
                                     </button>
                                 </a>
-                                <a href={`/events/${event.event_name}`}>
-                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
-                                        Learn More
+                                <a
+                                    href={`${event.registration_url}`}
+                                    target="_blank"
+                                >
+                                    <button
+                                        className=" bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4  rounded-full"
+                                        disabled={!event.is_active}
+                                    >
+                                        Register
                                     </button>
                                 </a>
                             </div>

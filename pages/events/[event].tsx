@@ -35,6 +35,7 @@ interface EventProps {
     duration: Number;
     prerequisites: string;
     cost: number;
+    registration_url: string;
 }
 
 interface EventsPageProps {
@@ -47,9 +48,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const event = events.find((event) => event_id);
     return (
         <>
-            {/* main div mt-10 sm:mt-32 lg:mt-0 w-full lg:w-11/12 flex md:items-start items-center md:mx-0 justify-center md:justify-start flex-col z-10 px-0 sm:px-5 md:px-12  mx-10 */}
             <div className="flex-col  lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
-                {/* h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24 */}
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
@@ -61,9 +60,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 <br />
                             </p>
                         </div>
-                        {/* flex items-center md:items-start justify-center md:justify-start */}
                         <div className="">
-                            {/* rounded-3xl bg-node-black border-4 border-htb-green/50 */}
                             <div className="rounded-3xl bg-node-black">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2">
@@ -122,7 +119,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         rel="noopener noreferrer"
                                         className=""
                                     >
-                                        <button className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-2">
+                                        <button
+                                            className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-2"
+                                            disabled={!event?.is_active}
+                                        >
                                             REGISTER NOW
                                         </button>
                                     </a>

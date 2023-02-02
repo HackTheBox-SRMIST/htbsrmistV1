@@ -74,3 +74,14 @@ body {
 .pcontainer:hover .hidebtn {
     display: block;
 }
+
+
+button:disabled{
+    cursor : not-allowed;
+    background-color: #cccccc;
+}
+
+button:disabled:hover{
+    background-color: #cccccc;
+    color : white;
+}
