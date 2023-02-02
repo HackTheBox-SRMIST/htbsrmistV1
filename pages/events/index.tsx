@@ -73,6 +73,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                     >
                                         Register
                                     </button>
+                                    {/* edit  */}
                                 </a>
                             </div>
                         </div>
