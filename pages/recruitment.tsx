@@ -51,8 +51,8 @@ const Recruitment: NextPage = () => {
                     />
                 </div>
             </div>
-            <div className="flex justify-around text-white font-Montserrat mb-16">
-                <div className="text-center lg:text-left -ml-32">
+            <div className="flex justify-start w-4/5 mx-auto text-white font-Montserrat mb-16">
+                <div className="text-center lg:text-left">
                     <p className="mt-8 max-w-lg text-2xl">
                         <br />
                         <p className="text-htb-green text-4xl font-black">
@@ -79,7 +79,6 @@ const Recruitment: NextPage = () => {
                         <Script src="//embed.typeform.com/next/embed.js" />
                     </div>
                 </div>
-                <div></div>
             </div>
         </>
     );
