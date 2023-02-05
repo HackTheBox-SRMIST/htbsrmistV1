@@ -48,7 +48,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const event = events.find((event) => event_id);
     return (
         <>
-            <div className="flex-col  lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
+            <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
@@ -61,7 +61,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </p>
                         </div>
                         <div className="">
-                            <div className="rounded-3xl pl-10 sm:pl-0  bg-node-black">
+                            <div className="rounded-3xl bg-node-black">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                                         <span className="w-8">
@@ -133,7 +133,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
                     <div className="lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform px-2">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
-                        <figure className="ml-8 mb-8 ">
+                        <figure className="mb-8 ">
                             <img
                                 src={event?.poster_url}
                                 alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
@@ -144,13 +144,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="flex-col  mt-20 mx-10 px-4 sm:px-20 ">
+            <div className="flex-col  mt-20 px-4 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Speakers
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl w-80 sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
@@ -173,13 +173,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col mx-10 px-4 sm:px-20">
+            <div className="mt-10 flex-col px-4 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Prerequisites
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl w-80 sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4  break-keep text-xl">
                         <h2 className="text-2xl font-bold">
                             Prerequisites for the Hands-on Workshop:-
