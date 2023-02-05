@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
 import EntryFees from "../../utils/icons/EntryFees";
 import DateLogo from "../../utils/icons/DateLogo";
+import { array } from "yup";
 
 interface EventProps {
     event_name: string;
@@ -36,6 +37,7 @@ interface EventProps {
     duration: Number;
     prerequisites: string;
     cost: number;
+    gallery:[];
     registration_url: string;
 }
 
@@ -207,15 +209,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             </div>
             
             <div className="Events_Gallery">
-            
-            <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50 ">Posts</p> 
-            <Posts />
+            <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50 ">Gallery</p> 
+            <Posts gallery = {event?.gallery || ["https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"]} />
             </div>
         </>
     );
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root = "https://staging01xb.htbsrmist.tech";
 
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
