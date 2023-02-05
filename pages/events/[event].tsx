@@ -4,6 +4,7 @@ import Head from "next/head";
 import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
+import Posts from "../../components/Posts";
 import React from "react";
 
 import { useRouter } from "next/router";
@@ -203,6 +204,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </ul>
                     </p>
                 </div>
+            </div>
+            
+            <div className="Events_Gallery">
+            
+            <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50 ">Posts</p> 
+            <Posts />
             </div>
         </>
     );
