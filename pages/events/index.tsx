@@ -57,9 +57,9 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                     alt={`HackTheBox SRMIST - ${event.event_name}`}
                                 />
                             </figure>
-                            <div className="hidebtn lg:top-52 lg:flex-row sm:flex-col md:px-2 md:top-10 sm:top-20 sm:px-20 lg:px-5 mx-[25%] mt-[50%]">
+                            <div className="hidebtn lg:top-52 md:px-2 md:top-10 sm:top-20 sm:px-20 lg:px-5 md:mx-[25%] md:mt-[50%] mx-auto -mt-[20%] w-full">
                                 <a href={`/events/${event.event_name}`}>
-                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 mr-6 rounded-full">
+                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[5%] md:ml-[0%]">
                                         Learn More
                                     </button>
                                 </a>
@@ -68,7 +68,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                     target="_blank"
                                 >
                                     <button
-                                        className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full"
+                                        className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
                                         disabled={!event.is_active}
                                     >
                                         Register

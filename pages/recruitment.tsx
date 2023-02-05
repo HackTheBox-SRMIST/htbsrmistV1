@@ -3,14 +3,14 @@ import Script from "next/script";
 const Recruitment: NextPage = () => {
     return (
         <>
-            <div className="flex justify-around">
+            <div className="flex md:flex-row flex-col md:justify-around w-4/5 mx-auto  md:w-full">
                 <div className=" text-white font-Montserrat gap-8 mb-16">
                     <h1 className="text-6xl lg:text-7xl font-bold text-htb-green">
                         We're hiring!
                     </h1>
                     <div className="mt-8 max-w-lg text-2xl">
                         <div>
-                            <p className="text-htb-green text-4xl font-black">
+                            <p className="text-htb-green text-3xl md:text-4xl font-black">
                                 RECRUITMENT '23
                             </p>
                             <p>
@@ -30,7 +30,7 @@ const Recruitment: NextPage = () => {
                             </p>
                             <br />
                         </div>
-                        <div className="mb-2">
+                        <div className="mb-2 flex justify-center md:justify-start">
                             <button
                                 data-tf-popup="ONxYHH68"
                                 data-tf-iframe-props="title=RECRUITMENT_23"
@@ -55,10 +55,10 @@ const Recruitment: NextPage = () => {
                 <div className="text-center lg:text-left">
                     <p className="mt-8 max-w-lg text-2xl">
                         <br />
-                        <p className="text-htb-green text-4xl font-black">
+                        <p className="text-htb-green text-3xl md:text-4xl font-black">
                             RECRUITMENT '22
                         </p>
-                        <p className="text-htb-green font-bold">
+                        <p className="text-htb-green font-bold my-3">
                             Registrations are closed.
                         </p>
                         We will contact the applicants via emails. And will post
