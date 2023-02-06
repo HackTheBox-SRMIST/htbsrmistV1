@@ -208,7 +208,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             </div>
             
             <div className="Events_Gallery">
-            <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50 ">Gallery</p> 
+            <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">Gallery</p> 
             <Posts gallery = {event?.gallery || ["https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"]} />
             </div>
         </>
