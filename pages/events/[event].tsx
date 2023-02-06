@@ -50,14 +50,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const event = events.find((event) => event_id);
     return (
         <>
-            <div className="flex-col  lg:mx-20 mx-auto lg:px-10 items-center justify-between pr-8 md:pr-0 font-mono">
+            <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pl-10 sm:pl-0  md:mt-10 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white sm:text-xl mt-4 text-center md:text-left text-sm ">
+                            <p className="text-white sm:text-xl mt-10 sm:mt-4 text-center md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
@@ -122,7 +122,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         className=""
                                     >
                                         <button
-                                            className="bg-htb-green px-3 py-3 font-semibold rounded-md inline-block mt-2"
+                                            className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                             disabled={!event?.is_active}
                                         >
                                             REGISTER NOW
@@ -133,9 +133,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="lg:w-2/4 w-full  lg:mx-0 mx-auto transform px-2">
+                    <div className="lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform px-2">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
-                        <figure className="ml-8 mb-8 ">
+                        <figure className="mb-8 ">
                             <img
                                 src={event?.poster_url}
                                 alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
@@ -146,13 +146,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="flex-col mx-10 px-20">
+            <div className="flex-col  mt-20 px-4 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Speakers
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
@@ -175,14 +175,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col mx-10 px-20">
+            <div className="mt-10 flex-col px-4 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Prerequisites
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl bg-node-black border-4 border-htb-green/50 mb-10">
-                    <p className="text-white mt-4 text-justify text-xl">
+                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                    <p className="text-white mt-4  break-keep text-xl">
                         <h2 className="text-2xl font-bold">
                             Prerequisites for the Hands-on Workshop:-
                         </h2>
