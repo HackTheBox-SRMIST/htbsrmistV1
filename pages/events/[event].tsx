@@ -4,12 +4,13 @@ import Head from "next/head";
 import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
-import React from "react";
+import Posts from "../../components/Posts";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
 import EntryFees from "../../utils/icons/EntryFees";
 import DateLogo from "../../utils/icons/DateLogo";
+import { array } from "yup";
 
 interface EventProps {
     event_name: string;
@@ -35,6 +36,7 @@ interface EventProps {
     duration: Number;
     prerequisites: string;
     cost: number;
+    gallery:["https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"];
     registration_url: string;
 }
 
@@ -204,11 +206,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </p>
                 </div>
             </div>
+            
+            <div className="Events_Gallery">
+            <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">Gallery</p> 
+            <Posts gallery = {event?.gallery || ["https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"]} />
+            </div>
         </>
     );
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root = "https://staging01xb.htbsrmist.tech";
 
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
@@ -217,6 +224,7 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events?active=false`)
         ).json();
+        
 
         return { props: { events } };
     } catch (error) {
