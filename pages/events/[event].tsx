@@ -5,7 +5,6 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
-import React from "react";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -37,7 +36,7 @@ interface EventProps {
     duration: Number;
     prerequisites: string;
     cost: number;
-    gallery:[];
+    gallery:["https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"];
     registration_url: string;
 }
 
@@ -225,6 +224,7 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events?active=false`)
         ).json();
+        
 
         return { props: { events } };
     } catch (error) {
