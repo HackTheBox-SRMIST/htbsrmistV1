@@ -47,18 +47,18 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                     {events.map((event) => (
                         <div
                             key={event.event_name}
-                            className="pcontainer hover:cursor-pointer rounded-xl transition-all"
+                            className="pcontainer  hover:cursor-pointer rounded-xl transition-all  relative"
                         >
-                            <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm">
+                            <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm z-10">
                                 <img
                                     src={event.poster_url}
                                     className="h-691 w-864 mx-auto  border-4 border-htb-green/50 object-cover"
                                     alt={`HackTheBox SRMIST - ${event.event_name}`}
                                 />
                             </figure>
-                            <div className="hidebtn lg:top-52 md:px-2 md:top-10 sm:top-20 sm:px-20 lg:px-5 md:mx-[25%] md:mt-[50%] mx-auto -mt-[20%] w-full">
+                            <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%]  md:top-[80%] w-full md:left-[30%] ">
                                 <a href={`/events/${event.event_name}`}>
-                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[5%] md:ml-[0%]">
+                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
                                         Learn More
                                     </button>
                                 </a>

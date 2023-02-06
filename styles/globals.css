@@ -62,29 +62,29 @@ body {
     left: 150px;
 }
 
-.pcontainer {
+/* .pcontainer {
     position: relative;
 }
 
 .hidebtn {
     position: absolute;
     display: none;
-}
+} */
 
 .pcontainer:hover .hidebtn {
     display: block;
 }
 
-
-button:disabled{
-    cursor : not-allowed;
+button:disabled {
+    cursor: not-allowed;
     background-color: #cccccc;
 }
 
-button:disabled:hover{
+button:disabled:hover {
     background-color: #cccccc;
-    color : white;
+    color: white;
 }
+
 
 .Events_Gallery{
     text-align: center;
@@ -92,4 +92,3 @@ button:disabled:hover{
     width: 90%;
     margin-left: 5em;
 }
-
