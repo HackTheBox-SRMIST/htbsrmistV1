@@ -1,14 +1,16 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
-
-import LinkedInLogo from "../utils/icons/LinkedInLogo";
-import GithubLogo from "../utils/icons/GithubLogo";
-import TwitterLogo from "../utils/icons/TwitterLogo";
-import WebsiteLinkIcon from "../utils/icons/WebsiteLinkIcon";
+import axios, { isCancel, AxiosError } from "axios";
+import Member from "../components/teams/member";
+import Roles from "../components/teams/roles";
+import { useState } from "react";
+import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 
 interface MemberProps {
     pictureUrl: string | undefined;
     name: string;
     caption: string;
+    position: string;
+    domain: string;
     socials: {
         linkedin: string | "";
         github: string | "";
@@ -21,79 +23,129 @@ interface TeamPageProps {
     members: MemberProps[];
 }
 
+const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
+    "Development",
+    "Creatives",
+    "Security",
+    "Corporate"
+];
+
+const hierarchy = [
+    { role: "Faculty Convenor", name: "Mainframe" },
+    { role: "Co-Organizers", name: "Kernel" },
+    { role: "Admins", name: "Root" }
+    // { role: "Sudoers", name: "Leads" },
+    // { role: "Sticky Bits", name: "Associates" },
+];
+
 const Team: NextPage<TeamPageProps> = ({ members }) => {
+    const [activeDomain, changeDomain] = useState<
+        "Development" | "Creatives" | "Corporate" | "Security"
+    >("Development");
+
+    const Creatives = members.filter(
+        (el) => el.domain === "Creatives" && el.position === "Binary"
+    );
+
+    const Development = members.filter(
+        (el) => el.domain === "Development" && el.position === "Binary"
+    );
+
+    const Corporate = members.filter(
+        (el) => el.domain === "Corporate" && el.position === "Binary"
+    );
+
+    const Security = members.filter(
+        (el) => el.domain === "Cyber Security" && el.position === "Binary"
+    );
+
+    const binaries = {
+        Creatives,
+        Development,
+        Corporate,
+        Security
+    };
+
+    const prevDomainChangeHandler = () => {
+        const curr = domains.indexOf(activeDomain);
+        const prev: "Development" | "Creatives" | "Corporate" | "Security" =
+            domains[curr === 0 ? 3 : curr - 1];
+        changeDomain(prev);
+    };
+
+    const nextDomainChangeHandler = () => {
+        const curr = domains.indexOf(activeDomain);
+        const next = domains[curr === 3 ? 0 : curr + 1];
+        changeDomain(next);
+    };
+
     return (
-        <section className="w-full min-h-fit bg-none ">
-            <h1 className="text-4xl mx-10 lg:mx-20 md:text-6xl text-white font-bold md:ml-16 uppercase">
-                Our Team
-            </h1>
+        <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
+            <img src="./team.svg" className="h-20" />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                {members.map((member) => (
-                    <div
-                        key={member.name}
-                        className="hover:bg-hacker-grey hover:bg-opacity-70 rounded-xl p-4 transition-all"
-                    >
-                        <figure className="flex flex-col md:p-0 items-center">
-                            <img
-                                className="w-40 h-40 rounded-full mx-auto mt-4 border-4 border-htb-green object-cover"
-                                src={member.pictureUrl}
-                                alt={`HackTheBox SRMIST - ${member.name}`}
+            <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
+                {hierarchy.map((el) => {
+                    const domainMembers = members.filter(
+                        (mem) => mem.position === el.name
+                    );
+                    return (
+                        <div key={el.role} className="py-12 w-[65%]">
+                            <Roles
+                                role={el.role}
+                                name={el.name}
+                                key={el.role}
                             />
-                        </figure>
-
-                        <p className="transition-all text-center text-white text-2xl font-bold hover:text-htb-green mt-4">
-                            {member.name}
-                        </p>
-
-                        <p className="font-medium text-white text-center break-all mt-3 inline-flex gap-2  w-full justify-center font-mono">
-                           <p className="text-htb-green font-bold text-3xl -mt-2 ">#</p> {member.caption}
-                        </p>
-
-                        <div className="flex justify-center space-x-8 mt-8">
-                            {member.socials.linkedin && (
-                                <a
-                                    href={member.socials.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="rounded-full opacity-60 hover:opacity-100"
-                                >
-                                    <LinkedInLogo />
-                                </a>
-                            )}
-                            {member.socials.github && (
-                                <a
-                                    href={member.socials.github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="rounded-full opacity-60 hover:opacity-100"
-                                >
-                                    <GithubLogo />
-                                </a>
-                            )}
-                            {member.socials.twitter && (
-                                <a
-                                    href={member.socials.twitter}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="rounded-full opacity-60 hover:opacity-100"
-                                >
-                                    <TwitterLogo />
-                                </a>
-                            )}
-                            {member.socials.website && (
-                                <a
-                                    href={member.socials.website}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="rounded-full opacity-60 hover:opacity-100 mt-1"
-                                >
-                                    <WebsiteLinkIcon />
-                                </a>
-                            )}
+                            <div className="flex justify-center items-center flex-wrap gap-5">
+                                {domainMembers.map((mem) => {
+                                    return (
+                                        <Member
+                                            key={mem.name}
+                                            name={mem.name}
+                                            image={mem.pictureUrl}
+                                            position={mem.position}
+                                            caption={mem.caption}
+                                            domain={mem.domain}
+                                            socials={mem.socials}
+                                        />
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
+
+                <Roles role="Members" name="Binary" />
+
+                <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
+                    <button
+                        onClick={prevDomainChangeHandler}
+                        className="text-htb-green bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
+                    >
+                        <GrLinkPrevious />
+                    </button>
+                    <span className="">{activeDomain}</span>
+                    <button
+                        onClick={nextDomainChangeHandler}
+                        className="bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
+                    >
+                        <GrLinkNext />
+                    </button>
+                </div>
+                <div className="flex justify-center items-center flex-wrap">
+                    {binaries[activeDomain].map((mem: MemberProps) => {
+                        return (
+                            <Member
+                                key={mem.name}
+                                name={mem.name}
+                                image={mem.pictureUrl}
+                                position={mem.position}
+                                caption={mem.caption}
+                                domain={mem.domain}
+                                socials={mem.socials}
+                            />
+                        );
+                    })}
+                </div>
             </div>
         </section>
     );
@@ -105,10 +157,8 @@ export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<TeamPageProps>
 > {
     try {
-        const { data: members } = await (
-            await fetch(`${url_root}/api/v1/teams/?current=true`)
-        ).json();
-
+        const data = await axios.get(`${url_root}/api/v1/teams/?current=true`);
+        const members: MemberProps[] = data.data.data;
         return { props: { members } };
     } catch (error) {
         console.log(error);

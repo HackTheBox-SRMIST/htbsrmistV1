@@ -50,3 +50,45 @@ body {
 .btninactive {
     background-color: #4b5563;
 }
+
+.container {
+    position: relative;
+}
+
+.center-button {
+    margin: 0;
+    position: absolute;
+    justify-content: center;
+    left: 150px;
+}
+
+/* .pcontainer {
+    position: relative;
+}
+
+.hidebtn {
+    position: absolute;
+    display: none;
+} */
+
+.pcontainer:hover .hidebtn {
+    display: block;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: #cccccc;
+}
+
+button:disabled:hover {
+    background-color: #cccccc;
+    color: white;
+}
+
+
+.Events_Gallery{
+    text-align: center;
+    position: relative;
+    width: 90%;
+    margin-left: 5em;
+}
