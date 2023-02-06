@@ -84,3 +84,11 @@ button:disabled:hover {
     background-color: #cccccc;
     color: white;
 }
+
+
+.Events_Gallery{
+    text-align: center;
+    position: relative;
+    width: 90%;
+    margin-left: 5em;
+}
