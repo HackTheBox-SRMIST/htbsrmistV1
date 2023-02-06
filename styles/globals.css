@@ -88,7 +88,8 @@ button:disabled:hover{
 
 .Events_Gallery{
     text-align: center;
-    position:relative;
-    left:8.2%;
-    width:90%;
+    position: relative;
+    width: 90%;
+    margin-left: 5em;
 }
+
