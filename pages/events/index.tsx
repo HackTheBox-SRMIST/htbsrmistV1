@@ -89,7 +89,7 @@ export async function getServerSideProps(): Promise<
 > {
     try {
         const { data: events } = await (
-            await fetch(`${url_root}/api/v1/events?active=false`)
+            await fetch(`${url_root}/api/v1/events`)
         ).json();
         //console.log(events);
         return { props: { events } };
