@@ -82,7 +82,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-const url_root = "https://staging01xb.htbsrmist.tech";
+const url_root = process.env.BASE_URL_PREVIEW;
 
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
@@ -91,7 +91,7 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events?active=false`)
         ).json();
-        console.log(events)
+        //console.log(events);
         return { props: { events } };
     } catch (error) {
         console.log(error);
