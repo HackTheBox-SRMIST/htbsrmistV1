@@ -7,16 +7,20 @@ const Posts = (gallery: any) => {
         <div className=" mb-4 lg:mb-0 w-[100%] ">
             <Marquee
                 duration={10000}
-                height="320px"
+                height="390px"
                 background="rgba(0,0,0,0.5)"
                 width="100%"
-                className="rounded-3xl backdrop-blur-md "
+                className="rounded-3xl backdrop-blur-[2px] "
             >
                 {gallery.gallery.map((post: any) => {
                     console.log(post);
 
                     return (
-                        <img src={post} alt="post" className="px-2 h-72 w-96" />
+                        <img
+                            src={post}
+                            alt="post"
+                            className="rounded-xl mx-2 h-72 w-96"
+                        />
                     );
                 })}
             </Marquee>
