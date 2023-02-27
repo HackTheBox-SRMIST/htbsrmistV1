@@ -209,7 +209,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery">
+            <div className="Events_Gallery w-full">
                 <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
@@ -241,5 +241,11 @@ export async function getServerSideProps(): Promise<
         return { notFound: true };
     }
 }
-
+// export async function getStaticPaths() {
+//     const paths = getAllPostIds();
+//     return {
+//         paths,
+//         fallback: false
+//     };
+// }
 export default Event;

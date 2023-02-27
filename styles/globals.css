@@ -85,10 +85,9 @@ button:disabled:hover {
     color: white;
 }
 
-
-.Events_Gallery{
+.Events_Gallery {
     text-align: center;
     position: relative;
     width: 90%;
-    margin-left: 5em;
+    margin: auto;
 }
