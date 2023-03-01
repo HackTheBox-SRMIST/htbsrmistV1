@@ -1,4 +1,7 @@
 import Marquee from "react-easy-marquee";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const Posts = (gallery:any) => {
     const post = ["../../public/revealed_post.png",];

@@ -5,6 +5,9 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -213,13 +216,24 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
-                <Posts
+                {/* <Posts
                     gallery={
                         event?.gallery || [
                             "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
                         ]
                     }
-                />
+                /> */}
+                <Slider>
+                    {event?.gallery?.map((image) => (
+                        <div key={image}>
+                        <img src={image} alt="Gallery" style ={{width: "50%",
+                                                                height: "50%",
+                                                                objectFit: "contain",
+                                                                borderRadius: "8px",
+                                                                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",}} />
+                        </div>
+                            ))}
+                </Slider>
             </div>
         </>
     );
