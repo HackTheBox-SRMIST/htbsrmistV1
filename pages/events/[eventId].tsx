@@ -1,16 +1,10 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
-import Link from "next/link";
-import Head from "next/head";
-import Nav from "../../components/navbar";
-import Footer from "../../components/footer";
-import Image from "next/image";
 import Posts from "../../components/Posts";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
 import EntryFees from "../../utils/icons/EntryFees";
 import DateLogo from "../../utils/icons/DateLogo";
-import { array } from "yup";
 
 interface EventProps {
     event_name: string;
@@ -48,8 +42,10 @@ interface EventsPageProps {
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
-    const event_id = router.query.event;
-    const event = events.find((event) => event_id);
+    const eventId = router.query.eventId as string;
+    console.log(eventId);
+    const event = events.find((event) => event.event_name === eventId);
+    console.log(event);
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
@@ -234,7 +230,7 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
         ).json();
-
+        //console.log(events);
         return { props: { events } };
     } catch (error) {
         console.log(error);
