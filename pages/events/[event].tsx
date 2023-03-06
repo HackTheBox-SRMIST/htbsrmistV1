@@ -5,6 +5,8 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
+import { Modal } from "@nextui-org/react";
+import CertificatePopup from "./popup";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -147,7 +149,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </div>
                 </div>
             </div>
-
+            <div className="flex justify-center">
+                <CertificatePopup />
+            </div>
             <div className="flex-col  mt-20 px-4 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
@@ -209,8 +213,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery">
-                <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
+            <div className="Events_Gallery flex-col">
+                <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50">
                     Gallery
                 </p>
                 <Posts
