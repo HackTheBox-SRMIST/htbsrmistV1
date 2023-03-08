@@ -1,12 +1,21 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
+import React from "react";
+import {
+    Modal,
+    Button,
+    Text,
+    Input,
+    Row,
+    Checkbox,
+    css
+} from "@nextui-org/react";
+
 import Link from "next/link";
 import Head from "next/head";
 import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
-import { Modal } from "@nextui-org/react";
-import CertificatePopup from "./popup";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -48,7 +57,15 @@ interface EventsPageProps {
     events: EventProps[];
 }
 
+const fetchCertificate = () => {};
+
 const Event: NextPage<EventsPageProps> = ({ events }) => {
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => setVisible(true);
+
+    const closeHandler = () => {
+        setVisible(false);
+    };
     const router = useRouter();
     const event_id = router.query.event;
     const event = events.find((event) => event_id);
@@ -118,7 +135,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex items-center justify-center ">
+                                <div className="flex flex-col items-center justify-evenly md:flex-row ">
                                     <a
                                         href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
                                         target="_blank"
@@ -132,6 +149,44 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             REGISTER NOW
                                         </button>
                                     </a>
+                                    <div>
+                                        <button
+                                            onClick={handler}
+                                            disabled={event?.is_active}
+                                            className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6"
+                                        >
+                                            Get your Certificate
+                                        </button>
+
+                                        <Modal
+                                            className="bg-htb-green"
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={visible}
+                                            onClose={closeHandler}
+                                        >
+                                            <Modal.Body>
+                                                <p>
+                                                    Please enter your registered
+                                                    E-Mail
+                                                </p>
+                                                <Input
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Email"
+                                                />
+                                                <button
+                                                    onClick={fetchCertificate}
+                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full p-8 text-xl"
+                                                >
+                                                    Get your Certificate
+                                                </button>
+                                            </Modal.Body>
+                                        </Modal>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -149,9 +204,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center">
-                <CertificatePopup />
-            </div>
+            <div className="flex justify-center"></div>
             <div className="flex-col  mt-20 px-4 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
