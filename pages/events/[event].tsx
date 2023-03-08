@@ -53,6 +53,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const event_id = router.query.event;
     const event = events.find((event) => event_id);
+    const settings = {
+        className: "center",
+        centerMode: true,
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 3,
+        speed: 500,
+      };
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
@@ -223,11 +231,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         ]
                     }
                 /> */}
-                <Slider>
+                <Slider {...settings}>
                     {event?.gallery?.map((image) => (
                         <div key={image}>
-                        <img src={image} alt="Gallery" style ={{width: "50%",
-                                                                height: "50%",
+                        <img src={image} alt="Gallery" style ={{width: "100%",
+                                                                height: "100%%",
                                                                 objectFit: "contain",
                                                                 borderRadius: "8px",
                                                                 boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",}} />
