@@ -16,6 +16,9 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -69,6 +72,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const event_id = router.query.event;
     const event = events.find((event) => event_id);
+    const settings = {
+        className: "center",
+        centerMode: true,
+        infinite: true,
+        centerPadding: "60px",
+        slidesToShow: 3,
+        speed: 500,
+      };
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
@@ -270,13 +281,24 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50">
                     Gallery
                 </p>
-                <Posts
+                {/* <Posts
                     gallery={
                         event?.gallery || [
                             "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
                         ]
                     }
-                />
+                /> */}
+                <Slider {...settings}>
+                    {event?.gallery?.map((image) => (
+                        <div key={image}>
+                        <img src={image} alt="Gallery" style ={{width: "100%",
+                                                                height: "100%%",
+                                                                objectFit: "contain",
+                                                                borderRadius: "8px",
+                                                                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",}} />
+                        </div>
+                            ))}
+                </Slider>
             </div>
         </>
     );
