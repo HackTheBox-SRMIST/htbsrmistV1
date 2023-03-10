@@ -59,13 +59,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             <h1 className="text-white text-3xl pl-10 sm:pl-0  md:mt-10 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white sm:text-xl mt-10 sm:mt-4 text-center md:text-left text-sm ">
+                            <p className="text-white ml-8 sm:text-xl mt-52 sm:mt-4 pr-8text-center md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
                         </div>
                         <div className="">
-                            <div className="rounded-3xl bg-node-black">
+                            <div className="rounded-3xl pl-8 sm:px-0 bg-node-black">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                                         <span className="w-8">
@@ -135,7 +135,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform px-2">
+                    <div className="mb-4 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-8 ">
                             <img
@@ -148,7 +148,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="flex-col  mt-20 px-4 sm:px-20 ">
+            <div className="flex-col  mt-20 pt-8 pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Speakers
@@ -177,7 +177,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col px-4 sm:px-20">
+            <div className="mt-10 flex-col pl-10 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Prerequisites
@@ -210,7 +210,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             </div>
 
             <div className="Events_Gallery">
-                <p className="font-bold pl-4 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
+                <p className="font-bold sm:pl-4 pr-8 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
                 <Posts
