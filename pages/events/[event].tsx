@@ -148,7 +148,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="flex-col  mt-20 pt-8 pl-10 sm:px-20 ">
+            <div className="flex-col  mt-40 pt-8 pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
                         Speakers
