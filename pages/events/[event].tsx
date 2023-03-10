@@ -56,10 +56,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white ml-8 text-3xl pl-10 sm:pl-0  md:mt-10 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pt-52 sm:pt-0 sm:ml-8 pl-10 sm:pl-0  md:mt-10 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white ml-8 sm:text-xl mt-52 sm:mt-4 pr-8text-center md:text-left text-sm ">
+                            <p className="text-white ml-8 break-all pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
@@ -135,7 +135,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="mb-4 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
+                    <div className="mb-14 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-8 ">
                             <img
