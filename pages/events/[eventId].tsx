@@ -230,7 +230,6 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
         ).json();
-        //console.log(events);
         return { props: { events } };
     } catch (error) {
         console.log(error);
