@@ -8,9 +8,9 @@ import { FaDiscord } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 const Footer = () => {
     return (
-        <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
-            <div className="py-2 text-center lg:text-left">
-                <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
+        <footer className="m-4 sm:m-0 text-center  text-[#5B8E23] lg:text-left w-full bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
+            <div className="py-2 text-center lg:text-left ">
+                <div className="grid grid-1 lg:grid-cols-8  gap-4 justify-items-center lg:justify-items-stretch ">
                     <div className="mx-auto mt-1 col-start-1 hidden lg:block pt-8">
                         <Logo />
                     </div>
