@@ -16,9 +16,9 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import Image from "next/image";
 import Posts from "../../components/Posts";
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
@@ -78,24 +78,24 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         infinite: true,
         centerPadding: "60px",
         slidesToShow: 3,
-        speed: 500,
-      };
+        speed: 500
+    };
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl pl-10 sm:pl-0  md:mt-10 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pt-56 sm:pt-0 sm:ml-8 pl-10 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white sm:text-xl mt-10 sm:mt-4 text-center md:text-left text-sm ">
+                            <p className="text-white pl-10 sm:pl-0 ml-8 break-words sm:break-normal  pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
                         </div>
                         <div className="">
-                            <div className="rounded-3xl bg-node-black">
+                            <div className="rounded-3xl pl-16 sm:pl-0 sm:px-0 bg-node-black">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                                         <span className="w-8">
@@ -203,7 +203,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform px-2">
+                    <div className="mb-14 ml-4 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-8 ">
                             <img
@@ -216,13 +216,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
             <div className="flex justify-center"></div>
-            <div className="flex-col  mt-20 px-4 sm:px-20 ">
+            <div className="flex-col  mt-40 pt-8 pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
+                    <h1 className="text-white text-3xl pl-6 mt-44 sm:text-5xl  font-semibold">
                         Speakers
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 ml-2 sm:ml-0 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
@@ -245,13 +245,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col px-4 sm:px-20">
+            <div className="mt-10 flex-col pl-10 sm:px-20">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl sm:text-5xl  font-semibold">
+                    <h1 className="text-white text-3xl pl-6 sm:pl-6 sm:text-5xl  font-semibold">
                         Prerequisites
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl ml-2 sm:ml-0 w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4  break-keep text-xl">
                         <h2 className="text-2xl font-bold">
                             Prerequisites for the Hands-on Workshop:-
@@ -278,7 +278,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             </div>
 
             <div className="Events_Gallery flex-col">
-                <p className="font-bold mt-6 mb-4 text-4xl uppercase text-teal-50">
+                <p className="font-bold sm:pl-4 pr-8 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
                 {/* <Posts
@@ -291,13 +291,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <Slider {...settings}>
                     {event?.gallery?.map((image) => (
                         <div key={image}>
-                        <img src={image} alt="Gallery" style ={{width: "100%",
-                                                                height: "100%%",
-                                                                objectFit: "contain",
-                                                                borderRadius: "8px",
-                                                                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",}} />
+                            <img
+                                src={image}
+                                alt="Gallery"
+                                style={{
+                                    width: "100%",
+                                    height: "100%%",
+                                    objectFit: "contain",
+                                    borderRadius: "8px",
+                                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)"
+                                }}
+                            />
                         </div>
-                            ))}
+                    ))}
                 </Slider>
             </div>
         </>
