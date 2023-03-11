@@ -109,7 +109,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl pt-44 sm:pt-0 sm:ml-8 pl-10 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pt-44 sm:pt-0 sm:ml-10 pl-14 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
                             <p className="text-white pl-10 sm:pl-0 ml-8 break-words sm:break-normal  pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
@@ -241,7 +241,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             <div className="flex justify-center"></div>
             <div className="flex-col  mt-40 pt-8 pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl pl-6 mt-44 sm:text-5xl  font-semibold">
+                    <h1 className="text-white text-3xl pl-4 mt-32 sm:text-5xl  font-bold">
                         Speakers
                     </h1>
                 </div>
@@ -270,7 +270,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
             <div className="mt-10 flex-col pl-10 sm:px-20">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl pl-6 sm:pl-6 sm:text-5xl  font-semibold">
+                    <h1 className="text-white text-3xl pl-6 sm:pl-6 sm:text-5xl  font-bold">
                         Prerequisites
                     </h1>
                 </div>
@@ -300,11 +300,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery pl-6 sm:pl-0 pr-20 sm:pr-0 flex-col">
-                <p className="font-bold sm:ml-20 pl-10 sm:pl-4 pr-8 mt-4 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
+            <div className="Events_Gallery pt-4 sm:pt-0 pl-6 sm:pl-0 pr-20 sm:pr-0 flex-col">
+                <p className="font-bold sm:ml-20 pl-10 sm:pl-4 pr-8  mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
-                <div className="pt-4 sm:pt-0 mr-2 sm:mr-0 w-full">
+                <div className="pt-4 sm:pt-6 mr-2 sm:mr-0 w-full">
                     <Slider {...settings}>
                         {event?.gallery?.map((image) => (
                             <div key={image}>
