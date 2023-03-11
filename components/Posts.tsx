@@ -7,7 +7,7 @@ const Posts = (gallery: any) => {
     const post = ["../../public/revealed_post.png"];
 
     return (
-        <div className=" mb-4 lg:mb-0 w-[100%] ">
+        <div className=" mb-4  lg:mb-0 w-[100%] ">
             <Marquee
                 duration={10000}
                 height="230px"

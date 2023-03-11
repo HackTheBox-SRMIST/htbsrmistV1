@@ -78,7 +78,30 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         infinite: true,
         centerPadding: "60px",
         slidesToShow: 3,
-        speed: 500
+        speed: 500,
+        responsive: [
+            {
+                breakpoint: 1024, // screens larger than 1024px
+                settings: {
+                    slidesToShow: 3,
+                    centerPadding: "50px"
+                }
+            },
+            {
+                breakpoint: 768, // screens between 768px and 1024px
+                settings: {
+                    slidesToShow: 2,
+                    centerPadding: "30px"
+                }
+            },
+            {
+                breakpoint: 480, // screens smaller than 768px
+                settings: {
+                    slidesToShow: 1,
+                    centerPadding: "10px"
+                }
+            }
+        ]
     };
     return (
         <>
@@ -86,7 +109,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl pt-56 sm:pt-0 sm:ml-8 pl-10 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pt-44 sm:pt-0 sm:ml-8 pl-10 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
                             <p className="text-white pl-10 sm:pl-0 ml-8 break-words sm:break-normal  pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
@@ -277,34 +300,30 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery flex-col">
-                <p className="font-bold sm:pl-4 pr-8 mt-6 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
+            <div className="Events_Gallery pl-6 sm:pl-0 pr-20 sm:pr-0 flex-col">
+                <p className="font-bold sm:ml-20 pl-10 sm:pl-4 pr-8 mt-4 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
-                {/* <Posts
-                    gallery={
-                        event?.gallery || [
-                            "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
-                        ]
-                    }
-                /> */}
-                <Slider {...settings}>
-                    {event?.gallery?.map((image) => (
-                        <div key={image}>
-                            <img
-                                src={image}
-                                alt="Gallery"
-                                style={{
-                                    width: "100%",
-                                    height: "100%%",
-                                    objectFit: "contain",
-                                    borderRadius: "8px",
-                                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)"
-                                }}
-                            />
-                        </div>
-                    ))}
-                </Slider>
+                <div className="pt-4 sm:pt-0 mr-2 sm:mr-0 w-full">
+                    <Slider {...settings}>
+                        {event?.gallery?.map((image) => (
+                            <div key={image}>
+                                <img
+                                    src={image}
+                                    alt="Gallery"
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                        objectFit: "contain",
+                                        borderRadius: "10px",
+                                        boxShadow:
+                                            "0px 0px 10px rgba(0, 0, 0, 0.3)"
+                                    }}
+                                />
+                            </div>
+                        ))}
+                    </Slider>
+                </div>
             </div>
         </>
     );
