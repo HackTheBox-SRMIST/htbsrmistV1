@@ -109,7 +109,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl pt-44 sm:pt-0 sm:ml-10 pl-14 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl pt-44 sm:pt-0 mr-6 sm:mr-0 sm:ml-10 pl-14 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
                             <p className="text-white pl-10 sm:pl-0 ml-8 break-words sm:break-normal  pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
@@ -214,7 +214,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                 />
                                                 <button
                                                     onClick={fetchCertificate}
-                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full p-8 text-xl"
+                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
                                                 >
                                                     Get your Certificate
                                                 </button>
@@ -226,7 +226,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="mb-14 ml-4 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
+                    <div className="mb-14 ml-2 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-8 ">
                             <img
@@ -241,11 +241,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             <div className="flex justify-center"></div>
             <div className="flex-col  mt-40 pt-8 pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl pl-4 mt-32 sm:text-5xl  font-bold">
+                    <h1 className="text-white text-3xl pl-2 sm:pl-4 mt-28 sm:text-5xl  font-bold">
                         Speakers
                     </h1>
                 </div>
-                <div className="p-5 ml-2 sm:ml-0 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 ml-1 sm:ml-0 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
@@ -270,11 +270,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
             <div className="mt-10 flex-col pl-10 sm:px-20">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl pl-6 sm:pl-6 sm:text-5xl  font-bold">
+                    <h1 className="text-white text-3xl pl-2 sm:pl-6 sm:text-5xl  font-bold">
                         Prerequisites
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl ml-2 sm:ml-0 w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl ml-1 sm:ml-0 w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4  break-keep text-xl">
                         <h2 className="text-2xl font-bold">
                             Prerequisites for the Hands-on Workshop:-
