@@ -60,29 +60,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         centerPadding: "60px",
         slidesToShow: 3,
         speed: 500,
-        responsive: [
-            {
-              breakpoint: 1024, // screens larger than 1024px
-              settings: {
-                slidesToShow: 3,
-                centerPadding: "60px",
-              },
-            },
-            {
-              breakpoint: 768, // screens between 768px and 1024px
-              settings: {
-                slidesToShow: 2,
-                centerPadding: "40px",
-              },
-            },
-            {
-              breakpoint: 480, // screens smaller than 768px
-              settings: {
-                slidesToShow: 1,
-                centerPadding: "20px",
-              },
-            },
-          ],
       };
     return (
         <>
