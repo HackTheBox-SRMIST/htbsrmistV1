@@ -54,7 +54,7 @@ const Nav = () => {
                 ))}
             </ul>
             {/* Mobile Hamburger Menu */}
-            <div className="md:hidden flex items-center absolute right-10 top-10">
+            <div className="md:hidden flex items-center absolute right-4  top-10">
                 <button
                     className="outline-none mobile-menu-button"
                     onClick={() => showMenu()}

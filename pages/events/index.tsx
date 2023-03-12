@@ -56,18 +56,17 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                     alt={`HackTheBox SRMIST - ${event.event_name}`}
                                 />
                             </figure>
-                            <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%]  md:top-[80%] w-full md:left-[30%] ">
-                                <a href={`/events/${event.event_name}`}>
-                                    <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
-                                        Learn More
-                                    </button>
-                                </a>
-                                <a
-                                    href={`${event.registration_url}`}
-                                    target="_blank"
-                                >
+                            <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%] md:top-[80%] w-full md:left-[30%] flex justify-center md:block md:hidden">
+                                <Link href={`/events/${event.event_name}`}>
+                                    <a>
+                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full text-sm">
+                                            Learn More
+                                        </button>
+                                    </a>
+                                </Link>
+                                <a href={`${event.registration_url}`} target="_blank">
                                     <button
-                                        className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
+                                        className="bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full text-sm"
                                         disabled={!event.is_active}
                                     >
                                         Register
@@ -91,7 +90,6 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
         ).json();
-        //console.log(events);
         return { props: { events } };
     } catch (error) {
         console.log(error);
