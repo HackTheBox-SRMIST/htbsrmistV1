@@ -109,16 +109,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl pt-44 sm:pt-0 mr-6 sm:mr-0 sm:ml-10 pl-14 sm:pl-0  mt-44 lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 mt-[450px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white pl-10 sm:pl-0 ml-8 break-words sm:break-normal  pt-4 sm:text-xl sm:mt-4 pr-8text-center md:text-left text-sm ">
+                            <p className="text-white sm:text-xl mt-6 text-justify ml-10 lg:ml-0 md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
                         </div>
                         <div className="">
-                            <div className="rounded-3xl pl-16 sm:pl-0 sm:px-0 bg-node-black">
+                            <div className="rounded-3xl ml-10 sm:ml-0 sm:px-0 bg-node-black">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2">
                                         <span className="w-8">
@@ -228,7 +228,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
                     <div className="mb-14 ml-2 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
-                        <figure className="mb-8 ">
+                        <figure className="mb-32 sm:mb-0 ">
                             <img
                                 src={event?.poster_url}
                                 alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
@@ -239,14 +239,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
             <div className="flex justify-center"></div>
-            <div className="flex-col  mt-40 pt-8 pl-10 sm:px-20 ">
+            <div className="flex-col  mt-80 sm:mt-0 ml-10 sm:px-20 ">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl pl-2 sm:pl-4 mt-28 sm:text-5xl  font-bold">
+                    <h1 className="text-white text-3xl ml-2 sm:ml-4 mt-28 sm:text-5xl  font-bold">
                         Speakers
                     </h1>
                 </div>
                 <div className="p-5 ml-1 sm:ml-0 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
-                    <p className="text-white mt-4 text-justify text-xl">
+                    <p className="text-white mt-2 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
                         <br />
@@ -300,11 +300,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery pt-4 sm:pt-0 pl-6 sm:pl-0 pr-20 sm:pr-0 flex-col">
-                <p className="font-bold sm:ml-20 pl-10 sm:pl-4 pr-8  mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
+            <div className="Events_Gallery mt-4 sm:mt-0 flex-col">
+                <p className="font-bold mr-8 sm:ml-32 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
-                <div className="pt-4 sm:pt-6 mr-2 sm:mr-0 w-full">
+                <div className="mt-8 sm:mt-6 pr-16 sm:pr-0 w-full">
                     <Slider {...settings}>
                         {event?.gallery?.map((image) => (
                             <div key={image}>
