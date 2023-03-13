@@ -170,7 +170,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             REGISTER NOW
                                         </button>
                                     </a>
-                                    <div>
+                                    {/* <div>
                                         <button
                                             onClick={handler}
                                             disabled={event?.is_active}
@@ -207,7 +207,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                 </button>
                                             </Modal.Body>
                                         </Modal>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
