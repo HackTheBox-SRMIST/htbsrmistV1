@@ -96,7 +96,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 mt-[450px] lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
                             <p className="text-white sm:text-xl mt-6 text-justify ml-10 lg:ml-0 md:text-left text-sm ">
@@ -105,9 +105,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </p>
                         </div>
                         <div className="">
-                            <div className="rounded-3xl ml-10 sm:ml-0 sm:px-0 bg-node-black">
+                            <div className="rounded-3xl ml-10 sm:ml-0 sm:px-0 bg-node-black ">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
-                                    <div className="flex justify-evenly md:flex-row flex-col space-y-2">
+                                    <div className="flex justify-evenly md:flex-row flex-col space-y-2 items-center">
                                         <span className="w-8">
                                             <LocationLogo />
                                         </span>
@@ -121,7 +121,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-evenly md:flex-row flex-col pl-2">
+                                    <div className="flex justify-evenly md:flex-row flex-col pl-2 items-center">
                                         <span className="w-8">
                                             <EntryFees />
                                         </span>
@@ -144,7 +144,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             })()}
                                         </div>
                                     </div>
-                                    <div className="flex justify-evenly md:flex-row flex-col pl-2 ">
+                                    <div className="flex justify-evenly md:flex-row flex-col pl-2 items-center">
                                         <span className="w-8">
                                             <DateLogo />
                                         </span>
@@ -213,7 +213,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="mb-14 ml-2 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-6  lg:mx-0 mx-auto transform pl-8">
+                    <div className="mb-14 ml-2 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-16 lg:mx-0 mx-auto transform pl-8">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-32 sm:mb-0 ">
                             <img
@@ -225,8 +225,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center"></div>
-            <div className="flex-col  mt-80 sm:mt-0 ml-10 sm:px-20 ">
+
+            <div className="mt-64 md:mt-0 flex-col justify-center  pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl ml-2 sm:ml-4 mt-28 sm:text-5xl  font-bold">
                         Speakers
@@ -255,7 +255,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col pl-10 sm:px-20">
+            <div className="mt-10 flex-col justify-center  pl-10 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl pl-2 sm:pl-6 sm:text-5xl  font-bold">
                         Prerequisites
