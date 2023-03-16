@@ -3,7 +3,11 @@ import { Certificates } from "../../../../utils/services/certificate.service";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const certificate = await Certificates(req.body.usn);
+        const certificate = await Certificates(
+            req.body.email,
+            req.body.event,
+            req.body.type
+        );
         res.status(200).json({
             certificate,
             usn: req.body.usn,
