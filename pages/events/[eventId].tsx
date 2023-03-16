@@ -1,5 +1,5 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Input } from "@nextui-org/react";
 
 import Slider from "react-slick";
@@ -10,8 +10,7 @@ import { useRouter } from "next/router";
 import LocationLogo from "../../utils/icons/LocationLogo";
 import EntryFees from "../../utils/icons/EntryFees";
 import DateLogo from "../../utils/icons/DateLogo";
-
-import { array } from "yup";
+import axios from "axios";
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -46,11 +45,21 @@ interface EventsPageProps {
     events: EventProps[];
 }
 
-const fetchCertificate = () => {};
+const url_root = process.env.BASE_URL_PREVIEW;
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
+    const [usn, setUsn] = useState("");
+    const [certificate, setCertificate] = useState();
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
+
+    const fetchCertificate = async () => {
+        const response = await axios.post(`/api/v1/certificate`, { usn });
+        setCertificate(response.data.certificate);
+        // const jsonRes = await response.json();
+
+        console.log(response);
+    };
 
     const closeHandler = () => {
         setVisible(false);
@@ -170,7 +179,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             REGISTER NOW
                                         </button>
                                     </a>
-                                    {/* <div>
+                                    <div>
                                         <button
                                             onClick={handler}
                                             disabled={event?.is_active}
@@ -185,6 +194,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             aria-labelledby="modal-title"
                                             open={visible}
                                             onClose={closeHandler}
+                                            onChange={(event: any) =>
+                                                setUsn(event.target.value)
+                                            }
                                         >
                                             <Modal.Body>
                                                 <p>
@@ -192,6 +204,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     E-Mail
                                                 </p>
                                                 <Input
+                                                    type="email"
                                                     clearable
                                                     bordered
                                                     fullWidth
@@ -199,15 +212,28 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     size="lg"
                                                     placeholder="Email"
                                                 />
-                                                <button
-                                                    onClick={fetchCertificate}
-                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
-                                                >
-                                                    Get your Certificate
-                                                </button>
+
+                                                {certificate ? (
+                                                    <a
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
+                                                        href={certificate}
+                                                        download="Certificate.png"
+                                                    >
+                                                        Download
+                                                    </a>
+                                                ) : (
+                                                    <button
+                                                        onClick={
+                                                            fetchCertificate
+                                                        }
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
+                                                    >
+                                                        Get your Certificate
+                                                    </button>
+                                                )}
                                             </Modal.Body>
                                         </Modal>
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -315,8 +341,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         </>
     );
 };
-
-const url_root = process.env.BASE_URL_PREVIEW;
 
 export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<EventsPageProps>
