@@ -19,7 +19,7 @@ export const ContactUs = async (
                 countryCode: value.countryCode,
                 contactNo: value.contactNo
             });
-            await snsPublisher(value);
+            //await snsPublisher(value);
         });
     // console.log(contactUsData);
 };
