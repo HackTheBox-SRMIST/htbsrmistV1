@@ -85,10 +85,29 @@ button:disabled:hover {
     color: white;
 }
 
-
-.Events_Gallery{
+.Events_Gallery {
     text-align: center;
     position: relative;
     width: 90%;
     margin-left: 5em;
+}
+img {
+    /* existing styles */
+
+    display: block; /* add this line to remove any extra whitespace around the image */
+    margin: auto; /* add this line to center the image horizontally within its cell */
+}
+.gallery {
+    display: grid;
+    grid-template-rows: repeat(5, 18vh);
+    grid-template-columns: repeat(2, 45vw);
+    transition: all 0.5s ease-in-out;
+    background-color: #82a6cb;
+    border-radius: 10px;
+    padding: 0.25em;
+    cursor: zoom-in;
+    justify-content: center; /* add this line to center the grid horizontally */
+    align-items: center; /* add this line to center the grid vertically */
+
+    /* media queries */
 }
