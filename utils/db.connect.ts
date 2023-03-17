@@ -1,4 +1,6 @@
 import { Db, Collection, MongoClient, MongoError } from "mongodb";
+require("dotenv-vault-core").config();
+//console.log(process.env); // remove this after you've confirmed it working
 
 // Singleton DBInstance Class
 export class DBInstance {
