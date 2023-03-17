@@ -26,38 +26,38 @@ const Member = (props: any) => {
                 {props.caption}
             </span>
             <span className="flex pt-5 gap-3">
-                {props.socials.linkedin ? (
+                {(props.socials.website !== undefined)?(props.socials.linkedin.length >6) ? (
                     <Social
                         link={props.socials.linkedin}
                         logo={socialIcons.linkedin}
                     />
                 ) : (
                     ""
-                )}
-                {props.socials.twitter ? (
+                ):""}
+                {(props.socials.website !== undefined)?(props.socials.twitter.length >6) ? (
                     <Social
                         link={props.socials.twitter}
                         logo={socialIcons.twitter}
                     />
                 ) : (
                     ""
-                )}
-                {props.socials.website ? (
+                ):""}
+                {(props.socials.website !== undefined)?(props.socials.website.length>6) ? (
                     <Social
                         link={props.socials.website}
                         logo={socialIcons.website}
                     />
                 ) : (
                     ""
-                )}
-                {props.socials.github ? (
+                ):""}
+                {(props.socials.website !== undefined)?(props.socials.github.length >6) ? (
                     <Social
                         link={props.socials.github}
                         logo={socialIcons.github}
                     />
                 ) : (
                     ""
-                )}
+                ):""}
             </span>
         </div>
     );
