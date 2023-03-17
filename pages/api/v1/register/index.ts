@@ -12,13 +12,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             await dbInstance.changeDatabase("htbsrmist");
             res.status(200).json({
                 success: true,
-                message: "✅ Data successfully Added!",
+                message: "✅ Successfully Added the user!",
                 data: data
             });
         } else {
             console.log("🚫", req.method, "was called and got error!!");
             res.status(405).json({
                 success: false,
+                data: null,
                 message: "🚫 HTTP Method not Allowed"
             });
         }
