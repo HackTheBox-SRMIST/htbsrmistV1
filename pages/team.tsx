@@ -33,9 +33,9 @@ const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
 const hierarchy = [
     { role: "Faculty Convenor", name: "Mainframe" },
     { role: "Co-Organizers", name: "Kernel" },
-    { role: "Admins", name: "Root" }
-    // { role: "Sudoers", name: "Leads" },
-    // { role: "Sticky Bits", name: "Associates" },
+    { role: "Admins", name: "Root" },
+    { role: "Sudoers", name: "Leads" },
+    { role: "Sticky Bits", name: "Associates" }
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
