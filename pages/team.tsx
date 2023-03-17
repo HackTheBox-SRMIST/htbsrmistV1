@@ -34,8 +34,9 @@ const hierarchy = [
     { role: "Faculty Convenor", name: "Mainframe" },
     { role: "Co-Organizers", name: "Kernel" },
     { role: "Admins", name: "Root" },
-    { role: "Sudoers", name: "Leads" },
-    { role: "Sticky Bits", name: "Associates" }
+    { role: "Leads", name: "Sudoer" },
+    { role: "Associates", name: "Sticky Bit" },
+    { role: "Members", name: "Binary" }
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
