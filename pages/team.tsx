@@ -34,8 +34,6 @@ const hierarchy = [
     { role: "Faculty Convenor", name: "Mainframe" },
     { role: "Co-Organizers", name: "Kernel" },
     { role: "Admins", name: "Root" }
-    // { role: "Sudoers", name: "Leads" },
-    // { role: "Sticky Bits", name: "Associates" },
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
@@ -44,27 +42,39 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     >("Development");
 
     const Creatives = members.filter(
-        (el) => el.domain === "Creatives" && el.position === "Binary"
+        (el) => el.domain === "Creatives"
     );
 
     const Development = members.filter(
-        (el) => el.domain === "Development" && el.position === "Binary"
+        (el) => el.domain === "Development"
     );
 
     const Corporate = members.filter(
-        (el) => el.domain === "Corporate" && el.position === "Binary"
+        (el) => el.domain === "Corporate"
     );
 
     const Security = members.filter(
-        (el) => el.domain === "Cyber Security" && el.position === "Binary"
+        (el) => el.domain === "Cyber Security"
     );
 
-    const binaries = {
+    const crew = {
         Creatives,
         Development,
         Corporate,
         Security
     };
+
+    var filterBinaries = function (element: any){
+        return element.position === "Binary"
+    }
+
+    var filterSudoers = function (element: any){
+        return element.position === "Sudoer" || element.position === "Leads"
+    }
+
+    var filterStickyBits = function (element: any){
+        return element.position === "Associates" || element.position === "Sticky Bit"
+    }
 
     const prevDomainChangeHandler = () => {
         const curr = domains.indexOf(activeDomain);
@@ -114,8 +124,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     );
                 })}
 
-                <Roles role="Members" name="Binary" />
-
                 <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
                     <button
                         onClick={prevDomainChangeHandler}
@@ -131,20 +139,74 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         <GrLinkNext />
                     </button>
                 </div>
-                <div className="flex justify-center items-center flex-wrap">
-                    {binaries[activeDomain].map((mem: MemberProps) => {
-                        return (
-                            <Member
-                                key={mem.name}
-                                name={mem.name}
-                                image={mem.pictureUrl}
-                                position={mem.position}
-                                caption={mem.caption}
-                                domain={mem.domain}
-                                socials={mem.socials}
-                            />
-                        );
-                    })}
+                <div className="flex flex-col justify-center items-center flex-wrap">
+                    <Roles role="Leads" name="Sudoer"  />
+                    <div className="flex flex-wrap justify-center items-center">
+                    {
+                        (crew[activeDomain].filter(filterSudoers).length !== 0)?
+                            crew[activeDomain].filter(filterSudoers).map((mem: MemberProps) => {
+                                return (
+                                    
+                                    <Member
+                                        key={mem.name}
+                                        name={mem.name}
+                                        image={mem.pictureUrl}
+                                        position={mem.position}
+                                        caption={mem.caption}
+                                        domain={mem.domain}
+                                        socials={mem.socials}
+                                    />
+                                    
+                                );   
+                            })
+                        :
+                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                    }
+                    </div>
+                    <Roles role="Associates" name="Sticky Bit" />
+                    <div className="flex flex-wrap justify-center items-center">
+                    {
+                        (crew[activeDomain].filter(filterStickyBits).length !== 0)?
+                            crew[activeDomain].filter(filterStickyBits).map((mem: MemberProps) => {
+                                return (
+                                    
+                                    <Member
+                                        key={mem.name}
+                                        name={mem.name}
+                                        image={mem.pictureUrl}
+                                        position={mem.position}
+                                        caption={mem.caption}
+                                        domain={mem.domain}
+                                        socials={mem.socials}
+                                    />
+                                    
+                                );   
+                            })
+                        :
+                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                    }
+                    </div>
+                    <Roles role="Members" name="Binary" />
+                    <div className="flex flex-wrap justify-center items-center">
+                    {
+                        (crew[activeDomain].filter(filterBinaries).length !== 0)?
+                            crew[activeDomain].filter(filterBinaries).map((mem: MemberProps) => {
+                                return (
+                                    <Member
+                                        key={mem.name}
+                                        name={mem.name}
+                                        image={mem.pictureUrl}
+                                        position={mem.position}
+                                        caption={mem.caption}
+                                        domain={mem.domain}
+                                        socials={mem.socials}
+                                    />
+                                );   
+                            })
+                        :
+                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                    }
+                    </div>
                 </div>
             </div>
         </section>
