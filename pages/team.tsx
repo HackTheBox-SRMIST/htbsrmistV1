@@ -149,7 +149,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     </button>
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap">
-                    <Roles role="Leads" name="Sudoers"  />
+                    <Roles role="Leads" name="Sudoer"  />
                     <div className="flex flex-wrap justify-center items-center">
                     {
                         (crew[activeDomain].filter(filterSudoers).length !== 0)?
@@ -172,7 +172,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
                     }
                     </div>
-                    <Roles role="Associates" name="Sticky Bits" />
+                    <Roles role="Associates" name="Sticky Bit" />
                     <div className="flex flex-wrap justify-center items-center">
                     {
                         (crew[activeDomain].filter(filterStickyBits).length !== 0)?
