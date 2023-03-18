@@ -33,7 +33,11 @@ const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
 const hierarchy = [
     { role: "Faculty Convenor", name: "Mainframe" },
     { role: "Co-Organizers", name: "Kernel" },
-    { role: "Admins", name: "Root" }
+    { role: "Admins", name: "Root" },
+    { role: "Leads", name: "Sudoer" },
+    { role: "Associates", name: "Sticky Bit" },
+    { role: "Members", name: "Binary" }
+
 ];
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
@@ -64,6 +68,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         Security
     };
 
+
     var filterBinaries = function (element: any){
         return element.position === "Binary"
     }
@@ -88,6 +93,8 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         const next = domains[curr === 3 ? 0 : curr + 1];
         changeDomain(next);
     };
+
+    /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
@@ -123,6 +130,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         </div>
                     );
                 })}
+
 
                 <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
                     <button

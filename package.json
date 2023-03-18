@@ -3,16 +3,18 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
+        "dev": "node -r dotenv-vault-core/config ./node_modules/.bin/next dev",
+        "build": "node -r dotenv-vault-core/config ./node_modules/.bin/next build",
+        "start": "node -r dotenv-vault-core/config ./node_modules/.bin/next start",
+        "lint": "node -r dotenv-vault-core/config ./node_modules/.bin/next lint"
     },
     "dependencies": {
         "@aws-sdk/client-sns": "^3.67.0",
         "@nextui-org/react": "^1.0.0-beta.12",
         "@typeform/embed-react": "^1.19.0",
         "axios": "^1.2.3",
+        "dotenv-vault-core": "^0.7.0",
+        "jimp": "^0.22.7",
         "mongodb": "^4.4.1",
         "next": "12.1.0",
         "nextjs": "^0.0.3",

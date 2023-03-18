@@ -26,7 +26,9 @@ const Member = (props: any) => {
                 {props.caption}
             </span>
             <span className="flex pt-5 gap-3">
+
             {(props.socials.website !== undefined)?(props.socials.linkedin.length >6) ? (
+
                     <Social
                         link={props.socials.linkedin}
                         logo={socialIcons.linkedin}
