@@ -64,8 +64,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         Security
     };
 
-    console.log(crew[activeDomain])
-
     var filterBinaries = function (element: any){
         return element.position === "Binary"
     }
@@ -77,8 +75,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     var filterStickyBits = function (element: any){
         return element.position === "Associates" || element.position === "Sticky Bit"
     }
-
-    console.log(crew[activeDomain].filter(filterBinaries))
 
     const prevDomainChangeHandler = () => {
         const curr = domains.indexOf(activeDomain);
