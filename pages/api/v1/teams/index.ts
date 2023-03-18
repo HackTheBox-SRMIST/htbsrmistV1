@@ -4,6 +4,7 @@ import errorHandler from "../../../../utils/error/errorHandler";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+        if (req.method === "GET") {
         const { current } = req.query;
         const teamData = await Teams(current);
         if (teamData) {
@@ -17,6 +18,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 success: false,
                 message: "❌ Failed to fetch teams data!",
                 data: teamData
+            });
+        }
+        } else {
+            console.log("🚫", req.method, "was called and got error!!");
+            res.status(405).json({
+                success: false,
+                data: null,
+                message: "🚫 HTTP Method not Allowed"
             });
         }
     } catch (err: any) {

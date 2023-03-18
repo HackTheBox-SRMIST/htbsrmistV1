@@ -4,6 +4,7 @@ import errorHandler from "../../../../utils/error/errorHandler";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+        if (req.method === "POST") {
         const certificate = await Certificates(
             req.body.email,
             req.body.event,
@@ -20,6 +21,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(406).json({
                 success: false,
                 message: "❌ Failed to generate certificate!"
+            });
+        } 
+        } else {
+            console.log("🚫", req.method, "was called and got error!!");
+            res.status(405).json({
+                success: false,
+                data: null,
+                message: "🚫 HTTP Method not Allowed"
             });
         }
     } catch (err: any) {
