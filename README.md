@@ -1,10 +1,40 @@
 Website Deployed [here](https://htbsrmist.tech)
 
-## APIs
+# APIs
 
--   Team Details
+## Events API
 
-## Environments
+The Events API is to display events conducted by HTB SRMIST.
+
+## Get list of Events
+
+### Request
+    
+ `GET`  `/api/v1/events`
+
+
+### Response
+
+```javascript
+{
+   "success": bool,
+    "message": string,
+    "data": Array[Objects]
+}
+```
+   
+
+
+## Status Codes
+
+Events returns the following status codes in its API:
+
+| success | Status Code | Description |
+| :--- | :--- | :--- |
+| true | 200 | `✅ Successfully fetched!` |
+| false | 500 | `❌ Database connected but failed to fetch the data!` |
+
+# Environments
 
 Setup the dev environment to contribute
 
@@ -12,7 +42,7 @@ Setup the dev environment to contribute
 -   Install MongoDB-Server Locally.
 -   Run `npm install` after you clone the repo.
 
-## Getting Started
+# Getting Started
 
 First, run the development server:
 
