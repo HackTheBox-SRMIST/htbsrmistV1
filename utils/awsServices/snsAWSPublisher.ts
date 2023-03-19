@@ -1,6 +1,8 @@
 import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 import { contactUsReqSchema } from "../types/contactus";
 
+require("dotenv-vault-core").config();
+
 const REGION = "ap-south-1";
 const snsClient = new SNSClient({
     region: REGION,

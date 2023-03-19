@@ -1,9 +1,12 @@
 import { Db, Collection, MongoClient, MongoError } from "mongodb";
+require("dotenv-vault-core").config();
+//console.log(process.env); // remove this after you've confirmed it working
 
 // Singleton DBInstance Class
 export class DBInstance {
     private static instance: DBInstance;
     private static db: Db;
+    private static mongoClient: MongoClient;
 
     //Connection Configutation
     private opts: object = {
@@ -24,8 +27,8 @@ export class DBInstance {
     private async initialize() {
         try {
             console.log("🔶 Instance was Called!!");
-            const connClient = await this.dbClient.connect();
-            DBInstance.db = connClient.db(this.dbName);
+            DBInstance.mongoClient = await this.dbClient.connect();
+            DBInstance.db = DBInstance.mongoClient.db(this.dbName);
             console.log(`✅ Connected to MongoDB: ${this.dbName}`);
         } catch (err) {
             console.error("❌ Could not connect to MongoDB\n%o", err);
@@ -45,5 +48,15 @@ export class DBInstance {
     //Usable Function Component to get data according to Collection Name
     public getCollection = async (collection: string): Promise<Collection> => {
         return DBInstance.db.collection(collection);
+    };
+
+    public changeDatabase = async (DBName: string) => {
+        try {
+            DBInstance.db = DBInstance.mongoClient.db(DBName);
+            console.log(`✅ Changed Database to: ${DBName}`);
+        } catch (err) {
+            console.error("❌ Could not change the database\n%o", err);
+            throw MongoError;
+        }
     };
 }
