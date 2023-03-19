@@ -32,6 +32,7 @@ Events returns the following status codes in its API:
 | success | Status Code | Description |
 | :--- | :--- | :--- |
 | true | 200 | `✅ Successfully fetched!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
 | false | 500 | `❌ Database connected but failed to fetch the data!` | 
 
 
@@ -47,9 +48,12 @@ The Teams API is to display Team memebers of all our domain in HTB SRMIST.
 
 ### Request
     
- `GET`  `/api/v1/teams`
+ `GET`  `/api/v1/teams?current=true`
 
 
+| Query | Type | Description |
+| :--- | :--- | :--- |
+| `current` | `boolean` | `True` Members currently in team <br/> `False`  Past members |
 ### Response
 
 ```javascript
@@ -69,7 +73,8 @@ Teams returns the following status codes in its API:
 | success | Status Code | Description |
 | :--- | :--- | :--- |
 | true | 200 | `✅ Successfully fetched!` |
-| false | 422 | `message` | 
+| false | 405 | `🚫 HTTP Method not Allowed` | 
+| false | 422 | `👉 ValidationError` | 
 | false | 500 | `🔌 Internal Server Error.` | 
 
 
@@ -107,6 +112,7 @@ HealthCheck returns the following status codes in its API:
 | success | Status Code | Description |
 | :--- | :--- | :--- |
 | true | 200 | `API v1 working!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
 
 
 
@@ -140,7 +146,7 @@ The ContactUs API is to display .
 ```javascript
 {
    "success": bool,
-    "message": string
+    "message": string,
 }
 ```
    
