@@ -1,27 +1,50 @@
 import { DBInstance } from "../db.connect";
 import Jimp from "jimp";
-import { ObjectId } from "mongodb";
 
-const textOverlay = async (name: string, url: string) => {
-    const image = await Jimp.read("https://i.imgur.com/yjxu68J.png");
-    image.scaleToFit(1300, Jimp.AUTO, Jimp.RESIZE_BEZIER);
-    const font = await Jimp.loadFont(Jimp.FONT_SANS_64_BLACK);
-    image.print(
-        font,
-        0,
-        480,
-        {
-            text: name,
-            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
-            alignmentY: 550
-        },
-        1300,
-        900
-    );
-    const bufferImage = await image.getBase64Async(Jimp.MIME_PNG);
-    //console.log(bufferImage);
+const textOverlay = async (
+    name: string,
+    url: string,
+    color: string,
+    font_size: string,
+    yOffset: string
+) => {
+    try {
+        const jimp_options: any = {
+            FONT_64_WHITE: Jimp.FONT_SANS_64_WHITE,
+            FONT_64_BLACK: Jimp.FONT_SANS_64_BLACK,
+            FONT_32_WHITE: Jimp.FONT_SANS_32_WHITE,
+            FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK
+        };
 
-    return bufferImage;
+        const jimp_font =
+            jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
+
+        const image = await Jimp.read(`${url}`);
+        image.scaleToFit(1300, Jimp.AUTO, Jimp.RESIZE_BEZIER);
+        const font = await Jimp.loadFont(jimp_font);
+        image.print(
+            font,
+            0,
+            parseInt(yOffset),
+            {
+                text: name,
+                alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
+                alignmentY: 300
+            },
+            1300,
+            900
+        );
+        const bufferImage = await image.getBase64Async(Jimp.MIME_PNG);
+        console.log("bufferImage", bufferImage);
+
+        return { buffer: bufferImage, error: false, error_message: "Success" };
+    } catch (error: any) {
+        return {
+            buffer: null,
+            error: true,
+            error_message: error.message || "Failed"
+        };
+    }
 };
 
 export const Certificates = async (
@@ -30,39 +53,57 @@ export const Certificates = async (
     type: string
 ) => {
     try {
-        const dbInstance = await DBInstance.getInstance();
-        const eventsCollection = await dbInstance.getCollection("events");
+        const db = await DBInstance.getInstance();
+        const eventsCollection = await db.getCollection("events");
         const eventData = await eventsCollection.findOne({
-            _id: new ObjectId(event)
+            event_name: event
         });
         if (!eventData) {
-            throw { message: "No events found with that name" };
+            return {
+                certificate: null,
+                error: true,
+                error_message: `No events found with name : ${event}`
+            };
         }
-        await dbInstance.changeDatabase(eventData.database);
-        const participantsCollection = await dbInstance.getCollection(
-            eventData.collection
+
+        await db.changeDatabase(eventData.database);
+        const certificateURL = eventData.certificate[type];
+        const userCollection = await db.getCollection(
+            eventData.collection[type]
         );
-        const participantsData = await participantsCollection.findOne({
+        const userData = await userCollection.findOne({
             email: email
         });
-        if (!participantsData) {
-            throw { message: "No participants found with that email" };
+        if (!userData) {
+            return {
+                certificate: null,
+                error: true,
+                error_message: `No User found with email : ${email} in ${type} collection`
+            };
         }
-        let certificateURL;
-        switch (type) {
-            case "participant":
-                certificateURL = eventData.certificate.participant;
-                break;
-            case "volunteer":
-                certificateURL = eventData.certificate.volunteer;
-            case "organizer":
-                certificateURL = eventData.certificate.organizer;
-            default:
-                break;
+
+        const { buffer, error, error_message } = await textOverlay(
+            userData.name,
+            certificateURL,
+            eventData.jimp_config.color,
+            eventData.jimp_config.font_size,
+            eventData.jimp_config.yOffset
+        );
+
+        if (error) {
+            return {
+                certificate: null,
+                error: true,
+                error_message: error_message
+            };
         }
-        return await textOverlay(participantsData.name, certificateURL);
+        return { certificate: buffer, error: false, error_message: "Success" };
     } catch (err: any) {
         console.error(err.message);
-        return err.message;
+        return {
+            certificate: null,
+            error: true,
+            error_message: err.message || "Failed"
+        };
     }
 };
