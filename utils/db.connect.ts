@@ -16,9 +16,8 @@ export class DBInstance {
     };
 
     //Database Credentials
-    private URL: string =
-        process.env.MONGODB_URI || "mongodb://localhost:27017/";
-    private dbName: string = process.env.DB_NAME || "htbsrmist";
+    private URL: string = process.env.dbURL || "mongodb://localhost:27017/";
+    private dbName: string = process.env.dbName || "htbsrmist";
     private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
 
     //Constructor
@@ -26,10 +25,10 @@ export class DBInstance {
 
     private async initialize() {
         try {
-            console.log("🔶 Instance was Called!!");
+            console.warn("🔶 MongoDB Instance was Called!!");
             DBInstance.mongoClient = await this.dbClient.connect();
             DBInstance.db = DBInstance.mongoClient.db(this.dbName);
-            console.log(`✅ Connected to MongoDB: ${this.dbName}`);
+            console.warn(`✅ Connected to MongoDB: ${this.dbName}`);
         } catch (err) {
             console.error("❌ Could not connect to MongoDB\n%o", err);
             throw MongoError;
@@ -45,17 +44,15 @@ export class DBInstance {
         return DBInstance.instance;
     };
 
-    //Usable Function Component to get data according to Collection Name
-    public getCollection = async (collection: string): Promise<Collection> => {
-        return DBInstance.db.collection(collection);
-    };
-
-    public changeDatabase = async (DBName: string) => {
+    public getCollection = async (
+        CollName: string,
+        DBName?: string
+    ): Promise<Collection> => {
         try {
-            DBInstance.db = DBInstance.mongoClient.db(DBName);
-            console.log(`✅ Changed Database to: ${DBName}`);
+            DBInstance.db = DBInstance.mongoClient.db(DBName || "htbsrmist");
+            return DBInstance.db.collection(CollName);
         } catch (err) {
-            console.error("❌ Could not change the database\n%o", err);
+            console.error("❌ Could not change the collection\n%o", err);
             throw MongoError;
         }
     };
