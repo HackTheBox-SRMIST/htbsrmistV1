@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const dbInstance = await DBInstance.getInstance();
             await dbInstance.changeDatabase(req.body.eventName);
             const collection = await dbInstance.getCollection("participants");
-            await collection.insertOne({ email : req.body.email , user_type : req.body.user_type , usn : req.body.usn , 
+            await collection.insertOne({ email : req.body.email , usn : req.body.usn , 
                                         name : req.body.name , phone : req.body.phone , designation : req.body.designation , 
                                         department : req.body.designation , section : req.body.section , checkin : {status : false , date_time : null},
                                         checkout : {status : false , date_time : null} , snacks : {status : false , date_time : null} , certificate : {email_uid : req.body.email , status: false , date_time : null} ,
