@@ -111,3 +111,7 @@ img {
 
     /* media queries */
 }
+
+.select-placeholder-text {
+    color: pink;
+}
