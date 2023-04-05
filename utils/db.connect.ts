@@ -16,8 +16,8 @@ export class DBInstance {
     };
 
     //Database Credentials
-    private URL: string = process.env.dbURL || "mongodb://localhost:27017/";
-    private dbName: string = process.env.dbName || "htbsrmist";
+    private URL: string = process.env.DB_URL || "mongodb://localhost:27017/";
+    private dbName: string = process.env.DB_NAME || "htbsrmist";
     private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
 
     //Constructor
@@ -25,7 +25,7 @@ export class DBInstance {
 
     private async initialize() {
         try {
-            console.warn("🔶 MongoDB Instance was Called!!");
+            console.warn("🔶 MongoDB Instance was Called first Time !!");
             DBInstance.mongoClient = await this.dbClient.connect();
             DBInstance.db = DBInstance.mongoClient.db(this.dbName);
             console.warn(`✅ Connected to MongoDB: ${this.dbName}`);

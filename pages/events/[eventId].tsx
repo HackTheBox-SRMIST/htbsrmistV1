@@ -61,7 +61,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         const response = await axios.post(`/api/v1/certificate`, {
             email,
             event: eventId,
-            type: "volunteers"
+            type: "organizers"
         });
 
         console.log(response);

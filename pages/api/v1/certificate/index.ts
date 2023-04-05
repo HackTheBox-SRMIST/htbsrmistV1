@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Certificates } from "../../../../utils/services/certificate.service";
-import errorHandler from "../../../../utils/error/errorHandler";
-import { DBInstance } from "../../../../utils/db.connect";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -27,16 +25,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             );
 
             if (error) {
-                const db = await DBInstance.getInstance();
-                await db.changeDatabase("htbsrmist");
                 res.status(406).json({
                     success: false,
                     message: error_message
                 });
             }
             if (certificate) {
-                const db = await DBInstance.getInstance();
-                await db.changeDatabase("htbsrmist");
                 res.status(200).json({
                     certificate,
                     usn: req.body.usn,

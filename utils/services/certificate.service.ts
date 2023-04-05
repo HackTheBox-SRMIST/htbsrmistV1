@@ -35,8 +35,6 @@ const textOverlay = async (
             900
         );
         const bufferImage = await image.getBase64Async(Jimp.MIME_PNG);
-        console.log("bufferImage", bufferImage);
-
         return { buffer: bufferImage, error: false, error_message: "Success" };
     } catch (error: any) {
         return {
@@ -66,10 +64,10 @@ export const Certificates = async (
             };
         }
 
-        await db.changeDatabase(eventData.database);
         const certificateURL = eventData.certificate[type];
         const userCollection = await db.getCollection(
-            eventData.collection[type]
+            eventData.collection[type],
+            eventData.database
         );
         const userData = await userCollection.findOne({
             email: email
