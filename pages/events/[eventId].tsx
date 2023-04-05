@@ -1,6 +1,8 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
 import React, { useState } from "react";
 import { Modal, Input } from "@nextui-org/react";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -45,30 +47,65 @@ interface EventsPageProps {
     events: EventProps[];
 }
 
+const options = [
+    { value: "participants", label: "Participant" },
+    { value: "volunteers", label: "Volunteer" },
+    { value: "organizers", label: "Organizer" }
+];
+const styles = {
+    // control: (base: any, state: any) => ({
+    //     ...base,
+    //     border: '1px solid black',
+    //     boxShadow: 'none',
+    //     '&:hover': {
+    //         border: '1px solid black',
+    //     }
+    // }),
+    option: (provided: any, state: any) => ({
+        ...provided,
+        fontWeight: state.isSelected ? "bold" : "normal",
+        color: "black",
+        background: "#9FEF00",
+        fontSize: state.selectProps.myFontSize
+    }),
+    control: (base: any, state: any) => ({
+        ...base,
+        background: "#9FEF00",
+        fontWeight: state.isSelected ? "bold" : "normal",
+        borderColor: state.isFocused ? "#9FEF00" : "#9FEF00",
+        borderRadius: "11%",
+        height: "70px",
+        width: "100%",
+        boxShadow: state.isFocused ? null : null,
+        "&:hover": {
+            borderColor: state.isFocused ? "#000000" : ""
+        }
+    })
+};
+
 const url_root = process.env.BASE_URL_PREVIEW;
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
-    const [email, setEmail] = useState("");
-    const [certificate, setCertificate] = useState();
-    const [visible, setVisible] = React.useState(false);
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
 
+    const [email, setEmail] = useState("");
+    const [certificate, setCertificate] = useState();
+    const [type, setType] = useState("participants");
+    const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
 
     const fetchCertificate = async () => {
-        const response = await axios.post(`/api/v1/certificate`, {
-            email,
-            event: eventId,
-            type: "organizers"
-        });
-
-        console.log(response);
-
+        const values = { email, type, event: eventId };
+        const response = await axios.post(`/api/v1/certificate`, values);
         setCertificate(response.data.certificate);
-        // const jsonRes = await response.json();
-        console.log(response);
+    };
+
+    const changeType = (e: any) => {
+        console.log(e.value);
+
+        setType(e.value);
     };
 
     const closeHandler = () => {
@@ -226,17 +263,55 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         href={certificate}
                                                         download="Certificate.png"
                                                     >
-                                                        Download
+                                                        Download Now
                                                     </a>
                                                 ) : (
-                                                    <button
-                                                        onClick={
-                                                            fetchCertificate
-                                                        }
-                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
-                                                    >
-                                                        Get your Certificate
-                                                    </button>
+                                                    <div className="flex space-evenly">
+                                                        <button
+                                                            onClick={
+                                                                fetchCertificate
+                                                            }
+                                                            className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-2 font-normal rounded-xl p-8 text-xl"
+                                                        >
+                                                            Get your Certificate
+                                                        </button>
+                                                        <div className="w-2/3  mt-0 ml-4">
+                                                            <Select
+                                                                autoFocus
+                                                                hideSelectedOptions={
+                                                                    true
+                                                                }
+                                                                isClearable={
+                                                                    false
+                                                                }
+                                                                placeholder={
+                                                                    type
+                                                                }
+                                                                theme={(
+                                                                    theme
+                                                                ) => ({
+                                                                    ...theme,
+                                                                    colors: {
+                                                                        ...theme.colors,
+                                                                        neutral50:
+                                                                            "#000000" // Placeholder color
+                                                                    }
+                                                                })}
+                                                                tabSelectsValue={
+                                                                    false
+                                                                }
+                                                                name="preference1"
+                                                                className="text-black"
+                                                                options={
+                                                                    options
+                                                                }
+                                                                onChange={
+                                                                    changeType
+                                                                }
+                                                                styles={styles}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                 )}
                                             </Modal.Body>
                                         </Modal>
