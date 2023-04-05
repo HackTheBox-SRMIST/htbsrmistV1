@@ -18,11 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 };
             }
 
-            const { certificate, error, error_message } = await Certificates(
-                email,
-                event,
-                type
-            );
+            const { certificate, error, error_message, name } =
+                await Certificates(email, event, type);
 
             if (error) {
                 res.status(406).json({
@@ -33,6 +30,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             if (certificate) {
                 res.status(200).json({
                     certificate,
+                    name,
                     usn: req.body.usn,
                     success: true,
                     message: "✅ Certificate generated successfully!"

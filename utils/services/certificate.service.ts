@@ -40,7 +40,8 @@ const textOverlay = async (
         return {
             buffer: null,
             error: true,
-            error_message: error.message || "Failed"
+            error_message: error.message || "Failed",
+            name: null
         };
     }
 };
@@ -60,7 +61,8 @@ export const Certificates = async (
             return {
                 certificate: null,
                 error: true,
-                error_message: `No events found with name : ${event}`
+                error_message: `No events found with name : ${event}`,
+                name: null
             };
         }
 
@@ -76,7 +78,8 @@ export const Certificates = async (
             return {
                 certificate: null,
                 error: true,
-                error_message: `No User found with email : ${email} in ${type} collection`
+                error_message: `No User found with email : ${email} in ${type} collection`,
+                name: null
             };
         }
 
@@ -92,16 +95,23 @@ export const Certificates = async (
             return {
                 certificate: null,
                 error: true,
-                error_message: error_message
+                error_message: error_message,
+                name: null
             };
         }
-        return { certificate: buffer, error: false, error_message: "Success" };
+        return {
+            certificate: buffer,
+            error: false,
+            error_message: "Success",
+            name: userData.name
+        };
     } catch (err: any) {
         console.error(err.message);
         return {
             certificate: null,
             error: true,
-            error_message: err.message || "Failed"
+            error_message: err.message || "Failed",
+            name: null
         };
     }
 };
