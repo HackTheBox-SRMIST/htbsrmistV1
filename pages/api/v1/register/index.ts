@@ -6,10 +6,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method == "POST") {
             const dbInstance = await DBInstance.getInstance();
-            await dbInstance.changeDatabase("WTFlag_prod");
-            const collection = await dbInstance.getCollection("rsvp-checkedin");
+            const collection = await dbInstance.getCollection(
+                "rsvp-checkedin",
+                "WTFlag_prod"
+            );
             const data = await collection.findOne({ usn: "RA2211047010019" });
-            await dbInstance.changeDatabase("htbsrmist");
             res.status(200).json({
                 success: true,
                 message: "✅ Successfully Added the user!",
