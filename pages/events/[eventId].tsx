@@ -86,25 +86,31 @@ const styles = {
 const url_root = process.env.BASE_URL_PREVIEW;
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
-    const [usn, setUsn] = useState("");
+    const router = useRouter();
+    const eventId = router.query.eventId as string;
+    const event = events.find((event) => event.event_name === eventId);
+
+    const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState();
+    const [type, setType] = useState("participants");
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
 
     const fetchCertificate = async () => {
-        const response = await axios.post(`/api/v1/certificate`, { usn });
+        const values = { email, type, event: eventId };
+        const response = await axios.post(`/api/v1/certificate`, values);
         setCertificate(response.data.certificate);
-        // const jsonRes = await response.json();
+    };
 
-        console.log(response);
+    const changeType = (e: any) => {
+        console.log(e.value);
+
+        setType(e.value);
     };
 
     const closeHandler = () => {
         setVisible(false);
     };
-    const router = useRouter();
-    const eventId = router.query.eventId as string;
-    const event = events.find((event) => event.event_name === eventId);
 
     const settings = {
         className: "center",
@@ -233,7 +239,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             open={visible}
                                             onClose={closeHandler}
                                             onChange={(event: any) =>
-                                                setUsn(event.target.value)
+                                                setEmail(event.target.value)
                                             }
                                         >
                                             <Modal.Body>
@@ -278,7 +284,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 isClearable={
                                                                     false
                                                                 }
-                                                                placeholder="Select..."
+                                                                placeholder={
+                                                                    type
+                                                                }
                                                                 theme={(
                                                                     theme
                                                                 ) => ({
@@ -296,6 +304,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 className="text-black"
                                                                 options={
                                                                     options
+                                                                }
+                                                                onChange={
+                                                                    changeType
                                                                 }
                                                                 styles={styles}
                                                             />
