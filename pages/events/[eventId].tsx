@@ -249,7 +249,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         <button
                                             onClick={handler}
                                             disabled={event?.is_active}
-                                            className="bg-htb-green px-3 py-3 font-semibold inline-block mt-6"
+                                            className="bg-htb-green px-3 py-3 rounded-md font-semibold inline-block mt-6"
                                         >
                                             Get your Certificate
                                         </button>
