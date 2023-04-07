@@ -13,6 +13,8 @@ import LocationLogo from "../../utils/icons/LocationLogo";
 import EntryFees from "../../utils/icons/EntryFees";
 import DateLogo from "../../utils/icons/DateLogo";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -52,13 +54,14 @@ const options = [
     { value: "volunteers", label: "Volunteer" },
     { value: "organizers", label: "Organizer" }
 ];
+
 const styles = {
     // control: (base: any, state: any) => ({
     //     ...base,
-    //     border: '1px solid black',
-    //     boxShadow: 'none',
-    //     '&:hover': {
-    //         border: '1px solid black',
+    //     border: "1px solid black",
+    //     boxShadow: "none",
+    //     "&:hover": {
+    //         border: "1px solid black"
     //     }
     // }),
     option: (provided: any, state: any) => ({
@@ -73,14 +76,28 @@ const styles = {
         background: "#9FEF00",
         fontWeight: state.isSelected ? "bold" : "normal",
         borderColor: state.isFocused ? "#9FEF00" : "#9FEF00",
-        borderRadius: "11%",
+        borderRadius: "0px 20px 20px 0px",
         height: "70px",
         width: "100%",
         boxShadow: state.isFocused ? null : null,
         "&:hover": {
-            borderColor: state.isFocused ? "#000000" : ""
+            borderColor: state.isFocused ? "#000000" : "",
+            borderWidth: state.isFocused ? "1.5px" : ""
         }
     })
+};
+
+const Toast = (success: any, message: any) => {
+    toast[success ? "success" : "error"](message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+    });
 };
 
 const url_root = process.env.BASE_URL_PREVIEW;
@@ -97,14 +114,18 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const handler = () => setVisible(true);
 
     const fetchCertificate = async () => {
-        const values = { email, type, event: eventId };
-        const response = await axios.post(`/api/v1/certificate`, values);
-        setCertificate(response.data.certificate);
+        try {
+            const values = { email, type, event: eventId };
+            const response = await axios.post(`/api/v1/certificate`, values);
+            console.log(response);
+            setCertificate(response.data.certificate);
+        } catch (err: any) {
+            // console.log(err.response.data);
+            Toast(true, `${err.response.data.message}`);
+        }
     };
 
     const changeType = (e: any) => {
-        console.log(e.value);
-
         setType(e.value);
     };
 
@@ -145,6 +166,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     };
     return (
         <>
+            <ToastContainer />
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
@@ -227,7 +249,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         <button
                                             onClick={handler}
                                             disabled={event?.is_active}
-                                            className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6"
+                                            className="bg-htb-green px-3 py-3 font-semibold inline-block mt-6"
                                         >
                                             Get your Certificate
                                         </button>
@@ -266,22 +288,25 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         Download Now
                                                     </a>
                                                 ) : (
-                                                    <div className="flex space-evenly">
+                                                    <div className="flex space-evenly justify-center">
                                                         <button
                                                             onClick={
                                                                 fetchCertificate
                                                             }
-                                                            className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-2 font-normal rounded-xl p-8 text-xl"
+                                                            className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl"
                                                         >
                                                             Get your Certificate
                                                         </button>
-                                                        <div className="w-2/3  mt-0 ml-4">
+                                                        <div className="w-2/3  mt-0  border-l-[1px] border-l-black">
                                                             <Select
                                                                 autoFocus
                                                                 hideSelectedOptions={
                                                                     true
                                                                 }
                                                                 isClearable={
+                                                                    false
+                                                                }
+                                                                isSearchable={
                                                                     false
                                                                 }
                                                                 placeholder={
@@ -301,7 +326,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                     false
                                                                 }
                                                                 name="preference1"
-                                                                className="text-black"
+                                                                className="text-black w-full rounded-full"
                                                                 options={
                                                                     options
                                                                 }
