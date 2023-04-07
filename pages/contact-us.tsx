@@ -135,7 +135,6 @@ const ContactUs = () => {
                             className="w-full p-4 bg-[#1e2a3e] required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none"
                         />
                     </div>
-
                     <div className="">
                         <textarea
                             id="message"
