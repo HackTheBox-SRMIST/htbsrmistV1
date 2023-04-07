@@ -16,7 +16,8 @@ export class DBInstance {
     };
 
     //Database Credentials
-    private URL: string = process.env.DB_URL || "mongodb://localhost:27017/";
+    private URL: string =
+        process.env.MONGODB_URI || "mongodb://localhost:27017/";
     private dbName: string = process.env.DB_NAME || "htbsrmist";
     private dbClient: MongoClient = new MongoClient(this.URL, this.opts);
 
