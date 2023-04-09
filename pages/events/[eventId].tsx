@@ -64,6 +64,17 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const closeHandler = () => {
         setVisible(false);
     };
+
+
+    const [visibility, setVisibility] = React.useState(false);
+    const handle = () => setVisibility(true);
+
+    const closeHandle = () => {
+        setVisibility(false);
+    };
+
+
+
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
@@ -166,19 +177,97 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center justify-evenly md:flex-row ">
-                                    <a
-                                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className=""
-                                    >
+                                    
                                         <button
                                             className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                            disabled={!event?.is_active}
+                                            //disabled={!event?.is_active}
+                                            onClick = {handle}
                                         >
                                             REGISTER NOW
                                         </button>
-                                    </a>
+                                        <Modal
+                                            className="bg-htb-green"
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={visible}
+                                            onClose={closeHandler}
+                                            onChange={(event: any) =>
+                                                setUsn(event.target.value)
+                                            }
+                                        >
+                                            <Modal.Body className="bg-[#040626] h-full">
+                                                <p className="text-white">
+                                                    Please enter your details
+                                                </p>
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Registration Number"
+                                                />
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Name"
+                                                />
+                                                <Input
+                                                    type="email"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Email"
+                                                />
+                                                <select className = "h-12 bg-[#040626] text-white border-solid border-black">
+                                                    <option value = "Non-srmite">Non SRMite</option>
+                                                    <option value = "srmite">SRMite</option>
+                                                </select>
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Department"
+                                                />
+                                               
+                                                <button
+                                                        
+                                                        className="w-full bg-htb-green/70 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
+                                                    >
+                                                        Submit Details
+                                                    </button>
+
+                                                {/* {certificate ? (
+                                                    <a
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
+                                                        href={certificate}
+                                                        download="Certificate.png"
+                                                    >
+                                                        Download
+                                                    </a>
+                                                ) : (
+                                                    <button
+                                                        onClick={
+                                                            fetchCertificate
+                                                        }
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
+                                                    >
+                                                        Get your Certificate
+                                                    </button>
+                                                )} */}
+                                            </Modal.Body>
+                                        </Modal>
+                                    
                                     <div>
                                         <button
                                             onClick={handler}

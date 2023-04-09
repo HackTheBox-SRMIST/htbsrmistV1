@@ -1,8 +1,11 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
+import React,{useState} from "react";
+import { Modal, Input } from "@nextui-org/react";
 import Link from "next/link";
 import Head from "next/head";
 import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
+import Register from "../api/v1/register";
 
 interface EventProps {
     event_name: string;
@@ -36,6 +39,12 @@ interface EventsPageProps {
 }
 
 const EventS: NextPage<EventsPageProps> = ({ events }) => {
+    const [visible, setVisible] = React.useState(false);
+    const handler = () => setVisible(true);
+
+    const closeHandler = () => {
+        setVisible(false);
+    };
     return (
         <>
             <p className="px-12 flex justify-center">
@@ -62,17 +71,99 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         Learn More
                                     </button>
                                 </a>
-                                <a
-                                    href={`${event.registration_url}`}
-                                    target="_blank"
-                                >
+                                
                                     <button
                                         className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
-                                        disabled={!event.is_active}
+                                        //disabled={!event.is_active}
+                                        onClick = {handler}
+                                        
                                     >
                                         Register
                                     </button>
-                                </a>
+                                    
+                                    <Modal
+                                            className="bg-htb-green"
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={visible}
+                                            onClose={closeHandler}
+                                            onChange={(event: any) =>
+                                                setUsn(event.target.value)
+                                            }
+                                        >
+                                            <Modal.Body className="bg-[#040626] h-full">
+                                                <p className="text-white">
+                                                    Please enter your details
+                                                </p>
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Registration Number"
+                                                />
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Name"
+                                                />
+                                                <Input
+                                                    type="email"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Email"
+                                                />
+                                                <select className = "h-12 bg-[#040626] text-white border-solid border-black">
+                                                    <option value = "Non-srmite">Non SRMite</option>
+                                                    <option value = "srmite">SRMite</option>
+                                                </select>
+                                                <Input
+                                                    type="text"
+                                                    clearable
+                                                    bordered
+                                                    fullWidth
+                                                    color="primary"
+                                                    size="lg"
+                                                    placeholder="Department"
+                                                />
+                                               
+                                                <button
+                                                        
+                                                        className="w-full bg-htb-green/70 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
+                                                    >
+                                                        Submit Details
+                                                    </button>
+
+                                                {/* {certificate ? (
+                                                    <a
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
+                                                        href={certificate}
+                                                        download="Certificate.png"
+                                                    >
+                                                        Download
+                                                    </a>
+                                                ) : (
+                                                    <button
+                                                        onClick={
+                                                            fetchCertificate
+                                                        }
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl"
+                                                    >
+                                                        Get your Certificate
+                                                    </button>
+                                                )} */}
+                                            </Modal.Body>
+                                        </Modal>
+                                
                             </div>
                         </div>
                     ))}
