@@ -69,8 +69,12 @@ const styles = {
         ...provided,
         fontWeight: state.isSelected ? "bold" : "normal",
         color: "black",
-        background: "#9FEF00",
-        fontSize: state.selectProps.myFontSize
+        background: "#cccccc",
+        fontSize: state.selectProps.myFontSize,
+
+        "&:hover": {
+            background: "#9FEF00"
+        }
     }),
     control: (base: any, state: any) => ({
         ...base,
