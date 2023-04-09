@@ -19,15 +19,9 @@ const textOverlay = async (
         };
 
         const jimpFont = path
-            .join(
-                __dirname,
-                "../",
-                "../",
-                "../",
-                "../",
-                "../",
-                "node_modules",
-                "jimp",
+            .resolve(
+                "./node_modules",
+                plugin,
                 "./fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt"
             )
             .toString();
