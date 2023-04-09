@@ -125,7 +125,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             const response = await axios.post(`/api/v1/certificate`, values);
             // console.log(response);
             setCertificate(response.data.certificate);
-            // Toast(true, "Certificate Generated Successfully");
+            Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
             // console.log(err);
 
@@ -276,7 +276,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     >
                                                         <GiCrossMark className="w-full h-full" />
                                                     </div>
-                                                    <p>
+                                                    <p className="text-xl max-md:text-base">
                                                         Please enter your
                                                         registered E-Mail
                                                     </p>
@@ -312,7 +312,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 onClick={
                                                                     fetchCertificate
                                                                 }
-                                                                className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl"
+                                                                className=" w-1/2  bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl max-md:text-lg"
                                                                 disabled={
                                                                     type ===
                                                                     "Please Select..."
@@ -323,7 +323,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 Get your
                                                                 Certificate
                                                             </button>
-                                                            <div className="w-2/3 text-xl mt-0  border-l-[1px] border-l-black">
+                                                            <div className=" max-md:w-2/3 text-xl max-md:text-lg mt-0  border-l-[1px] border-l-black">
                                                                 <Select
                                                                     autoFocus
                                                                     hideSelectedOptions={
