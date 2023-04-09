@@ -174,19 +174,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
-                <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
+                <div className="md:h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
+                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                            <p className="text-white sm:text-xl mt-6 text-justify ml-10 lg:ml-0 md:text-left text-sm ">
+                            <p className="text-white sm:text-xl mt-6 text-justify md:ml-10 lg:ml-0 md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
                             </p>
                         </div>
-                        <div className="">
-                            <div className="rounded-3xl ml-10 sm:ml-0 sm:px-0 bg-node-black ">
+                        <div>
+                            <div className="rounded-3xl sm:ml-0 sm:px-0 bg-node-black ">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2 items-center">
                                         <span className="w-8">
@@ -261,8 +261,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         </button>
 
                                         {visible ? (
-                                            <div className="absolute top-0 left-0 w-[99%] text-white h-screen flex justify-center items-center ">
-                                                <div className="w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative">
+                                            <div className="absolute top-0 left-0 w-[99%] text-white h-screen flex justify-center items-center backdrop-blur-xl">
+                                                <div className="w-[90%] lg:w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative ">
                                                     <ToastContainer />
                                                     <div
                                                         className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-htb-green"
@@ -461,7 +461,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         </div>
                     </div>
                     {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
-                    <div className="mb-14 ml-2 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-16 lg:mx-0 mx-auto transform pl-8">
+                    <div className="md:mb-14 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-16 lg:mx-0 mx-auto pl-2 md:pl-8 flex justify-center">
                         {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
                         <figure className="mb-32 sm:mb-0 ">
                             <img
@@ -474,9 +474,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-64 md:mt-0 flex-col justify-center  pl-10 sm:px-20 ">
+            <div className=" md:mt-0 flex-col justify-center px-2 md:pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
-                    <h1 className="text-white text-3xl ml-2 sm:ml-4 mt-28 sm:text-5xl  font-bold">
+                    <h1 className="text-white text-3xl ml-2 sm:ml-4 sm:text-5xl  font-bold">
                         Speakers
                     </h1>
                 </div>
@@ -503,7 +503,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="mt-10 flex-col justify-center  pl-10 sm:px-20">
+            <div className="mt-10 flex-col justify-center px-2 md:pl-10 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl pl-2 sm:pl-6 sm:text-5xl  font-bold">
                         Prerequisites
@@ -535,11 +535,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="Events_Gallery mt-4 sm:mt-0 flex-col">
+            <div className="Events_Gallery ml-[1.5rem] md:ml-[5rem] mt-4 sm:mt-0 flex-col">
                 <p className="font-bold mr-8 sm:ml-32 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
                 </p>
-                <div className="mt-8 sm:mt-6 pr-16 sm:pr-0 w-full">
+                <div className="mt-8 sm:mt-6 sm:pr-0 w-full">
                     <Slider {...settings}>
                         {event?.gallery?.map((image) => (
                             <div key={image}>
