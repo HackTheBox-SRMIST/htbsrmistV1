@@ -15,6 +15,7 @@ import DateLogo from "../../utils/icons/DateLogo";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GiCrossMark } from "react-icons/gi";
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -108,10 +109,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const event = events.find((event) => event.event_name === eventId);
 
     const [email, setEmail] = useState("");
-    const [certificate, setCertificate] = useState();
+    const [certificate, setCertificate] = useState(null);
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
-    const handler = () => setVisible(true);
+    const handler = () => setVisible(!visible);
 
     const fetchCertificate = async () => {
         try {
@@ -134,6 +135,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     const closeHandler = () => {
         setVisible(false);
+        setCertificate(null);
+        setEmail("");
+        setType("Please Select...");
     };
 
     const settings = {
@@ -256,12 +260,115 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             Get your Certificate
                                         </button>
 
-                                        <Modal
+                                        {visible ? (
+                                            <div className="absolute top-0 left-0 w-[99%] text-white h-screen flex justify-center items-center ">
+                                                <div className="w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative">
+                                                    <ToastContainer />
+                                                    <div
+                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-htb-green"
+                                                        onClick={closeHandler}
+                                                    >
+                                                        <GiCrossMark className="w-full h-full" />
+                                                    </div>
+                                                    <p>
+                                                        Please enter your
+                                                        registered E-Mail
+                                                    </p>
+                                                    <Input
+                                                        type="email"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                        onChange={(
+                                                            event: any
+                                                        ) =>
+                                                            setEmail(
+                                                                event.target
+                                                                    .value
+                                                            )
+                                                        }
+                                                    />
+
+                                                    {certificate ? (
+                                                        <a
+                                                            className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
+                                                            href={certificate}
+                                                            download="Certificate.png"
+                                                        >
+                                                            Download Now
+                                                        </a>
+                                                    ) : (
+                                                        <div className="flex space-evenly justify-center">
+                                                            <button
+                                                                onClick={
+                                                                    fetchCertificate
+                                                                }
+                                                                className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl"
+                                                                disabled={
+                                                                    type ===
+                                                                    "Please Select..."
+                                                                        ? true
+                                                                        : false
+                                                                }
+                                                            >
+                                                                Get your
+                                                                Certificate
+                                                            </button>
+                                                            <div className="w-2/3 text-xl mt-0  border-l-[1px] border-l-black">
+                                                                <Select
+                                                                    autoFocus
+                                                                    hideSelectedOptions={
+                                                                        true
+                                                                    }
+                                                                    isClearable={
+                                                                        false
+                                                                    }
+                                                                    isSearchable={
+                                                                        false
+                                                                    }
+                                                                    placeholder={
+                                                                        type
+                                                                    }
+                                                                    theme={(
+                                                                        theme
+                                                                    ) => ({
+                                                                        ...theme,
+                                                                        colors: {
+                                                                            ...theme.colors,
+                                                                            neutral50:
+                                                                                "#000000" // Placeholder color
+                                                                        }
+                                                                    })}
+                                                                    tabSelectsValue={
+                                                                        false
+                                                                    }
+                                                                    name="preference1"
+                                                                    className="text-black w-full rounded-full"
+                                                                    options={
+                                                                        options
+                                                                    }
+                                                                    onChange={
+                                                                        changeType
+                                                                    }
+                                                                    styles={
+                                                                        styles
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ) : null}
+
+                                        {/* <Modal
                                             className="bg-htb-green"
                                             closeButton
                                             width="500px"
                                             blur
-                                            scroll
                                             aria-labelledby="modal-title"
                                             aria-describedby="modal-description"
                                             open={visible}
@@ -347,7 +454,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     </div>
                                                 )}
                                             </Modal.Body>
-                                        </Modal>
+                                        </Modal> */}
                                     </div>
                                 </div>
                             </div>
