@@ -25,7 +25,7 @@ const textOverlay = async (
 
         const jimp_font = path.resolve(
             plugin +
-                `../../fonts/open-sans/open-sans-${font_size}-${color.toLowerCase()}/open-sans-${font_size}-${color.toLowerCase()}.fnt`
+                `../../../fonts/open-sans/open-sans-${font_size}-${color.toLowerCase()}/open-sans-${font_size}-${color.toLowerCase()}.fnt`
         );
 
         const image = await Jimp.read(`${url}`);
