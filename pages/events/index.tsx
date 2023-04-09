@@ -41,6 +41,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             <p className="px-12 flex justify-center">
                 <img src="./allEvents.svg" className="h-20" />
             </p>
+
             <section>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
                     {events.map((event) => (
