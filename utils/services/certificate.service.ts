@@ -1,6 +1,7 @@
 import { DBInstance } from "../db.connect";
 import Jimp from "jimp-compact";
-
+import plugin from "@jimp/plugin-print";
+import path from "path";
 const textOverlay = async (
     name: string,
     url: string,
@@ -9,15 +10,22 @@ const textOverlay = async (
     yOffset: string
 ) => {
     try {
-        const jimp_options: any = {
-            FONT_64_WHITE: Jimp.FONT_SANS_64_WHITE,
-            FONT_64_BLACK: Jimp.FONT_SANS_64_BLACK,
-            FONT_32_WHITE: Jimp.FONT_SANS_32_WHITE,
-            FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK
-        };
+        // const jimp_options: any = {
+        //     FONT_64_WHITE: path.resolve(
+        //         plugin,
+        //         "../../node_modules/jimp-compact/fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt"
+        //     ),
+        //     FONT_64_BLACK: Jimp.FONT_SANS_64_BLACK,
+        //     FONT_32_WHITE: Jimp.FONT_SANS_32_WHITE,
+        //     FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK
+        // };
 
-        const jimp_font =
-            jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
+        // const jimp_font =
+        //     jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
+
+        const jimp_font = path.resolve(
+            `node_modules/jimp-compact/fonts/open-sans/open-sans-${font_size}-${color.toLowerCase()}/open-sans-${font_size}-${color.toLowerCase()}.fnt`
+        );
 
         const image = await Jimp.read(`${url}`);
         image.scaleToFit(1300, Jimp.AUTO, Jimp.RESIZE_BEZIER);
