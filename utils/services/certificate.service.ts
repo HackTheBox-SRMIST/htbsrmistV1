@@ -1,5 +1,5 @@
 import { DBInstance } from "../db.connect";
-import Jimp from "jimp";
+import Jimp from "jimp-compact";
 
 const textOverlay = async (
     name: string,
