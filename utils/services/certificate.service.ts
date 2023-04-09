@@ -1,5 +1,7 @@
 import { DBInstance } from "../db.connect";
 import Jimp from "jimp-compact";
+const plugin = require.resolve("@jimp/plugin-print");
+import path from "path";
 
 const textOverlay = async (
     name: string,
@@ -16,12 +18,18 @@ const textOverlay = async (
             FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK
         };
 
-        const jimp_font =
-            jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
+        const jimpFont = path.resolve(
+            "./node_modules",
+            plugin,
+            "./fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt"
+        );
+
+        // const jimp_font =
+        //     jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
 
         const image = await Jimp.read(`${url}`);
         image.scaleToFit(1300, Jimp.AUTO, Jimp.RESIZE_BEZIER);
-        const font = await Jimp.loadFont(jimp_font);
+        const font = await Jimp.loadFont(jimpFont);
         image.print(
             font,
             0,
