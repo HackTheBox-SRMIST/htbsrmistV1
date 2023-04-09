@@ -119,7 +119,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             const response = await axios.post(`/api/v1/certificate`, values);
             console.log(response);
             setCertificate(response.data.certificate);
+            // Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
+            // console.log(err);
+
             // console.log(err.response.data);
             Toast(true, `${err.response.data.message}`);
         }
@@ -166,7 +169,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     };
     return (
         <>
-            <ToastContainer />
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
@@ -257,13 +259,18 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         <Modal
                                             className="bg-htb-green"
                                             closeButton
+                                            blur
+                                            scroll
                                             aria-labelledby="modal-title"
+                                            aria-describedby="modal-description"
                                             open={visible}
                                             onClose={closeHandler}
                                             onChange={(event: any) =>
                                                 setEmail(event.target.value)
                                             }
                                         >
+                                            <ToastContainer />
+
                                             <Modal.Body>
                                                 <p>
                                                     Please enter your registered
@@ -297,7 +304,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         >
                                                             Get your Certificate
                                                         </button>
-                                                        <div className="w-2/3  mt-0  border-l-[1px] border-l-black">
+                                                        <div className="w-2/3 text-xl mt-0  border-l-[1px] border-l-black">
                                                             <Select
                                                                 autoFocus
                                                                 hideSelectedOptions={
