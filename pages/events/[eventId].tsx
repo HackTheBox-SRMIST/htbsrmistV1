@@ -112,7 +112,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [certificate, setCertificate] = useState(null);
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
-    const handler = () => setVisible(!visible);
+    const handler = () => {
+        setVisible(!visible);
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "hidden";
+        }
+        window.scrollTo({
+            top: 0
+        });
+    };
 
     const fetchCertificate = async () => {
         try {
@@ -120,7 +128,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             const response = await axios.post(`/api/v1/certificate`, values);
             // console.log(response);
             setCertificate(response.data.certificate);
-            // Toast(true, "Certificate Generated Successfully");
+            Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
             // console.log(err);
 
@@ -138,6 +146,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         setCertificate(null);
         setEmail("");
         setType("Please Select...");
+        document.body.style.overflow = "unset";
     };
 
     const settings = {
@@ -261,16 +270,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         </button>
 
                                         {visible ? (
-                                            <div className="absolute top-0 left-0 w-[99%] text-white h-screen flex justify-center items-center backdrop-blur-xl">
+                                            <div className="absolute top-0 left-0 w-screen h-screen text-white flex justify-center items-center backdrop-blur-xl">
                                                 <div className="w-[90%] lg:w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative ">
                                                     <ToastContainer />
                                                     <div
-                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-htb-green"
+                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-red-600"
                                                         onClick={closeHandler}
                                                     >
                                                         <GiCrossMark className="w-full h-full" />
                                                     </div>
-                                                    <p>
+                                                    <p className="text-xl max-md:text-base">
                                                         Please enter your
                                                         registered E-Mail
                                                     </p>
@@ -306,7 +315,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 onClick={
                                                                     fetchCertificate
                                                                 }
-                                                                className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl"
+                                                                className=" w-1/2  bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl max-md:text-sm"
                                                                 disabled={
                                                                     type ===
                                                                     "Please Select..."
@@ -317,7 +326,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 Get your
                                                                 Certificate
                                                             </button>
-                                                            <div className="w-2/3 text-xl mt-0  border-l-[1px] border-l-black">
+                                                            <div className=" max-md:w-2/3 text-xl max-md:text-lg mt-0  border-l-[1px] border-l-black">
                                                                 <Select
                                                                     autoFocus
                                                                     hideSelectedOptions={
