@@ -18,11 +18,19 @@ const textOverlay = async (
             FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK
         };
 
-        const jimpFont = path.resolve(
-            "./node_modules",
-            plugin,
-            "./fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt"
-        );
+        const jimpFont = path
+            .join(
+                __dirname,
+                "../",
+                "../",
+                "../",
+                "../",
+                "../",
+                "node_modules",
+                "jimp",
+                "./fonts/open-sans/open-sans-32-black/open-sans-32-black.fnt"
+            )
+            .toString();
 
         // const jimp_font =
         //     jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
