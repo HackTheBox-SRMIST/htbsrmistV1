@@ -312,7 +312,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 onClick={
                                                                     fetchCertificate
                                                                 }
-                                                                className=" w-1/2  bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl max-md:text-lg"
+                                                                className=" w-1/2  bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl max-md:text-sm"
                                                                 disabled={
                                                                     type ===
                                                                     "Please Select..."
