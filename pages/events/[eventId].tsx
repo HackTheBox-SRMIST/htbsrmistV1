@@ -109,7 +109,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState();
-    const [type, setType] = useState("participants");
+    const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
 
@@ -117,14 +117,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         try {
             const values = { email, type, event: eventId };
             const response = await axios.post(`/api/v1/certificate`, values);
-            console.log(response);
+            // console.log(response);
             setCertificate(response.data.certificate);
             // Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
             // console.log(err);
 
             // console.log(err.response.data);
-            Toast(true, `${err.response.data.message}`);
+            Toast(false, `${err.response.data.message}`);
         }
     };
 
@@ -259,6 +259,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         <Modal
                                             className="bg-htb-green"
                                             closeButton
+                                            width="500px"
                                             blur
                                             scroll
                                             aria-labelledby="modal-title"
