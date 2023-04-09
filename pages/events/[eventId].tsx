@@ -112,7 +112,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [certificate, setCertificate] = useState(null);
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
-    const handler = () => setVisible(!visible);
+    const handler = () => {
+        setVisible(!visible);
+        if (typeof window != "undefined" && window.document) {
+            document.body.style.overflow = "hidden";
+        }
+    };
 
     const fetchCertificate = async () => {
         try {
@@ -138,6 +143,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         setCertificate(null);
         setEmail("");
         setType("Please Select...");
+        document.body.style.overflow = "unset";
     };
 
     const settings = {
@@ -261,11 +267,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         </button>
 
                                         {visible ? (
-                                            <div className="absolute top-0 left-0 w-[99%] text-white h-screen flex justify-center items-center backdrop-blur-xl">
+                                            <div className="absolute top-0 left-0 w-screen h-screen text-white flex justify-center items-center backdrop-blur-xl">
                                                 <div className="w-[90%] lg:w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative ">
                                                     <ToastContainer />
                                                     <div
-                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-htb-green"
+                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-red-600"
                                                         onClick={closeHandler}
                                                     >
                                                         <GiCrossMark className="w-full h-full" />
