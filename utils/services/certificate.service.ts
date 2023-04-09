@@ -24,7 +24,7 @@ const textOverlay = async (
         //     jimp_options[`FONT_${font_size}_${color.toUpperCase()}`];
 
         const jimp_font = path.resolve(
-            `../../node_modules/jimp-compact/fonts/open-sans/open-sans-${font_size}-${color.toLowerCase()}/open-sans-${font_size}-${color.toLowerCase()}.fnt`
+            `/public/fonts/open-sans/open-sans-${font_size}-${color.toLowerCase()}/open-sans-${font_size}-${color.toLowerCase()}.fnt`
         );
 
         const image = await Jimp.read(`${url}`);
