@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PhoneInputWithCountrySelect from "react-phone-number-input";
 import { useState } from "react";
-// const base_url = process.env.BASE_URL_PREVIEW;
+const base_url = process.env.BASE_URL_PREVIEW;
 const ContactUs = () => {
     const [value, setValue] = useState("+91");
 
