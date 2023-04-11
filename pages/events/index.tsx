@@ -5,6 +5,8 @@ import Nav from "../../components/navbar";
 import Footer from "../../components/footer";
 import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 interface EventProps {
     event_name: string;
@@ -46,51 +48,39 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             }
             return value;
         };
+        const Toast = (success: any, message: any) => {
+            toast[success ? "success" : "error"](message, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark"
+            });
+        };
 
         const isSrmite = str2bool(events.target.isSrmite.value);
         events.preventDefault();
-        const sendBody = JSON.stringify({
-            usn: events.target.usn.value,
-            name: events.target.name.value,
-            email: events.target.email.value,
-            dept: events.target.dept.value,
-            isSrmite: isSrmite
-        });
-        try {
-            console.log(sendBody);
 
-            //     const res = await fetch(`/api/v1/`, {
-            //         body: sendBody,
-            //         headers: {
-            //             "Content-Type": "application/json"
-            //         },
-            //         method: "POST"
-            //     });
-            //     const result = await res.json();
-            //     console.log(result.success);
-            //     if (result.success) {
-            //         toast.success(result.message, {
-            //             position: "top-center",
-            //             autoClose: 5000,
-            //             hideProgressBar: false,
-            //             closeOnClick: true,
-            //             pauseOnHover: true,
-            //             draggable: true,
-            //             progress: undefined
-            //         });
-            //     } else {
-            //         toast.error(result.message, {
-            //             position: "top-center",
-            //             autoClose: 5000,
-            //             hideProgressBar: false,
-            //             closeOnClick: true,
-            //             pauseOnHover: true,
-            //             draggable: true,
-            //             progress: undefined
-            //         });
-            //     }
-        } catch (error) {
-            console.log("Server Error");
+        try {
+            const body = {
+                usn: events.target.usn.value,
+                name: events.target.name.value,
+                email: events.target.email.value.toLowerCase(),
+                dept: events.target.dept.value,
+                isSrmite: isSrmite
+            };
+            console.log(body);
+
+            // const response = await axios.post(`/api/v1/register`, body);
+            // const result = await response.data.message;
+            // console.log(result);
+
+            // Toast(true, "Registered Successfully");
+        } catch (err: any) {
+            // Toast(false, `${err.response.data.message}`);
         }
     };
     const [visible, setVisible] = React.useState(false);
@@ -127,7 +117,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             Learn More
                                         </button>
                                     </a>
-
                                     <button
                                         className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
                                         disabled={!event.is_active}
@@ -144,6 +133,8 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         onClose={closeHandler}
                                     >
                                         <Modal.Body className="flex justify-center items-center font-mono">
+                                            <ToastContainer />
+
                                             <p className="text-3xl font-bold max-md:text-2xl">
                                                 Registration Form
                                             </p>
