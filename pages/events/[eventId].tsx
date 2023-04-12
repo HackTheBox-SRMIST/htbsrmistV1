@@ -384,6 +384,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                             </Radio>
                                                         </div>
                                                     </Radio.Group>
+                                                    <p className="text-center font-extra-bold">
+                                                        Check us out on {""}
+                                                        <a
+                                                            href="https://www.meetup.com/chennai-in/"
+                                                            className=" text-black text-xl hover:text-htb-green"
+                                                        >
+                                                            MEETUP
+                                                        </a>
+                                                    </p>
                                                     <button
                                                         type="submit"
                                                         className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
