@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
 import React, { useState } from "react";
-import { Modal, Input } from "@nextui-org/react";
+import { Modal, Input, Radio } from "@nextui-org/react";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
@@ -44,6 +44,7 @@ interface EventProps {
         "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
     ];
     registration_url: string;
+    database: string;
 }
 
 interface EventsPageProps {
@@ -184,9 +185,54 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             }
         ]
     };
+
+    const handlerReg = () => setVisibleReg(true);
+    const closeHandlerReg = () => {
+        setVisibleReg(false);
+    };
+    const [visibleReg, setVisibleReg] = React.useState(false);
+    const [checked, setChecked] = React.useState("");
+    const submitHandler = async (events: React.ChangeEvent<any>) => {
+        const str2bool = (value: string) => {
+            if (value && typeof value === "string") {
+                if (value.toLowerCase() === "true") return true;
+                if (value.toLowerCase() === "false") return false;
+            }
+            return value;
+        };
+
+        const isSrmite = str2bool(events.target.isSrmite.value);
+        events.preventDefault();
+
+        try {
+            const body = {
+                usn: events.target.usn.value,
+                name: events.target.name.value,
+                email: events.target.email.value.toLowerCase(),
+                dept: events.target.dept.value,
+                isSrmite: isSrmite,
+                database: event?.database
+            };
+            console.log(body);
+
+            // const response = await axios.post(
+            //     `/api/v1/events/registration`,
+            //     body
+            // );
+            // const result = await response.data.message;
+            // console.log(result);
+
+            Toast(true, "Registered Successfully");
+        } catch (err: any) {
+            Toast(false, `${err.response.data.message}`);
+        }
+    };
+
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
+                <ToastContainer />
+
                 <div className="md:h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
@@ -251,19 +297,117 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-center justify-evenly md:flex-row ">
-                                    <a
-                                        href="https://www.meetup.com/chennai-in/events/285616974?utm_medium=referral&utm_campaign=share-btn_savedevents_share_modal&utm_source=link"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className=""
-                                    >
+                                    <div>
                                         <button
                                             className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                            disabled={!event?.is_active}
+                                            // disabled={!event?.is_active}
+                                            onClick={handlerReg}
                                         >
                                             REGISTER NOW
                                         </button>
-                                    </a>
+                                        <Modal
+                                            className="bg-htb-green"
+                                            closeButton
+                                            blur
+                                            aria-labelledby="modal-title"
+                                            open={visibleReg}
+                                            onClose={closeHandlerReg}
+                                        >
+                                            <Modal.Body className="flex justify-center items-center font-mono">
+                                                <p className="text-3xl font-bold max-md:text-2xl">
+                                                    Registration Form
+                                                </p>
+                                                <p>Please enter your Details</p>
+                                                <form
+                                                    onSubmit={submitHandler}
+                                                    className=" gap-5 flex-col flex w-full"
+                                                >
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="usn"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Registration Number"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="name"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Name"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="email"
+                                                        name="email"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                    />
+
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="dept"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Department"
+                                                    />
+                                                    <Radio.Group
+                                                        isRequired
+                                                        value={checked}
+                                                        onChange={setChecked}
+                                                        name="isSrmite"
+                                                        orientation="horizontal"
+                                                    >
+                                                        <div className="flex justify-around">
+                                                            <Radio
+                                                                value="true"
+                                                                color="success"
+                                                            >
+                                                                SRMite
+                                                            </Radio>
+                                                            <Radio
+                                                                value="false"
+                                                                color="success"
+                                                            >
+                                                                Non-SRMite
+                                                            </Radio>
+                                                        </div>
+                                                    </Radio.Group>
+                                                    <p className="text-center font-extra-bold">
+                                                        Check us out on {""}
+                                                        <a
+                                                            href="https://www.meetup.com/chennai-in/"
+                                                            className=" text-black text-xl hover:text-htb-green"
+                                                        >
+                                                            MEETUP
+                                                        </a>
+                                                    </p>
+                                                    <button
+                                                        type="submit"
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
+                                                    >
+                                                        SUBMIT
+                                                    </button>
+                                                </form>
+                                            </Modal.Body>
+                                        </Modal>
+                                    </div>
                                     <div>
                                         <button
                                             onClick={handler}
@@ -376,98 +520,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                 </div>
                                             </div>
                                         ) : null}
-
-                                        {/* <Modal
-                                            className="bg-htb-green"
-                                            closeButton
-                                            width="500px"
-                                            blur
-                                            aria-labelledby="modal-title"
-                                            aria-describedby="modal-description"
-                                            open={visible}
-                                            onClose={closeHandler}
-                                            onChange={(event: any) =>
-                                                setEmail(event.target.value)
-                                            }
-                                        >
-                                            <ToastContainer />
-
-                                            <Modal.Body>
-                                                <p>
-                                                    Please enter your registered
-                                                    E-Mail
-                                                </p>
-                                                <Input
-                                                    type="email"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Email"
-                                                />
-
-                                                {certificate ? (
-                                                    <a
-                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
-                                                        href={certificate}
-                                                        download="Certificate.png"
-                                                    >
-                                                        Download Now
-                                                    </a>
-                                                ) : (
-                                                    <div className="flex space-evenly justify-center">
-                                                        <button
-                                                            onClick={
-                                                                fetchCertificate
-                                                            }
-                                                            className="w-2/3 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl"
-                                                        >
-                                                            Get your Certificate
-                                                        </button>
-                                                        <div className="w-2/3 text-xl mt-0  border-l-[1px] border-l-black">
-                                                            <Select
-                                                                autoFocus
-                                                                hideSelectedOptions={
-                                                                    true
-                                                                }
-                                                                isClearable={
-                                                                    false
-                                                                }
-                                                                isSearchable={
-                                                                    false
-                                                                }
-                                                                placeholder={
-                                                                    type
-                                                                }
-                                                                theme={(
-                                                                    theme
-                                                                ) => ({
-                                                                    ...theme,
-                                                                    colors: {
-                                                                        ...theme.colors,
-                                                                        neutral50:
-                                                                            "#000000" // Placeholder color
-                                                                    }
-                                                                })}
-                                                                tabSelectsValue={
-                                                                    false
-                                                                }
-                                                                name="preference1"
-                                                                className="text-black w-full rounded-full"
-                                                                options={
-                                                                    options
-                                                                }
-                                                                onChange={
-                                                                    changeType
-                                                                }
-                                                                styles={styles}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </Modal.Body>
-                                        </Modal> */}
                                     </div>
                                 </div>
                             </div>
