@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
             if (!req.body.usn) {
-                res.status(406).json({
+                return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
                     data: null

@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log(req.body);
             const { usn, name, email, dept, isSrmite, event_name } = req.body;
             if (!usn || !name || !email || !dept || !isSrmite || !event_name) {
-                res.status(406).json({
+                return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
                     data: null
@@ -25,10 +25,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 eventData.database
             );
             const participants = await participantsCollection.findOne({
-                usn: usn
+                $or: [{ usn: usn }, { email: email }]
             });
             if (participants) {
-                res.status(406).json({
+                return res.status(406).json({
                     success: false,
                     message: "❌ Already registered for the event",
                     data: null
