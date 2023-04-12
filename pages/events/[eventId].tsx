@@ -192,6 +192,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     };
     const [visibleReg, setVisibleReg] = React.useState(false);
     const [checked, setChecked] = React.useState("");
+    // const [usn, setUsn] = useState("");
+
+    // const changeUsnHandler =async (e: any) => {
+    //     if(usn.length === 15) {
+
+    //     }
+    //     setUsn(e.target.value);
+    // };
     const submitHandler = async (events: React.ChangeEvent<any>) => {
         const str2bool = (value: string) => {
             if (value && typeof value === "string") {
@@ -211,9 +219,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 email: events.target.email.value.toLowerCase(),
                 dept: events.target.dept.value,
                 isSrmite: isSrmite,
-                database: event?.database
+                event_name: event?.event_name
             };
-            // console.log(body);
+            console.log(body);
 
             const response = await axios.post(
                 `/api/v1/events/registration`,
@@ -222,6 +230,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             const result = await response.data.message;
             // console.log(result);
 
+            // events.target.usn.value =
             Toast(true, result);
         } catch (err: any) {
             Toast(false, `${err.response.data.message}`);
@@ -332,6 +341,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         color="primary"
                                                         size="lg"
                                                         placeholder="Registration Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
                                                     />
                                                     <Input
                                                         required
