@@ -2,7 +2,7 @@ import { NextApiResponse } from "next";
 import { errors, logTime } from "./errorConstants";
 
 export default function (
-    err: { errors: string[]; name: string },
+    err: { errors: string[]; name: string; message: string },
     res: NextApiResponse,
     TYPE: string
 ) {
@@ -19,7 +19,9 @@ export default function (
             message: message
         });
     } else {
-        console.error(`${logTime.dateTime} 👉 ${err.name} \n  📢 ${err}`);
+        console.error(
+            `${logTime.dateTime} 👉 ${err.name || err.message} \n  📢 ${err}`
+        );
         res.status(errors[TYPE as keyof typeof errors].httpStatus).json({
             success: false,
             message: errors[TYPE as keyof typeof errors].message
