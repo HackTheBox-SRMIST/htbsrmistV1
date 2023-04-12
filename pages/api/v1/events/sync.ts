@@ -6,10 +6,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
             if (!req.body.usn) {
-                throw {
-                    httpStatus: 404,
-                    message: "🚫 Send all request data"
-                };
+                res.status(406).json({
+                    success: false,
+                    message: "❌ Provide all the required request details",
+                    data: null
+                });
             }
             const dbInstance = await DBInstance.getInstance();
             const srmCollection = await dbInstance.getCollection("subscribers");

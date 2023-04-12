@@ -8,10 +8,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             console.log(req.body);
             const { usn, name, email, dept, isSrmite, event_name } = req.body;
             if (!usn || !name || !email || !dept || !isSrmite || !event_name) {
-                throw {
-                    httpStatus: 404,
-                    message: "🚫 Send all request data"
-                };
+                res.status(406).json({
+                    success: false,
+                    message: "❌ Provide all the required request details",
+                    data: null
+                });
             }
             const dbInstance = await DBInstance.getInstance();
 
@@ -27,10 +28,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 usn: usn
             });
             if (participants) {
-                throw {
-                    httpStatus: 404,
-                    message: "🚫 Already registered for the event"
-                };
+                res.status(406).json({
+                    success: false,
+                    message: "❌ Already registered for the event",
+                    data: null
+                });
             }
             const extraData = {
                 checkin: {
