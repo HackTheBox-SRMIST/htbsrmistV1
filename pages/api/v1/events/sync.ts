@@ -5,18 +5,21 @@ import { DBInstance } from "../../../../utils/db.connect";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
+            if (!req.body.usn) {
+                throw {
+                    httpStatus: 404,
+                    message: "🚫 Send all request data"
+                };
+            }
             const dbInstance = await DBInstance.getInstance();
-            const srmCollection = await dbInstance.getCollection(
-                "users",
-                "SRM"
-            );
+            const srmCollection = await dbInstance.getCollection("subscribers");
             const participant = await srmCollection.findOne({
                 usn: req.body.usn
             });
 
             res.status(200).json({
                 success: true,
-                message: "fetched details!",
+                message: "✅ Fetched details!",
                 data: participant
             });
         } else {
