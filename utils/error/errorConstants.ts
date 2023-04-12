@@ -12,6 +12,10 @@ export const logTime = {
 };
 
 export const errors = {
+    ALREADY_EXISTS: {
+        httpStatus: 400,
+        message: "✋ Already Exists"
+    },
     BAD_REQUEST: {
         httpStatus: 400,
         message: "❓ Bad Request."
