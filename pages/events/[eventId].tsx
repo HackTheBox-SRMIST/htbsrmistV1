@@ -44,6 +44,7 @@ interface EventProps {
         "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
     ];
     registration_url: string;
+    database: string;
 }
 
 interface EventsPageProps {
@@ -209,11 +210,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 name: events.target.name.value,
                 email: events.target.email.value.toLowerCase(),
                 dept: events.target.dept.value,
-                isSrmite: isSrmite
+                isSrmite: isSrmite,
+                database: event?.database
             };
             console.log(body);
 
-            // const response = await axios.post(`/api/v1/register`, body);
+            // const response = await axios.post(
+            //     `/api/v1/events/registration`,
+            //     body
+            // );
             // const result = await response.data.message;
             // console.log(result);
 
@@ -295,7 +300,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     <div>
                                         <button
                                             className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                            disabled={!event?.is_active}
+                                            // disabled={!event?.is_active}
                                             onClick={handlerReg}
                                         >
                                             REGISTER NOW
