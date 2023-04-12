@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const { usn, name, email, dept, isSrmite, database } = req.body;
             const dbInstance = await DBInstance.getInstance();
             const collection = await dbInstance.getCollection(
-                "registration",
+                "registrations",
                 database
             );
             const data = await collection.insertOne({
@@ -21,7 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
             res.status(200).json({
                 success: true,
-                message: `✅ Successfully Added the ${name}`,
+                message: `✅ Successfully Registered user ${name}`,
                 data: data
             });
         } else {
