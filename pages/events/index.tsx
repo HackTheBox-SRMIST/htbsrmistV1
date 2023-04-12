@@ -70,23 +70,30 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 name: events.target.name.value,
                 email: events.target.email.value.toLowerCase(),
                 dept: events.target.dept.value,
-                isSrmite: isSrmite
+                isSrmite: isSrmite,
+                event_name: event
             };
-            console.log(body);
+            // console.log(body);
 
-            // const response = await axios.post(`/api/v1/register`, body);
-            // const result = await response.data.message;
+            const response = await axios.post(
+                `/api/v1/events/registration`,
+                body
+            );
+            const result = await response.data.message;
             // console.log(result);
 
-            // Toast(true, "Registered Successfully");
+            Toast(true, result);
         } catch (err: any) {
-            // Toast(false, `${err.response.data.message}`);
+            Toast(false, `${err.response.data.message}`);
         }
     };
     const [visible, setVisible] = React.useState(false);
     const [checked, setChecked] = React.useState("");
 
-    const handler = () => setVisible(true);
+    const handler = (e: any) => {
+        setVisible(true);
+        console.log();
+    };
     const closeHandler = () => {
         setVisible(false);
     };
@@ -117,13 +124,13 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             Learn More
                                         </button>
                                     </a>
-                                    <button
+                                    {/* <button
                                         className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
                                         disabled={!event.is_active}
-                                        onClick={handler}
+                                        onClick={handler}   
                                     >
                                         Register
-                                    </button>
+                                    </button> */}
                                     <Modal
                                         className="bg-htb-green"
                                         closeButton
