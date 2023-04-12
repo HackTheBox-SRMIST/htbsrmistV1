@@ -14,6 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 };
             }
             const dbInstance = await DBInstance.getInstance();
+
             const eventsCollection = await dbInstance.getCollection("events");
             const eventData: any = await eventsCollection.findOne({
                 event_name: event_name
@@ -21,6 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const participantsCollection = await dbInstance.getCollection(
                 "participants",
                 eventData.database
+
             );
             const participants = await participantsCollection.findOne({
                 usn: usn
@@ -69,8 +71,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             });
             res.status(200).json({
                 success: true,
-                message: `✅ Successfully Added the ${name}`,
-                data: null
+                message: `✅ Successfully Registered user ${name}`,
+                data: data
+
             });
         } else {
             console.log("🚫", req.method, "was called and got error!!");

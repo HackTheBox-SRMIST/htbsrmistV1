@@ -213,16 +213,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 isSrmite: isSrmite,
                 database: event?.database
             };
-            console.log(body);
+            // console.log(body);
 
-            // const response = await axios.post(
-            //     `/api/v1/events/registration`,
-            //     body
-            // );
-            // const result = await response.data.message;
+            const response = await axios.post(
+                `/api/v1/events/registration`,
+                body
+            );
+            const result = await response.data.message;
             // console.log(result);
 
-            Toast(true, "Registered Successfully");
+            Toast(true, result);
         } catch (err: any) {
             Toast(false, `${err.response.data.message}`);
         }
@@ -231,8 +231,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
-                <ToastContainer />
-
                 <div className="md:h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
@@ -300,7 +298,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     <div>
                                         <button
                                             className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                            // disabled={!event?.is_active}
+                                            disabled={!event?.is_active}
                                             onClick={handlerReg}
                                         >
                                             REGISTER NOW
@@ -314,6 +312,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             onClose={closeHandlerReg}
                                         >
                                             <Modal.Body className="flex justify-center items-center font-mono">
+                                                <ToastContainer />
+
                                                 <p className="text-3xl font-bold max-md:text-2xl">
                                                     Registration Form
                                                 </p>
@@ -393,7 +393,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         Check us out on {""}
                                                         <a
                                                             href="https://www.meetup.com/chennai-in/"
-                                                            className=" text-black text-xl hover:text-htb-green"
+                                                            className=" text-black text-xl hover:text-[#F74160] font-bold"
                                                         >
                                                             MEETUP
                                                         </a>
