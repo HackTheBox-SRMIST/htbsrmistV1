@@ -1,28 +1,28 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Certificates } from "../../../../utils/services/certificate.service";
 import errorHandler from "../../../../utils/error/errorHandler";
+import { DBInstance } from "../../../../utils/db.connect";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
-        const certificate = await Certificates(
-            req.body.email,
-            req.body.event,
-            req.body.type
-        );
-        if (certificate) {
+            if (!req.body.usn) {
+                return res.status(406).json({
+                    success: false,
+                    message: "❌ Provide all the required request details",
+                    data: null
+                });
+            }
+            const dbInstance = await DBInstance.getInstance();
+            const srmCollection = await dbInstance.getCollection("subscribers");
+            const participant = await srmCollection.findOne({
+                usn: req.body.usn
+            });
+
             res.status(200).json({
-                certificate,
-                usn: req.body.usn,
                 success: true,
-                message: "✅ Certificate generated successfully!"
+                message: "✅ Fetched details!",
+                data: participant
             });
-        } else {
-            res.status(406).json({
-                success: false,
-                message: "❌ Failed to generate certificate!"
-            });
-        } 
         } else {
             console.log("🚫", req.method, "was called and got error!!");
             res.status(405).json({

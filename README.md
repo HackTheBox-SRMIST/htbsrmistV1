@@ -32,7 +32,137 @@ Events returns the following status codes in its API:
 | success | Status Code | Description |
 | :--- | :--- | :--- |
 | true | 200 | `✅ Successfully fetched!` |
-| false | 500 | `❌ Database connected but failed to fetch the data!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
+| false | 500 | `❌ Database connected but failed to fetch the data!` | 
+
+
+
+
+
+
+## Teams API
+
+The Teams API is to display Team memebers of all our domain in HTB SRMIST.
+
+## Get list of Members
+
+### Request
+    
+ `GET`  `/api/v1/teams?current=true`
+
+
+| Query | Type | Description |
+| :--- | :--- | :--- |
+| `current` | `boolean` | `True` Members currently in team <br/> `False`  Past members |
+### Response
+
+```javascript
+{
+   "success": bool,
+    "message": string,
+    "data": Array[Objects]
+}
+```
+   
+
+
+## Status Codes
+
+Teams returns the following status codes in its API:
+
+| success | Status Code | Description |
+| :--- | :--- | :--- |
+| true | 200 | `✅ Successfully fetched!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
+| false | 422 | `👉 ValidationError` | 
+| false | 500 | `🔌 Internal Server Error.` | 
+
+
+
+
+
+## HealthCheck API
+
+The Healthcheck API is to display the health of server which host our official website.
+
+## Get Health Status
+
+### Request
+    
+ `GET`  `/api/v1/healthcheck`
+
+
+### Response
+
+```javascript
+{
+	"success": boolean'
+	"message": string'
+	"timestamp": string'
+	"uptime": number'
+}
+```
+   
+
+
+## Status Codes
+
+HealthCheck returns the following status codes in its API:
+
+| success | Status Code | Description |
+| :--- | :--- | :--- |
+| true | 200 | `API v1 working!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
+
+
+
+
+
+
+
+## Contact Us API
+
+The ContactUs API is to display .
+
+## Get list of Members
+
+### Request
+    
+ `POST`  `/api/v1/contactus`
+
+
+| Body | Type | Description |
+| :--- | :--- | :--- |
+| `name` | `string` | **Required**. Your Name|
+| `email` | `string` | **Required**. Your Email|
+| `ContactNo` | `string` | Your Contact No.|
+| `question` | `string` | **Required**. Your Name|
+| `countryCode` | `string` | Your Name|
+
+
+
+### Response
+
+```javascript
+{
+   "success": bool,
+    "message": string,
+}
+```
+   
+
+
+## Status Codes
+
+ContactUs returns the following status codes in its API:
+
+| success | Status Code | Description |
+| :--- | :--- | :--- |
+| true | 200 | `✅ Successfully sent the message!` |
+| false | 405 | `🚫 HTTP Method not Allowed` | 
+| false | 422 | `question must be at least 30 characters. ` | 
+| false | 500 | `🔌 Internal Server Error.` | 
+
 
 # Environments
 
