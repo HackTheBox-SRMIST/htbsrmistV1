@@ -6,6 +6,8 @@ import Footer from "../../components/footer";
 import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
 
 interface EventProps {
@@ -38,6 +40,18 @@ interface EventProps {
 interface EventsPageProps {
     events: EventProps[];
 }
+const Toast = (success: any, message: any) => {
+    toast[success ? "success" : "error"](message, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark"
+    });
+};
 
 const EventS: NextPage<EventsPageProps> = ({ events }) => {
     const submitHandler = async (events: React.ChangeEvent<any>) => {
@@ -47,18 +61,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 if (value.toLowerCase() === "false") return false;
             }
             return value;
-        };
-        const Toast = (success: any, message: any) => {
-            toast[success ? "success" : "error"](message, {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark"
-            });
         };
 
         const isSrmite = str2bool(events.target.isSrmite.value);
@@ -71,7 +73,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 email: events.target.email.value.toLowerCase(),
                 dept: events.target.dept.value,
                 isSrmite: isSrmite,
-                event_name: event
+                event_name: events.target.event_name.value
             };
             // console.log(body);
 
@@ -124,13 +126,13 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             Learn More
                                         </button>
                                     </a>
-                                    {/* <button
+                                    <button
                                         className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
                                         disabled={!event.is_active}
-                                        onClick={handler}   
+                                        onClick={handler}
                                     >
                                         Register
-                                    </button> */}
+                                    </button>
                                     <Modal
                                         className="bg-htb-green"
                                         closeButton
@@ -150,6 +152,11 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                                 onSubmit={submitHandler}
                                                 className=" gap-5 flex-col flex w-full"
                                             >
+                                                <input
+                                                    name="event_name"
+                                                    value={event?.event_name}
+                                                    className="hidden"
+                                                />
                                                 <Input
                                                     required
                                                     type="text"
