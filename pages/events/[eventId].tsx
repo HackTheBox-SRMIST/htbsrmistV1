@@ -130,7 +130,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const fetchCertificate = async () => {
         try {
             const values = { email, type, event: eventId };
-            const response = await axios.post(`/api/v1/certificate`, values);
+            const response = await axios.post(
+                `https://api.htbsrmist.tech/api/certificate/get-certificate`,
+                values
+            );
             // console.log(response);
             setCertificate(response.data.certificate);
             Toast(true, "Certificate Generated Successfully");
