@@ -6,7 +6,7 @@ import { RxTwitterLogo } from "react-icons/rx";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
-import { SiMedium } from "react-icons/Si";
+import { SiMedium } from "react-icons/si";
 const Footer = () => {
     return (
         <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
