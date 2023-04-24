@@ -25,7 +25,7 @@ const Footer = () => {
                         <div className="socials flex place-items-center flex-col justify-items-center items-center ">
                             <div className="text-3xl flex flex-row gap-5 sm:gap-10">
                                 <a
-                                    href="https://link.medium.com/yuCaTNrdgzb"
+                                    href="https://htbsrmist.medium.com"
                                     className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <SiMedium></SiMedium>
