@@ -6,6 +6,7 @@ import { RxTwitterLogo } from "react-icons/rx";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
+import { SiMedium } from "react-icons/Si";
 const Footer = () => {
     return (
         <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
@@ -23,6 +24,12 @@ const Footer = () => {
                         </div>
                         <div className="socials flex place-items-center flex-col justify-items-center items-center ">
                             <div className="text-3xl flex flex-row gap-5 sm:gap-10">
+                                <a
+                                    href="https://link.medium.com/yuCaTNrdgzb"
+                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                >
+                                    <SiMedium></SiMedium>
+                                </a>
                                 <a
                                     href="https://www.instagram.com/htbsrmist/"
                                     className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
