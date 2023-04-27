@@ -35,7 +35,8 @@ const Recruitment: NextPage = () => {
                                 data-tf-popup="ONxYHH68"
                                 data-tf-iframe-props="title=RECRUITMENT_23"
                                 data-tf-medium="snippet"
-                                className="recruitmentBtn btnactive"
+                                className="recruitmentBtn btninactive"
+                                disabled={true}
                             >
                                 Apply Now!
                             </button>
