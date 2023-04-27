@@ -120,7 +120,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
                                 </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%]  md:top-[80%] w-full md:left-[30%] ">
+                                <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%]  md:top-[80%] md:left-[30%] ">
                                     <a href={`/events/${event.event_name}`}>
                                         <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
                                             Learn More
