@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import Nav from "../components/navbar";
 import Head from "next/head";
 import Footer from "../components/footer";
+import ScrollToTopButton from "../components/scrlbtn"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -67,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
             <Nav />
             <Component {...pageProps} />
+            <ScrollToTopButton />
             <Footer />
         </>
     );
