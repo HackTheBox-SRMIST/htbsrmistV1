@@ -252,7 +252,8 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
         ).json();
-        return { props: { events } };
+        const reversedEvents = events.reverse();
+        return { props: { events: reversedEvents } };
     } catch (error) {
         console.log(error);
         return { notFound: true };
