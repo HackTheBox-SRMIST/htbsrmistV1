@@ -246,6 +246,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
+                        
+
                             <p className="text-white sm:text-xl mt-6 text-justify md:ml-10 lg:ml-0 md:text-left text-sm ">
                                 {event?.event_description}. <br />
                                 <br />
@@ -620,7 +622,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     <Slider {...settings}>
                         {event?.gallery?.map((image) => (
                             <div key={image}>
-                                <img
+                                
+                                    <div className="image">
+                                        <img
                                     src={image}
                                     alt="Gallery"
                                     style={{
@@ -632,6 +636,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             "0px 0px 10px rgba(0, 0, 0, 0.3)"
                                     }}
                                 />
+
+                                    </div>
+                                    
+                                    
+                                
+                                
                             </div>
                         ))}
                     </Slider>
