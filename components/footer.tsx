@@ -12,18 +12,18 @@ const Footer = () => {
         <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
             <div className="py-2 text-center lg:text-left">
                 <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
-                    <div className="mx-auto mt-1 col-start-1 hidden lg:block pt-8">
+                    <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
                         <Logo />
                     </div>
                     <div className="lg:col-span-3 flex flex-col justify-around">
                         <div>
-                            <h6 className="uppercase font-semibold mt-6 lg:mt-4 flex items-center justify-center md:justify-center text-center mx-3 lg:mx-0 ">
+                            <h6 className="uppercase font-semibold mt-6 lg:mt-4 flex items-center justify-center md:justify-center text-center mx-3 lg:mx-0 lg:ml-6 pb-4">
                                 Transforming the cyberspace in SRMIST and
                                 beyond.
                             </h6>
                         </div>
-                        <div className="socials flex place-items-center flex-col justify-items-center items-center ">
-                            <div className="text-3xl flex flex-row gap-5 sm:gap-10">
+                        <div className="socials flex place-items-center flex-col justify-items-center items-center mb-1 ml-6">
+                            <div className="text-3xl flex flex-row gap-5 sm:gap-10 pb-4">
                                 <a
                                     href="https://htbsrmist.medium.com"
                                     className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
@@ -70,10 +70,10 @@ const Footer = () => {
                         </h6>
 
                         <div
-                            className=" flex flex-row lg:flex-col justify-center gap-4 md:gap-2 md:justify-left
+                            className=" flex flex-row lg:flex-col justify-center gap-4 md:gap-1.5 md:justify-left
                           lg:justify-start"
                         >
-                            <p className="lg:mb-2 lg:px-32">
+                            <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -81,7 +81,7 @@ const Footer = () => {
                                     Home
                                 </a>
                             </p>
-                            <p className="lg:mb-2 lg:px-32">
+                            <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/team"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -89,7 +89,7 @@ const Footer = () => {
                                     Team
                                 </a>
                             </p>
-                            <p className="lg:mb-2 lg:px-32">
+                            <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/events"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -97,7 +97,7 @@ const Footer = () => {
                                     Event
                                 </a>
                             </p>
-                            <p className="lg:px-32">
+                            <p className="lg:px-32 lg:mb-1.5">
                                 <a
                                     href="/contact-us"
                                     className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
@@ -109,7 +109,7 @@ const Footer = () => {
                     </div>
 
                     <div className="flex flex-col m-auto">
-                        <h6 className="uppercase font-semibold mb-4 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 ">
+                        <h6 className="uppercase font-semibold mb-5 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 lg:ml-0 ">
                             Contact
                         </h6>
                         <div className="flex  gap-3 items-top">
@@ -131,11 +131,11 @@ const Footer = () => {
                                     ></path>
                                 </svg>
                             </span>
-                            <p>SRM Kattankulathur , Chengalpattu, 603203, IN</p>
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">SRM Kattankulathur , Chengalpattu, 603203, IN</p>
                             {/* </p> */}
                         </div>
-                        <div className="text-left ml-2 md:ml-0">
-                            <p className="md:justify-start mb-1 space-x-2 inline-flex">
+                        <div className="text-left ml-2 md:ml-0 mt-3.5">
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"
