@@ -131,11 +131,11 @@ const Footer = () => {
                                     ></path>
                                 </svg>
                             </span>
-                            <p className="md:justify-start mb-1 space-x-2 inline-flex">SRM Kattankulathur , Chengalpattu, 603203, IN</p>
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">SRM Kattankulathur , Chengalpattu, 603203, IN</p>
                             {/* </p> */}
                         </div>
                         <div className="text-left ml-2 md:ml-0 mt-3.5">
-                            <p className="md:justify-start mb-1 space-x-2 inline-flex">
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"
