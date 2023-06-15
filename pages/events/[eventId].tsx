@@ -1,6 +1,6 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
 import React from "react";
-import EventPoster from "../../components/eventPoster";
+import EventPoster from "../../components/events/eventPoster";
 import EventRegister from "../../components/events/eventRegister";
 import EventPrerequisites from "../../components/events/eventPrerequisites";
 import EventGallery from "../../components/events/eventGallery";
