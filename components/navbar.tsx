@@ -27,6 +27,10 @@ const Nav = () => {
         {
             name: "RECRUITMENTS",
             href: "/recruitment"
+        },
+        {
+            name: "BLOGS",
+            href: "/blogs"
         }
     ];
     const showMenu = () => {
