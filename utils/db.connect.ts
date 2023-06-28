@@ -14,7 +14,6 @@ export class DBInstance {
         useUnifiedTopology: true,
         maxIdleTimeMS: 5000
     };
-
     //Database Credentials
     private URL: string =
         process.env.MONGODB_URI || "mongodb://localhost:27017/";
