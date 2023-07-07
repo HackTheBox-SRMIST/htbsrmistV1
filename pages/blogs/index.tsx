@@ -21,7 +21,7 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
             <div className="grid grid-cols-1 p-9 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
                 {blogs.map((blog, index) => (
                     <div
-                        className="backdrop-blur-sm bg-white/30 rounded-lg shadow-md p-4"
+                        className="backdrop-blur-sm bg-[#141D2B]/80 rounded-lg shadow-md p-4"
                         key={index}
                     >
                         <img
@@ -33,18 +33,22 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
                             <h2 className="text-xl font-bold text-htb-green mb-2">
                                 {blog.title}
                             </h2>
-                            <div
+                            {/* <div
                                 className="text-gray-700"
                                 dangerouslySetInnerHTML={{
                                     __html: blog.description
                                 }}
-                            ></div>
+                            ></div> */}
                         </div>
                         <div className="flex justify-end items-center px-4 py-2 backdrop-blur-md bg-white/30">
                             <Link href={`/blogs/${blog.slug}`}>
+                                <div className="relative object-bottom">
+                               
                                 <a className="text-[#119f3b93] underline hover:text-htb-green">
                                     Read More
                                 </a>
+                                
+                                </div>
                             </Link>
                         </div>
                     </div>

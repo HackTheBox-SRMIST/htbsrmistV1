@@ -29,12 +29,16 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
         <div>
             {/* <div>Blog Page for: {blogId}</div> */}
             <div>
-                <h1>Title:{blog?.title}</h1>
+                <div className="text-4xl text-center justify-center font-bold text-htb-green p-6">
+                <h1>{blog?.title}</h1>
+                </div>
+                <div className="ml-36 mr-36 md:text-lg lg:text-xl xl:text-1xl leading-loose bg-[#141D2B] text-white/60">
                 <p
                     dangerouslySetInnerHTML={createMarkup(
                         blog?.description || ""
                     )}
                 />{" "}
+                </div>
             </div>
         </div>
     );
