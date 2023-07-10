@@ -32,7 +32,7 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
                             />
                         </div>
                         <div className="p-4">
-                            <h2 className="text-xl font-bold text-htb-green mb-2">
+                            <h2 className="text-xl font-bold text-htb-green mb-2 text-center">
                                 {blog.title}
                             </h2>
                             {/* <div
