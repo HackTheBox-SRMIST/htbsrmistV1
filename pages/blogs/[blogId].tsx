@@ -22,22 +22,28 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
     // console.log(blog);
 
     const createMarkup = (html: string) => {
-        return { __html: html };
+        const modifiedHtml = html.replace(
+            /(<img.*?>|<figure.*?>)/g,
+            (match) => `<div class="my-16">${match}</div>`
+        );
+        return { __html: modifiedHtml };
     };
 
     return (
         <div>
-            {/* <div>Blog Page for: {blogId}</div> */}
             <div>
-                <div className="text-4xl text-center justify-center font-bold text-htb-green p-6">
-                <h1>{blog?.title}</h1>
+                <div className="text-4xl max-md:text-2xl text-center justify-center font-bold text-htb-green p-6 max-w-screen">
+                    <h1 className="m-0 font-bold text-center mb-12 text-6xl text-htb-green">
+                        BLOGS
+                    </h1>
+                    <h1>{blog?.title}</h1>
                 </div>
-                <div className="ml-36 mr-36 md:text-lg lg:text-xl xl:text-1xl leading-loose bg-[#141D2B] text-white/60">
-                <p
-                    dangerouslySetInnerHTML={createMarkup(
-                        blog?.description || ""
-                    )}
-                />{" "}
+                <div className="md:text-lg lg:text-xl xl:text-1xl bg-[#141D2B] text-white/70 p-8 overflow-hidden">
+                    <p
+                        dangerouslySetInnerHTML={createMarkup(
+                            blog?.description || ""
+                        )}
+                    />
                 </div>
             </div>
         </div>

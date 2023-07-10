@@ -20,17 +20,18 @@ const Nav = () => {
             name: "EVENTS",
             href: "/events"
         },
+
         {
             name: "CONTACT US",
             href: "/contact-us"
         },
         {
-            name: "RECRUITMENTS",
-            href: "/recruitment"
-        },
-        {
             name: "BLOGS",
             href: "/blogs"
+        },
+        {
+            name: "RECRUITMENTS",
+            href: "/recruitment"
         }
     ];
     const showMenu = () => {
