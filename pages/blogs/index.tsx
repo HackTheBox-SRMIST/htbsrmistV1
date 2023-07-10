@@ -14,7 +14,7 @@ interface BlogsProps {
 
 const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
     return (
-        <div className="flex flex-col min-h-screen max-w-screen">
+        <div className="flex flex-col min-h-screen max-w-screen font-[share-tech]">
             <h1 className="m-0 font-bold text-center mb-8 text-6xl text-htb-green">
                 BLOGS
             </h1>

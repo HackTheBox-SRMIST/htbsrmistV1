@@ -1,11 +1,13 @@
 import { NextPage, GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
+import { SiMedium } from "react-icons/si";
 
 interface BlogProps {
     img: string;
     title: string;
     description: string;
+    link: string;
     slug: string;
 }
 
@@ -23,20 +25,50 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
 
     const createMarkup = (html: string) => {
         const modifiedHtml = html.replace(
-            /(<img.*?>|<figure.*?>)/g,
-            (match) => `<div class="my-16">${match}</div>`
+            /(<img.*?>|<figure.*?>|<\/figure>|<h\d>.*?<\/h\d>)/g,
+            (match) => {
+                // Check if the match is a heading element
+                if (match.startsWith("<h")) {
+                    return `<div class="my-16"><span class="text-3xl max-md:text-xl text-center font-bold text-white">${match}</span></div>`;
+                }
+                return `<div class="my-16">${match}</div>`;
+            }
         );
-        return { __html: modifiedHtml };
+
+        const modifiedWithFont = modifiedHtml.replace(
+            /<p.*?>(.*?)<\/p>/g,
+            (match, pContent) =>
+                `<p class="font-[share-tech] text-justify">${pContent}</p>`
+        );
+
+        return { __html: modifiedWithFont };
     };
 
     return (
         <div>
             <div>
-                <div className="text-4xl max-md:text-2xl text-center justify-center font-bold text-htb-green p-6 max-w-screen">
+                <div className="text-4xl max-md:text-2xl text-center justify-center font-bold text-htb-green p-6 max-w-screen font-[share-tech]">
                     <h1 className="m-0 font-bold text-center mb-12 text-6xl text-htb-green">
                         BLOGS
                     </h1>
                     <h1>{blog?.title}</h1>
+                    <div className="flex justify-center">
+                        {" "}
+                        <a
+                            href={blog?.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <button className="text-[#141D2B] bg-[#9FEF00] px-5 inline-flex mt-8 rounded-md hover:bg-htb-green opacity-70 hover:opacity-100 items-center">
+                                <div>
+                                    <SiMedium />
+                                </div>
+                                <p className="my-1.5 text-sm px-3">
+                                    Read on Medium
+                                </p>
+                            </button>
+                        </a>
+                    </div>
                 </div>
                 <div className="md:text-lg lg:text-xl xl:text-1xl bg-[#141D2B] text-white/70 p-8 overflow-hidden">
                     <p
@@ -62,6 +94,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
             img: item.thumbnail,
             title: item.title,
             description: item.description,
+            link: item.link,
             slug: encodeURIComponent(item.title)
         }));
 
