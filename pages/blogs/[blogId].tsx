@@ -8,6 +8,7 @@ interface BlogProps {
     title: string;
     description: string;
     link: string;
+    pubDate: string;
     slug: string;
 }
 
@@ -23,6 +24,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
     const blog = blogData.find((blog) => blog.title === blogId);
     // console.log(blog);
 
+    // console.log(pubDate);
     const createMarkup = (html: string) => {
         const modifiedHtml = html.replace(
             /(<img.*?>|<figure.*?>|<\/figure>|<h\d>.*?<\/h\d>)/g,
@@ -51,7 +53,9 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                     <h1 className="m-0 font-bold text-center mb-12 text-6xl text-htb-green">
                         BLOGS
                     </h1>
-                    <h1>{blog?.title}</h1>
+                    <div className="flex-col">
+                        <span>{blog?.title}</span>
+                    </div>
                     <div className="flex justify-center">
                         {" "}
                         <a
@@ -76,6 +80,11 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                             blog?.description || ""
                         )}
                     />
+                    <span>
+                        <div className="text-white/70 text-left text-2xl max-md:text-xl font-extrabold font-[share-tech]">
+                            Publish Date: {blog?.pubDate}
+                        </div>
+                    </span>
                 </div>
             </div>
         </div>
@@ -95,6 +104,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
             title: item.title,
             description: item.description,
             link: item.link,
+            pubDate: item.pubDate.substring(0, 10),
             slug: encodeURIComponent(item.title)
         }));
 

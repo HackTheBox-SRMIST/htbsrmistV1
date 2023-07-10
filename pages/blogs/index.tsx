@@ -5,6 +5,7 @@ interface BlogData {
     img: string;
     title: string;
     description: string;
+    pubDate: string;
     slug: string;
 }
 
@@ -35,12 +36,11 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
                             <h2 className="text-xl font-bold text-htb-green mb-2 text-center">
                                 {blog.title}
                             </h2>
-                            {/* <div
-                                className="text-gray-700"
-                                dangerouslySetInnerHTML={{
-                                    __html: blog.description
-                                }}
-                            ></div> */}
+                            <span>
+                                <div className="text-white/70 text-right text-sm mt-8 font-extrabold font-[share-tech]">
+                                    Publish Date: {blog?.pubDate}
+                                </div>
+                            </span>
                         </div>
 
                         <div className="flex justify-end items-center px-4 py-2 backdrop-blur-md ">
@@ -69,6 +69,8 @@ export async function getServerSideProps() {
             img: item.thumbnail,
             title: item.title,
             description: item.description,
+            pubDate: item.pubDate.substring(0, 10),
+
             slug: encodeURIComponent(item.title)
         }));
 
