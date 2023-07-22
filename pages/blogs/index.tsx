@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import blogs from "../../public/blogs.svg";
 
 interface BlogData {
     img: string;
@@ -16,9 +18,10 @@ interface BlogsProps {
 const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
     return (
         <div className="flex flex-col min-h-screen max-w-screen font-[share-tech]">
-            <h1 className="m-0 font-bold text-center mb-8 text-6xl text-htb-green">
-                BLOGS
-            </h1>
+            <div className="flex justify-center items-center">
+                <img src="./blogs.svg" className="h-8 md:h-16"></img>
+            </div>
+
             <div className="grid grid-cols-1 p-9 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
                 {blogs.map((blog, index) => (
                     <div
