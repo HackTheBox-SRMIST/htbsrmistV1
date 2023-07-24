@@ -20,9 +20,14 @@ const Nav = () => {
             name: "EVENTS",
             href: "/events"
         },
+
         {
             name: "CONTACT US",
             href: "/contact-us"
+        },
+        {
+            name: "BLOGS",
+            href: "/blogs"
         },
         {
             name: "RECRUITMENTS",
