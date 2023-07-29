@@ -10,6 +10,8 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select from "react-select";
+import EventModal from "./eventModal";
+
 const url_root = process.env.BASE_URL_PREVIEW;
 interface EventProps {
     event_name: string;
@@ -182,116 +184,8 @@ const EventRegister: NextPage<EventsPageProps> = ({ events }) => {
 
     return (
         <div className="flex flex-col items-center justify-evenly md:flex-row ">
-            <div>
-                <button
-                    className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                    disabled={!event?.is_active}
-                    onClick={handlerReg}
-                >
-                    REGISTER NOW
-                </button>
-                <Modal
-                    className="bg-htb-green"
-                    closeButton
-                    blur
-                    aria-labelledby="modal-title"
-                    open={visibleReg}
-                    onClose={closeHandlerReg}
-                >
-                    <Modal.Body className="flex justify-center items-center font-mono">
-                        <ToastContainer />
+            <EventModal events={events} />
 
-                        <p className="text-3xl font-bold max-md:text-2xl">
-                            Registration Form
-                        </p>
-                        <p>Please enter your Details</p>
-                        <form
-                            onSubmit={submitHandler}
-                            className=" gap-5 flex-col flex w-full"
-                        >
-                            <Input
-                                required
-                                type="text"
-                                name="usn"
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Registration Number"
-                                // onChange={
-                                //     changeUsnHandler
-                                // }
-                            />
-                            <Input
-                                required
-                                type="text"
-                                name="name"
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Name"
-                            />
-                            <Input
-                                required
-                                type="email"
-                                name="email"
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Email"
-                            />
-
-                            <Input
-                                required
-                                type="text"
-                                name="dept"
-                                clearable
-                                bordered
-                                fullWidth
-                                color="primary"
-                                size="lg"
-                                placeholder="Department"
-                            />
-                            <Radio.Group
-                                isRequired
-                                value={checked}
-                                onChange={setChecked}
-                                name="isSrmite"
-                                orientation="horizontal"
-                            >
-                                <div className="flex justify-around">
-                                    <Radio value="true" color="success">
-                                        SRMite
-                                    </Radio>
-                                    <Radio value="false" color="success">
-                                        Non-SRMite
-                                    </Radio>
-                                </div>
-                            </Radio.Group>
-                            <p className="text-center font-extra-bold">
-                                Check us out on {""}
-                                <a
-                                    href="https://www.meetup.com/chennai-in/"
-                                    className=" text-black text-xl hover:text-[#F74160] font-bold"
-                                >
-                                    MEETUP
-                                </a>
-                            </p>
-                            <button
-                                type="submit"
-                                className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
-                            >
-                                SUBMIT
-                            </button>
-                        </form>
-                    </Modal.Body>
-                </Modal>
-            </div>
             <div>
                 <button
                     onClick={handler}
