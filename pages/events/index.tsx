@@ -121,7 +121,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
                                 </figure>
-                                <div className="w-2 sm:w-full  absolute  bottom-5 sm:bottom-11 right-24 sm:-right-[55%]  hidden hidebtn">
+                                <div className="w-2 sm:w-full  absolute  max-[320px]:bottom-5 min-[375px]:bottom-10 min-[425px]:bottom-16 md:bottom-5 lg:bottom-11 max-[320px]:right-24  right-28 sm:-right-[55%]  hidden hidebtn">
                                     <EventModal events={event} />
                                 </div>
                                 <div className="hidden hidebtn absolute z-20 top-[60%] sm:top-[70%] left-[5%]  md:top-[80%] md:left-[15%] ">
