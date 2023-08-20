@@ -7,6 +7,7 @@ import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EventModal from "../../components/events/eventModal";
 
 import axios from "axios";
 
@@ -107,7 +108,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
             <section>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                    {events.map((event) => {
+                    {events.map((event: any) => {
                         return (
                             <div
                                 key={event.event_name}
@@ -120,119 +121,15 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
                                 </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[70%] left-[5%]  md:top-[80%] md:left-[30%] ">
+                                <div className="w-2 sm:w-full  absolute  max-[320px]:bottom-5 min-[375px]:bottom-10 min-[425px]:bottom-16 md:bottom-5 lg:bottom-11 max-[320px]:right-24  right-28 sm:-right-[55%]  hidden hidebtn">
+                                    <EventModal events={event} />
+                                </div>
+                                <div className="hidden hidebtn absolute z-20 top-[60%] sm:top-[70%] left-[5%]  md:top-[80%] md:left-[15%] ">
                                     <a href={`/events/${event.event_name}`}>
-                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
+                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 sm:py-[10px] px-1 sm:px-5 md:mr-6 rounded-[5px] ml-[2%] md:ml-[0%]">
                                             Learn More
                                         </button>
                                     </a>
-                                    <button
-                                        className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
-                                        disabled={!event.is_active}
-                                        onClick={handler}
-                                    >
-                                        Register
-                                    </button>
-                                    <Modal
-                                        className="bg-htb-green"
-                                        closeButton
-                                        blur
-                                        aria-labelledby="modal-title"
-                                        open={visible}
-                                        onClose={closeHandler}
-                                    >
-                                        <Modal.Body className="flex justify-center items-center font-mono">
-                                            <ToastContainer />
-
-                                            <p className="text-3xl font-bold max-md:text-2xl">
-                                                Registration Form
-                                            </p>
-                                            <p>Please enter your Details</p>
-                                            <form
-                                                onSubmit={submitHandler}
-                                                className=" gap-5 flex-col flex w-full"
-                                            >
-                                                <input
-                                                    name="event_name"
-                                                    value={event?.event_name}
-                                                    className="hidden"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="usn"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Registration Number"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="name"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Name"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="email"
-                                                    name="email"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Email"
-                                                />
-
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="dept"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Department"
-                                                />
-                                                <Radio.Group
-                                                    isRequired
-                                                    value={checked}
-                                                    onChange={setChecked}
-                                                    name="isSrmite"
-                                                    orientation="horizontal"
-                                                >
-                                                    <div className="flex justify-around">
-                                                        <Radio
-                                                            value="true"
-                                                            color="success"
-                                                        >
-                                                            SRMite
-                                                        </Radio>
-                                                        <Radio
-                                                            value="false"
-                                                            color="success"
-                                                        >
-                                                            Non-SRMite
-                                                        </Radio>
-                                                    </div>
-                                                </Radio.Group>
-                                                <button
-                                                    type="submit"
-                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
-                                                >
-                                                    SUBMIT
-                                                </button>
-                                            </form>
-                                        </Modal.Body>
-                                    </Modal>
                                 </div>
                             </div>
                         );
