@@ -212,26 +212,42 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             return value;
         };
 
-        const isSrmite = str2bool(events.target.isSrmite.value);
+        // const isSrmite = str2bool(events.target.isSrmite.value);
         events.preventDefault();
 
         try {
             const body = {
-                usn: events.target.usn.value,
-                name: events.target.name.value,
-                email: events.target.email.value.toLowerCase(),
-                dept: events.target.dept.value,
-                isSrmite: isSrmite,
+                teamName: events.target.teamName.value,
+                participants: [
+                    {
+                        name: events.target.name1.value,
+                        email: events.target.email1.value,
+                        usn: events.target.usn1.value,
+                        department: events.target.dept1.value
+                    },
+                    {
+                        name: events.target.name2.value,
+                        email: events.target.email2.value,
+                        usn: events.target.usn2.value,
+                        department: events.target.dept2.value
+                    },
+                    {
+                        name: events.target.name3.value,
+                        email: events.target.email3.value,
+                        usn: events.target.usn3.value,
+                        department: events.target.dept3.value
+                    }
+                ],
                 event_name: event?.event_name
             };
             console.log(body);
 
             const response = await axios.post(
-                `/api/v1/events/registration`,
+                `/api/v1/events/team-registration`,
                 body
             );
             const result = await response.data.message;
-            // console.log(result);
+            console.log(result);
 
             // events.target.usn.value =
             Toast(true, result);
@@ -249,7 +265,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
                             </h1>
-                        
 
                             <p className="text-white sm:text-xl mt-6 text-justify md:ml-10 lg:ml-0 md:text-left text-sm ">
                                 {event?.event_description}. <br />
@@ -331,7 +346,10 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                 <p className="text-3xl font-bold max-md:text-2xl">
                                                     Registration Form
                                                 </p>
-                                                <p>Please enter your Details</p>
+                                                <p>
+                                                    Please enter your team
+                                                    Details
+                                                </p>
                                                 <form
                                                     onSubmit={submitHandler}
                                                     className=" gap-5 flex-col flex w-full"
@@ -339,7 +357,24 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     <Input
                                                         required
                                                         type="text"
-                                                        name="usn"
+                                                        name="teamName"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Team Name"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
+                                                    />
+                                                    <p className="text-center">
+                                                        Member 1 Details
+                                                    </p>
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="usn1"
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -353,7 +388,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     <Input
                                                         required
                                                         type="text"
-                                                        name="name"
+                                                        name="name1"
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -364,7 +399,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     <Input
                                                         required
                                                         type="email"
-                                                        name="email"
+                                                        name="email1"
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -376,7 +411,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     <Input
                                                         required
                                                         type="text"
-                                                        name="dept"
+                                                        name="dept1"
                                                         clearable
                                                         bordered
                                                         fullWidth
@@ -384,11 +419,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         size="lg"
                                                         placeholder="Department"
                                                     />
-                                                    <Radio.Group
+                                                    {/* <Radio.Group
                                                         isRequired
                                                         value={checked}
                                                         onChange={setChecked}
-                                                        name="isSrmite"
+                                                        name="isSrmite1"
                                                         orientation="horizontal"
                                                     >
                                                         <div className="flex justify-around">
@@ -405,7 +440,153 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 Non-SRMite
                                                             </Radio>
                                                         </div>
-                                                    </Radio.Group>
+                                                    </Radio.Group> */}
+                                                    <p className="text-center">
+                                                        Member 2 Details
+                                                    </p>
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="usn2"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Registration Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="name2"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Name"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="email"
+                                                        name="email2"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                    />
+
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="dept2"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Department"
+                                                    />
+                                                    {/* <Radio.Group
+                                                        isRequired
+                                                        value={checked}
+                                                        onChange={setChecked}
+                                                        name="isSrmite2"
+                                                        orientation="horizontal"
+                                                    >
+                                                        <div className="flex justify-around">
+                                                            <Radio
+                                                                value="true"
+                                                                color="success"
+                                                            >
+                                                                SRMite
+                                                            </Radio>
+                                                            <Radio
+                                                                value="false"
+                                                                color="success"
+                                                            >
+                                                                Non-SRMite
+                                                            </Radio>
+                                                        </div>
+                                                    </Radio.Group> */}
+                                                    <p className="text-center">
+                                                        Member 3 Details
+                                                    </p>
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="usn3"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Registration Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="name3"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Name"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="email"
+                                                        name="email3"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                    />
+
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="dept3"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Department"
+                                                    />
+                                                    {/* <Radio.Group
+                                                        isRequired
+                                                        value={checked}
+                                                        onChange={setChecked}
+                                                        name="isSrmite3"
+                                                        orientation="horizontal"
+                                                    >
+                                                        <div className="flex justify-around">
+                                                            <Radio
+                                                                value="true"
+                                                                color="success"
+                                                            >
+                                                                SRMite
+                                                            </Radio>
+                                                            <Radio
+                                                                value="false"
+                                                                color="success"
+                                                            >
+                                                                Non-SRMite
+                                                            </Radio>
+                                                        </div>
+                                                    </Radio.Group> */}
                                                     <p className="text-center font-extra-bold">
                                                         Check us out on {""}
                                                         <a
@@ -625,26 +806,20 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     <Slider {...settings}>
                         {event?.gallery?.map((image) => (
                             <div key={image}>
-                                
-                                    <div className="image">
-                                        <img
-                                    src={image}
-                                    alt="Gallery"
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                        objectFit: "contain",
-                                        borderRadius: "10px",
-                                        boxShadow:
-                                            "0px 0px 10px rgba(0, 0, 0, 0.3)"
-                                    }}
-                                />
-
-                                    </div>
-                                    
-                                    
-                                
-                                
+                                <div className="image">
+                                    <img
+                                        src={image}
+                                        alt="Gallery"
+                                        style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "contain",
+                                            borderRadius: "10px",
+                                            boxShadow:
+                                                "0px 0px 10px rgba(0, 0, 0, 0.3)"
+                                        }}
+                                    />
+                                </div>
                             </div>
                         ))}
                     </Slider>

@@ -126,14 +126,19 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             Learn More
                                         </button>
                                     </a>
-                                    <button
-                                        className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
-                                        disabled={!event.is_active}
-                                        onClick={handler}
-                                    >
-                                        Register
-                                    </button>
-                                    <Modal
+                                    {event.is_active ? (
+                                        <a
+                                            className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
+                                            href="/events/Script%20Sonic"
+                                            onClick={handler}
+                                        >
+                                            Register
+                                        </a>
+                                    ) : (
+                                        ""
+                                    )}
+
+                                    {/* <Modal
                                         className="bg-htb-green"
                                         closeButton
                                         blur
@@ -232,7 +237,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                                 </button>
                                             </form>
                                         </Modal.Body>
-                                    </Modal>
+                                    </Modal> */}
                                 </div>
                             </div>
                         );
