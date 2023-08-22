@@ -130,7 +130,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         <a
                                             className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
                                             href="/events/Script%20Sonic"
-                                            onClick={handler}
                                         >
                                             Register
                                         </a>
