@@ -78,8 +78,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
         };
 
-        participants.forEach(async (participant: any) => {
-            const { usn, name, email, department } = participant;
+        for (let i = 0; i < participants.length; i++) {
+            const { usn, name, email, department } = participants[i];
             await participantsCollection.insertOne({
                 usn,
                 name,
@@ -88,7 +88,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 teamName,
                 ...extraData
             });
-        });
+        }
 
         res.status(200).json({
             success: true,
