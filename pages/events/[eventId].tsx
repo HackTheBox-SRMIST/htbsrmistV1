@@ -340,9 +340,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             open={visibleReg}
                                             onClose={closeHandlerReg}
                                         >
+                                            <ToastContainer />
                                             <Modal.Body className="flex justify-center items-center font-mono">
-                                                <ToastContainer />
-
                                                 <p className="text-3xl font-bold max-md:text-2xl">
                                                     Registration Form
                                                 </p>
@@ -736,7 +735,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </div>
                 </div>
             </div>
-
             <div className=" md:mt-0 flex-col justify-center px-2 md:pl-10 sm:px-20 ">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl ml-2 sm:ml-4 sm:text-5xl  font-bold">
@@ -765,7 +763,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </p>
                 </div>
             </div>
-
             <div className="mt-10 flex-col justify-center px-2 md:pl-10 sm:px-20">
                 <div className="text-center mb-10">
                     <h1 className="text-white text-3xl pl-2 sm:pl-6 sm:text-5xl  font-bold">
@@ -797,7 +794,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </p>
                 </div>
             </div>
-
             <div className="Events_Gallery ml-[1.5rem] md:ml-[5rem] mt-4 sm:mt-0 flex-col">
                 <p className="font-bold mr-8 sm:ml-32 mb-4 text-4xl uppercase text-teal-50 relative right-4 sm:right-14 ">
                     Gallery
