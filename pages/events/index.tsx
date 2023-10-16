@@ -7,6 +7,7 @@ import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import EventModal from "../../components/events/eventModal";
 
 import axios from "axios";
 
@@ -107,7 +108,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
             <section>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                    {events.map((event) => {
+                    {events.map((event: any) => {
                         return (
                             <div
                                 key={event.event_name}
@@ -120,6 +121,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
                                 </figure>
+
                                 <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%]  md:top-[80%]  ">
                                     <div className="flex flex-col gap-5  sm:flex-row">
                                         <a href={`/events/${event.event_name}`}>
@@ -244,6 +246,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             </form>
                                         </Modal.Body>
                                     </Modal> */}
+
                                 </div>
                             </div>
                         );

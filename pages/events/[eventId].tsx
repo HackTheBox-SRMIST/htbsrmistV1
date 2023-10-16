@@ -1,21 +1,13 @@
 import type { NextPage, GetServerSidePropsResult } from "next";
-import React, { useState } from "react";
-import { Modal, Input, Radio } from "@nextui-org/react";
-import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
+import React from "react";
+import EventPoster from "../../components/events/eventPoster";
+import EventRegister from "../../components/events/eventRegister";
+import EventPrerequisites from "../../components/events/eventPrerequisites";
+import EventGallery from "../../components/events/eventGallery";
 import { useRouter } from "next/router";
-import LocationLogo from "../../utils/icons/LocationLogo";
-import EntryFees from "../../utils/icons/EntryFees";
-import DateLogo from "../../utils/icons/DateLogo";
-import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { GiCrossMark } from "react-icons/gi";
+import EventSpeakers from "../../components/events/eventSpeakers";
+import EventInfo from "../../components/events/eventInfo";
+
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -51,200 +43,17 @@ interface EventsPageProps {
     events: EventProps[];
 }
 
-const options = [
-    { value: "participants", label: "Participant" },
-    { value: "volunteers", label: "Volunteer" },
-    { value: "organizers", label: "Organizer" }
-];
-
-const styles = {
-    // control: (base: any, state: any) => ({
-    //     ...base,
-    //     border: "1px solid black",
-    //     boxShadow: "none",
-    //     "&:hover": {
-    //         border: "1px solid black"
-    //     }
-    // }),
-    option: (provided: any, state: any) => ({
-        ...provided,
-        fontWeight: state.isSelected ? "bold" : "normal",
-        color: "black",
-        background: "#cccccc",
-        fontSize: state.selectProps.myFontSize,
-
-        "&:hover": {
-            background: "#9FEF00"
-        }
-    }),
-    control: (base: any, state: any) => ({
-        ...base,
-        background: "#9FEF00",
-        fontWeight: state.isSelected ? "bold" : "normal",
-        borderColor: state.isFocused ? "#9FEF00" : "#9FEF00",
-        borderRadius: "0px 20px 20px 0px",
-        height: "70px",
-        width: "100%",
-        boxShadow: state.isFocused ? null : null,
-        "&:hover": {
-            borderColor: state.isFocused ? "#000000" : "",
-            borderWidth: state.isFocused ? "1.5px" : ""
-        }
-    })
-};
-
-const Toast = (success: any, message: any) => {
-    toast[success ? "success" : "error"](message, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark"
-    });
-};
-
 const url_root = process.env.BASE_URL_PREVIEW;
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
-    const eventId = router.query.eventId as string;
-    const event = events.find((event) => event.event_name === eventId);
-
-    const [email, setEmail] = useState("");
-    const [certificate, setCertificate] = useState(null);
-    const [type, setType] = useState("Please Select...");
-    const [visible, setVisible] = React.useState(false);
-    const handler = () => {
-        setVisible(!visible);
-        if (typeof window != "undefined" && window.document) {
-            document.body.style.overflow = "hidden";
-        }
-        window.scrollTo({
-            top: 0
-        });
-    };
-
-    const fetchCertificate = async () => {
-        try {
-            const values = { email, type, event: eventId };
-            const response = await axios.post(
-                `https://api.htbsrmist.tech/api/certificate/get-certificate`,
-                values
-            );
-            // console.log(response);
-            setCertificate(response.data.certificate);
-            Toast(true, "Certificate Generated Successfully");
-        } catch (err: any) {
-            // console.log(err);
-
-            // console.log(err.response.data);
-            Toast(false, `${err.response.data.message}`);
-        }
-    };
-
-    const changeType = (e: any) => {
-        setType(e.value);
-    };
-
-    const closeHandler = () => {
-        setVisible(false);
-        setCertificate(null);
-        setEmail("");
-        setType("Please Select...");
-        document.body.style.overflow = "unset";
-    };
-
-    const settings = {
-        className: "center",
-        centerMode: true,
-        infinite: true,
-        centerPadding: "60px",
-        slidesToShow: 3,
-        speed: 500,
-        responsive: [
-            {
-                breakpoint: 1024, // screens larger than 1024px
-                settings: {
-                    slidesToShow: 3,
-                    centerPadding: "50px"
-                }
-            },
-            {
-                breakpoint: 768, // screens between 768px and 1024px
-                settings: {
-                    slidesToShow: 2,
-                    centerPadding: "30px"
-                }
-            },
-            {
-                breakpoint: 480, // screens smaller than 768px
-                settings: {
-                    slidesToShow: 1,
-                    centerPadding: "10px"
-                }
-            }
-        ]
-    };
-
-    const handlerReg = () => setVisibleReg(true);
-    const closeHandlerReg = () => {
-        setVisibleReg(false);
-    };
-    const [visibleReg, setVisibleReg] = React.useState(false);
-    const [checked, setChecked] = React.useState("");
-    // const [usn, setUsn] = useState("");
-
-    // const changeUsnHandler =async (e: any) => {
-    //     if(usn.length === 15) {
-
-    //     }
-    //     setUsn(e.target.value);
-    // };
-    const submitHandler = async (events: React.ChangeEvent<any>) => {
-        const str2bool = (value: string) => {
-            if (value && typeof value === "string") {
-                if (value.toLowerCase() === "true") return true;
-                if (value.toLowerCase() === "false") return false;
-            }
-            return value;
-        };
-
-        const isSrmite = str2bool(events.target.isSrmite.value);
-        events.preventDefault();
-
-        try {
-            const body = {
-                usn: events.target.usn.value,
-                name: events.target.name.value,
-                email: events.target.email.value.toLowerCase(),
-                dept: events.target.dept.value,
-                isSrmite: isSrmite,
-                event_name: event?.event_name
-            };
-            console.log(body);
-
-            const response = await axios.post(
-                `/api/v1/events/registration`,
-                body
-            );
-            const result = await response.data.message;
-            // console.log(result);
-
-            // events.target.usn.value =
-            Toast(true, result);
-        } catch (err: any) {
-            Toast(false, `${err.response.data.message}`);
-        }
-    };
 
     return (
         <>
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="md:h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
+
                         <div className="mb-4 text-center md:text-left">
                             <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
                                 {event?.event_name}
@@ -641,8 +450,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </div>
                         ))}
                     </Slider>
+
                 </div>
             </div>
+            <EventSpeakers events={events} />
+            <EventPrerequisites events={events} />
+            <EventGallery events={events} />
         </>
     );
 };
