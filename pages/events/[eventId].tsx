@@ -311,7 +311,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     <div>
                                         <button
                                             className="bg-htb-green  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                            // disabled={!event?.is_active}
+                                            disabled={!event?.is_active}
                                             onClick={handlerReg}
                                         >
                                             REGISTER NOW
