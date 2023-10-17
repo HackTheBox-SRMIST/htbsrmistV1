@@ -120,12 +120,19 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
                                 </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[70%] left-[25%]  md:top-[80%] md:left-[40%] ">
-                                    <a href={`/events/${event.event_name}`}>
-                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
-                                            Learn More
-                                        </button>
-                                    </a>
+                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%]  md:top-[80%]  ">
+                                    <div className="flex flex-col gap-5  sm:flex-row">
+                                        <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">
+                                                Register Now
+                                            </button>
+                                        </a>
+                                        <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
+                                                Learn More
+                                            </button>
+                                        </a>
+                                    </div>
                                     {/* {event.is_active ? (
                                         <a
                                             className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
