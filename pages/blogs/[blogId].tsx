@@ -74,7 +74,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                         </a>
                     </div>
                 </div>
-                <div className="md:text-lg lg:text-xl xl:text-1xl bg-[#141D2B] text-white/70 p-8 overflow-hidden">
+                <div className="md:text-lg lg:text-xl xl:text-1xl bg-[#181818] text-white/70 p-8 overflow-hidden">
                     <p
                         dangerouslySetInnerHTML={createMarkup(
                             blog?.description || ""

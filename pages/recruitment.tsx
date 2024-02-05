@@ -3,7 +3,7 @@ import Script from "next/script";
 const Recruitment: NextPage = () => {
     return (
         <>
-            <div className="flex md:flex-row flex-col md:justify-around w-4/5 mx-auto  md:w-full">
+            <div className="flex md:flex-row  flex-col-reverse gap-5 md:justify-around w-4/5 mx-auto  md:w-full">
                 <div className=" text-white font-Montserrat gap-8 mb-16">
                     <h1 className="text-6xl lg:text-7xl font-bold text-htb-green">
                         We're hiring!
@@ -11,7 +11,7 @@ const Recruitment: NextPage = () => {
                     <div className="mt-8 max-w-lg text-2xl">
                         <div>
                             <p className="text-htb-green text-3xl md:text-4xl font-black">
-                                RECRUITMENT '23
+                                RECRUITMENT '24
                             </p>
                             <p>
                                 <br />
@@ -48,11 +48,11 @@ const Recruitment: NextPage = () => {
                     <img
                         src="https://ik.imagekit.io/htbsrmist/Recruitments/Recruitments23.png?ik-sdk-version=javascript-1.4.3&updatedAt=1677477601213"
                         alt="Recruitments Poster"
-                        className="h-auto w-[512px] "
+                        className="h-auto w-[500px]"
                     />
                 </div>
             </div>
-            <div className="flex justify-start w-4/5 mx-auto text-white font-Montserrat mb-16">
+            {/* <div className="flex justify-start w-4/5 mx-auto text-white font-Montserrat mb-16">
                 <div className="text-center lg:text-left">
                     <p className="mt-8 max-w-lg text-2xl">
                         <br />
@@ -80,7 +80,7 @@ const Recruitment: NextPage = () => {
                         <Script src="//embed.typeform.com/next/embed.js" />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 };

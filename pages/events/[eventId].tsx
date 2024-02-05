@@ -256,7 +256,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </p>
                         </div>
                         <div>
-                            <div className="rounded-3xl sm:ml-0 sm:px-0 bg-node-black ">
+                            <div className="rounded-3xl sm:ml-0 sm:px-0 bg-[#181818] ">
                                 <div className="grid grid-cols-3 divide-x bg-hacker-grey py-2 rounded-md space-x-1 md:space-x-3 divide-solid lg:mx-0">
                                     <div className="flex justify-evenly md:flex-row flex-col space-y-2 items-center">
                                         <span className="w-8">
@@ -561,7 +561,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         Speakers
                     </h1>
                 </div>
-                <div className="p-5 ml-1 sm:ml-0 rounded-3xl w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 ml-1 sm:ml-0 rounded-3xl w-full sm:w-auto bg-[#181818] border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-2 text-justify text-xl">
                         The Elite panel of guests who will inaugurate the event
                         are:-
@@ -590,7 +590,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         Prerequisites
                     </h1>
                 </div>
-                <div className="p-5 rounded-3xl ml-1 sm:ml-0 w-full sm:w-auto bg-node-black border-4 border-htb-green/50 mb-10">
+                <div className="p-5 rounded-3xl ml-1 sm:ml-0 w-full sm:w-auto bg-[#181818] border-4 border-htb-green/50 mb-10">
                     <p className="text-white mt-4  break-keep text-xl">
                         <h2 className="text-2xl font-bold">
                             Prerequisites for the Hands-on Workshop:-
