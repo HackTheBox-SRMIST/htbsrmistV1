@@ -9,7 +9,7 @@ import { FaGithub } from "react-icons/fa";
 import { SiMedium } from "react-icons/si";
 const Footer = () => {
     return (
-        <footer className="text-center text-[#5B8E23] lg:text-left bg-[#141D2B]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
+        <footer className="text-center text-htb-green lg:text-left bg-[#131313]  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
             <div className="py-2 text-center lg:text-left">
                 <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
                     <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
@@ -26,37 +26,37 @@ const Footer = () => {
                             <div className="text-3xl flex flex-row gap-5 sm:gap-10 pb-4">
                                 <a
                                     href="https://htbsrmist.medium.com"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <SiMedium></SiMedium>
                                 </a>
                                 <a
                                     href="https://www.instagram.com/htbsrmist/"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <FaInstagram></FaInstagram>
                                 </a>
                                 <a
                                     href="https://twitter.com/htbsrmist"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <RxTwitterLogo></RxTwitterLogo>
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/company/htbsrmist/"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <FaLinkedinIn></FaLinkedinIn>
                                 </a>
                                 <a
                                     href="https://github.com/HackTheBox-SRMIST"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <FaGithub></FaGithub>
                                 </a>
                                 <a
                                     href="https://discord.gg/8uT6ZnQN6N"
-                                    className="bg-[#141D2B] hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
+                                    className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <FaDiscord></FaDiscord>
                                 </a>
@@ -76,7 +76,7 @@ const Footer = () => {
                             <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/"
-                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                    className=" text-[#5B8E23] hover:text-htb-green"
                                 >
                                     Home
                                 </a>
@@ -84,7 +84,7 @@ const Footer = () => {
                             <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/team"
-                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                    className=" text-[#5B8E23] hover:text-htb-green"
                                 >
                                     Team
                                 </a>
@@ -92,7 +92,7 @@ const Footer = () => {
                             <p className="lg:mb-1.5 lg:px-32">
                                 <a
                                     href="/events"
-                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                    className=" text-[#5B8E23] hover:text-htb-green"
                                 >
                                     Event
                                 </a>
@@ -100,7 +100,7 @@ const Footer = () => {
                             <p className="lg:px-32 lg:mb-1.5">
                                 <a
                                     href="/contact-us"
-                                    className="bg-[#141D2B] text-[#5B8E23] hover:text-htb-green"
+                                    className=" text-[#5B8E23] hover:text-htb-green"
                                 >
                                     Contact Us
                                 </a>
@@ -131,7 +131,9 @@ const Footer = () => {
                                     ></path>
                                 </svg>
                             </span>
-                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">SRM Kattankulathur , Chengalpattu, 603203, IN</p>
+                            <p className="md:justify-start mb-1 space-x-2 inline-flex text-sm">
+                                SRM Kattankulathur , Chengalpattu, 603203, IN
+                            </p>
                             {/* </p> */}
                         </div>
                         <div className="text-left ml-2 md:ml-0 mt-3.5">

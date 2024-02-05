@@ -25,7 +25,7 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
             <div className="grid grid-cols-1 p-9 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
                 {blogs.map((blog, index) => (
                     <div
-                        className="backdrop-blur-sm bg-[#141D2B]/80 rounded-lg shadow-md p-4 flex-col justify-between items-between"
+                        className="backdrop-blur-sm bg-[#181818]/80 rounded-lg shadow-md p-4 flex-col justify-between items-between"
                         key={index}
                     >
                         <div>

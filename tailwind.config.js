@@ -20,7 +20,7 @@ module.exports = {
                 poppins: ["Poppins", "sans-serif"]
             },
             backgroundImage: {
-                hackerfooter: "url('/hacker.png')"
+                hackerfooter: "url('/bg.jpeg.jpg')"
             }
         }
     },

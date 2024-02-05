@@ -9,7 +9,7 @@ body,
 }
 
 body {
-    @apply bg-hackerfooter bg-no-repeat bg-bottom bg-fixed bg-contain bg-node-black;
+    @apply bg-hackerfooter bg-no-repeat bg-bottom bg-fixed  bg-node-black;
 }
 
 .post {
