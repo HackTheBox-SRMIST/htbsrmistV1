@@ -16,6 +16,28 @@ interface BlogsProps {
 }
 
 const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
+   function getFirstImageSrc(htmlString) {
+       // Check if the DOMParser is supported
+       if (typeof DOMParser !== "undefined") {
+           // Create a DOMParser instance
+           var parser = new DOMParser();
+
+           // Parse the HTML string into a Document
+           var doc = parser.parseFromString(htmlString, "text/html");
+
+           // Find the first 'img' element within the parsed Document
+           var firstImageTag = doc.querySelector("img");
+
+           // Extract the 'src' attribute value if the 'img' element is found
+           if (firstImageTag) {
+               var srcValue = firstImageTag.getAttribute("src");
+               return srcValue || null;
+           }
+       }
+
+       // Return null if DOMParser is not supported or no image is found
+       return null;
+   }
     return (
         <div className="flex flex-col min-h-screen max-w-screen font-[share-tech]">
             <div className="flex justify-center items-center">
@@ -30,7 +52,7 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
                     >
                         <div>
                             <img
-                                src={blog.img}
+                                src={getFirstImageSrc(blog.description)}
                                 alt="Card Image"
                                 className="w-full h-48 object-cover rounded-t-lg"
                             />
@@ -61,6 +83,8 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
         </div>
     );
 };
+
+
 
 export async function getServerSideProps() {
     try {
