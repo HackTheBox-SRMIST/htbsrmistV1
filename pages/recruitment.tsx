@@ -62,9 +62,9 @@ const Recruitment: NextPage = () => {
             if (!/^\d{10}$/.test(phone)) {
                 throw new Error("Phone should be 10 digits.");
             }
-            if (!/^https?:\/\/(www\.)?linkedin\.com\/.+/.test(linkedin)) {
-                throw new Error("LinkedIn link is not valid.");
-            }
+            // if (!/^https?:\/\/(www\.)?linkedin\.com\/.+/.test(linkedin)) {
+            //     throw new Error("LinkedIn link is not valid.");
+            // }
 
             const response = await axios.post(`/api/v1/recruitment`, body);
             const result = await response.data.message;
@@ -292,7 +292,7 @@ const Recruitment: NextPage = () => {
                                             }
                                         />
                                         <Input
-                                            required
+                                            // required
                                             type="text"
                                             name="resume"
                                             clearable
@@ -300,7 +300,7 @@ const Recruitment: NextPage = () => {
                                             fullWidth
                                             color="primary"
                                             size="lg"
-                                            placeholder="Resume Link"
+                                            placeholder="Resume Link (optional)"
                                             onChange={(e) =>
                                                 setResume(e.target.value)
                                             }

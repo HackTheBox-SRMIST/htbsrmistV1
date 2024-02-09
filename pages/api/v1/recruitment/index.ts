@@ -17,15 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 resume
             } = req.body;
 
-            if (
-                !usn ||
-                !name ||
-                !email ||
-                !phone ||
-                !domain ||
-                !linkedin ||
-                !resume
-            ) {
+            if (!usn || !name || !email || !phone || !domain || !linkedin) {
                 return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
