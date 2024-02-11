@@ -30,7 +30,8 @@ const Recruitment: NextPage = () => {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [phone, setPhone] = React.useState("");
-    const [domain, setDomain] = useState("");
+    const [domain1, setDomain1] = useState("");
+    const [domain2, setDomain2] = useState("");
     const [linkedin, setLinkedin] = React.useState("");
     // const [htbProfile, setHtbProfile] = React.useState("");
     const [additionalLink, setAdditionalLink] = React.useState("");
@@ -45,7 +46,8 @@ const Recruitment: NextPage = () => {
                 name: name,
                 email: email.toLowerCase(),
                 phone: phone,
-                domain: domain,
+                domain1: domain1,
+                domain2: domain2,
                 linkedin: linkedin,
                 additionalLink: additionalLink,
                 resume: resume
@@ -204,14 +206,60 @@ const Recruitment: NextPage = () => {
                                                 setPhone(e.target.value)
                                             }
                                         />
-                                        <h3 className="text-lg">Domain</h3>
+                                        <h3 className="text-lg">
+                                            First Domain Preference
+                                        </h3>
                                         <Radio.Group
                                             isRequired
-                                            value={domain}
+                                            value={domain1}
                                             onChange={(value) =>
-                                                setDomain(value)
+                                                setDomain1(value)
                                             }
-                                            name="domain"
+                                            name="domain1"
+                                            orientation="horizontal"
+                                        >
+                                            <div className="flex-col justify-between gap-3">
+                                                <div className="flex ">
+                                                    <Radio
+                                                        value="Cyber Security"
+                                                        color="success"
+                                                    >
+                                                        Cyber Security
+                                                    </Radio>
+                                                    <Radio
+                                                        value="Creatives"
+                                                        color="success"
+                                                    >
+                                                        Creatives
+                                                    </Radio>
+                                                </div>
+                                                <div className="flex justify-between">
+                                                    <Radio
+                                                        value="Development"
+                                                        color="success"
+                                                    >
+                                                        Development
+                                                    </Radio>
+
+                                                    <Radio
+                                                        value="Corporate"
+                                                        color="success"
+                                                    >
+                                                        Corporate
+                                                    </Radio>
+                                                </div>
+                                            </div>
+                                        </Radio.Group>
+                                        <h3 className="text-lg">
+                                            Second Domain Preference (Optional)
+                                        </h3>
+
+                                        <Radio.Group
+                                            value={domain2}
+                                            onChange={(value) =>
+                                                setDomain2(value)
+                                            }
+                                            name="domain2"
                                             orientation="horizontal"
                                         >
                                             <div className="flex-col justify-between gap-3">

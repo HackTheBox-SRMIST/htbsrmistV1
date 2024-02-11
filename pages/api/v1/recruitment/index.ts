@@ -11,13 +11,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 name,
                 email,
                 phone,
-                domain,
+                domain1,
+                domain2,
                 linkedin,
                 additionalLink,
                 resume
             } = req.body;
 
-            if (!usn || !name || !email || !phone || !domain || !linkedin) {
+            if (!usn || !name || !email || !phone || !domain1 || !linkedin) {
                 return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
@@ -47,7 +48,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 name,
                 email,
                 phone,
-                domain,
+                domain1,
+                domain2,
                 linkedin,
                 additionalLink,
                 resume

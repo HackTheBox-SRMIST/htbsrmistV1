@@ -14,7 +14,7 @@ const sesClient = new SESClient({
 export const sendRecruitmentMail = async (
     participant: Record<string, any>
 ): Promise<void> => {
-    const { name, email, domain } = participant;
+    const { name, email, domain1, domain2 } = participant;
 
     const subject = `Recruitment Registration Confirmation | HackTheBox SRMIST`;
 
@@ -89,7 +89,7 @@ export const sendRecruitmentMail = async (
                                                                                     <div>
                                                                                         <span class="size" style="font-size:18.6667px">
                                                                                             <span class="colour" style="color:rgb(153, 255, 153)">
-                                                                                                Thank you for submitting your application for the HackTheBox SRMIST recruitment in the ${domain} Domain! We appreciate your interest in our club and are excited to learn more about you.
+                                                                                                Thank you for submitting your application for the HackTheBox SRMIST recruitment in the ${domain1} Domain! We appreciate your interest in our club and are excited to learn more about you.
                                                                                             </span>
                                                                                         </span>
                                                                                         <br>
