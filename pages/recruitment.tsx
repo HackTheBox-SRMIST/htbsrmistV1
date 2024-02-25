@@ -125,6 +125,7 @@ const Recruitment: NextPage = () => {
                         </div>
                         <div>
                             <button
+                                disabled
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 // disabled={!event?.is_active}
                                 onClick={handlerReg}
