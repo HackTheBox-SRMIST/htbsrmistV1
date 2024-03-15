@@ -117,6 +117,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [certificate, setCertificate] = useState(null);
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
+    const [loadingCertificate, setLoadingCertificate] = useState(false);
+
     const handler = () => {
         setVisible(!visible);
         if (typeof window != "undefined" && window.document) {
@@ -129,6 +131,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     const fetchCertificate = async () => {
         try {
+            setLoadingCertificate(true);
             const values = { email, type, event: eventId };
             const response = await axios.post(
                 `https://api.htbsrmist.tech/api/certificate/get-certificate`,
@@ -142,6 +145,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
             // console.log(err.response.data);
             Toast(false, `${err.response.data.message}`);
+        } finally {
+            setLoadingCertificate(false); // Reset loading state whether successful or not
         }
     };
 
@@ -479,16 +484,20 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                                 onClick={
                                                                     fetchCertificate
                                                                 }
-                                                                className=" w-1/2  bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal  p-8 text-xl max-md:text-sm"
                                                                 disabled={
+                                                                    loadingCertificate ||
                                                                     type ===
-                                                                    "Please Select..."
-                                                                        ? true
-                                                                        : false
+                                                                        "Please Select..."
                                                                 }
+                                                                className={`w-1/2 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal p-8 text-xl max-md:text-sm ${
+                                                                    loadingCertificate
+                                                                        ? "opacity-50 cursor-not-allowed"
+                                                                        : ""
+                                                                }`}
                                                             >
-                                                                Get your
-                                                                Certificate
+                                                                {loadingCertificate
+                                                                    ? "Generating..."
+                                                                    : "Generate Certificate"}
                                                             </button>
                                                             <div className=" max-md:w-2/3 text-xl max-md:text-lg mt-0  border-l-[1px] border-l-black">
                                                                 <Select
