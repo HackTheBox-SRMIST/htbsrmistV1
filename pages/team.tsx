@@ -92,7 +92,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
     return (
-        <section className="w-full min-h-fit bg-none flex flex-col  justify-center items-center">
+        <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
             <img src="./team.svg" className="h-20" />
 
             <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
