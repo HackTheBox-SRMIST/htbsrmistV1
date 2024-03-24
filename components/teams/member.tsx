@@ -11,7 +11,7 @@ const socialIcons = {
 
 const Member = (props: any) => {
     return (
-        <div className="text-white flex flex-col items-center py-10 mt-3 transition duration-200 px-2 w-auto rounded-3xl hover:shadow-[0_0_2px_#8bef00,inset_0_0_2px_#8bef00,0_0_5px_#8bef00,0_0_15px_#8bef00,0_0_#8bef00]">
+        <div className="text-white flex flex-col items-center py-10 mt-3 transition duration-300 px-2 w-auto rounded-3xl hover:shadow-[0_0_2px_#8bef00,inset_0_0_2px_#8bef00,0_0_5px_#8bef00,0_0_15px_#8bef00,0_0_#8bef00]">
             <img
                 // src="https://i.ndtvimg.com/i/2017-03/rowan-atkinson_640x480_71490079191.jpg"
                 src={props.image}
