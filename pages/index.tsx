@@ -20,8 +20,8 @@ const Index: NextPage = () => {
             <div className="flex mt-[100px] m-auto mx-auto items-center justify-around">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="my-2 max-md:w-[350px] w-[600px]">
-                            <Image src={heroBanner} alt="HACKTHEBOX"></Image>
+                        <p className="my-2 max-md:w-[350px] w-[600px] z-10 ">
+                            <Image className="z-10" src={heroBanner} alt="HACKTHEBOX"></Image>
                         </p>
                         <p className="font-bold md:text-4xl text-xl text-htb-green">
                             <p>Meetup: Chennai, IN</p>
@@ -30,7 +30,7 @@ const Index: NextPage = () => {
                     </div>
                 </div>
                 <div className="md:block hidden w-[400px]">
-                    <Image src={Logo} alt="HACKTHEBOX"></Image>
+                    <Image className="z-10" src={Logo} alt="HACKTHEBOX"></Image>
                 </div>
             </div>
             <div className="mx-auto mt-16 w-4/5 md:hidden">

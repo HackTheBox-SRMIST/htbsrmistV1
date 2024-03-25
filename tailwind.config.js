@@ -1,6 +1,3 @@
-const { url } = require("inspector");
-
-// tailwind.config.js
 module.exports = {
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
@@ -16,11 +13,17 @@ module.exports = {
             },
             fontFamily: {
                 "sans-serif": ["Montserrat", "sans-serif"],
-                "share-tech": ["Share Tech", "sans - serif"],
+                "share-tech": ["Share Tech", "sans-serif"],
                 poppins: ["Poppins", "sans-serif"]
             },
             backgroundImage: {
                 hackerfooter: "url('/bg.jpeg.jpg')"
+            },
+            backgroundSize: {
+                'cover': 'cover'
+            },
+            backgroundPosition: {
+                'center': 'center'
             }
         }
     },

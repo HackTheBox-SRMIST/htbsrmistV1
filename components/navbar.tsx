@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 const Nav = () => {
     const { asPath } = useRouter();
     const [navbarOpen, setNavbarOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
 
     const links: { name: string; href: string }[] = [
         {
@@ -37,13 +38,27 @@ const Nav = () => {
     const showMenu = () => {
         setNavbarOpen(!navbarOpen);
     };
+
+    useEffect(() => {
+        const handleScroll = () => {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          setIsScrolled(scrollTop > 0);
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+
+
     return (
-        <nav className="flex flex-row justify-between mb-4 bg-transparent rounded-lg custom-scrollbar overflow-auto overflow-y-hidden py-2 px-4 font-poppins">
+        <nav className={`flex flex-row justify-between mb-4 bg-transparent rounded-lg custom-scrollbar overflow-auto overflow-y-hidden h-18 py-2 px-4 font-poppins fixed z-200 w-full top-0 ${isScrolled ? 'bg-black bg-opacity-10 backdrop-blur-lg' : ''} transition-all duration-300 ease-in-out`}>
             <a href="/" rel="noopener noreferrer" className="flex-none">
-                <Logo />
+                <img className="w-14 ml-5 mt-2" src="https://www.htbsrmist.tech/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.46ee2c41.png&w=640&q=75" alt="" />
             </a>
             {/* Primary Nav Menu */}
-            <ul className=" text-white my-2 md:flex flex-row flex-nowrap mr-16 mt-8 hidden gap-x-8">
+            <ul className=" text-white my-2 md:flex flex-row flex-nowrap mr-16 mt-5 hidden gap-x-8">
                 {links.map((link) => (
                     <Link key={link.href} href={link.href}>
                         <a
@@ -51,7 +66,7 @@ const Nav = () => {
                                 asPath === link.href
                                     ? "font-semibold text-htb-green"
                                     : ""
-                            } transform hover:-translate-y-1 mb-2 flex-auto hover:text-htb-green hover:underline underline-offset-8 md:text-2xl transition-all`}
+                            } transform hover:-translate-y-1 mb-2 flex-auto hover:text-htb-green hover:underline underline-offset-8 md:text-lg transition-all`}
                         >
                             {link.name}
                         </a>
