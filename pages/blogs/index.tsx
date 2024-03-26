@@ -70,7 +70,7 @@ export async function getServerSideProps() {
         const { items } = await response.json();
         const regex=/<figure><img[^>]*?src="([^"]*)"[^>]*><\/figure>/;
         const formattedBlogs: BlogData[] = items.map((item: any) => ({
-            img: regex.exec(item.description)[1],
+            img: regex.exec(item.description)?.[1] ?? null,
             title: item.title,
             description: item.description,
             pubDate: item.pubDate.substring(0, 10),
