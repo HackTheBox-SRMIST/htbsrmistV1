@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
         );
         const { items } = await response.json();
         const formattedBlogs: BlogProps[] = items.map((item: any) => ({
-            img: item.thumbnail,
+            img: item.description.substring(25,96),
             title: item.title,
             description: item.description,
             link: item.link,
