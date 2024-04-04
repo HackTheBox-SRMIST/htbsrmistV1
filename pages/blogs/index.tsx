@@ -68,8 +68,9 @@ export async function getServerSideProps() {
             "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@htbsrmist"
         );
         const { items } = await response.json();
+        const regex=/<figure><img[^>]*?src="([^"]*)"[^>]*><\/figure>/;
         const formattedBlogs: BlogData[] = items.map((item: any) => ({
-            img: item.thumbnail,
+            img: regex.exec(item.description)?.[1] ?? null,
             title: item.title,
             description: item.description,
             pubDate: item.pubDate.substring(0, 10),
