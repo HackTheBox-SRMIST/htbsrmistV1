@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import axios from "axios";
+import { logTime } from '../../utils/error/errorConstants';
 
 interface EventProps {
     event_name: string;
@@ -24,6 +25,7 @@ interface EventProps {
     event_date: Date;
     is_active: boolean;
     venue: string;
+    time: number; // in minutes
     sponsors_details: [
         {
             name: string;
@@ -99,40 +101,135 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
     const closeHandler = () => {
         setVisible(false);
     };
+    const buttonStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '10px 15px',
+        gap: '1.5px',
+        backgroundColor: '#181717',
+        outline: '3px solid #181717',
+        outlineOffset: '-1px',
+        borderRadius: '2.5px',
+        border: 'none',
+        cursor: 'pointer',
+        transition: 'background-color 450ms',
+        color: 'white',
+        fontWeight: 700,
+        fontSize: '2em',
+        width: '150px', // Fixed width
+        height: '50px', // Fixed height
+        margin: '10px',
+        fontFamily: 'Times New Roman, Times, serif',
+    };
+    
+
+    const textStyle = {
+        alignItems: 'center',
+        color: 'white',
+        fontWeight: 700,
+        fontSize: '2em',
+        transition: 'color 400ms',
+    };
+
     return (
         <>
             <p className="px-12 flex justify-center">
-                <img src="./allEvents.svg" className="h-20" />
+                <img src="./allEvents.svg" className="h-20" alt="" />
             </p>
 
             <section>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                    {events.map((event) => {
-                        return (
-                            <div
-                                key={event.event_name}
-                                className="pcontainer  hover:cursor-pointer rounded-xl transition-all  relative"
-                            >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
+                    {/* Active Events */}
+                    {events
+                        .filter(event => event.is_active)
+                        .map((event) => (
+                            <div key={event.event_name} className="pcontainer hover:cursor-pointer rounded-xl transition-all relative">
                                 <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm z-10">
-                                    <img
-                                        src={event.poster_url}
-                                        className="h-691 w-864 mx-auto  border-4 border-htb-green/50 object-cover"
-                                        alt={`HackTheBox SRMIST - ${event.event_name}`}
-                                    />
+                                    <img src={event.poster_url} className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover" alt={`HackTheBox SRMIST - ${event.event_name}`} />
                                 </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%]  md:top-[80%]  ">
-                                    <div className="flex flex-col gap-5  sm:flex-row">
+                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%] md:top-[80%]">
+                                    <div className="flex flex-col gap-5 sm:flex-row">
                                         <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">
-                                                Register Now
-                                            </button>
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">Register Now</button>
                                         </a>
                                         <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">
-                                                Learn More
-                                            </button>
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">Learn More</button>
                                         </a>
                                     </div>
+                                </div>
+
+                                {/* Date Container */}
+                                <a href={`/events/${encodeURIComponent(event.event_date.toISOString())}`}>
+                                <button style={buttonStyle}>Date</button>
+                                </a>
+
+                                {/* Location Container */}
+                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
+                                <button style={buttonStyle}>Venue</button>
+                                </a>
+                                {/* Time Container */}
+                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
+                                <button style={buttonStyle}>Venue</button>
+                                </a>
+                                {/* Register Now Container */}
+                                <div className="button-container">
+                                    <a href={`/events/${encodeURIComponent(event.event_name)}`}>
+                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[2%]">Register Now</button>
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                      {/* Map inactive events */}
+                    {events.map((event) =>
+                        !event.is_active ? (
+                            <div key={event.event_name} className="inactive-container hover:cursor-pointer rounded-xl transition-all relative opacity-50">
+                                <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm z-10">
+                                    <img src={event.poster_url} className="h-691 w-864 mx-auto border-4 border-gray-500/50 object-cover" alt={`HackTheBox SRMIST - ${event.event_name}`} />
+                                </figure>
+                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%] md:top-[80%]">
+                                    <div className="flex flex-col gap-5 sm:flex-row">
+                                        <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-gray-500 border-2 border-hacker-grey hover:bg-white text-white hover:text-gray-500 font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">Register Now</button>
+                                        </a>
+                                        <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-gray-500 border-2 border-hacker-grey hover:bg-white text-white hover:text-gray-500 font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">Learn More</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                {/*
+                                <a href={`/events/${encodeURIComponent(event.event_date)}`}>
+                                <button style={buttonStyle}>Date</button>
+                                </a>
+
+
+                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
+                                <button style={buttonStyle}>Venue</button>
+                                </a>
+
+
+                                <a href={`/events/${encodeURIComponent(event.time)}`}>
+                                <button style={buttonStyle}>Time</button>
+                                </a>
+
+
+                                <div className="button-container">
+                                    <a href={`/events/${encodeURIComponent(event.event_name)}`}>
+                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[2%]">Register Now</button>
+                                    </a>
+                                </div>
+
+                                
+                                */}
+                            </div>
+                        ) : null
+                    )}
+                </div>
+            </section>
+        </>
+    );
+};
+
                                     {/* {event.is_active ? (
                                         <a
                                             className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
@@ -244,7 +341,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                             </form>
                                         </Modal.Body>
                                     </Modal> */}
-                                </div>
+                            {/*</div>
                             </div>
                         );
                     })}
@@ -252,7 +349,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             </section>
         </>
     );
-};
+};*/}
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
