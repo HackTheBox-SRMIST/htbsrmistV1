@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { logTime } from '../../utils/error/errorConstants';
 
 interface EventProps {
     event_name: string;
@@ -23,6 +24,7 @@ interface EventProps {
     event_date: Date;
     is_active: boolean;
     venue: string;
+    time: number; // in minutes
     sponsors_details: [
         {
             name: string;
@@ -88,7 +90,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
     return (
         <>
             <p className="px-12 flex justify-center">
-                <img src="./allEvents.svg" className="h-20" />
+                <img src="./allEvents.svg" className="h-20" alt="" />
             </p>
 
             <section>
@@ -119,6 +121,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         </button>
                                     </a>
                                 </div>
+
                             </div>
                         );
                     })}
@@ -126,7 +129,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             </section>
         </>
     );
-};
+};*/}
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
