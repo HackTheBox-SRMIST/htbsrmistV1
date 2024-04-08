@@ -7,9 +7,8 @@ import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import axios from "axios";
-import { logTime } from '../../utils/error/errorConstants';
+import { logTime } from "../../utils/error/errorConstants";
 
 interface EventProps {
     event_name: string;
@@ -42,6 +41,7 @@ interface EventProps {
 interface EventsPageProps {
     events: EventProps[];
 }
+
 const Toast = (success: any, message: any) => {
     toast[success ? "success" : "error"](message, {
         position: "top-center",
@@ -77,59 +77,17 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 isSrmite: isSrmite,
                 event_name: events.target.event_name.value
             };
-            // console.log(body);
 
             const response = await axios.post(
                 `/api/v1/events/registration`,
                 body
             );
             const result = await response.data.message;
-            // console.log(result);
 
             Toast(true, result);
         } catch (err: any) {
             Toast(false, `${err.response.data.message}`);
         }
-    };
-    const [visible, setVisible] = React.useState(false);
-    const [checked, setChecked] = React.useState("");
-
-    const handler = (e: any) => {
-        setVisible(true);
-        console.log();
-    };
-    const closeHandler = () => {
-        setVisible(false);
-    };
-    const buttonStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '10px 15px',
-        gap: '1.5px',
-        backgroundColor: '#181717',
-        outline: '3px solid #181717',
-        outlineOffset: '-1px',
-        borderRadius: '2.5px',
-        border: 'none',
-        cursor: 'pointer',
-        transition: 'background-color 450ms',
-        color: 'white',
-        fontWeight: 700,
-        fontSize: '2em',
-        width: '150px', // Fixed width
-        height: '50px', // Fixed height
-        margin: '10px',
-        fontFamily: 'Times New Roman, Times, serif',
-    };
-    
-
-    const textStyle = {
-        alignItems: 'center',
-        color: 'white',
-        fontWeight: 700,
-        fontSize: '2em',
-        transition: 'color 400ms',
     };
 
     return (
@@ -139,209 +97,36 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             </p>
 
             <section>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                    {/* Active Events */}
-                    {events
-                        .filter(event => event.is_active)
-                        .map((event) => (
-                            <div key={event.event_name} className="pcontainer hover:cursor-pointer rounded-xl transition-all relative">
-                                <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm z-10">
-                                    <img src={event.poster_url} className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover" alt={`HackTheBox SRMIST - ${event.event_name}`} />
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
+                    {events.map((event) => {
+                        return (
+                            <div
+                                key={event.event_name}
+                                className="relative group"
+                            >
+                                <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center z-10">
+                                    <img
+                                        src={event.poster_url}
+                                        className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover rounded-2xl"
+                                        alt={`HackTheBox SRMIST - ${event.event_name}`}
+                                    />
                                 </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%] md:top-[80%]">
-                                    <div className="flex flex-col gap-5 sm:flex-row">
-                                        <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">Register Now</button>
-                                        </a>
-                                        <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">Learn More</button>
-                                        </a>
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 z-20">
+                                    <div className="flex flex-col gap-5 text-white">
+                                        {/* <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
+                                                Register Now
+                                            </button>
+                                        </a> */}
                                     </div>
                                 </div>
-
-                                {/* Date Container */}
-                                <a href={`/events/${encodeURIComponent(event.event_date.toISOString())}`}>
-                                <button style={buttonStyle}>Date</button>
-                                </a>
-
-                                {/* Location Container */}
-                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
-                                <button style={buttonStyle}>Venue</button>
-                                </a>
-                                {/* Time Container */}
-                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
-                                <button style={buttonStyle}>Venue</button>
-                                </a>
-                                {/* Register Now Container */}
-                                <div className="button-container">
-                                    <a href={`/events/${encodeURIComponent(event.event_name)}`}>
-                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[2%]">Register Now</button>
+                                <div className="absolute bottom-0 left-0 right-0 bg-gray-900 p-4 transform translate-y-full transition-transform duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 z-20 rounded-b-2xl flex justify-center items-center">
+                                    <a href={`/events/${event.event_name}`}>
+                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
+                                            Register Now
+                                        </button>
                                     </a>
                                 </div>
-                            </div>
-                        ))}
-                      {/* Map inactive events */}
-                    {events.map((event) =>
-                        !event.is_active ? (
-                            <div key={event.event_name} className="inactive-container hover:cursor-pointer rounded-xl transition-all relative opacity-50">
-                                <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center hover:blur-sm z-10">
-                                    <img src={event.poster_url} className="h-691 w-864 mx-auto border-4 border-gray-500/50 object-cover" alt={`HackTheBox SRMIST - ${event.event_name}`} />
-                                </figure>
-                                <div className="hidden hidebtn absolute z-20 top-[25%] left-[25%] md:top-[80%]">
-                                    <div className="flex flex-col gap-5 sm:flex-row">
-                                        <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-gray-500 border-2 border-hacker-grey hover:bg-white text-white hover:text-gray-500 font-bold sm:px-4 sm:py-2 rounded-full ml-[2%] md:ml-[0%]">Register Now</button>
-                                        </a>
-                                        <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-gray-500 border-2 border-hacker-grey hover:bg-white text-white hover:text-gray-500 font-bold sm:py-2 px-2 sm:px-4 md:mr-6 rounded-full ml-[2%] md:ml-[0%]">Learn More</button>
-                                        </a>
-                                    </div>
-                                </div>
-                                {/*
-                                <a href={`/events/${encodeURIComponent(event.event_date)}`}>
-                                <button style={buttonStyle}>Date</button>
-                                </a>
-
-
-                                <a href={`/events/${encodeURIComponent(event.venue)}`}>
-                                <button style={buttonStyle}>Venue</button>
-                                </a>
-
-
-                                <a href={`/events/${encodeURIComponent(event.time)}`}>
-                                <button style={buttonStyle}>Time</button>
-                                </a>
-
-
-                                <div className="button-container">
-                                    <a href={`/events/${encodeURIComponent(event.event_name)}`}>
-                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[2%]">Register Now</button>
-                                    </a>
-                                </div>
-
-                                
-                                */}
-                            </div>
-                        ) : null
-                    )}
-                </div>
-            </section>
-        </>
-    );
-};
-
-                                    {/* {event.is_active ? (
-                                        <a
-                                            className=" bg-htb-green border-2 hover:bg-white text-white hover:text-htb-green font-bold py-2 px-4 rounded-full ml-[10%] md:ml-[0%]"
-                                            href="/events/Script%20Sonic"
-                                        >
-                                            Register
-                                        </a>
-                                    ) : (
-                                        ""
-                                    )} */}
-
-                                    {/* <Modal
-                                        className="bg-htb-green"
-                                        closeButton
-                                        blur
-                                        aria-labelledby="modal-title"
-                                        open={visible}
-                                        onClose={closeHandler}
-                                    >
-                                        <Modal.Body className="flex justify-center items-center font-mono">
-                                            <ToastContainer />
-
-                                            <p className="text-3xl font-bold max-md:text-2xl">
-                                                Registration Form
-                                            </p>
-                                            <p>Please enter your Details</p>
-                                            <form
-                                                onSubmit={submitHandler}
-                                                className=" gap-5 flex-col flex w-full"
-                                            >
-                                                <input
-                                                    name="event_name"
-                                                    value={event?.event_name}
-                                                    className="hidden"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="usn"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Registration Number"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="name"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Name"
-                                                />
-                                                <Input
-                                                    required
-                                                    type="email"
-                                                    name="email"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Email"
-                                                />
-
-                                                <Input
-                                                    required
-                                                    type="text"
-                                                    name="dept"
-                                                    clearable
-                                                    bordered
-                                                    fullWidth
-                                                    color="primary"
-                                                    size="lg"
-                                                    placeholder="Department"
-                                                />
-                                                <Radio.Group
-                                                    isRequired
-                                                    value={checked}
-                                                    onChange={setChecked}
-                                                    name="isSrmite"
-                                                    orientation="horizontal"
-                                                >
-                                                    <div className="flex justify-around">
-                                                        <Radio
-                                                            value="true"
-                                                            color="success"
-                                                        >
-                                                            SRMite
-                                                        </Radio>
-                                                        <Radio
-                                                            value="false"
-                                                            color="success"
-                                                        >
-                                                            Non-SRMite
-                                                        </Radio>
-                                                    </div>
-                                                </Radio.Group>
-                                                <button
-                                                    type="submit"
-                                                    className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
-                                                >
-                                                    SUBMIT
-                                                </button>
-                                            </form>
-                                        </Modal.Body>
-                                    </Modal> */}
-                            {/*</div>
                             </div>
                         );
                     })}
@@ -349,7 +134,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             </section>
         </>
     );
-};*/}
+};
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
