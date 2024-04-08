@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { logTime } from '../../utils/error/errorConstants';
+import { logTime } from "../../utils/error/errorConstants";
 
 interface EventProps {
     event_name: string;
@@ -78,7 +78,10 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 event_name: events.target.event_name.value
             };
 
-            const response = await axios.post(`/api/v1/events/registration`, body);
+            const response = await axios.post(
+                `/api/v1/events/registration`,
+                body
+            );
             const result = await response.data.message;
 
             Toast(true, result);
@@ -97,7 +100,10 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
                     {events.map((event) => {
                         return (
-                            <div key={event.event_name} className="relative group">
+                            <div
+                                key={event.event_name}
+                                className="relative group"
+                            >
                                 <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center z-10">
                                     <img
                                         src={event.poster_url}
@@ -121,7 +127,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         </button>
                                     </a>
                                 </div>
-
                             </div>
                         );
                     })}
@@ -129,11 +134,13 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
             </section>
         </>
     );
-};*/}
+};
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
-export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
+export async function getServerSideProps(): Promise<
+    GetServerSidePropsResult<EventsPageProps>
+> {
     try {
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
