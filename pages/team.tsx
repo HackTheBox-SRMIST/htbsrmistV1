@@ -101,7 +101,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         (mem) => mem.position === el.name
                     );
                     return (
-                        <div key={el.role} className="py-12 w-[65%]">
+                        <div key={el.role} className=" py-12 w-[65%]">
                             <Roles
                                 role={el.role}
                                 name={el.name}
