@@ -79,8 +79,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 console.error("Error sending confirmation email:", emailError);
                 res.status(500).json({
                     success: false,
-                    message:
-                        "❌ Registration successful, but failed to send confirmation email",
+                    message: `❌ Registration successful, but failed to send confirmation email to ${email}`,
                     data: data
                 });
             }
