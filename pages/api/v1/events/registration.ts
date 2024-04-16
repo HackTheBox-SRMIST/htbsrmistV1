@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
             const { usn, name, email, dept, isSrmite, event_name } = req.body;
-            if (!usn || !name || !email || !dept || !isSrmite || !event_name) {
+            if (!usn || !name || !email || !dept || !event_name) {
                 return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
