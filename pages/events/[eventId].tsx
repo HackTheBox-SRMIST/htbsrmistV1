@@ -119,6 +119,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [visible, setVisible] = React.useState(false);
     const [loadingCertificate, setLoadingCertificate] = useState(false);
 
+    const [loadingSubmit, setLoadingSubmit] = useState(false);
+
     const handler = () => {
         setVisible(!visible);
         if (typeof window != "undefined" && window.document) {
@@ -243,6 +245,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             Toast(true, result);
         } catch (err: any) {
             Toast(false, `${err.response.data.message}`);
+        } finally {
+            setLoadingSubmit(false);
         }
     };
 
@@ -423,8 +427,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     <button
                                                         type="submit"
                                                         className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
+                                                        disabled={loadingSubmit}
                                                     >
-                                                        SUBMIT
+                                                        {loadingSubmit
+                                                            ? "Submitting..."
+                                                            : "SUBMIT"}{" "}
                                                     </button>
                                                 </form>
                                             </Modal.Body>
