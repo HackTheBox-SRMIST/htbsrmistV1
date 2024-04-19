@@ -131,8 +131,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     const fetchCertificate = async () => {
         try {
+            const lowercaseEmail = email.toLowerCase();
             setLoadingCertificate(true);
-            const values = { email, type, event: eventId };
+            const values = { email: lowercaseEmail, type, event: eventId };
             const response = await axios.post(
                 `https://api.htbsrmist.tech/api/certificate/get-certificate`,
                 values
