@@ -114,3 +114,10 @@ img {
 .select-placeholder-text {
     color: pink;
 }
+
+.admin-grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 1rem; /* Adjust spacing between items */
+}

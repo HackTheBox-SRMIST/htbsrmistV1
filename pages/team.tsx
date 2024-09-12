@@ -23,11 +23,11 @@ interface TeamPageProps {
     members: MemberProps[];
 }
 
-const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
+const domains: ("Development" | "Security" | "Corporate" | "Creatives")[] = [
     "Development",
-    "Creatives",
     "Security",
-    "Corporate"
+    "Corporate",
+    "Creatives"
 ];
 
 const hierarchy = [
@@ -97,34 +97,35 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
             <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
                 {hierarchy.map((el) => {
-                    const domainMembers = members.filter(
-                        (mem) => mem.position === el.name
-                    );
+                    const domainMembers = members.filter((mem) => mem.position === el.name);
                     return (
-                        <div key={el.role} className=" py-12 w-[65%]">
-                            <Roles
-                                role={el.role}
-                                name={el.name}
-                                key={el.role}
-                            />
-                            <div className="flex justify-center items-center flex-wrap gap-5">
-                                {domainMembers.map((mem) => {
-                                    return (
-                                        <Member
-                                            key={mem.name}
-                                            name={mem.name}
-                                            image={mem.pictureUrl}
-                                            position={mem.position}
-                                            caption={mem.caption}
-                                            domain={mem.domain}
-                                            socials={mem.socials}
-                                        />
-                                    );
-                                })}
+                        <div key={el.role} className="py-12 w-[65%]">
+                            <Roles role={el.role} name={el.name} />
+                            <div
+                                className={`flex ${
+                                    el.role === "Faculty Convenor" || el.role === "Co-Organizers"
+                                        ? "justify-center items-center gap-5"
+                                        : el.name === 'Root'
+                                        ? 'admin-grid'
+                                        : "flex-wrap justify-center items-center gap-5"
+                                }`}
+                            >
+                                {domainMembers.map((mem) => (
+                                    <Member
+                                        key={mem.name}
+                                        name={mem.name}
+                                        image={mem.pictureUrl}
+                                        position={mem.position}
+                                        caption={mem.caption}
+                                        domain={mem.domain}
+                                        socials={mem.socials}
+                                    />
+                                ))}
                             </div>
                         </div>
                     );
                 })}
+
 
 
                 <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
