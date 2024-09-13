@@ -6,6 +6,7 @@ html,
 body,
 #__next {
     @apply m-0 p-0 w-full h-full;
+    /* overflow-x: hidden; Prevent horizontal scrolling */
 }
 
 body {
@@ -16,6 +17,7 @@ body {
     height: 200px;
     width: 200px;
 }
+
 .st0 {
     fill: #ed1c40;
 }
@@ -43,6 +45,7 @@ body {
     text-align: center;
     text-decoration: none;
 }
+
 .btnactive {
     background-color: #9fef00;
 }
@@ -90,12 +93,16 @@ button:disabled:hover {
     position: relative;
     width: 90%;
 }
+
 img {
     /* existing styles */
 
-    display: block; /* add this line to remove any extra whitespace around the image */
-    margin: auto; /* add this line to center the image horizontally within its cell */
+    display: block;
+    /* add this line to remove any extra whitespace around the image */
+    margin: auto;
+    /* add this line to center the image horizontally within its cell */
 }
+
 .gallery {
     display: grid;
     grid-template-rows: repeat(5, 18vh);
@@ -105,8 +112,10 @@ img {
     border-radius: 10px;
     padding: 0.25em;
     cursor: zoom-in;
-    justify-content: center; /* add this line to center the grid horizontally */
-    align-items: center; /* add this line to center the grid vertically */
+    justify-content: center;
+    /* add this line to center the grid horizontally */
+    align-items: center;
+    /* add this line to center the grid vertically */
 
     /* media queries */
 }
@@ -118,6 +127,15 @@ img {
 .admin-grid {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 1rem; /* Adjust spacing between items */
+    align-items: center;     
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.founder-grid {
+    display: grid;
+    justify-content: center;
+    align-items: center;     
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
