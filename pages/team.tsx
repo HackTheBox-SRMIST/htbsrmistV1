@@ -102,9 +102,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
 
                 {/* Founders Section */}
-                <div className="py-12 w-[65%]">
+                <div className="py-12">
                     <Roles role="Founders"  />
-                    <div className="founder-grid">
+                    <div className="flex justify-center items-center flex-wrap gap-5">
                         {members
                             .filter((mem) => mem.position === "Mainframe" || mem.position === "Kernel")
                             .map((mem) => (
@@ -125,9 +125,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 {hierarchy.map((el) => {
                     const domainMembers = members.filter((mem) => mem.position === el.name);
                     return (
-                        <div key={el.role} className="py-12 w-[65%] ">
+                        <div key={el.role} className="py-10">
                             <Roles role={el.role} name={el.name} />
-                            <div className="admin-grid">
+                            <div className="flex justify-center items-center flex-wrap gap-5">
                                 {domainMembers.map((mem) => (
                                     <Member
                                         key={mem.name}
