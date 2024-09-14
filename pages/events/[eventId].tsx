@@ -226,6 +226,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         try {
             const body = {
                 usn: events.target.usn.value,
+                phn: events.target.phn.value,
                 name: events.target.name.value,
                 email: events.target.email.value.toLowerCase(),
                 dept: events.target.dept.value,
@@ -355,6 +356,20 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         color="primary"
                                                         size="lg"
                                                         placeholder="Name"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="phn"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Phone Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
                                                     />
                                                     <Input
                                                         required
