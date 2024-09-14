@@ -6,8 +6,9 @@ import { sendConfirmationEmail } from "../../../../utils/awsServices/sesMailer";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === "POST") {
-            const { usn, name, email, dept, isSrmite, event_name } = req.body;
-            if (!usn || !name || !email || !dept || !event_name) {
+            const { usn, name, email, dept, isSrmite, event_name, phn } =
+                req.body;
+            if (!usn || !name || !email || !dept || !event_name || !phn) {
                 return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
@@ -37,20 +38,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             const extraData = {
-                checkin: { status: false, modified_at: Date.now() },
-                checkout: { status: false, modified_at: Date.now() },
-                snacks: { status: false, modified_at: Date.now() },
-                certificate_status: {
-                    email_uid: null,
-                    status: false,
-                    modified_at: Date.now()
-                },
-                is_onsite: { status: false, modified_at: Date.now() },
-                is_rsvp: { status: false, modified_at: Date.now() }
+                checkin: false,
+                snacks: false,
+                rsvp: false
             };
 
             const insertedParticipant = {
                 usn,
+                phn,
                 name,
                 email,
                 dept,
@@ -62,7 +57,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 insertedParticipant
             );
 
-            // Send confirmation email and check for success
             try {
                 await sendConfirmationEmail(
                     insertedParticipant,
