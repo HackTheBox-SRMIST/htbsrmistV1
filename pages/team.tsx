@@ -107,7 +107,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                 name={el.name}
                                 key={el.role}
                             />
-                            <div className="flex justify-center items-center flex-wrap gap-5">
+                            <div className="flex justify-center items-start flex-wrap gap-5">
                                 {domainMembers.map((mem) => {
                                     return (
                                         <Member
@@ -144,7 +144,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap">
                     <Roles role="Leads" name="Sudoer"  />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                     {
                         (crew[activeDomain].filter(filterSudoers).length !== 0)?
                             crew[activeDomain].filter(filterSudoers).map((mem: MemberProps) => {
@@ -167,7 +167,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     }
                     </div>
                     <Roles role="Associates" name="Sticky Bit" />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                     {
                         (crew[activeDomain].filter(filterStickyBits).length !== 0)?
                             crew[activeDomain].filter(filterStickyBits).map((mem: MemberProps) => {
@@ -190,7 +190,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     }
                     </div>
                     <Roles role="Members" name="Binary" />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                     {
                         (crew[activeDomain].filter(filterBinaries).length !== 0)?
                             crew[activeDomain].filter(filterBinaries).map((mem: MemberProps) => {
