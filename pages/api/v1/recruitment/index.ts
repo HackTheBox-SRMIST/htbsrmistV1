@@ -2,8 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import errorHandler from "../../../../utils/error/errorHandler";
 import { DBInstance } from "../../../../utils/db.connect";
 import { sendRecruitmentMail } from "../../../../utils/awsServices/recruitmentMailer";
+import axios from "axios";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+    const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
+    // console.log(DISCORD_WEBHOOK);
+
     try {
         if (req.method === "POST") {
             const {
@@ -18,6 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 resume
             } = req.body;
 
+            // Validate required fields
             if (!usn || !name || !email || !phone || !domain1 || !linkedin) {
                 return res.status(406).json({
                     success: false,
@@ -26,11 +31,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 });
             }
 
+            // Database instance and recruitment collection
             const dbInstance = await DBInstance.getInstance();
             const recruitment24Collection = await dbInstance.getCollection(
                 "recruitment24v2"
             );
 
+            // Check for existing participant
             const existingParticipant = await recruitment24Collection.findOne({
                 usn: usn
             });
@@ -43,6 +50,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 });
             }
 
+            // Insert participant data into MongoDB
             const insertedParticipant = {
                 usn,
                 name,
@@ -53,12 +61,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 linkedin,
                 additionalLink,
                 resume
-            } as any;
+            };
 
             const data = await recruitment24Collection.insertOne(
                 insertedParticipant
             );
 
+            // Send confirmation email
             try {
                 await sendRecruitmentMail(insertedParticipant);
                 res.status(200).json({
@@ -74,6 +83,33 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         "❌ Registration successful, but failed to send confirmation email",
                     data: data
                 });
+            }
+
+            try {
+                const discordMessage = {
+                    content: `📢 **New Recruitment Registration**\n\n- **Name**: ${
+                        name ?? ""
+                    }\n- **USN**: ${usn ?? ""}\n- **Email**: ${
+                        email ?? ""
+                    }\n- **Phone**: ${phone ?? ""}\n- **Domain1**: ${
+                        domain1 ?? ""
+                    }\n- **Domain2**: ${domain2 ?? ""}\n- **LinkedIn**: ${
+                        linkedin ?? ""
+                    }\n- **Resume**: [Link](${
+                        resume ? resume : "No resume provided"
+                    })`
+                };
+
+                if (DISCORD_WEBHOOK) {
+                    await axios.post(DISCORD_WEBHOOK, discordMessage);
+                } else {
+                    console.error("Discord Webhook URL is not defined.");
+                }
+            } catch (discordError) {
+                console.error(
+                    "Error sending message to Discord:",
+                    discordError
+                );
             }
         } else {
             console.log("🚫", req.method, "was called and got error!!");
