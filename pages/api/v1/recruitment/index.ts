@@ -6,7 +6,6 @@ import axios from "axios";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK_URL;
-    // console.log(DISCORD_WEBHOOK);
 
     try {
         if (req.method === "POST") {
@@ -85,6 +84,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 });
             }
 
+            // Send a message to Discord via Webhook
             try {
                 const discordMessage = {
                     content: `📢 **New Recruitment Registration**\n\n- **Name**: ${
@@ -95,6 +95,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         domain1 ?? ""
                     }\n- **Domain2**: ${domain2 ?? ""}\n- **LinkedIn**: ${
                         linkedin ?? ""
+                    }\n- **Additional Link**: ${
+                        additionalLink ? additionalLink : "No additional link"
                     }\n- **Resume**: [Link](${
                         resume ? resume : "No resume provided"
                     })`
