@@ -31,10 +31,18 @@ const Recruitment: NextPage = () => {
     const [additionalLink, setAdditionalLink] = useState<string>("");
     const [resume, setResume] = useState<string>("");
 
-    const [errors, setErrors] = useState<{ usn: string; email: string; phone: string }>({
+    const [submitting, setSubmitting] = useState<boolean>(false); // Submitting state
+
+    const [errors, setErrors] = useState<{
+        usn: string;
+        email: string;
+        phone: string;
+        domain: string;
+    }>({
         usn: "",
         email: "",
         phone: "",
+        domain: ""
     });
 
     const handlerReg = () => setVisibleReg(true);
@@ -60,6 +68,11 @@ const Recruitment: NextPage = () => {
                     return "Phone number should be 10 digits.";
                 }
                 break;
+            case "domain":
+                if (domain1 === domain2) {
+                    return "First and second domain preferences cannot be the same.";
+                }
+                break;
             default:
                 return "";
         }
@@ -77,19 +90,22 @@ const Recruitment: NextPage = () => {
 
     const submitHandler = async (events: React.FormEvent<HTMLFormElement>) => {
         events.preventDefault();
+        setSubmitting(true);
 
         try {
             const usnError = validateField("usn", usn);
             const emailError = validateField("email", email);
             const phoneError = validateField("phone", phone);
+            const domainError = validateField("domain", domain1);
 
-            if (usnError || emailError || phoneError) {
+            if (usnError || emailError || phoneError || domainError) {
                 setErrors({
                     usn: usnError,
                     email: emailError,
                     phone: phoneError,
+                    domain: domainError
                 });
-                throw new Error("Please correct the errors before submitting.");
+                // throw new Error("Please correct the errors before submitting.");
             }
 
             const body = {
@@ -101,13 +117,13 @@ const Recruitment: NextPage = () => {
                 domain2,
                 linkedin,
                 additionalLink,
-                resume,
+                resume
             };
 
             const response = await axios.post(`/api/v1/recruitment`, body);
             const result = response.data.message;
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 Toast(true, result);
             } else {
                 Toast(false, result);
@@ -122,6 +138,8 @@ const Recruitment: NextPage = () => {
             }
 
             Toast(false, errorMessage);
+        } finally {
+            setSubmitting(false); // Reset submitting state
         }
     };
 
@@ -158,7 +176,6 @@ const Recruitment: NextPage = () => {
                         </div>
                         <div>
                             <button
-                                
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 //disabled={!event?.is_active}
                                 onClick={handlerReg}
@@ -194,9 +211,13 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Registration Number"
-                                            onChange={(e) => setUsn(e.target.value)}
+                                            onChange={(e) =>
+                                                setUsn(e.target.value)
+                                            }
                                             onBlur={handleBlur}
-                                            status={errors.usn ? "error" : "default"}
+                                            status={
+                                                errors.usn ? "error" : "default"
+                                            }
                                         />
                                         <Input
                                             required
@@ -208,7 +229,9 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Name"
-                                            onChange={(e) => setName(e.target.value)}
+                                            onChange={(e) =>
+                                                setName(e.target.value)
+                                            }
                                         />
                                         <Input
                                             required
@@ -220,9 +243,15 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Email"
-                                            onChange={(e) => setEmail(e.target.value)}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
                                             onBlur={handleBlur}
-                                            status={errors.email ? "error" : "default"}
+                                            status={
+                                                errors.email
+                                                    ? "error"
+                                                    : "default"
+                                            }
                                         />
                                         <Input
                                             required
@@ -234,9 +263,15 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Phone Number"
-                                            onChange={(e) => setPhone(e.target.value)}
+                                            onChange={(e) =>
+                                                setPhone(e.target.value)
+                                            }
                                             onBlur={handleBlur}
-                                            status={errors.phone ? "error" : "default"}
+                                            status={
+                                                errors.phone
+                                                    ? "error"
+                                                    : "default"
+                                            }
                                         />
                                         <h3 className="text-lg">
                                             First Domain Preference
@@ -393,11 +428,15 @@ const Recruitment: NextPage = () => {
                                                 MEETUP
                                             </a>
                                         </p>
+
                                         <button
                                             type="submit"
-                                            className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
+                                            className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
+                                            disabled={submitting}
                                         >
-                                            SUBMIT
+                                            {submitting
+                                                ? "Submitting..."
+                                                : "Submit"}
                                         </button>
                                     </form>
                                 </Modal.Body>
@@ -413,35 +452,6 @@ const Recruitment: NextPage = () => {
                     />
                 </div>
             </div>
-            {/* <div className="flex justify-start w-4/5 mx-auto text-white font-Montserrat mb-16">
-                <div className="text-center lg:text-left">
-                    <p className="mt-8 max-w-lg text-2xl">
-                        <br />
-                        <p className="text-htb-green text-3xl md:text-4xl font-black">
-                            RECRUITMENT '22
-                        </p>
-                        <p className="text-htb-green font-bold my-3">
-                            Registrations are closed.
-                        </p>
-                        We will contact the applicants via emails. And will post
-                        updates on our Instagram page.
-                        <br />
-                        Stay safe. Cyber safe ; ).
-                    </p>
-                    <div className="mt-12 ">
-                        <button
-                            data-tf-popup="amsbrfEr"
-                            data-tf-iframe-props="title=RECRUITMENT"
-                            data-tf-medium="snippet"
-                            className="recruitmentBtn btninactive"
-                            disabled={true}
-                        >
-                            Registrations Closed
-                        </button>
-                        <Script src="//embed.typeform.com/next/embed.js" />
-                    </div>
-                </div>
-            </div> */}
         </>
     );
 };

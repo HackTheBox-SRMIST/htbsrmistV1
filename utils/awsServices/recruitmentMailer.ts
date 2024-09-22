@@ -234,7 +234,7 @@ export const sendRecruitmentMail = async (
                                                                                                                     </a>
                                                                                                                 </td>
                                                                                                                 <td align="center" valign="top" style="padding  :  0; margin  :  0; padding-right  :  20px;">
-                                                                                                                    <a target="_blank" href="https://discord.gg/vpWEV7bhms" style="text-decoration :  underline; font-size :  16px; color :  rgb(60, 9, 108);">
+                                                                                                                    <a target="_blank" href="https://discord.com/GkDybr4Mx3" style="text-decoration :  underline; font-size :  16px; color :  rgb(60, 9, 108);">
                                                                                                                         <img src="https://eeevnci.stripocdn.email/content/assets/img/messenger-icons/circle-colored/discort-circle-colored.png" alt="Discord" title="Discord" width="24" height="24" style="display :  block; border :  0px; outline :  none; text-decoration :  none;">
                                                                                                                     </a>
                                                                                                                 </td>

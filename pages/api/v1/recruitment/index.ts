@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             const dbInstance = await DBInstance.getInstance();
             const recruitment24Collection = await dbInstance.getCollection(
-                "recruitment24"
+                "recruitment24v2"
             );
 
             const existingParticipant = await recruitment24Collection.findOne({
@@ -60,7 +60,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             );
 
             try {
-                // Add your email sending logic here if needed
                 await sendRecruitmentMail(insertedParticipant);
                 res.status(200).json({
                     success: true,
