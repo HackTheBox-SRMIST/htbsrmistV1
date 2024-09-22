@@ -20,71 +20,104 @@ const Toast = (success: any, message: any) => {
 };
 
 const Recruitment: NextPage = () => {
+    const [visibleReg, setVisibleReg] = useState<boolean>(false);
+    const [usn, setUsn] = useState<string>("");
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+    const [domain1, setDomain1] = useState<string>("");
+    const [domain2, setDomain2] = useState<string>("");
+    const [linkedin, setLinkedin] = useState<string>("");
+    const [additionalLink, setAdditionalLink] = useState<string>("");
+    const [resume, setResume] = useState<string>("");
+
+    const [errors, setErrors] = useState<{ usn: string; email: string; phone: string }>({
+        usn: "",
+        email: "",
+        phone: "",
+    });
+
     const handlerReg = () => setVisibleReg(true);
-    const closeHandlerReg = () => {
-        setVisibleReg(false);
+    const closeHandlerReg = () => setVisibleReg(false);
+
+    const validateField = (name: string, value: string): string => {
+        switch (name) {
+            case "usn":
+                if (value.length !== 15) {
+                    return "Registration Number should be 15 characters long.";
+                }
+                if (!/^RA(23|24)/.test(value)) {
+                    return "Registration Number should start with RA23 or RA24.";
+                }
+                break;
+            case "email":
+                if (!value.endsWith("@srmist.edu.in")) {
+                    return "Please enter a valid SRM mail ID (@srmist.edu.in).";
+                }
+                break;
+            case "phone":
+                if (!/^\d{10}$/.test(value)) {
+                    return "Phone number should be 10 digits.";
+                }
+                break;
+            default:
+                return "";
+        }
+        return "";
     };
-    const [visibleReg, setVisibleReg] = React.useState(false);
 
-    const [usn, setUsn] = React.useState("");
-    const [name, setName] = React.useState("");
-    const [email, setEmail] = React.useState("");
-    const [phone, setPhone] = React.useState("");
-    const [domain1, setDomain1] = useState("");
-    const [domain2, setDomain2] = useState("");
-    const [linkedin, setLinkedin] = React.useState("");
-    // const [htbProfile, setHtbProfile] = React.useState("");
-    const [additionalLink, setAdditionalLink] = React.useState("");
-    const [resume, setResume] = React.useState("");
+    const handleBlur = (e: React.FocusEvent<any>) => {
+        const { name, value } = e.target;
+        const error = validateField(name, value);
+        setErrors((prev) => ({ ...prev, [name]: error }));
+        if (error) {
+            Toast(false, error);
+        }
+    };
 
-    const submitHandler = async (events: React.ChangeEvent<any>) => {
+    const submitHandler = async (events: React.FormEvent<HTMLFormElement>) => {
         events.preventDefault();
 
         try {
+            const usnError = validateField("usn", usn);
+            const emailError = validateField("email", email);
+            const phoneError = validateField("phone", phone);
+
+            if (usnError || emailError || phoneError) {
+                setErrors({
+                    usn: usnError,
+                    email: emailError,
+                    phone: phoneError,
+                });
+                throw new Error("Please correct the errors before submitting.");
+            }
+
             const body = {
-                usn: usn,
-                name: name,
+                usn,
+                name,
                 email: email.toLowerCase(),
-                phone: phone,
-                domain1: domain1,
-                domain2: domain2,
-                linkedin: linkedin,
-                additionalLink: additionalLink,
-                resume: resume
+                phone,
+                domain1,
+                domain2,
+                linkedin,
+                additionalLink,
+                resume,
             };
-            console.log(body);
-            if (usn.length !== 15) {
-                throw new Error(
-                    "Registration Number should be 15 characters long."
-                );
-            }
-            if (!email.endsWith("@srmist.edu.in")) {
-                throw new Error("Email should end with @srmist.edu.in.");
-            }
-            if (!/^\d{10}$/.test(phone)) {
-                throw new Error("Phone should be 10 digits.");
-            }
-            // if (!/^https?:\/\/(www\.)?linkedin\.com\/.+/.test(linkedin)) {
-            //     throw new Error("LinkedIn link is not valid.");
-            // }
 
             const response = await axios.post(`/api/v1/recruitment`, body);
-            const result = await response.data.message;
-            // console.log(result);
+            const result = response.data.message;
 
             if (response.status === 201) {
-                Toast(false, result);
-            } else {
                 Toast(true, result);
+            } else {
+                Toast(false, result);
             }
         } catch (err: any) {
             let errorMessage = "An error occurred.";
 
             if (err.message) {
-                // Check if there's a specific error message from validation
                 errorMessage = err.message;
             } else if (err.response) {
-                // Check if there's a response with an error message
                 errorMessage = err.response.data.message || errorMessage;
             }
 
@@ -125,7 +158,7 @@ const Recruitment: NextPage = () => {
                         </div>
                         <div>
                             <button
-                                disabled
+                                
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 //disabled={!event?.is_active}
                                 onClick={handlerReg}
@@ -154,20 +187,6 @@ const Recruitment: NextPage = () => {
                                         <Input
                                             required
                                             type="text"
-                                            name="name"
-                                            clearable
-                                            bordered
-                                            fullWidth
-                                            color="primary"
-                                            size="lg"
-                                            placeholder="Name"
-                                            onChange={(e) =>
-                                                setName(e.target.value)
-                                            }
-                                        />
-                                        <Input
-                                            required
-                                            type="text"
                                             name="usn"
                                             clearable
                                             bordered
@@ -175,9 +194,21 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Registration Number"
-                                            onChange={(e) =>
-                                                setUsn(e.target.value)
-                                            }
+                                            onChange={(e) => setUsn(e.target.value)}
+                                            onBlur={handleBlur}
+                                            status={errors.usn ? "error" : "default"}
+                                        />
+                                        <Input
+                                            required
+                                            type="text"
+                                            name="name"
+                                            clearable
+                                            bordered
+                                            fullWidth
+                                            color="primary"
+                                            size="lg"
+                                            placeholder="Name"
+                                            onChange={(e) => setName(e.target.value)}
                                         />
                                         <Input
                                             required
@@ -189,9 +220,9 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Email"
-                                            onChange={(e) =>
-                                                setEmail(e.target.value)
-                                            }
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            onBlur={handleBlur}
+                                            status={errors.email ? "error" : "default"}
                                         />
                                         <Input
                                             required
@@ -203,9 +234,9 @@ const Recruitment: NextPage = () => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Phone Number"
-                                            onChange={(e) =>
-                                                setPhone(e.target.value)
-                                            }
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            onBlur={handleBlur}
+                                            status={errors.phone ? "error" : "default"}
                                         />
                                         <h3 className="text-lg">
                                             First Domain Preference
@@ -332,8 +363,7 @@ const Recruitment: NextPage = () => {
                                             fullWidth
                                             color="primary"
                                             size="lg"
-                                            placeholder="Additional Link (HackTheBox, Github, Behance, Figma)
-"
+                                            placeholder="Additional Link (HackTheBox, Github, Behance, Figma)"
                                             onChange={(e) =>
                                                 setAdditionalLink(
                                                     e.target.value
