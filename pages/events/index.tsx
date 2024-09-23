@@ -102,7 +102,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                         return (
                             <div
                                 key={event.event_name}
-                                className="relative group"
+                                className="relative group overflow-hidden"
                             >
                                 <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center z-10">
                                     <img
@@ -120,7 +120,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         </a> */}
                                     </div>
                                 </div>
-                                <div className="absolute bottom-0 left-0 right-0 bg-gray-900 p-4 transform translate-y-full transition-transform duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 z-20 rounded-b-2xl flex justify-center items-center">
+                                <div className="absolute bottom-0 left-0 right-0 bg-gray-900 p-4 transform translate-y-full transition-transform duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 z-20 rounded-b-2xl flex justify-center items-center overflow-hidden">
                                     <a href={`/events/${event.event_name}`}>
                                         <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
                                             Register Now
