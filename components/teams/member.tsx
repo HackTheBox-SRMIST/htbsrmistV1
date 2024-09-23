@@ -11,21 +11,20 @@ const socialIcons = {
 
 const Member = (props: any) => {
     return (
-        <div className="text-white flex flex-col items-center py-10 mt-3 transition duration-300 px-2 w-auto rounded-3xl hover:shadow-[0_0_2px_#8bef00,inset_0_0_2px_#8bef00,0_0_5px_#8bef00,0_0_15px_#8bef00,0_0_#8bef00]">
+        <div className="text-white flex flex-col items-center py-8 mt-3 transition duration-300 px-0 w-auto rounded-3xl relative group">
             <img
-                // src="https://i.ndtvimg.com/i/2017-03/rowan-atkinson_640x480_71490079191.jpg"
                 src={props.image}
-                className="rounded-full border-2 border-solid border-htb-green/50  p-1 w-40 h-40 bg-cover bg-center object-cover brightness-125"
+                className="rounded-full border-2 border-solid border-htb-green/50 p-1 w-36 h-36 bg-cover bg-center object-cover brightness-125 transition duration-300 group-hover:shadow-[0_0_2px_#8bef00,inset_0_0_2px_#8bef00,0_0_5px_#8bef00,0_0_15px_#8bef00]"
             />
 
-            <span className="text-3xl pt-5 text-htb-green font-semibold">
+            <span className="text-2xl pt-5 text-htb-green font-semibold">
                 {props.name}
             </span>
             <span className="text-xl text-htb-green">{props.domain}</span>
-            <span className="text-center break-words w-80">
+            <span className="text-center break-words w-64">
                 {props.caption}
             </span>
-            <span className="flex pt-5 gap-3">
+            <span className="flex pt-5 gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             {(props.socials.linkedin)?(props.socials.linkedin.length >6) ? (
                     <Social
                         link={props.socials.linkedin}
@@ -64,3 +63,4 @@ const Member = (props: any) => {
 };
 
 export default Member;
+
