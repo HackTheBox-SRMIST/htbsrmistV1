@@ -104,7 +104,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 {/* Founders Section */}
                 <div className="py-12">
                     <Roles role="Founders"  />
-                    <div className="flex justify-center items-center flex-wrap gap-5">
+                    <div className="flex justify-center items-start flex-wrap gap-5">
                         {members
                             .filter((mem) => mem.position === "Mainframe" || mem.position === "Kernel")
                             .map((mem) => (
@@ -127,7 +127,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     return (
                         <div key={el.role} className="py-10">
                             <Roles role={el.role} name={el.name} />
-                            <div className="flex justify-center items-center flex-wrap gap-5">
+                            <div className="flex justify-center items-start flex-wrap gap-5">
                                 {domainMembers.map((mem) => (
                                     <Member
                                         key={mem.name}
@@ -144,7 +144,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     );
                 })}
 
-                <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
+                <div className="flex justify-around items-start text-3xl text-htb-green gap-7 py-10 ">
                     <button
                         onClick={prevDomainChangeHandler}
                         className="text-htb-green bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
@@ -161,7 +161,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap">
                     <Roles role="Leads" name="Sudoer" />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                         {
                             (crew[activeDomain].filter(filterSudoers).length !== 0) ?
                                 crew[activeDomain].filter(filterSudoers).map((mem: MemberProps) => {
@@ -184,7 +184,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         }
                     </div>
                     <Roles role="Associates" name="Sticky Bit" />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                         {
                             (crew[activeDomain].filter(filterStickyBits).length !== 0) ?
                                 crew[activeDomain].filter(filterStickyBits).map((mem: MemberProps) => {
@@ -207,7 +207,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         }
                     </div>
                     <Roles role="Members" name="Binary" />
-                    <div className="flex flex-wrap justify-center items-center">
+                    <div className="flex flex-wrap justify-center items-start">
                         {
                             (crew[activeDomain].filter(filterBinaries).length !== 0) ?
                                 crew[activeDomain].filter(filterBinaries).map((mem: MemberProps) => {
