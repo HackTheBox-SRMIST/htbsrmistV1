@@ -50,6 +50,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             // Insert participant data into MongoDB
+            const additionalData = {
+                status: "", // Default empty string
+                passKey: "" // Default empty string
+            };
+
             const insertedParticipant = {
                 usn,
                 name,
@@ -59,7 +64,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 domain2,
                 linkedin,
                 additionalLink,
-                resume
+                resume,
+                ...additionalData
             };
 
             const data = await recruitment24Collection.insertOne(

@@ -446,9 +446,9 @@ const Recruitment: NextPage = () => {
                 </div>
                 <div className="">
                     <img
-                        src="https://ik.imagekit.io/htbsrmist/Recruitments/recruitment24.png?updatedAt=1707406123071"
+                        src="https://ik.imagekit.io/htbsrmist/Recruitments/Recruitment24v2.png?updatedAt=1727076535436"
                         alt="Recruitments Poster"
-                        className="h-auto w-[500px]"
+                        className="h-[700px] max-md:h-[500px]"
                     />
                 </div>
             </div>
