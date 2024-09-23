@@ -23,18 +23,17 @@ interface TeamPageProps {
     members: MemberProps[];
 }
 
-const domains: ("Development" | "Creatives" | "Corporate" | "Security")[] = [
+const domains: ("Development" | "Security" | "Corporate" | "Creatives")[] = [
     "Development",
-    "Creatives",
     "Security",
-    "Corporate"
+    "Corporate",
+    "Creatives"
 ];
 
 const hierarchy = [
-    { role: "Faculty Convenor", name: "Mainframe" },
-    { role: "Co-Organizers", name: "Kernel" },
     { role: "Admins", name: "Root" },
 ];
+
 
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     const [activeDomain, changeDomain] = useState<
@@ -64,15 +63,15 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         Security
     };
 
-    var filterBinaries = function (element: any){
+    var filterBinaries = function (element: any) {
         return element.position === "Binary"
     }
 
-    var filterSudoers = function (element: any){
+    var filterSudoers = function (element: any) {
         return element.position === "Sudoer" || element.position === "Leads"
     }
 
-    var filterStickyBits = function (element: any){
+    var filterStickyBits = function (element: any) {
         return element.position === "Associates" || element.position === "Sticky Bit"
     }
 
@@ -91,43 +90,61 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
+    // Combine Faculty Convenor and Co-Organizers into "Founders"
+    const founders = members.filter(
+        (mem) => mem.position === "Mainframe" || mem.position === "Kernel"
+    );
+
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
             <img src="./team.svg" className="h-20" />
 
             <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
+
+                {/* Founders Section */}
+                <div className="py-12">
+                    <Roles role="Founders"  />
+                    <div className="flex justify-center items-start flex-wrap gap-5">
+                        {members
+                            .filter((mem) => mem.position === "Mainframe" || mem.position === "Kernel")
+                            .map((mem) => (
+                                <Member
+                                    key={mem.name}
+                                    name={mem.name}
+                                    image={mem.pictureUrl}
+                                    position={mem.position}
+                                    caption={mem.caption}
+                                    domain={mem.domain}
+                                    socials={mem.socials}
+                                />
+                            ))}
+                    </div>
+                </div>
+
+                {/* Admins and Other Roles */}
                 {hierarchy.map((el) => {
-                    const domainMembers = members.filter(
-                        (mem) => mem.position === el.name
-                    );
+                    const domainMembers = members.filter((mem) => mem.position === el.name);
                     return (
-                        <div key={el.role} className=" py-12 w-[65%]">
-                            <Roles
-                                role={el.role}
-                                name={el.name}
-                                key={el.role}
-                            />
-                            <div className="flex justify-center items-center flex-wrap gap-5">
-                                {domainMembers.map((mem) => {
-                                    return (
-                                        <Member
-                                            key={mem.name}
-                                            name={mem.name}
-                                            image={mem.pictureUrl}
-                                            position={mem.position}
-                                            caption={mem.caption}
-                                            domain={mem.domain}
-                                            socials={mem.socials}
-                                        />
-                                    );
-                                })}
+                        <div key={el.role} className="py-10">
+                            <Roles role={el.role} name={el.name} />
+                            <div className="flex justify-center items-start flex-wrap gap-5">
+                                {domainMembers.map((mem) => (
+                                    <Member
+                                        key={mem.name}
+                                        name={mem.name}
+                                        image={mem.pictureUrl}
+                                        position={mem.position}
+                                        caption={mem.caption}
+                                        domain={mem.domain}
+                                        socials={mem.socials}
+                                    />
+                                ))}
                             </div>
                         </div>
                     );
                 })}
 
-
-                <div className="flex justify-around items-center text-3xl text-htb-green gap-7 py-10 ">
+                <div className="flex justify-around items-start text-3xl text-htb-green gap-7 py-10 ">
                     <button
                         onClick={prevDomainChangeHandler}
                         className="text-htb-green bg-htb-green/50 p-2 rounded-full hover:bg-htb-green"
@@ -143,72 +160,72 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     </button>
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap">
-                    <Roles role="Leads" name="Sudoer"  />
-                    <div className="flex flex-wrap justify-center items-center">
-                    {
-                        (crew[activeDomain].filter(filterSudoers).length !== 0)?
-                            crew[activeDomain].filter(filterSudoers).map((mem: MemberProps) => {
-                                return (
-                                    
-                                    <Member
-                                        key={mem.name}
-                                        name={mem.name}
-                                        image={mem.pictureUrl}
-                                        position={mem.position}
-                                        caption={mem.caption}
-                                        domain={mem.domain}
-                                        socials={mem.socials}
-                                    />
-                                    
-                                );   
-                            })
-                        :
-                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
-                    }
+                    <Roles role="Leads" name="Sudoer" />
+                    <div className="flex flex-wrap justify-center items-start">
+                        {
+                            (crew[activeDomain].filter(filterSudoers).length !== 0) ?
+                                crew[activeDomain].filter(filterSudoers).map((mem: MemberProps) => {
+                                    return (
+
+                                        <Member
+                                            key={mem.name}
+                                            name={mem.name}
+                                            image={mem.pictureUrl}
+                                            position={mem.position}
+                                            caption={mem.caption}
+                                            domain={mem.domain}
+                                            socials={mem.socials}
+                                        />
+
+                                    );
+                                })
+                                :
+                                <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                        }
                     </div>
                     <Roles role="Associates" name="Sticky Bit" />
-                    <div className="flex flex-wrap justify-center items-center">
-                    {
-                        (crew[activeDomain].filter(filterStickyBits).length !== 0)?
-                            crew[activeDomain].filter(filterStickyBits).map((mem: MemberProps) => {
-                                return (
-                                    
-                                    <Member
-                                        key={mem.name}
-                                        name={mem.name}
-                                        image={mem.pictureUrl}
-                                        position={mem.position}
-                                        caption={mem.caption}
-                                        domain={mem.domain}
-                                        socials={mem.socials}
-                                    />
-                                    
-                                );   
-                            })
-                        :
-                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
-                    }
+                    <div className="flex flex-wrap justify-center items-start">
+                        {
+                            (crew[activeDomain].filter(filterStickyBits).length !== 0) ?
+                                crew[activeDomain].filter(filterStickyBits).map((mem: MemberProps) => {
+                                    return (
+
+                                        <Member
+                                            key={mem.name}
+                                            name={mem.name}
+                                            image={mem.pictureUrl}
+                                            position={mem.position}
+                                            caption={mem.caption}
+                                            domain={mem.domain}
+                                            socials={mem.socials}
+                                        />
+
+                                    );
+                                })
+                                :
+                                <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                        }
                     </div>
                     <Roles role="Members" name="Binary" />
-                    <div className="flex flex-wrap justify-center items-center">
-                    {
-                        (crew[activeDomain].filter(filterBinaries).length !== 0)?
-                            crew[activeDomain].filter(filterBinaries).map((mem: MemberProps) => {
-                                return (
-                                    <Member
-                                        key={mem.name}
-                                        name={mem.name}
-                                        image={mem.pictureUrl}
-                                        position={mem.position}
-                                        caption={mem.caption}
-                                        domain={mem.domain}
-                                        socials={mem.socials}
-                                    />
-                                );   
-                            })
-                        :
-                        <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
-                    }
+                    <div className="flex flex-wrap justify-center items-start">
+                        {
+                            (crew[activeDomain].filter(filterBinaries).length !== 0) ?
+                                crew[activeDomain].filter(filterBinaries).map((mem: MemberProps) => {
+                                    return (
+                                        <Member
+                                            key={mem.name}
+                                            name={mem.name}
+                                            image={mem.pictureUrl}
+                                            position={mem.position}
+                                            caption={mem.caption}
+                                            domain={mem.domain}
+                                            socials={mem.socials}
+                                        />
+                                    );
+                                })
+                                :
+                                <><p className="text-2xl my-9 text-[#fff] flex justify-center items-center font-bold text-center" >No Team Found</p></>
+                        }
                     </div>
                 </div>
             </div>
