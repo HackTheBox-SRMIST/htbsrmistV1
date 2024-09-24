@@ -2,7 +2,7 @@ import { NextPage, GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import { SiMedium } from "react-icons/si";
-
+import FOF from "../404";
 interface BlogProps {
     img: string;
     title: string;
@@ -25,6 +25,9 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
     // console.log(blog);
 
     // console.log(pubDate);
+    if(!blog){
+        return<FOF/>
+    }
     const createMarkup = (html: string) => {
         const modifiedHtml = html.replace(
             /(<img.*?>|<figure.*?>|<\/figure>|<h\d>.*?<\/h\d>)/g,
