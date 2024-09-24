@@ -13,18 +13,36 @@ const textOverlay = async (
     error_message?: string;
 }> => {
     try {
-        let font;
-        if (color === "WHITE" && font_size === "64") {
-            font = Jimp.FONT_SANS_64_WHITE;
-        } else if (color === "BLACK" && font_size === "64") {
-            font = Jimp.FONT_SANS_64_BLACK;
-        } else if (color === "WHITE" && font_size === "32") {
-            font = Jimp.FONT_SANS_32_WHITE;
-        } else if (color === "BLACK" && font_size === "32") {
-            font = Jimp.FONT_SANS_32_BLACK;
+        if (!color || !font_size || !yOffset) {
+            console.error("Missing required image config values:", {
+                color,
+                font_size,
+                yOffset
+            });
+            return {
+                buffer: null,
+                error: true,
+                error_message: "Missing required image config values."
+            };
         }
 
+        const fontKey = `FONT_${font_size}_${color.toUpperCase()}`;
+        // console.log("Constructed fontKey:", fontKey);
+
+        if (!jimpOptions[fontKey]) {
+            console.error("Invalid font options:", jimpOptions, fontKey);
+            return {
+                buffer: null,
+                error: true,
+                error_message: `Invalid font combination: ${fontKey}`
+            };
+        }
+
+        // console.log("Font URL:", jimpOptions[fontKey]);
+        const font = await Jimp.loadFont(jimpOptions[fontKey]);
+
         if (!font) {
+            console.error("Failed to load font:", { color, font_size });
             return {
                 buffer: null,
                 error: true,
@@ -32,12 +50,12 @@ const textOverlay = async (
             };
         }
 
-        const loadedFont = await Jimp.loadFont(font);
+        // console.log("Image URL:", url);
         const image = await Jimp.read(url);
         image.scaleToFit(1300, Jimp.AUTO, Jimp.RESIZE_BEZIER);
 
         image.print(
-            loadedFont,
+            font,
             0,
             parseInt(yOffset),
             {
@@ -52,6 +70,10 @@ const textOverlay = async (
         const bufferImage = await image.getBase64Async(Jimp.MIME_PNG);
         return { buffer: bufferImage, error: false, error_message: "Success" };
     } catch (error) {
+        console.error(
+            "Error during image processing:",
+            (error as Error).message
+        );
         return {
             buffer: null,
             error: true,

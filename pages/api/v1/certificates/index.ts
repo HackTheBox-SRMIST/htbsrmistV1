@@ -107,7 +107,7 @@ export default async function handler(
             );
             const userData = await userCollection.findOne({ email });
 
-            if (!userData) {
+            if (!userData || !userData.checkin) {
                 return res.status(404).json({
                     success: false,
                     error: `No certificate found for email: ${email}`
@@ -122,13 +122,13 @@ export default async function handler(
 
             const jimpOptions = {
                 FONT_64_WHITE:
-                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-white.fnt",
+                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-white/open-sans-64-white.fnt?updatedAt=1726944338422",
                 FONT_64_BLACK:
-                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-black.fnt",
+                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-black/open-sans-64-black.fnt?updatedAt=1726944338432",
                 FONT_32_WHITE:
-                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-white.fnt",
+                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-white/open-sans-32-white.fnt?updatedAt=1726944338436",
                 FONT_32_BLACK:
-                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-black.fnt"
+                    "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-black/open-sans-32-black.fnt?updatedAt=1726944338420"
             };
 
             const { buffer, error, error_message } = await textOverlay(
