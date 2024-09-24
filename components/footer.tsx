@@ -55,7 +55,7 @@ const Footer = () => {
                                     <FaGithub></FaGithub>
                                 </a>
                                 <a
-                                    href="https://discord.gg/8uT6ZnQN6N"
+                                    href="https://discord.gg/GkDybr4Mx3"
                                     className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <FaDiscord></FaDiscord>

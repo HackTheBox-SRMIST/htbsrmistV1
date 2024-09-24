@@ -91,7 +91,7 @@ const Index: NextPage = () => {
                 <div className="flex justify-center">
                     {" "}
                     <a
-                        href="https://discord.gg/vpWEV7bhms"
+                        href="https://discord.gg/GkDybr4Mx3"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
