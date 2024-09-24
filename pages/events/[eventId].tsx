@@ -45,6 +45,7 @@ interface EventProps {
     ];
     registration_url: string;
     database: string;
+    slug: string;
 }
 
 interface EventsPageProps {
@@ -112,6 +113,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
+    const slug = event?.slug;
 
     const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState(null);
@@ -135,21 +137,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         try {
             const lowercaseEmail = email.toLowerCase();
             setLoadingCertificate(true);
-            const values = { email: lowercaseEmail, type, event: eventId };
-            const response = await axios.post(
-                `https://api.htbsrmist.tech/api/certificate/get-certificate`,
-                values
-            );
-            // console.log(response);
+            const values = { email: lowercaseEmail, type, event: slug };
+            // console.log(values);
+            const response = await axios.post(`/api/v1/certificates`, values);
             setCertificate(response.data.certificate);
             Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
-            // console.log(err);
-
-            // console.log(err.response.data);
-            Toast(false, `${err.response.data.message}`);
+            // Access the correct error response field
+            Toast(false, `${err.response?.data?.error || "An error occurred"}`);
         } finally {
-            setLoadingCertificate(false); // Reset loading state whether successful or not
+            setLoadingCertificate(false);
         }
     };
 
