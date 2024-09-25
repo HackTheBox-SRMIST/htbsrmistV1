@@ -16,6 +16,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GiCrossMark } from "react-icons/gi";
+import FOF from "../404";
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -113,6 +114,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
+    if(!event){
+        return <FOF/>
+    }
     const slug = event?.slug;
 
     const [email, setEmail] = useState("");
