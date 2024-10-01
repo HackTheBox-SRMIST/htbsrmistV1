@@ -179,6 +179,7 @@ const Recruitment: NextPage = () => {
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 //disabled={!event?.is_active}
                                 onClick={handlerReg}
+                                disabled
                             >
                                 REGISTER NOW
                             </button>
