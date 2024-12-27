@@ -1,0 +1,2279 @@
+[{
+    "_id": {
+      "$oid": "62481e62484dc7327c5f4ac0"
+    },
+    "caption": "I am the only one whom you can't understand.👀",
+    "domain": "Technical",
+    "index": 5,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Aniruddha Ghosh",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Aniruddha_Ghosh.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674293099585",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/aghosh0605",
+      "linkedin": "https://www.linkedin.com/in/aghosh0605/",
+      "website": "https://blog.cybersupport.in/",
+      "twitter": "https://twitter.com/aghosh0605"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabdb"
+    },
+    "caption": "Keep Creating",
+    "domain": "Creatives",
+    "index": 54,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Rudra Garai",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/rudra_garai.jpeg?updatedAt=1679161666390",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/techierudra",
+      "linkedin": "https://www.linkedin.com/in/techierudra/",
+      "twitter": "https://twitter.com/techierudra/",
+      "instagram": "https://www.instagram.com/techierudra/"
+    },
+    "email": "rs0605@srmist.edu.in",
+    "usn": "RA2111003010321",
+    "degree": "B.Tech CSE Core ",
+    "section": "E1",
+    "dob": "3/12/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7797026207"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc7"
+    },
+    "caption": ".",
+    "domain": "Cyber Security",
+    "index": 34,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "NIKHIL PATIL",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010194_-_NIKHIL_PATIL_BABAR__RA2111030010194_.JPG?ik-sdk-version=javascript-1.4.3&updatedAt=1674278231837",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/nt6095",
+      "linkedin": "https://www.linkedin.com/in/nikhil-patil-babar",
+      "twitter": ".",
+      "instagram": "."
+    },
+    "email": "nt6095@srmist.edu.in",
+    "usn": "RA2111030010194",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "P2",
+    "dob": "12/25/2022",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9209202695"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc9"
+    },
+    "caption": "Control is an Illusion ",
+    "domain": "Cyber Security",
+    "index": 36,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "PRAGAM GUPTA ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/PRAGAM_GUPTA__RA2011003011275_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278123790",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/Pragam1",
+      "linkedin": "https://www.linkedin.com/in/pragam-gupta-115057203",
+      "twitter": "nil",
+      "instagram": "Http://instagram.com/pragam.gupta"
+    },
+    "email": "pg3612@srmist.edu.in",
+    "usn": "RA2011003011275",
+    "degree": "B.Tech CSE Core",
+    "section": "I2",
+    "dob": "8/29/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "6387525421"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb0"
+    },
+    "caption": "Self Taught Penetration Tester | Cybersecurity Enthusiast | HackTheBox SRMIST",
+    "domain": "Cyber Security",
+    "index": 11,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Aashwin Sharma",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010207_Photo_-_AASHWIN_SHARMA__RA2111030010207_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278266774",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/A45hw1n",
+      "linkedin": "www.linkedin.com/in/aashwin-sharma-a20158231",
+      "twitter": "https://twitter.com/445hw1n",
+      "instagram": "https://www.instagram.com/aashwins29/"
+    },
+    "email": "ah7225@srmist.edu.in",
+    "usn": "RA2111030010207",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "P2",
+    "dob": "9/29/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "8529260228"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd0"
+    },
+    "caption": "Trust just your eyes and you\"ll lose",
+    "domain": "Cyber Security",
+    "index": 43,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "SelvaKumar Selvaraj Anand",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011030010027_pic__-_S.A_KUMAR__RA2011030010027_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278154601",
+    "position": "Sudoer",
+    "socials": {
+      "github": "https://github.com/SelvaKumarAnand",
+      "linkedin": "https://www.linkedin.com/in/selvakumar-anand-551821220",
+      "twitter": "https://twitter.com/SelvaKumar2002",
+      "instagram": "https://instagram.com/selva_it_is?igshid=YmMyMTA2M2Y="
+    },
+    "email": "sk5652@srmist.edu.in",
+    "usn": "RA2011030010027",
+    "degree": "CSE Cyber Security",
+    "section": "L2",
+    "dob": "11/18/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8870364005"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabbb"
+    },
+    "caption": ": )",
+    "domain": "Corporate",
+    "index": 22,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Daksh Pandya ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111033010076_-_DAKSH_PANDYA__RA2111033010076_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278276341",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/ds8595",
+      "linkedin": "https://www.linkedin.com/in/daksh-pandya-836a78238",
+      "twitter": "none",
+      "instagram": "https://instagram.com/dakshpandya_5"
+    },
+    "email": "ds8595@srmist.edu.in",
+    "usn": "RA2111033010076",
+    "degree": "CSE-SWE ",
+    "section": "Y2",
+    "dob": "5/14/2021",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9825603491"
+    },
+    "department": "CINTEL"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc2"
+    },
+    "caption": "The hardest choices require the strongest wills.",
+    "domain": "Creatives",
+    "index": 29,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Kishu Raj Tyagi",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003010352_-_KISHU_TYAGI__RA2111003010352_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278183601",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/kishurajtyagi",
+      "linkedin": "linkedin.com/in/kishu-raj-tyagi-4a39b7214",
+      "twitter": "https://twitter.com/KishuRajTyagi2",
+      "instagram": "https://www.instagram.com/kishurajtyagi/"
+    },
+    "email": "kn9739@srmist.edu.in",
+    "usn": "RA2111003010352",
+    "degree": "B.Tech CSE CORE",
+    "section": "F1",
+    "dob": "4/9/2003",
+    "staying": "Hostel",
+    "conatct": "NaN",
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc3"
+    },
+    "caption": "If I Could, I Would But I Can't So I Shan't.",
+    "domain": "Cyber Security",
+    "index": 30,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Likitha Sai Donta ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011030010055_Likitha_Donta.jpg?updatedAt=1679065195905",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Santaforgotmyaddress",
+      "linkedin": "https://www.linkedin.com/in/likitha-donta-1295261a6",
+      "twitter": "https://twitter.com/DontaLikitha?t=fTuU98hs0AExAIBigOpD1Q&s=09",
+      "instagram": "https://www.instagram.com/likithadonta/"
+    },
+    "email": "ld7967@srmist.edu.in",
+    "usn": "RA2011030010055",
+    "degree": "B.Tech CSE Cybersecurity ",
+    "section": "L2",
+    "dob": "8/1/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "7756801087"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabdf"
+    },
+    "caption": "Full Stack developer and photographer ",
+    "domain": "Creatives",
+    "index": 58,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Udit Kumar",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Udit_Kumar.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674288268363",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/uditkumar2011",
+      "linkedin": "https://www.linkedin.com/in/udit-kumar-1b7861229",
+      "twitter": "Nil",
+      "instagram": "https://instagram.com/udittt_1120?igshid=Yzg5MTU1MDY="
+    },
+    "email": "ks1206@srmist.edu.in",
+    "usn": "RA2011031010099",
+    "degree": "B. Tech CSE Information Technology",
+    "section": "O2",
+    "dob": "11/20/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8000127342"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb1"
+    },
+    "caption": "Sober yet quite whimsical",
+    "domain": "Creatives",
+    "index": 12,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Abhinav Shandilya ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/abhinav_RA2111004010098.jpg?updatedAt=1680898794011",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/AbhinavShandilya13",
+      "linkedin": "linkedin.com/in/abhinav-shandilya-662274232",
+      "twitter": "NA",
+      "instagram": "https://www.instagram.com/abhinav_shandilya03"
+    },
+    "email": "am8395@srmist.edu.in",
+    "usn": "RA2111004010098",
+    "degree": "B. Tech ECE CORE",
+    "section": "B",
+    "dob": "1/13/2004",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8534069890"
+    },
+    "department": "Other"
+  },
+  {
+    "_id": {
+      "$oid": "626bebd12b32723b18ddc7e8"
+    },
+    "caption": "Intrigued by demons and daemons!",
+    "domain": "Corporate Co-organizer",
+    "index": 3,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Ratanshi Puri",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Ratanshi_puri.jfif?ik-sdk-version=javascript-1.4.3&updatedAt=1674380632538",
+    "position": "Kernel",
+    "socials": {
+      "github": "https://github.com/Ratanshi",
+      "linkedin": "https://www.linkedin.com/in/ratanshi/"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "62482290484dc7327c5f4ac3"
+    },
+    "caption": "The quieter you become the more you are able to hear",
+    "domain": "Cyber Security",
+    "index": 10,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Anirudhha Subramanian",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Anirudhha_Subramanian.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674293099406",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Anirudh-177",
+      "linkedin": "https://www.linkedin.com/in/anirudhha-subramanian-8a3248209/"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabde"
+    },
+    "caption": "I am a Backend Developer with a passion for solving complex problems using various techniques",
+    "domain": "Development",
+    "index": 57,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Arvind .A",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011004010119_-_ARVIND_A__RA2011004010119_.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674278145987",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/Arvind-4",
+      "linkedin": "https://www.linkedin.com/in/arvind-a-840b48211/",
+      "twitter": "https://twitter.com/Arvind423207283",
+      "instagram": "https://www.instagram.com/_arvind.a_/"
+    },
+    "email": "aa4011@srmist.edu.in",
+    "usn": "RA2011004010119",
+    "degree": "B . Tech ECE-Core",
+    "section": "B",
+    "dob": "3/11/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "8220492869"
+    },
+    "department": "Other"
+  },
+  {
+    "_id": {
+      "$oid": "626d212981eebe312676d908"
+    },
+    "caption": "Shining with a bit of sugar, salt and lime",
+    "domain": "Creatives",
+    "index": 9,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Pragya Agarwal ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Pragya.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674320774174",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Pragyaa10",
+      "linkedin": "https://www.linkedin.com/in/pragya-agarwal-bb4019214/"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc6"
+    },
+    "caption": "UI/UX designer",
+    "domain": "Creatives",
+    "index": 33,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Naman Saxena",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/NAMAN_SAXENA__RA2011031010043_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278118983",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/naman-saxena1008",
+      "linkedin": "https://www.linkedin.com/in/naman-saxena-87a51112a/",
+      "twitter": "https://twitter.com/Naman7632440?t=XCpq8fSdVrjkwUTnCr59Zw&s=09",
+      "instagram": "https://www.instagram.com/_naman_saxena/"
+    },
+    "email": "ns8534@srmist.edu.in",
+    "usn": "RA2011031010043",
+    "degree": "B. Tech CSE Information technology",
+    "section": "O1",
+    "dob": "8/10/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9958848092"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd9"
+    },
+    "caption": "Anxious but ready for anything",
+    "domain": "Cyber Security",
+    "index": 52,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Diya Rastogi ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010044_-_DIYA_RASTOGI__RA2111030010044_.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674278231357",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/diyarastogi-dd8495",
+      "linkedin": "www.linkedin.com/in/diyarastogi",
+      "twitter": "https://twitter.com/diya_rastogi__",
+      "instagram": "https://instagram.com/diyarastogi__?igshid=YmMyMTA2M2Y="
+    },
+    "email": "dd8495@srmist.edu.in",
+    "usn": "RA2111030010044",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "S1",
+    "dob": "7/30/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8595099506"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb4"
+    },
+    "caption": "SSBhbSBhbiBleHBsb3JlciwgY3VyaW91cyBhbmQgYSBwYXRyaW90aWMgcGVyc29uLg==",
+    "domain": "Cyber Security",
+    "index": 15,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Aditya Singh",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003010056_-_ADITYA_SINGH__RA2111003010056_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278169678",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/adityasinghjadon03",
+      "linkedin": "https://www.linkedin.com/in/aditya-singh-424625177/",
+      "twitter": "https://twitter.com/Adityas255",
+      "instagram": "https://www.instagram.com/iamadityasinghjadon/"
+    },
+    "email": "ar5423@srmist.edu.in",
+    "usn": "RA2111003010056",
+    "degree": "B. Tech CSE Core",
+    "section": "A1",
+    "dob": "5/25/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9468739011"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd5"
+    },
+    "caption": "What breaks you , makes you!!",
+    "domain": "Corporate",
+    "index": 48,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Sourav Sarkar",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111004010080_-_SOURAV_SARKAR__RA2111004010080_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278200808",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/bageera3220",
+      "linkedin": "https://www.linkedin.com/in/sourav-sarkar-b6b527221",
+      "twitter": "NA",
+      "instagram": "https://www.instagram.com/invites/contact/?i=aj15g5fqeacf&utm_content=1s16f2m"
+    },
+    "email": "ss7220@srmist.edu.in",
+    "usn": "RA211100410080",
+    "degree": "B.TECH ECE",
+    "section": "B1",
+    "dob": "9/1/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "6265374641"
+    },
+    "department": "Other"
+  },
+  {
+    "_id": {
+      "$oid": "62482275484dc7327c5f4ac2"
+    },
+    "caption": "Have fun in cyberspace and meet space",
+    "domain": "Security",
+    "index": 7,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Rajya Vardhan",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Rajya.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674320854846",
+    "position": "Root",
+    "socials": {
+      "github": "https://www.github.com/vardhanrajya08",
+      "linkedin": "https://www.linkedin.com/in/vardhanrajya08",
+      "twitter": "https://www.twitter.com/vardhanrajya08"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb2"
+    },
+    "caption": "Wander. Contemplate. Actualize.",
+    "domain": "Creatives",
+    "index": 13,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Adarsh Kp",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010024_-_ADARSH_PREM__RA2111030010024_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278265675",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/TheAdarshKp",
+      "linkedin": "https://www.linkedin.com/in/adarshkp/",
+      "twitter": "https://twitter.com/TheAdarshKp",
+      "instagram": "https://www.instagram.com/adarshhkp/"
+    },
+    "email": "ap4864@srmist.edu.in",
+    "usn": "RA2111030010024",
+    "degree": "B.Tech CSE CyberSecurity ",
+    "section": "S1",
+    "dob": "1/12/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "919995123373"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabcd"
+    },
+    "caption": "Stay calm, Be a Strom.",
+    "domain": "Development",
+    "index": 40,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "RISHI CHAARY S",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111047010078_-_RISHI_CHAARY_S__RA2111047010078_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278348226",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/RISHICHAARY",
+      "linkedin": "www.linkedin.com/in/rishi-chaary-a59483221",
+      "twitter": "https://twitter.com/ChaaryRishi?t=M_WRT6UN2E8i7Wx_Zq5N5w&s=03",
+      "instagram": "https://www.instagram.com/mr_fa._.ke/"
+    },
+    "email": "rs3715@srmist.edu.in",
+    "usn": "RA2111047010078",
+    "degree": "B Tech AI",
+    "section": "B",
+    "dob": "9/1/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9384179855"
+    },
+    "department": "CINTEL"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd1"
+    },
+    "caption": "A behenji pretending to be cool ",
+    "domain": "Development",
+    "index": 44,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Seneen Khan ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003011482_-_SENEEN_KHAN__RA2111003011482_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278203907",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/seneenkhan",
+      "linkedin": "https://www.linkedin.com/in/seneen-khan-511a06220",
+      "twitter": "https://twitter.com/KhanSeneen?t=98xi7IdoGCMO9QV0iMRVNw&s=09",
+      "instagram": "https://z-p15.www.instagram.com/seneen.k/"
+    },
+    "email": "sk2152@srmist.edu.in",
+    "usn": "RA2111003011482",
+    "degree": "BTech CSE core ",
+    "section": "H2",
+    "dob": "3/3/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8369304919"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabba"
+    },
+    "caption": "Cybersecurity Enthusiast || Bug Bounty Hunter || HOF - Google x2, Microsoft x8, Apple x1 and still counting.... ||",
+    "domain": "Cyber Security",
+    "index": 21,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Ayansh Sinha",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010004_-_AYANSH_SINHA__RA2111030010004_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278226706",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/cyberdad68",
+      "linkedin": "https://www.linkedin.com/in/cyberdad",
+      "twitter": "https://twitter.com/CCryptonic",
+      "instagram": "https://instagram.com/ayansh_sinha_?igshid=YmMyMTA2M2Y="
+    },
+    "email": "aa7661@srmist.edu.in",
+    "usn": "RA2111030010004",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "S1",
+    "dob": "7/27/2004",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "918299634213"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb3"
+    },
+    "caption": "I am not always Sarcastic,Sometimes I am sleeping.",
+    "domain": "Development",
+    "index": 14,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Aditya Kumar Saha",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/aditya_saha.jpeg?updatedAt=1679164670652",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/Adiwait4it04",
+      "linkedin": "https://www.linkedin.com/in/aditya-saha-257113146/",
+      "twitter": "https://twitter.com/SimplyAdi04_",
+      "instagram": "https://www.instagram.com/simply_adi04/"
+    },
+    "email": "aa8307@srmist.edu.in",
+    "usn": "RA2111051010009",
+    "degree": "B.Tech CSE Gaming Technology ",
+    "section": "AB2",
+    "dob": "2/15/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8249422735"
+    },
+    "department": "DSBS"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabbd"
+    },
+    "caption": "No pressure, no diamonds",
+    "domain": "Corporate",
+    "index": 24,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Harshika Hasija",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003010724_-_HARSHIKA_HASIJA__RA2111003010724_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278172334",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/harshika2510",
+      "linkedin": "https://www.linkedin.com/in/harshika-hasija-374a33224/",
+      "twitter": "https://twitter.com/harshikahasija_",
+      "instagram": "https://www.instagram.com/harshika.hasija/"
+    },
+    "email": "ha9478@srmist.edu.in",
+    "usn": "RA2111003010724",
+    "degree": "B.Tech CSE Core",
+    "section": "K1",
+    "dob": "10/25/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "8595365621"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabcc"
+    },
+    "caption": "Privacy – like eating and breathing – is one of life’s basic requirements.",
+    "domain": "Cyber Security",
+    "index": 39,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "RAGUNATH.A",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011003010681_-_RAGUNATH_A__RA2011003010681_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278152525",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/RagunathA49",
+      "linkedin": "https://www.linkedin.com/in/ragunath-a-258565229/",
+      "twitter": "https://twitter.com/RagunathA16",
+      "instagram": "https://www.instagram.com/rkdevil_49/"
+    },
+    "email": "ra5088@srmist.edu.in",
+    "usn": "RA2011003010681",
+    "degree": "B.Tech CSE core",
+    "section": "j1",
+    "dob": "2/21/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9080946517"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd3"
+    },
+    "caption": "Trying to become the best. ",
+    "domain": "Corporate",
+    "index": 46,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Shivam Bhavsar ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/SHIVAM_BHAVSAR__RA2111003010196_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278160158",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/shivamBhavsar-cmd",
+      "linkedin": "https://www.linkedin.com/in/shivam-bhavsar-561a55223",
+      "twitter": "https://twitter.com/Shivam92346974?t=_D5Ayl3I7roxUYX8Qg0DpA&s=09",
+      "instagram": "https://instagram.com/shivambhavsar.08?igshid=YmMyMTA2M2Y="
+    },
+    "email": "sh7287@srmist.edu.in",
+    "usn": "RA2111003010196",
+    "degree": "CSE CORE ",
+    "section": "C1",
+    "dob": "1/8/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9461000901"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc5"
+    },
+    "caption": "Try to match my energy",
+    "domain": "Development",
+    "index": 32,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Mridul Gupta ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003011753_-_MRIDUL_GUPTA__RA2111003011753_.PNG?ik-sdk-version=javascript-1.4.3&updatedAt=1674278196836",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/MridulGupta007",
+      "linkedin": "https://www.linkedin.com/in/mridul-gupta-657073172/",
+      "twitter": "https://twitter.com/mridulg14516750",
+      "instagram": "https://www.instagram.com/mridul2548/"
+    },
+    "email": "mg3095@srmist.edu.in",
+    "usn": "RA2111003011753",
+    "degree": "B.Tech CSE Core",
+    "section": "L2",
+    "dob": "2/17/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9599485745"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd4"
+    },
+    "caption": "Overly kind maniac",
+    "domain": "Cyber Security",
+    "index": 47,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Simran Shrivastava",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011030010073_-_SIMRAN_SHRIVASTAVA__RA2011030010073_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278165741",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/simran-2501",
+      "linkedin": "https://www.linkedin.com/in/simran-shrivastava-5448a81b7/",
+      "twitter": "https://twitter.com/simrann__2501",
+      "instagram": "https://www.linkedin.com/in/simran-shrivastava-5448a81b7"
+    },
+    "email": "ss5216@srmist.edu.in",
+    "usn": "RA2011030010073",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "M1",
+    "dob": "7/25/2001",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "919301834821"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "62482262484dc7327c5f4ac1"
+    },
+    "caption": "I keep fluctuating between Seedhe Maut and Nusrat Fateh Ali Khan.",
+    "domain": "Technical",
+    "index": 6,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Sudhanshu Srivastava",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Sudhanshu.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674293099300",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Codered9",
+      "linkedin": "https://www.linkedin.com/in/sudhanshu-srivastava-3244071b8/",
+      "twitter": "https://twitter.com/Sudhans44661890"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabbe"
+    },
+    "caption": "Hi, I make jokes and click photos at uncomfortable situations.",
+    "domain": "Creatives",
+    "index": 25,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Harshit Batra",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011026010206_-_HARSHIT_BATRA__RA2011026010206_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278271552",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/Harshit-Batra",
+      "linkedin": "https://www.linkedin.com/in/harshit-batra4",
+      "twitter": "https://twitter.com/harshit_batra_",
+      "instagram": "https://www.instagram.com/harshit_batra_/"
+    },
+    "email": "hb1357@srmist.edu.in",
+    "usn": "RA2011026010206",
+    "degree": "B.Tech CSE AI & ML",
+    "section": "R1",
+    "dob": "12/4/2001",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9035400470"
+    },
+    "department": "CINTEL"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabbc"
+    },
+    "caption": "A curious explorer awaiting millions of experiences. ",
+    "domain": "Corporate",
+    "index": 23,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Darshika Nemani",
+    "pictureUrl": "https://ik.imagekit.io/saranshsinha/151.JPEG?ik-sdk-version=javascript-1.4.3&updatedAt=1675699270674",
+    "position": "Sudoer",
+    "socials": {
+      "github": "https://github.com/DarshikaNemani",
+      "linkedin": "https://www.linkedin.com/in/darshika-nemani-a9563821a",
+      "twitter": "https://mobile.twitter.com/disneyrious",
+      "instagram": "https://www.instagram.com/disneyrious"
+    },
+    "email": "dk5673@srmist.edu.in",
+    "usn": "RA2111003011896",
+    "degree": "B Tech CSE Core",
+    "section": "N2",
+    "dob": "8/16/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7226951659"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabbf"
+    },
+    "caption": "A warrior in the world of worriers",
+    "domain": "Corporate",
+    "index": 26,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Ishita Banerjee",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003010127_-_ISHITA_BANERJEE__RA2111003010127_.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674278232403",
+    "position": "Sudoer",
+    "socials": {
+      "github": "https://github.com/Ishita-Banerjee09",
+      "linkedin": "https://www.linkedin.com/in/ishita-banerjee-3b19a11b",
+      "twitter": "https://twitter.com/ishitabanerje9?t=jxtgfftBUgUojt6zEtzN3A&s=09",
+      "instagram": "https://instagram.com/ishita_banerjee9?igshid=ZDdkNTZiNTM="
+    },
+    "email": "ia4568@srmist.edu.in",
+    "usn": "RA2111003010127",
+    "degree": "B.Tech CSE Core",
+    "section": "B1",
+    "dob": "9/9/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "8250343730"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabcb"
+    },
+    "caption": "I am passionate about learning new things.",
+    "domain": "Corporate",
+    "index": 38,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Pratham Garg",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003011584_-_PRATHAM_GARG__RA2111003011584_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278177993",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/Pratham-2513",
+      "linkedin": "https://www.linkedin.com/in/prathamgarg1325/",
+      "twitter": "https://twitter.com/Pratham2513",
+      "instagram": "https://www.instagram.com/pratham_1325/"
+    },
+    "email": "pg2948@srmist.edu.in",
+    "usn": "RA2111003011584",
+    "degree": "B. Tech CSE Core",
+    "section": "I2",
+    "dob": "11/25/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "7973650335"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc0"
+    },
+    "caption": "Imaginative, organized and focused.",
+    "domain": "Creatives",
+    "index": 27,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Kavisha Gupta ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/KAVISHA_GUPTA__RA2111031010001_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278128192",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/kavishagupta",
+      "linkedin": "https://www.linkedin.com/in/kavisha-gupta-130187220",
+      "twitter": "NA",
+      "instagram": "https://www.instagram.com/kavishaxgupta/"
+    },
+    "email": "ks7210@srmist.edu.in",
+    "usn": "RA2111031010001",
+    "degree": "BTECH CSE IT",
+    "section": "R2",
+    "dob": "4/6/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7007487174"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb9"
+    },
+    "caption": "Life is unfair Dostooo",
+    "domain": "Development",
+    "index": 20,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Arul Gupta",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003010411_-_ARUL_GUPTA__RA2111003010411_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278393619",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/arul17gupta",
+      "linkedin": "https://www.linkedin.com/in/arul-gupta-604484225",
+      "twitter": "None",
+      "instagram": "https://www.instagram.com/arul17gupta/"
+    },
+    "email": "av5008@srmist.edu.in",
+    "usn": "RA2111003010411",
+    "degree": "CSE",
+    "section": "F1",
+    "dob": "6/17/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9009007206"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb6"
+    },
+    "caption": "echo \"eGRnLW9wZW4gaHR0cHM6Ly95b3V0dS5iZS9kUXc0dzlXZ1hjUT9zaT1EWTRhbEg5RG5SbXFnRjdS\" | base64 -d | bash",
+    "domain": "Cyber Security",
+    "index": 17,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Akshay Raj",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Akshay.jpeg?updatedAt=1694514479487",
+    "position": "Root",
+    "socials": {
+      "github": "http://github.com/L1v3y",
+      "linkedin": "https://www.linkedin.com/in/akshayrajs/",
+      "website": "https://app.hackthebox.com/profile/824412",
+      "twitter": "n/a",
+      "instagram": "n/a"
+    },
+    "email": "as4958@srmist.edu.in",
+    "usn": "RA2111030010200",
+    "degree": "B.Tech CSE Cybersecurity ",
+    "section": "P2",
+    "dob": "2/6/2004",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7096236679"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc4"
+    },
+    "caption": "rm -rf /bin/laden",
+    "domain": "Development",
+    "index": 31,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Mehul Kumar",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/1683584692289.jpeg?updatedAt=1683584769236",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Mehul2711",
+      "linkedin": "https://www.linkedin.com/mwlite/in/mehulkumar27",
+      "twitter": "https://twitter.com/Mehulkumar_27?t=yDMTPXNEfCzx2RqQXeHuaQ&s=09",
+      "instagram": "https://www.instagram.com/mehul_27/"
+    },
+    "email": "mk3416@srmist.edu.in",
+    "usn": "RA2111033010155",
+    "degree": "B. Tech CSE Software Engineering ",
+    "section": "W2",
+    "dob": "11/27/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "7011873210"
+    },
+    "department": "CINTEL"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc8"
+    },
+    "caption": "An engineer with a creative mindset.",
+    "domain": "Creatives",
+    "index": 35,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Omar",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/OMAR__RA2111004010113_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278128838",
+    "position": "Sudoer",
+    "socials": {
+      "github": "https://github.com/Omaransarii",
+      "linkedin": "https://www.linkedin.com/in/omar-ansari-83ba64231",
+      "twitter": "https://twitter.com/Mrfame28?t=b4OsjyYWriW5wHjf1MrPjA&s=09",
+      "instagram": "https://instagram.com/omar.ansari28?igshid=YmMyMTA2M2Y="
+    },
+    "email": "os4549@srmist.edu.in",
+    "usn": "RA2111004010113",
+    "degree": "B.Tech ECE Core",
+    "section": "B",
+    "dob": "7/28/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9927870999"
+    },
+    "department": "Other"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabca"
+    },
+    "caption": "Interested in app development and like to code ",
+    "domain": "Development",
+    "index": 37,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "PRATHAM BANSAL",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111030010242_-_PRATHAM_BANSAL__RA2111030010242_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278257940",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/prtham312",
+      "linkedin": "https://www.linkedin.com/mwlite/in/pratham-bansal-668790220",
+      "twitter": "https://twitter.com/Pratham4172?t=YBpuUGsDg5tvPrhiXJe-AA&s=09",
+      "instagram": "https://www.instagram.com/pratham4172/"
+    },
+    "email": "pb3488@srmist.edu.in",
+    "usn": "RA2111030010242",
+    "degree": "B.Tech CSE with specialization in cyber security ",
+    "section": "P2",
+    "dob": "1/13/2004",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9685210694"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd8"
+    },
+    "caption": "Passionate and Compassionate",
+    "domain": "Corporate",
+    "index": 51,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Yash Tripathi",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/yash_tripathi.jpg?updatedAt=1679161516511",
+    "position": "Sudoer",
+    "socials": {
+      "github": "https://github.com/ys2723",
+      "linkedin": "https://www.linkedin.com/in/yash-tripathi-722263196/",
+      "twitter": "https://twitter.com/bad_dictator",
+      "instagram": "https://www.instagram.com/trips.yash/"
+    },
+    "email": "ys2723@srmist.edu.in",
+    "usn": "RA2111033010106",
+    "degree": "B tech CSE Software",
+    "section": "Y 2",
+    "dob": "5/22/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7905229987"
+    },
+    "department": "CINTEL"
+  },
+  {
+    "_id": {
+      "$oid": "624822aa484dc7327c5f4ac4"
+    },
+    "caption": "I Teach to Learn, I Learn to Teach",
+    "domain": "Faculty Convenor",
+    "index": 1,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Dr. P. Supraja",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Dr.P.Supraja.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674380632425",
+    "position": "Mainframe",
+    "socials": {
+      "github": "https://github.com/drsupraja",
+      "linkedin": "https://www.linkedin.com/in/dr-p-supraja-56834145/",
+      "twitter": "https://twitter.com/DrSupraja04"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabda"
+    },
+    "caption": "Nothing less.",
+    "domain": "Corporate",
+    "index": 53,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Malhar Brahmbhatt ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111031010008_-_MALHAR_BRAHMBHATT__RA2111031010008_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278261214",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/Malhardroid",
+      "linkedin": "https://www.linkedin.com/in/malhar-brahmbhatt",
+      "twitter": "-",
+      "instagram": "https://instagram.com/malhaaaarrr?igshid=YmMyMTA2M2Y="
+    },
+    "email": "mb9406@srmist.edu.in",
+    "usn": "RA2111031010008",
+    "degree": "B. Tech CSE w/s in IT ",
+    "section": "R2",
+    "dob": "9/24/2003",
+    "staying": "Hostel",
+    "conatct": 91,
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabdc"
+    },
+    "caption": "STRONG DESIRE TO LUXURY MY WANTINGS ;)",
+    "domain": "Cyber Security",
+    "index": 55,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "AISHWARYA C",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/AISHWARYA_C__RA2011030010164_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674279976026",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/Aishwaryashan",
+      "linkedin": "https://www.linkedin.com/in/aishwarya-chandrasekar-07020a249/",
+      "twitter": "https://twitter.com/iceyyvibe",
+      "instagram": "https://www.instagram.com/iceyyvibe/"
+    },
+    "email": "ac4097@srmist.edu.in",
+    "usn": "RA2011030010164",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "M2",
+    "dob": "6/12/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7010462274"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabdd"
+    },
+    "caption": "Feel the moment !!!",
+    "domain": "Cyber Security",
+    "index": 56,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Gokavarapu Sai Harish ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/sai_harish.jpeg?updatedAt=1679162076593",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/gh9049",
+      "linkedin": "https://www.linkedin.com/in/sai-harish-g-152b15230/",
+      "twitter": "https://twitter.com/SaiHarishG24",
+      "instagram": "https://www.instagram.com/saiharish_g/"
+    },
+    "email": "gh9049@srmist.edu.in",
+    "usn": "RA2011003011185",
+    "degree": "B.Tech CSE Core ",
+    "section": "G2",
+    "dob": "11/24/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "8179591137"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabc1"
+    },
+    "caption": "I recreate myself ,that is my only power.",
+    "domain": "Creatives",
+    "index": 28,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Khushi Tiwari",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003011709-Profile_-_KHUSHI_TIWARI__RA2111003011709_.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674278267348",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/Khushitiwari08",
+      "linkedin": "https://www.linkedin.com/in/khushi-tiwari-696a66153",
+      "twitter": "https://twitter.com/Khushiii_893",
+      "instagram": "http://www.instagram.com/khushiii_893"
+    },
+    "email": "kt2638@srmist.edu.in",
+    "usn": "RA2111003011709",
+    "degree": "B.Tech CSE",
+    "section": "K2",
+    "dob": "9/8/2004",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9537434743"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd7"
+    },
+    "caption": "Simple...Unique...Perfect...",
+    "domain": "Cyber Security",
+    "index": 50,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Thamizhiniyan C S",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2112703010017_-_C_S_THAMIZHINIYAN_THAMIZHINIYAN__RA2112703010017_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278288116",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/Thamizhiniyan18",
+      "linkedin": "https://www.linkedin.com/in/thamizhiniyancs/",
+      "twitter": "https://twitter.com/ThamizhiniyanCS",
+      "instagram": "https://tryhackme.com/p/ThamizhiniyanCS"
+    },
+    "email": "cd6960@srmist.edu.in",
+    "usn": "RA2112703010017",
+    "degree": "M. Tech Integrated CSE with Specialization in Cyber Security and Digital Forensics",
+    "section": "A",
+    "dob": "5/18/2004",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9884941745"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "626bedbf2b32723b18ddc7e9"
+    },
+    "caption": "Every conclusion is the dawn of a new beginning✨",
+    "domain": "Corporate",
+    "index": 8,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Jerin Joy",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Jerin_Joy.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674293099533",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/JERINJOY12",
+      "linkedin": "https://www.linkedin.com/in/jerin-joy-34910a1b8/",
+      "twitter": "https://twitter.com/JERINJO23565445"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "626bea842b32723b18ddc7e7"
+    },
+    "caption": "~$ echo -e eGRnLW9wZW4gaHR0cHM6Ly95b3V0dS5iZS8yWklwRnl0Q1NWYw==| base64 -d | bash",
+    "domain": "Creative Co-organizer",
+    "index": 4,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Vyshakh Gopakumar Nair",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Vyshakh_Nair.jfif?ik-sdk-version=javascript-1.4.3&updatedAt=1674380632581",
+    "position": "Kernel",
+    "socials": {
+      "github": "https://github.com/VyshakhNaiR",
+      "linkedin": "https://www.linkedin.com/in/vyshakh-nair-763127131/",
+      "website": "https://app.hackthebox.com/profile/276401",
+      "twitter": "https://twitter.com/Vyshakhg04G"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabce"
+    },
+    "caption": "Knows a LITTLE of a LOT of things!",
+    "domain": "Development",
+    "index": 41,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Saransh Sinha",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111031010119_-_SARANSH_SINHA__RA2111031010119_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278391402",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/saranshsinhaa",
+      "linkedin": "https://www.linkedin.com/in/saranshsinhaa",
+      "twitter": "https://twitter.com/saranshsinhaa",
+      "instagram": "https://instagram.com/saranshsinhaa"
+    },
+    "email": "ss0087@srmist.edu.in",
+    "usn": "RA2111031010119",
+    "degree": "BTech CSE-IT",
+    "section": "S2",
+    "dob": "3/17/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9651495279"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabe0"
+    },
+    "caption": "Always Ready to Hack !",
+    "domain": "Cyber Security",
+    "index": 59,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Krapansh Shrivastava",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/KRAPANSH_SHRIVASTAVA__RA2111028010138_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278151855",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/ka3102srm",
+      "linkedin": "https://www.linkedin.com/in/krapansh-shrivastava-68b6b4212",
+      "twitter": "https://mobile.twitter.com/kripsss15",
+      "instagram": "https://instagram.com/kripsss.___?igshid=YmMyMTA2M2Y="
+    },
+    "email": "ka3102@srmist.edu.in",
+    "usn": "RA2111028010138",
+    "degree": "Btech CSE Cloud computing",
+    "section": "Q1",
+    "dob": "5/15/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "7566456823"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "626bef192b32723b18ddc7ea"
+    },
+    "caption": "Why spend 10 minutes in manual work, when you can spend 10 hours automating it?",
+    "domain": "Technical Co-organizer",
+    "index": 2,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Gita Alekhya Paul",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/Gita_Alekhya_Paul.jfif?ik-sdk-version=javascript-1.4.3&updatedAt=1674380632600",
+    "position": "Kernel",
+    "socials": {
+      "github": "https://github.com/gitaalekhyapaul",
+      "linkedin": "https://www.linkedin.com/in/gitaalekhyapaul/",
+      "website": "https://gitaalekhyapaul.com/",
+      "twitter": "https://twitter.com/gitaalekhyapaul"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd6"
+    },
+    "caption": "Always ready to do adventure in any field ",
+    "domain": "Cyber Security",
+    "index": 49,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Sushant Kumar Singh ",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/228_-_SUSHANT_SINGH__RA2011030010228_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278130282",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/sushant13042002",
+      "linkedin": "https://www.linkedin.com/in/sushant-kumar-singh-155b6216b/",
+      "twitter": "https://twitter.com/K13Sushant",
+      "instagram": "https://www.instagram.com/sushant_k13/"
+    },
+    "email": "ss4884@srmist.edu.in",
+    "usn": "Ra2011030010228",
+    "degree": "B tech cse cybersecurity ",
+    "section": "N1",
+    "dob": "4/13/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "7223085414"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb5"
+    },
+    "caption": "I love DeSigN.",
+    "domain": "Creatives",
+    "index": 16,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Akshansh Sharma",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2011031010010_-_AKSHANSH_SHARMA__RA2011031010010_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278152717",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/AkshanshSharma",
+      "linkedin": "https://www.linkedin.com/in/akshansh-sharma-b93884211/",
+      "twitter": "https://twitter.com/Akkisharma9868",
+      "instagram": "https://instagram.com/akshansh___sharma?igshid=YmMyMTA2M2Y="
+    },
+    "email": "as2525@srmist.edu.in",
+    "usn": "RA2011031010010",
+    "degree": "Btech in CSE -IT",
+    "section": "O1",
+    "dob": "11/10/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "9650117573"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabb7"
+    },
+    "caption": "Dedicated to excellence and always striving to learn and grow",
+    "domain": "Development",
+    "index": 18,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Ankit Choudhary",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/RA2111003011748_-_ANKIT_CHOUDHARY__RA2111003011748_.png?ik-sdk-version=javascript-1.4.3&updatedAt=1674278330196",
+    "position": "Binary",
+    "socials": {
+      "github": "https://github.com/ankit7241",
+      "linkedin": "https://www.linkedin.com/in/ankit7241/",
+      "twitter": "https://twitter.com/ankit7241",
+      "instagram": "-"
+    },
+    "email": "ac5407@srmist.edu.in",
+    "usn": "RA2111003011748",
+    "degree": "B. Tech CSE Core",
+    "section": "L2",
+    "dob": "6/14/2002",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9352917041"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabcf"
+    },
+    "caption": "F1 fan",
+    "domain": "Development",
+    "index": 42,
+    "isCurrent": true,
+    "joined": 2022,
+    "name": "Sarthak Sachdeva",
+    "pictureUrl": "https://sarthakk24.s3.ap-south-1.amazonaws.com/sarthak_profile.jpg",
+    "position": "Root",
+    "socials": {
+      "github": "https://github.com/sarthakk24",
+      "linkedin": "https://www.linkedin.com/in/sarthakk24",
+      "twitter": "Twitter.com/sarthakk73",
+      "instagram": "https://instagram.com/sarthakk24?igshid=YTY2NzY3YTc="
+    },
+    "email": "ss9661@srmist.edu.in",
+    "usn": "RA2111003011824",
+    "degree": "BTECH CSE CORE",
+    "section": "M2",
+    "dob": "12/11/2002",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "8178401732"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabd2"
+    },
+    "caption": "Web Developer | Cinephile ",
+    "domain": "Development",
+    "index": 45,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "SHARON VIJAY T",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/SHARON_T__RA2011003010693_.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278118100",
+    "position": "Sticky Bit",
+    "socials": {
+      "github": "https://github.com/sharonvijay",
+      "linkedin": "https://www.linkedin.com/in/sharon-vijay-t/",
+      "twitter": "nil",
+      "instagram": "_.sharonvijay._"
+    },
+    "email": "st5652@srmist.edu.in",
+    "usn": "RA2011003010693",
+    "degree": "B.Tech CSE",
+    "section": "A2",
+    "dob": "1/31/2003",
+    "staying": "Hostel",
+    "conatct": {
+      "$numberLong": "9381217572"
+    },
+    "department": "CTECH"
+  },
+  {
+    "_id": {
+      "$oid": "63cb79f016b0efd5cf4dabe1"
+    },
+    "caption": "Recovering from donuts addiction.",
+    "domain": "Cyber Security",
+    "index": 60,
+    "isCurrent": false,
+    "joined": 2022,
+    "name": "Mehul Dadlani",
+    "pictureUrl": "https://ik.imagekit.io/htbsrmist/Members/MEHUL_DADLANI__RA2111030010227_.jpeg?ik-sdk-version=javascript-1.4.3&updatedAt=1674278124060",
+    "position": "Binary",
+    "socials": {
+      "github": "github.com/m3huld",
+      "linkedin": "https://www.linkedin.com/in/mehul-dadlani-103455146",
+      "twitter": "Nil",
+      "instagram": "Nil"
+    },
+    "email": "mm3874@srmist.edu.in",
+    "usn": "RA2111030010227",
+    "degree": "B.Tech CSE Cybersecurity",
+    "section": "P2",
+    "dob": "7/6/2003",
+    "staying": "Dayscholar",
+    "conatct": {
+      "$numberLong": "7976994108"
+    },
+    "department": "NWC"
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd0"
+    },
+    "name": "Shambhavee Swain",
+    "email": "sj8844@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111004010138",
+    "degree": "B.Tech",
+    "section": "B",
+    "dob": "12/30/2002",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/shambhavee-swain-95244a149",
+      "github": "https://github.com/shambhavee30",
+      "twitter": "https://twitter.com/ShambhaveeSwain",
+      "instagram": "https://www.instagram.com/shambhavee.swain"
+    },
+    "caption": "Passionate about forwarding creativity, innovation, and dedicated to achieving success",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/Profile%20%20-%20shambhavee%20swain.jpg?updatedAt=1705515835645",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd6"
+    },
+    "name": "Om Arora",
+    "email": "oa4417@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211003010120",
+    "degree": "Btech",
+    "section": "B1",
+    "dob": "3/16/2005",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/om-arora-b88340213/",
+      "github": "https://github.com/Om1603",
+      "twitter": "https://twitter.com/Om83418440",
+      "instagram": "https://www.instagram.com/om._.arora1603/"
+    },
+    "caption": "18 | CSE | Cybersecurity Enthusiast | Security Researcher",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/Screenshot%202023-12-23%20000540%20-%20Om.png?updatedAt=1705515838882",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefdf"
+    },
+    "name": "Arnav Sharma",
+    "email": "as3691@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111026010075",
+    "degree": "CSE AIML",
+    "section": "v1",
+    "dob": "9/26/2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "www.linkedin.com/in/arnav131003",
+      "github": "https://github.com/Arnav131003",
+      "twitter": "https://twitter.com/Arnav_Sh2609",
+      "instagram": "https://www.instagram.com/_arnav_.sh/"
+    },
+    "caption": "Inheriting Intellegence into Machine ",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_5011%20-%20Arnav%20Sharma.PNG?updatedAt=1705515849077",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefc9"
+    },
+    "name": "Rishabh Motiani",
+    "email": "rs0882@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111003010207",
+    "degree": "Btech",
+    "section": "D1",
+    "dob": "12-01-2002",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/rishabh-motiani-3116bb230?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/rishhhhhhhh",
+      "twitter": "https://x.com/rishabhm040?t=fswWdo3GvTQelFvxOGgp8Q&s=09",
+      "instagram": "https://www.instagram.com/rishabhmotiani_?igsh=OGQ5ZDc2ODk2ZA=="
+    },
+    "caption": "Lifelong learner",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_20231223_001500%20-%20Rishabh%20Motiani.jpg?updatedAt=1705515832389",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd4"
+    },
+    "name": "Siddharth Vats",
+    "email": "ss3108@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111003010606",
+    "degree": "B Tech",
+    "section": "I 1",
+    "dob": "6/14/2003",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/vats-siddharth",
+      "github": "https://github.com/siddharthvats14",
+      "twitter": "https://x.com/siddharthv65876?s=11",
+      "instagram": "https://www.instagram.com/sid_vtss?igsh=MWhwZ2w0bXN1ZzNpdg%3D%3D&utm_source=qr"
+    },
+    "caption": "I’ll always take the scenic route",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/1FF0C159-8111-494C-B9EF-1BE00AE1AE96%20-%20Siddharth%20Vats.jpeg?updatedAt=1705515821264",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe7"
+    },
+    "name": "Ansh Tripathi",
+    "email": "at7178@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA211003011884",
+    "degree": "B.Tech",
+    "section": "N2",
+    "dob": "8/27/2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "N/A",
+      "github": "https://github.com/Ansh2703",
+      "twitter": "N/A",
+      "instagram": "https://www.instagram.com/_ansh2708_/"
+    },
+    "caption": "Aspiring front-end web developer with a passion for creative coding",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Ansh%20tripathi_aBWbVaH7-?updatedAt=1705517104500",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe8"
+    },
+    "name": "Rahul Arora",
+    "email": "rj3391@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2111003010160",
+    "degree": "B tech ",
+    "section": "C1",
+    "dob": "10-08-2002",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/rahul-arora-586815227/",
+      "github": "https://github.com/Aimbot8",
+      "twitter": "https://twitter.com/RahulAr03538061",
+      "instagram": "https://www.instagram.com/p/CQ6PStHppC7DvDG8r0q-jHFSZgxE5NKsmFpHzA0/?igshid=YmMyMTA2M2Y="
+    },
+    "caption": "I'm currently in my penultimate year of pursuing a Bachelor's degree in Computer Science and Engineering. I'm enthusiastic about actively seeking opportunities to learn and acquire new skills.",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/website_rahul%20-%20Rahul%20Arora.jpg?updatedAt=1705515838736",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefda"
+    },
+    "name": "Gurupreet Singh",
+    "email": "gs3116@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211030010189",
+    "degree": "BTech ",
+    "section": "R2",
+    "dob": "9/16/2003",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/gurupreet-singh-342978266?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/Gurupreet2003",
+      "twitter": "https://twitter.com/Gurupre47673745",
+      "instagram": "https://www.instagram.com/gurupreet.16?igsh=NGVhN2U2NjQ0Yg=="
+    },
+    "caption": "Digital wizard crafting code, unlocking virtual mysteries effortlessly.",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/GURUPREET%20-%20Gurupreet%20singh.JPG?updatedAt=1705515821330",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe6"
+    },
+    "name": "Siddharth Rai",
+    "email": "sr1982@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111031010118",
+    "degree": "BTech",
+    "section": "S2",
+    "dob": "9/14/2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/siddharth-rai-a493aa24a/",
+      "github": "https://github.com/SiddR610",
+      "twitter": "https://x.com/Siddharthr610?t=20h1G1NXRd1p9vtVKtbrbQ&s=09",
+      "instagram": "https://instagram.com/siddharthr610?igshid=MzMyNGUyNmU2YQ=="
+    },
+    "caption": "I just keep moving forward",
+    "pictureUrl": "https://media.licdn.com/dms/image/D5603AQEQbFJ9s-EiFw/profile-displayphoto-shrink_400_400/0/1664371541878?e=1710979200&v=beta&t=2sVZYIm8fFZdpJjA2nVI7aGweSQEDUR2wCeK252D5tQ",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd9"
+    },
+    "name": "Hari Karthick",
+    "email": "hs2979@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2232241010041",
+    "degree": "MCA",
+    "section": "A",
+    "dob": "4/19/2002",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/hari-karthick-9337b522b/",
+      "github": "https://github.com/harikarthi1904",
+      "twitter": "https://twitter.com/harikarthi194",
+      "instagram": "-"
+    },
+    "caption": "Hacking reality, byte by byte",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/Screenshot%202023-12-23%20110513%20-%20Hari%20Karthick.png?updatedAt=1705515837587",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefdd"
+    },
+    "name": "Nawnit ",
+    "email": "ns3738@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2211003011126",
+    "degree": "Btech cse",
+    "section": "A2",
+    "dob": "11/25/2003",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/nawnit-singh-54732a211?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/Slakesslumban/saulbadman",
+      "twitter": "https://x.com/NawnitS51279960?t=uFDXoFcfgtRK5B1dc2FNuw&s=09",
+      "instagram": "https://www.instagram.com/mclovin_02o?igsh=ODA1NTc5OTg5Nw=="
+    },
+    "caption": "I can penetrate into level 10 gyatt machines",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_20231009_231530%20-%20dark_%20knot.jpg?updatedAt=1705515827328",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe4"
+    },
+    "name": "Ayush Raj",
+    "email": "am9128@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2111033010098",
+    "degree": "BTech CSE",
+    "section": "Y2",
+    "dob": "4/18/2002",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/ayushraj18/",
+      "github": "https://github.com/ayushh1804",
+      "twitter": "NA",
+      "instagram": "https://www.instagram.com/ayuush__h?utm_source=qr&igsh=YTlmZjI0ZWMzOA=="
+    },
+    "caption": "Trust the Process",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/ayush%20-%20AYUSH%20RAJ.jpg?updatedAt=1705515821273",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefca"
+    },
+    "name": "Aadesh Sreenivasan ",
+    "email": "as6122@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211053010015",
+    "degree": "B.tech ECE w/s Data Science ",
+    "section": "K",
+    "dob": "03-06-2004",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/aadesh-sreenivasan-894098268?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/AadeshSreenivasan66",
+      "instagram": "https://www.instagram.com/aadesh_munnu?igsh=OGQ5ZDc2ODk2ZA=="
+    },
+    "caption": "Curious Explorer Achieving Success✨✨",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_20231223_131745%20-%20AADESH%20SREENIVASAN%20(RA2211053010015).jpg?updatedAt=1705515831166",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefdb"
+    },
+    "name": "Jayesh Gaba",
+    "email": "jg9140@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2211030010145",
+    "degree": "BTech w/s in Cyber Security",
+    "section": "R2",
+    "dob": "05-05-2004",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/jayesh-gaba",
+      "github": "https://github.com/JayGaba",
+      "twitter": "https://twitter.com/gaba_jayesh",
+      "instagram": "https://instagram.com/jayesh._gaba"
+    },
+    "caption": "\"iisiiiisiiiiiiiiiiiiiioiiiiiiiiiiiiiiiiiiiiiiioiiiiiiiiiiiiioddddddddddddddoddddddddddddddddddddddddddddddddddddddddddddddddddddddo\"",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/profile-pic%20(1)%20-%20Jayesh%20Gaba.png?updatedAt=1705515838460",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefcf"
+    },
+    "name": "Harini Mopati ",
+    "email": "hm0467@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2111047010149",
+    "degree": "B.tech ",
+    "section": "C",
+    "dob": "11/14/2003",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/harini-mopati-05767b222?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": ".",
+      "twitter": ".",
+      "instagram": "https://www.instagram.com/harini._.reddy14?igsh=YzltMXUxcmp0Ym9r"
+    },
+    "caption": "Adventurer at heart, exploring life's wonders. ...",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/17033355635268128391199817808144%20-%20Mopati%20Harini.jpg?updatedAt=1705515833719",
+    "isCurrent": false
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefcc"
+    },
+    "name": "Khushi Upadhyay",
+    "email": "ku9780@srsmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211026010312",
+    "degree": "Btech CSE AI ML",
+    "section": "W2",
+    "dob": "05-11-2004",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "linkedin.com/in/khushi-upadhyay-7a16a1225",
+      "github": "https://github.com/khushi-upadhyay",
+      "twitter": "https://twitter.com/KhushiUpad96039",
+      "instagram": "https://www.instagram.com/huh.khushii._/"
+    },
+    "caption": "\"Passionate individual, an active learner always ready to absorb knowledge and embrace new experiences.\"",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/me-removebg-preview%20(3)%20-%20KHUSHI%20UPADHYAY%20(RA2211026010312).png?updatedAt=1705515833104",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd8"
+    },
+    "name": "Nasir Hussain Shaik",
+    "email": "ss2403@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111030010215",
+    "degree": "Btech in case with spl. In cybersecurity ",
+    "section": "P-2",
+    "dob": "6/22/2002",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/nasir-hussain-shaik-78a274226",
+      "github": "https://github.com/SecretaryKimseojin",
+      "twitter": "https://twitter.com/Nasshozayne",
+      "instagram": "https://www.instagram.com/nasshozayne"
+    },
+    "caption": "I choose Rich every fucking time ",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_20220626_002509%20-%20SHAIK%20NASIR%20HUSSAIN%20(RA2111030010215).jpg?updatedAt=1705515846317",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe1"
+    },
+    "name": "s1384",
+    "email": "ss7455@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211050010002",
+    "degree": "CSE w/s BCT",
+    "section": "AC1",
+    "dob": "3/18/2004",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/s1834",
+      "github": "https://github.com/s1834",
+      "twitter": "https://x.com/s18324",
+      "instagram": "-"
+    },
+    "caption": "......... ",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_20231223_040037_904%20-%20SHUBH%20SHAH%20(RA2211050010002).jpg?updatedAt=1705515828543",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe0"
+    },
+    "name": "Devesh Patel",
+    "email": "dp9482@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211003011586",
+    "degree": "B. Tech",
+    "section": "H2",
+    "dob": "11-07-2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/devesh-patel-b42b12250/",
+      "github": "https://github.com/devesh711",
+      "twitter": "https://twitter.com/devesh_711",
+      "instagram": "https://www.instagram.com/devesh_711/?igsh=OGQ5ZDc2ODk2ZA%3D%3D"
+    },
+    "caption": "Finding end-points between life.",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_E4327%20-%20DEVESH%20PATEL%20(RA2211003011586).jpg?updatedAt=1705515837906",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe3"
+    },
+    "name": "Sarthak Singh ",
+    "email": "ss0171@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111031010116",
+    "degree": "B.tech",
+    "section": "S2",
+    "dob": "06-01-2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/sarthak-singh-504264252?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/sarthaksinghh",
+      "twitter": "https://x.com/Sarthak88158866?t=nqhrX6djMipE6U03X7UFGg&s=09",
+      "instagram": "https://www.instagram.com/sarthak._si?igsh=MW5wOTM0MDkwZ2w0dQ=="
+    },
+    "caption": "Learning",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG-20230915-WA0001%20-%20Sarthak%20Singh.jpg?updatedAt=1705515824931",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefce"
+    },
+    "name": "Smaran V",
+    "email": "sv4537@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2111030010067",
+    "degree": "BTech CSE w/s Cybersecurity ",
+    "section": "T1",
+    "dob": "9/19/2003",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/smaran-v?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "NA",
+      "twitter": "NA",
+      "instagram": "https://www.instagram.com/jetboy320?igsh=MmVlMjlkMTBhMg=="
+    },
+    "caption": "Greater the speed, less the pressure!",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/20220828_151814%20-%20SMARAN%20V%20(RA2111030010067).jpg?updatedAt=1705515828653",
+    "isCurrent": false
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefde"
+    },
+    "name": "Anuj Jha",
+    "email": "am5669@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111003010119",
+    "degree": "Btech",
+    "section": "B1",
+    "dob": "02-12-2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/anuj-jha-758250239?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/AjPitaji",
+      "twitter": "Na",
+      "instagram": "Na"
+    },
+    "caption": "Just trying to bring a smile to your face ",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG-20231223-WA0024%20-%20Anuj%20Jha.jpg?updatedAt=1705515825967",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd3"
+    },
+    "name": "Khayati Sharma ",
+    "email": "kp3185@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111003010710",
+    "degree": "BTech CSE",
+    "section": "K1",
+    "dob": "02-01-2003",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/khayati-sharma-413942212/",
+      "github": "NA",
+      "twitter": "https://twitter.com/KhayatiSharma1",
+      "instagram": "https://www.instagram.com/khayatiii003/"
+    },
+    "caption": "You radiate what rests in you",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/newIMG_2411%202%20-%20Khayati%20Sharma.HEIC?updatedAt=1705515839999",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd1"
+    },
+    "name": "Palaash Surana",
+    "email": "pa0770@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111003010319",
+    "degree": "BTECH",
+    "section": "E1",
+    "dob": "07-07-2003",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/palaash-surana-9592a81a2/",
+      "github": "https://github.com/Palaash707",
+      "twitter": "https://twitter.com/SuranaPalaash",
+      "instagram": "https://www.instagram.com/palaash707/"
+    },
+    "caption": "Elevate. Innovate. Dominate.",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/Palaash%20Surana%20_%20RA2111003010319%20-%20PALAASH%20SURANA%20(RA2111003010319).jpg?updatedAt=1705515838017",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefcb"
+    },
+    "name": "Chhayank Patel",
+    "email": "cp4144@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2211030010121",
+    "degree": "B-Tech",
+    "section": "T1",
+    "dob": "11/29/2004",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/chhayank-patel-173012264/?originalSubdomain=in",
+      "github": "https://github.com/chhayank-cp",
+      "twitter": "NA",
+      "instagram": "NA"
+    },
+    "caption": "Seeking growth and impact",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/WhatsApp%20Image%202023-09-12%20at%2022.58.36%20-%20Chhayank%20patel.jpg?updatedAt=1705515841570",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd2"
+    },
+    "name": "Vaishnavi",
+    "email": "vv9426@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2111003010325",
+    "degree": "B. Tech ",
+    "section": "E1",
+    "dob": "7/31/2003",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "www.linkedin.com/in/vaish3107",
+      "github": "https://github.com/ShuklaVaishnavi",
+      "twitter": "https://twitter.com/_clinophile_11",
+      "instagram": "https://www.instagram.com/_clino.phile_11/"
+    },
+    "caption": "Constantly learning, crafting creativity in collaborative life experiences",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG-20230801-WA0035%20-%20VAISHNAVI%20.%20(RA2111003010325).JPG?updatedAt=1705515827256",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefcd"
+    },
+    "name": "Mahisha",
+    "email": "ms9448@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA211003011750",
+    "degree": "B-tech CSE-CORE",
+    "section": "L2",
+    "dob": "03-06-2004",
+    "domain": "Corporate",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/mahisha-s-5112b2222",
+      "github": "https://github.com/Mahisha6",
+      "twitter": "NA",
+      "instagram": "https://instagram.com/_.mahisha.__?igshid=YmMyMTA2M2Y="
+    },
+    "caption": "Little knowledge  behind every 'I don’t know.'",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG_3059%20-%20MAHISHA%20S%20(RA2111003011750).JPG?updatedAt=1705515833567",
+    "isCurrent": false
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe5"
+    },
+    "name": "Kushagra Singhal",
+    "email": "kr2640@srmist.edu.in",
+    "position": "Binary",
+    "usn": "RA2111029010012",
+    "degree": "B-Tech Cse",
+    "section": "Q2",
+    "dob": "12/21/2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/kushagra-singhal-181576224?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/kushagra21-afk",
+      "twitter": "Na",
+      "instagram": "Na"
+    },
+    "caption": "Measuring programming progress by lines of code is like measuring aircraft building progress by weight",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/Screenshot_20231024_113116_Gallery%20-%20Kushagra%20Singhal.jpg?updatedAt=1705515837416",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd5"
+    },
+    "name": "Adarsh Kochuveettil Prem",
+    "email": "ap4864@srmist.edu.in",
+    "position": "Sudoer",
+    "usn": "RA2111030010024",
+    "degree": "B.Tech CSE w/s Cybersecurity",
+    "section": "S1",
+    "dob": "01-12-2023",
+    "domain": "Creatives",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/adarshkp/",
+      "github": "-",
+      "twitter": "https://twitter.com/TheAdarshKp",
+      "instagram": "https://www.instagram.com/adarshhkp/"
+    },
+    "caption": "Wander. Contemplate. Actualize.",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/1690897398860%20-%20Adarsh%20Kp.jpg?updatedAt=1705515821253",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefd7"
+    },
+    "name": "Devansh Gupta",
+    "email": "dg8000@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211033010039",
+    "degree": "B.Tech computer science Software engineerning",
+    "section": "AB-1",
+    "dob": "10/28/2003",
+    "domain": "Cyber Security",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/devansh-gupta-614342206?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      "github": "https://github.com/asterisk51",
+      "twitter": "https://x.com/asteriskkk51?t=A3z5cYx3DY7lRpLXTf9XcA&s=09",
+      "instagram": "https://www.instagram.com/devanshh_g?utm_source=qr&igsh=YzU1NGVlODEzOA=="
+    },
+    "caption": "Lttofu zit vgksr vozi royytktfz htklhtezoct",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/IMG-20231112-WA0076%20-%20DEVANSH%20GUPTA%20(RA2211033010039).jpg?updatedAt=1705515830381",
+    "isCurrent": true
+  },
+  {
+    "_id": {
+      "$oid": "65a5903777918da6161eefe2"
+    },
+    "name": "Bhumi Bhadoria",
+    "email": "bb2854@srmist.edu.in",
+    "position": "Sticky Bit",
+    "usn": "RA2211031010004",
+    "degree": "B.tech CSE I.T",
+    "section": "U1",
+    "dob": "05-05-2003",
+    "domain": "Development",
+    "socials": {
+      "linkedin": "https://www.linkedin.com/in/bhumi-bhadoria/",
+      "github": "https://github.com/BhumiBhadoria",
+      "twitter": "https://twitter.com/BhumiBhadoria",
+      "instagram": "https://www.instagram.com/bhumiibhadoria/"
+    },
+    "caption": "living every threshold of me",
+    "pictureUrl": "https://ik.imagekit.io/jhaji/Photo%20for%20Website%20(File%20responses)-20240117T182155Z-001/Photo%20for%20Website%20(File%20responses)/WhatsApp%20Image%202023-12-23%20at%2018.57.40_ab402796%20-%20Bhumi%20Bhadoria.jpg?updatedAt=1705515843687",
+    "isCurrent": true
+  }]
