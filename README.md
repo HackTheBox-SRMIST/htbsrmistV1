@@ -1,4 +1,4 @@
-Website Deployed [here](https://htbsrmist.tech) ..
+Website Deployed [here](https://htbsrmist.tech) ...
 
 # APIs
 
