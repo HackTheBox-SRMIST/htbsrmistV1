@@ -1,7 +1,12 @@
 const Roles = (props: any) => {
     return (
-        <div className="text-4xl text-htb-green flex justify-center items-center font-bold text-center">
-            {props.name} [{props.role}]
+        <div className="w-full text-center mb-8">
+            <h2 className="text-htb-green text-2xl font-bold">
+                {props.name} 
+                <span className="text-htb-green ml-2">
+                    [{props.role}]
+                </span>
+            </h2>
         </div>
     );
 };

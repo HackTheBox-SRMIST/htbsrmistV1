@@ -2,7 +2,9 @@ const Social = (props: any) => {
     return (
         <a
             href={props.link}
-            className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1 text-2xl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white hover:text-htb-green transition-colors duration-200 text-lg"
         >
             {props.logo}
         </a>

@@ -38,7 +38,8 @@ const Nav = () => {
         setNavbarOpen(!navbarOpen);
     };
     return (
-        <nav className="flex flex-row justify-between mb-4 bg-transparent rounded-lg custom-scrollbar overflow-auto overflow-y-hidden py-2 px-4 font-poppins">
+        <nav className="flex flex-row justify-between mb-4 bg-transparent rounded-lg custom-scrollbar overflow-auto overflow-y-hidden py-2 px-4 font-poppins"
+        style={{backgroundColor: '#0B121f'}}>
             <a href="/" rel="noopener noreferrer" className="flex-none">
                 <Logo />
             </a>

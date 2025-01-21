@@ -4,10 +4,14 @@ import Member from "../components/teams/member";
 import Roles from "../components/teams/roles";
 import { useState } from "react";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
+import fs from "fs";
+import path from "path";
 
 interface MemberProps {
     pictureUrl: string | undefined;
     name: string;
+    isCurrent: boolean;
+    joined: number;
     caption: string;
     position: string;
     domain: string;
@@ -34,34 +38,38 @@ const hierarchy = [
     { role: "Admins", name: "Root" },
 ];
 
-
 const Team: NextPage<TeamPageProps> = ({ members }) => {
     const [activeDomain, changeDomain] = useState<
         "Development" | "Creatives" | "Corporate" | "Security"
     >("Development");
 
-    const Creatives = members.filter(
-        (el) => el.domain === "Creatives"
-    );
+    const [activeFilter, setActiveFilter] = useState<"Current" | "2022" | "2021">("Current");
 
-    const Development = members.filter(
-        (el) => el.domain === "Development"
-    );
+    const [sortedMembers, setSortedMembers] = useState<MemberProps[]>(members);
 
-    const Corporate = members.filter(
-        (el) => el.domain === "Corporate"
+    const Creatives = sortedMembers.filter(
+        (el) => el.domain === "Creatives" && el.position !== "Root"
     );
-
-    const Security = members.filter(
-        (el) => el.domain === "Cyber Security"
+    
+    const Development = sortedMembers.filter(
+        (el) => el.domain === "Development" && el.position !== "Root"
     );
-
+    
+    const Corporate = sortedMembers.filter(
+        (el) => el.domain === "Corporate" && el.position !== "Root"
+    );
+    
+    const Security = sortedMembers.filter(
+        (el) => el.domain === "Cyber Security" && el.position !== "Root"
+    );
+    
     const crew = {
         Creatives,
         Development,
         Corporate,
-        Security
+        Security,
     };
+    
 
     var filterBinaries = function (element: any) {
         return element.position === "Binary"
@@ -88,6 +96,20 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         changeDomain(next);
     };
 
+    const sortMembersByYear = (year: number) => {
+        const filteredAndSorted = members
+            .filter((member) => member.joined === year)
+            .sort((a, b) => a.name.localeCompare(b.name));
+        setSortedMembers(filteredAndSorted);
+    };
+
+    const sortCurrentMembers = () => {
+        const filteredAndSorted = members
+            .filter((member) => member.isCurrent)
+            .sort((a, b) => a.name.localeCompare(b.name));
+        setSortedMembers(filteredAndSorted);
+    };
+
     /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
     // Combine Faculty Convenor and Co-Organizers into "Founders"
@@ -97,13 +119,25 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
-            <img src="./team.svg" className="h-20" />
+            <div className="group relative w-full max-w-lg h-auto flex items-center justify-center text-center font-bold py-60 text-7xl text-htb-green bg-transparent rounded-3xl cursor-pointer border-2 border-solid border-htb-green/50">
+                {/* Text displayed normally */}
+                <div className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+                    Our Team
+                </div>
+
+                {/* Hover text displayed in place of "Our Team" */}
+                <div className="absolute inset-0 flex items-center justify-center bg-transparent text-htb-green text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    HackTheBox SRMIST is a whole new community centered on the field of cyber security. We want a centralized hub where all interested students can learn mor eabout the field of cyber security. Learners can interact with each other, exchange ideas, and enhance their capabilities. We will host hands-on workshops, training sessions and CTF (Capture The Flag) events. 
+                </div>
+            </div>
+
+            {/* <img src="./team.svg" className="h-20" /> */}
 
             <div className="backdrop-blur-[3px] flex flex-col justify-center items-center text-center">
 
                 {/* Founders Section */}
                 <div className="py-12">
-                    <Roles role="Founders"  />
+                    <Roles role="Founders" />
                     <div className="flex justify-center items-start flex-wrap gap-5">
                         {members
                             .filter((mem) => mem.position === "Mainframe" || mem.position === "Kernel")
@@ -121,9 +155,11 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     </div>
                 </div>
 
+
+
                 {/* Admins and Other Roles */}
                 {hierarchy.map((el) => {
-                    const domainMembers = members.filter((mem) => mem.position === el.name);
+                    const domainMembers = sortedMembers.filter((mem) => mem.position === el.name);
                     return (
                         <div key={el.role} className="py-10">
                             <Roles role={el.role} name={el.name} />
@@ -143,6 +179,30 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         </div>
                     );
                 })}
+                {/* Filter Buttons */}
+                <div className="flex justify-center items-center gap-5 py-5">
+                    <button
+                        onClick={sortCurrentMembers}
+                        className={`px-4 py-2 rounded-lg ${
+                            activeFilter === "Current" 
+                              ? "bg-transparent text-htb-green" 
+                              : "bg-black hover:text-htb-green"
+                          }`}                    >
+                        Current Team
+                    </button>
+                    <button
+                        onClick={() => sortMembersByYear(2022)}
+                        className={`px-4 py-2 rounded-lg ${activeFilter === "2022" ? "bg-htb-green text-black" : "bg-black text-htb-green"}`}
+                    >
+                        Team of 2022
+                    </button>
+                    <button
+                        onClick={() => sortMembersByYear(2021)}
+                        className={`px-4 py-2 rounded-lg ${activeFilter === "2021" ? "bg-htb-green text-black" : "bg-black text-htb-green"}`}
+                    >
+                        Team of 2021
+                    </button>
+                </div>
 
                 <div className="flex justify-around items-start text-3xl text-htb-green gap-7 py-10 ">
                     <button
@@ -159,6 +219,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         <GrLinkNext />
                     </button>
                 </div>
+                                
                 <div className="flex flex-col justify-center items-center flex-wrap">
                     <Roles role="Leads" name="Sudoer" />
                     <div className="flex flex-wrap justify-center items-start">
@@ -247,5 +308,6 @@ export async function getServerSideProps(): Promise<
         return { notFound: true };
     }
 }
+
 
 export default Team;
