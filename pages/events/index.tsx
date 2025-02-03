@@ -9,7 +9,7 @@ interface Event {
     name: string;
     date: string;
     isActive: boolean;
-    poster_url: string;
+    poster_url: string; // Added missing property
 }
 
 interface EventsPageProps {
@@ -30,31 +30,30 @@ const Toast = (success: boolean, message: string) => {
 };
 
 const EventsPage: NextPage<EventsPageProps> = ({ events }) => {
-    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+    const submitHandler = async (event: React.ChangeEvent<any>) => {
+        event.preventDefault(); // Prevent default before using event.target
 
         const str2bool = (value: string) => value.toLowerCase() === "true";
 
         try {
             const body = {
-                usn: formData.get("usn") as string,
-                name: formData.get("name") as string,
-                email: (formData.get("email") as string).toLowerCase(),
-                dept: formData.get("dept") as string,
-                isSrmite: str2bool(formData.get("isSrmite") as string),
-                event_name: formData.get("event_name") as string
+                usn: event.target.usn.value,
+                name: event.target.name.value,
+                email: event.target.email.value.toLowerCase(),
+                dept: event.target.dept.value,
+                isSrmite: str2bool(event.target.isSrmite.value),
+                event_name: event.target.event_name.value
             };
 
             const response = await axios.post(`/api/v1/events/registration`, body);
             Toast(true, response.data.message);
         } catch (err: any) {
-            Toast(false, err.response?.data?.message || "An error occurred.");
+            Toast(false, err.response?.data?.message || "An error occurred");
         }
     };
 
-    const ongoingEvents = events.filter(event => event.isActive);
-    const pastEvents = events.filter(event => !event.isActive);
+    const ongoingEvents = events.filter((event) => event.isActive);
+    const pastEvents = events.filter((event) => !event.isActive);
 
     return (
         <>
@@ -63,25 +62,25 @@ const EventsPage: NextPage<EventsPageProps> = ({ events }) => {
             </p>
 
             <section className="pt-8 mb-0">
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2">
                     <div>
                         <h2 className="text-center text-2xl font-bold my-4 text-htb-green">
                             Ongoing Events
                         </h2>
                         {ongoingEvents.length > 0 ? (
                             <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8">
-                                {ongoingEvents.map(event => (
+                                {ongoingEvents.map((event) => (
                                     <div key={event.id} className="relative group overflow-hidden">
-                                        <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center">
+                                        <figure className="fig h-691 w-864 flex flex-col items-center">
                                             <img
                                                 src={event.poster_url}
-                                                className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover rounded-2xl"
-                                                alt={event.name}
+                                                className="h-691 w-864 border-4 border-htb-green/50 object-cover rounded-2xl"
+                                                alt={`HackTheBox SRMIST - ${event.name}`}
                                             />
                                         </figure>
                                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                                             <a href={`/events/${event.name}`}>
-                                                <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
+                                                <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
                                                     Register Now
                                                 </button>
                                             </a>
@@ -100,18 +99,18 @@ const EventsPage: NextPage<EventsPageProps> = ({ events }) => {
                             Past Events
                         </h2>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8">
-                            {pastEvents.map(event => (
+                            {pastEvents.map((event) => (
                                 <div key={event.id} className="relative group overflow-hidden">
-                                    <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center">
+                                    <figure className="fig h-691 w-864 flex flex-col items-center">
                                         <img
                                             src={event.poster_url}
-                                            className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover rounded-2xl"
-                                            alt={event.name}
+                                            className="h-691 w-864 border-4 border-htb-green/50 object-cover rounded-2xl"
+                                            alt={`HackTheBox SRMIST - ${event.name}`}
                                         />
                                     </figure>
                                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                                         <a href={`/events/${event.name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full transition-all duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg">
+                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full transition-all duration-300 transform hover:scale-110 hover:shadow-lg">
                                                 Get Info
                                             </button>
                                         </a>
@@ -126,20 +125,15 @@ const EventsPage: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
-    const url_root = process.env.BASE_URL_PREVIEW || "";
+const url_root = process.env.BASE_URL_PREVIEW;
 
-    if (!url_root) {
-        console.error("BASE_URL_PREVIEW is not defined.");
-        return { notFound: true };
-    }
-
+export async function getServerSideProps(): Promise<
+    GetServerSidePropsResult<EventsPageProps>
+> {
     try {
         const response = await fetch(`${url_root}/api/v1/events`);
-        if (!response.ok) throw new Error("Failed to fetch events");
         const events: Event[] = await response.json();
-
-        return { props: { events: events.reverse() } };
+        return { props: { events: [...events].reverse() } };
     } catch (error) {
         console.error("Error fetching events:", error);
         return { notFound: true };
