@@ -15,6 +15,7 @@
         "@nextui-org/react": "^1.0.0-beta.12",
         "@typeform/embed-react": "^1.19.0",
         "axios": "^1.2.3",
+        "dotenv": "^16.4.7",
         "dotenv-vault-core": "^0.7.0",
         "jimp-compact": "^0.16.1-2",
         "mongodb": "^4.4.1",
