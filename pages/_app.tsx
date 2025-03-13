@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
                 <meta httpEquiv="content-language" content="en" />
                 <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://www.htbsrmist.tech" />
+                <meta property="og:url" content="https://www.htbchennai.in" />
                 <meta property="og:title" content="HackTheBox SRMIST" />
                 <meta
                     property="og:description"
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta property="twitter:card" content="summary_large_image" />\
                 <meta
                     property="twitter:url"
-                    content="https://www.htbsrmist.tech"
+                    content="https://www.htbchennai.in"
                 />
                 <meta property="twitter:site" content="@htbsrmist" />
                 <meta
