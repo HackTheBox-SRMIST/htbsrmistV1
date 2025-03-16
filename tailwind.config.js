@@ -12,7 +12,8 @@ module.exports = {
             colors: {
                 "htb-green": "#9FEF00",
                 "hacker-grey": "#A4B1CD",
-                "node-black": "#141D2B"
+                "node-black": "#141D2B",
+                "htb-navy": "#0B121F"
             },
             fontFamily: {
                 "sans-serif": ["Montserrat", "sans-serif"],
@@ -20,7 +21,7 @@ module.exports = {
                 poppins: ["Poppins", "sans-serif"]
             },
             backgroundImage: {
-                hackerfooter: "url('/bg.jpeg.jpg')"
+                hackerfooter: "url('/bg.png')"
             }
         }
     },

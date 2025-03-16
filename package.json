@@ -17,6 +17,7 @@
         "axios": "^1.2.3",
         "dotenv": "^16.4.7",
         "dotenv-vault-core": "^0.7.0",
+        "htbsrmistv1": "file:",
         "jimp-compact": "^0.16.1-2",
         "mongodb": "^4.4.1",
         "next": "12.1.0",
