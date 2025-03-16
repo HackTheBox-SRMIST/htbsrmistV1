@@ -221,28 +221,14 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             Current Team
                         </button>
                         <button
-                            onClick={() => {
-                                sortMembersByYear(2022);
-                                setActiveFilter("2022");
-                            }}
-                            className={`w-full py-2 md:py-3 px-4 ${
-                                activeFilter === "2022"
-                                    ? "bg-htb-green"
-                                    : "bg-htb-green/50 hover:bg-htb-green"
-                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                            disabled
+                            className="w-full py-2 md:py-3 px-4 bg-gray-500/50 text-gray-400 cursor-not-allowed font-medium text-sm sm:text-base md:text-lg rounded-full"
                         >
                             2022
                         </button>
                         <button
-                            onClick={() => {
-                                sortMembersByYear(2021);
-                                setActiveFilter("2021");
-                            }}
-                            className={`w-full py-2 md:py-3 px-4 ${
-                                activeFilter === "2021"
-                                    ? "bg-htb-green"
-                                    : "bg-htb-green/50 hover:bg-htb-green"
-                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                            disabled
+                            className="w-full py-2 md:py-3 px-4 bg-gray-500/50 text-gray-400 cursor-not-allowed font-medium text-sm sm:text-base md:text-lg rounded-full"
                         >
                             2021
                         </button>

@@ -1,7 +1,3 @@
-/*
-	Installed from https://reactbits.dev/ts/tailwind/
-*/
-
 import { useRef, useEffect } from "react";
 
 const LetterGlitch = ({
@@ -17,6 +13,9 @@ const LetterGlitch = ({
     outerVignette: boolean;
     smooth: boolean;
 }) => {
+    // Only binary digits (0 and 1)
+    const lettersAndSymbols = ["0", "1"];
+
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const animationRef = useRef<number | null>(null);
     const letters = useRef<
@@ -35,80 +34,27 @@ const LetterGlitch = ({
     const charWidth = 10;
     const charHeight = 20;
 
-    const lettersAndSymbols = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
-        "!",
-        "@",
-        "#",
-        "$",
-        "&",
-        "*",
-        "(",
-        ")",
-        "-",
-        "_",
-        "+",
-        "=",
-        "/",
-        "[",
-        "]",
-        "{",
-        "}",
-        ";",
-        ":",
-        "<",
-        ">",
-        ",",
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9"
-    ];
-
+    // Fixed getRandomChar to ensure it only returns 0 or 1
     const getRandomChar = () => {
-        return lettersAndSymbols[
-            Math.floor(Math.random() * lettersAndSymbols.length)
-        ];
+        return Math.random() < 0.5 ? "0" : "1";
     };
 
+    // Added safety check for empty glitchColors array
     const getRandomColor = () => {
+        if (!glitchColors || glitchColors.length === 0) {
+            return "#61dca3"; // Default fallback color
+        }
         return glitchColors[Math.floor(Math.random() * glitchColors.length)];
     };
 
     const hexToRgb = (hex: string) => {
+        // Added safety check for invalid hex input
+        if (!hex || typeof hex !== "string") {
+            return { r: 0, g: 0, b: 0 }; // Return black as fallback
+        }
+
         const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-        hex = hex.replace(shorthandRegex, (m, r, g, b) => {
+        hex = hex.replace(shorthandRegex, (_m, r, g, b) => {
             return r + r + g + g + b + b;
         });
 
@@ -119,7 +65,7 @@ const LetterGlitch = ({
                   g: parseInt(result[2], 16),
                   b: parseInt(result[3], 16)
               }
-            : null;
+            : { r: 0, g: 0, b: 0 };
     };
 
     const interpolateColor = (
@@ -144,6 +90,7 @@ const LetterGlitch = ({
     const initializeLetters = (columns: number, rows: number) => {
         grid.current = { columns, rows };
         const totalLetters = columns * rows;
+        // Make sure we're only using 0 and 1 during initialization
         letters.current = Array.from({ length: totalLetters }, () => ({
             char: getRandomChar(),
             color: getRandomColor(),
@@ -177,9 +124,14 @@ const LetterGlitch = ({
     };
 
     const drawLetters = () => {
-        if (!context.current || letters.current.length === 0) return;
+        if (
+            !context.current ||
+            letters.current.length === 0 ||
+            !canvasRef.current
+        )
+            return;
         const ctx = context.current;
-        const { width, height } = canvasRef.current!.getBoundingClientRect();
+        const { width, height } = canvasRef.current.getBoundingClientRect();
         ctx.clearRect(0, 0, width, height);
         ctx.font = `${fontSize}px monospace`;
         ctx.textBaseline = "top";
@@ -193,20 +145,17 @@ const LetterGlitch = ({
     };
 
     const updateLetters = () => {
-        if (!letters.current || letters.current.length === 0) return; // Prevent accessing empty array
-
+        if (!letters.current || letters.current.length === 0) return;
         const updateCount = Math.max(
             1,
             Math.floor(letters.current.length * 0.05)
         );
-
         for (let i = 0; i < updateCount; i++) {
             const index = Math.floor(Math.random() * letters.current.length);
-            if (!letters.current[index]) continue; // Skip if index is invalid
-
+            if (!letters.current[index]) continue;
+            // Always set to either 0 or 1
             letters.current[index].char = getRandomChar();
             letters.current[index].targetColor = getRandomColor();
-
             if (!smooth) {
                 letters.current[index].color =
                     letters.current[index].targetColor;
@@ -224,19 +173,21 @@ const LetterGlitch = ({
                 letter.colorProgress += 0.05;
                 if (letter.colorProgress > 1) letter.colorProgress = 1;
 
-                const startRgb = hexToRgb(letter.color);
-                const endRgb = hexToRgb(letter.targetColor);
-                if (startRgb && endRgb) {
+                // Added safety checks for color values
+                try {
+                    const startRgb = hexToRgb(letter.color);
+                    const endRgb = hexToRgb(letter.targetColor);
                     letter.color = interpolateColor(
                         startRgb,
                         endRgb,
                         letter.colorProgress
                     );
                     needsRedraw = true;
+                } catch (error) {
+                    console.error("Color transition error:", error);
                 }
             }
         });
-
         if (needsRedraw) {
             drawLetters();
         }
@@ -249,11 +200,9 @@ const LetterGlitch = ({
             drawLetters();
             lastGlitchTime.current = now;
         }
-
         if (smooth) {
             handleSmoothTransitions();
         }
-
         animationRef.current = requestAnimationFrame(animate);
     };
 
@@ -261,16 +210,23 @@ const LetterGlitch = ({
         const canvas = canvasRef.current;
         if (!canvas) return;
 
+        // Add error handling for context
         context.current = canvas.getContext("2d");
+        if (!context.current) {
+            console.error("Failed to get 2D context");
+            return;
+        }
+
         resizeCanvas();
         animate();
 
         let resizeTimeout: NodeJS.Timeout;
-
         const handleResize = () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                cancelAnimationFrame(animationRef.current as number);
+                if (animationRef.current !== null) {
+                    cancelAnimationFrame(animationRef.current);
+                }
                 resizeCanvas();
                 animate();
             }, 100);
@@ -279,10 +235,11 @@ const LetterGlitch = ({
         window.addEventListener("resize", handleResize);
 
         return () => {
-            cancelAnimationFrame(animationRef.current!);
+            if (animationRef.current !== null) {
+                cancelAnimationFrame(animationRef.current);
+            }
             window.removeEventListener("resize", handleResize);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [glitchSpeed, smooth]);
 
     return (
