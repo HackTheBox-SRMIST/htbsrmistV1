@@ -126,7 +126,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 <div
                     className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-90 transition-opacity duration-500 z-10"
                     style={{
-                        backgroundImage: "url('/image12.png')"
+                        backgroundImage: "url('/team.JPG')"
                     }}
                 ></div>
                 <div className="relative opacity-100 group-hover:opacity-0 transform group-hover:scale-110 transition-all duration-500 z-30">
@@ -153,8 +153,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     </div>
                 </div>
             </div>
-
-            {/* <img src="./team.svg" className="h-20" /> */}
 
             <div className="flex flex-col justify-center items-center text-center">
                 {/* Founders Section */}
