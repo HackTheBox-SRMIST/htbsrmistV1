@@ -223,9 +223,6 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                             ))}
                         </div>
                     </div>
-
-                    }
-                    
                 </div>
             </section>
         </>
