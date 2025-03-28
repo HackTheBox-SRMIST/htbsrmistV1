@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { logTime } from "../../utils/error/errorConstants";
+import { date } from "yup";
 
 interface EventProps {
     event_name: string;
@@ -91,15 +92,13 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
     return (
         <>
-            <p className="px-12 flex justify-center">
+            {/* <p className="px-12 flex justify-center">
                 <img src="./allEvents.svg" className="h-20" alt="All Events" />
-            </p>
-            <br></br>
-            <br></br>
-            <section className="flex flex-col md:flex-row justify-between items-start px-4 md:px-12 gap-8 my-8">
+            </p> */}
+            <section className="flex flex-col md:flex-row justify-between items-start px-4 md:px-12 gap-8">
                 {/* Left Side: Ongoing Event OR No Ongoing Event */}
-                <div className="w-full md:w-1/3 flex flex-col items-center self-start">
-                    <div className="w-full h-auto md:h-[280px] flex justify-center items-center">
+                <div className="w-full md:w-1/3 flex flex-col self-center md:mb-40">
+                    <div className="w-full h-auto md:h-[320px] flex justify-center items-center">
                         {activeEvents.length > 0 ? (
                             <div className="w-full h-full group">
                                 <div className="w-full h-full relative transition-all duration-500 ease-out">
@@ -175,7 +174,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
 
                 {/* Vertical Divider (Desktop) */}
-                <div className="relative hidden md:block mx-6 h-[580px] flex items-center">
+                <div className="relative hidden md:block mx-6 h-[680px] flex items-center">
                     <div className="w-px bg-gradient-to-b from-emerald-400 via-htb-green to-teal-600 h-full relative mx-auto">
                         <div className="absolute inset-0 w-1 left-1/2 transform -translate-x-1/2 opacity-50 h-full bg-htb-green blur-sm"></div>
                     </div>
@@ -190,12 +189,16 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
                 {/* Right Side: Past Events with Smooth Scrolling */}
                 <div className="w-full md:w-3/5 flex flex-col items-center">
+                    <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-6 text-htb-green">
+                        Past Events
+                    </h2>
                     <div className="w-full max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-htb-green scrollbar-track-gray-800 scroll-smooth transform-gpu will-change-[scroll-position]">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 pb-4">
+                    <div className="top-0 left-0 right-0 h-12 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none sticky"></div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 pb-4">
                             {pastEvents.map((event) => (
                                 <div
                                     key={event.event_name}
-                                    className="relative group h-[220px] md:h-[280px] w-full max-w-[280px] mx-auto overflow-hidden rounded-xl shadow-md hover:shadow-htb-green/30 transition-all duration-300"
+                                    className="relative group h-[280px] md:h-[320px] w-full max-w-[320px] mx-auto overflow-hidden rounded-xl shadow-md border-4 border-htb-green hover:shadow-htb-green/60 transition-all duration-300"
                                 >
                                     <img
                                         src={event.poster_url}
@@ -205,18 +208,11 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
 
                                     {/* Event Name Overlay */}
-                                    <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-black/70 backdrop-blur-sm">
-                                        <h3 className="text-white text-sm font-medium truncate">
-                                            {event.event_name}
-                                        </h3>
-                                    </div>
-
-                                    {/* View Button Overlay */}
-                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-htb-green backdrop-blur-sm">
                                         <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-gray-800/80 text-white hover:bg-htb-green border border-gray-600 hover:border-white px-4 py-2 rounded-lg text-sm backdrop-blur-sm">
-                                                View Details
-                                            </button>
+                                            <h3 className="text-lg md:text-xl font-semibold text-center">
+                                                Get Certificate
+                                            </h3>
                                         </a>
                                     </div>
                                 </div>
