@@ -77,7 +77,7 @@ const ContactUs = () => {
 
             <ToastContainer />
 
-            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 lg:p-12 bg-[#4A658E] bg-opacity-60 rounded-2xl md:rounded-3xl mb-8 md:mb-12">
+            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 lg:p-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-8 md:mb-12 shadow-lg">
                 <form
                     onSubmit={submitHandler}
                     className="flex flex-col gap-3 sm:gap-4 md:gap-5"
@@ -90,7 +90,7 @@ const ContactUs = () => {
                             autoComplete="name"
                             required
                             placeholder="First Name"
-                            className="w-full sm:w-[48%] p-3 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full sm:w-[48%] p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                         <input
                             id="lastName"
@@ -99,7 +99,7 @@ const ContactUs = () => {
                             autoComplete="name"
                             required
                             placeholder="Last Name"
-                            className="w-full sm:w-[48%] p-3 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full sm:w-[48%] p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -111,7 +111,7 @@ const ContactUs = () => {
                             autoComplete="email"
                             placeholder="Email"
                             required
-                            className="w-full p-3 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -124,7 +124,7 @@ const ContactUs = () => {
                             defaultValue="+91"
                             autoComplete="countryCode"
                             placeholder="+91"
-                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
+                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
                         />
                         <input
                             id="number"
@@ -133,7 +133,7 @@ const ContactUs = () => {
                             required
                             autoComplete="phone"
                             placeholder="Contact Number"
-                            className="w-full p-3 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -144,7 +144,7 @@ const ContactUs = () => {
                             autoComplete="message"
                             required
                             placeholder="Message"
-                            className="w-full p-4 bg-[#0B121F] bg-opacity-90 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
+                            className="w-full p-4 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
                             rows={10}
                         ></textarea>
                     </div>

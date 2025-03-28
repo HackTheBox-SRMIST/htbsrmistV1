@@ -32,7 +32,7 @@ interface EventProps {
             details: string;
         }
     ];
-    duration: Number;
+    duration: number;
     prerequisites: string;
     cost: number;
     registration_url: string;
@@ -56,80 +56,173 @@ const Toast = (success: any, message: any) => {
 };
 
 const EventS: NextPage<EventsPageProps> = ({ events }) => {
-    const submitHandler = async (events: React.ChangeEvent<any>) => {
+    const submitHandler = async (event: React.ChangeEvent<any>) => {
+        event.preventDefault();
+
         const str2bool = (value: string) => {
             if (value && typeof value === "string") {
-                if (value.toLowerCase() === "true") return true;
-                if (value.toLowerCase() === "false") return false;
+                return value.toLowerCase() === "true";
             }
             return value;
         };
 
-        const isSrmite = str2bool(events.target.isSrmite.value);
-        events.preventDefault();
-
         try {
             const body = {
-                usn: events.target.usn.value,
-                name: events.target.name.value,
-                email: events.target.email.value.toLowerCase(),
-                dept: events.target.dept.value,
-                isSrmite: isSrmite,
-                event_name: events.target.event_name.value
+                usn: event.target.usn.value,
+                name: event.target.name.value,
+                email: event.target.email.value.toLowerCase(),
+                dept: event.target.dept.value,
+                isSrmite: str2bool(event.target.isSrmite.value),
+                event_name: event.target.event_name.value
             };
 
             const response = await axios.post(
                 `/api/v1/events/registration`,
                 body
             );
-            const result = await response.data.message;
-
-            Toast(true, result);
+            Toast(true, response.data.message);
         } catch (err: any) {
-            Toast(false, `${err.response.data.message}`);
+            Toast(false, err.response?.data?.message || "Something went wrong");
         }
     };
+
+    const activeEvents = events.filter((event) => event.is_active);
+    const pastEvents = events.filter((event) => !event.is_active);
 
     return (
         <>
             <p className="px-12 flex justify-center">
-                <img src="./allEvents.svg" className="h-20" alt="" />
+                <img src="./allEvents.svg" className="h-20" alt="All Events" />
             </p>
+            <br></br>
+            <br></br>
+            <section className="flex flex-col md:flex-row justify-between items-start px-4 md:px-12 gap-8 my-8">
+                {/* Left Side: Ongoing Event OR No Ongoing Event */}
+                <div className="w-full md:w-1/3 flex flex-col items-center self-start">
+                    <div className="w-full h-auto md:h-[280px] flex justify-center items-center">
+                        {activeEvents.length > 0 ? (
+                            <div className="w-full h-full group">
+                                <div className="w-full h-full relative transition-all duration-500 ease-out">
+                                    {/* Card with shadow effect - hidden on mobile */}
+                                    <div className="absolute inset-0 bg-black/10 rounded-2xl blur-md transform -translate-y-2 translate-x-2 hidden md:block"></div>
 
-            <section>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 px-12 gap-8 my-8 justify-center">
-                    {events.map((event) => {
-                        return (
-                            <div
-                                key={event.event_name}
-                                className="relative group overflow-hidden"
-                            >
-                                <figure className="fig h-691 w-864 flex flex-col md:p-0 items-center z-10">
-                                    <img
-                                        src={event.poster_url}
-                                        className="h-691 w-864 mx-auto border-4 border-htb-green/50 object-cover rounded-2xl"
-                                        alt={`HackTheBox SRMIST - ${event.event_name}`}
-                                    />
-                                </figure>
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50 z-20">
-                                    <div className="flex flex-col gap-5 text-white">
-                                        {/* <a href={`/events/${event.event_name}`}>
-                                            <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
-                                                Register Now
-                                            </button>
-                                        </a> */}
+                                    {/* Main Card */}
+                                    <div className="relative w-full h-[350px] md:h-[450px] bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl md:rounded-2xl border border-htb-green/30 overflow-hidden shadow-md shadow-htb-green/20 transition-shadow duration-300 group-hover:shadow-htb-green/50">
+                                        <div className="w-full h-full overflow-hidden">
+                                            <img
+                                                src={activeEvents[0].poster_url}
+                                                className="w-full h-full object-cover object-center transition-all duration-700 group-hover:opacity-60"
+                                                alt={`HackTheBox SRMIST - ${activeEvents[0].event_name}`}
+                                            />
+
+                                            {/* Top shine effect - desktop only */}
+                                            <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-htb-green/20 to-transparent hidden md:block"></div>
+
+                                            {/* Event info overlay at bottom */}
+                                            <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent p-3 md:p-6">
+                                                <h3 className="text-white font-bold text-lg md:text-2xl mb-1 md:mb-2 truncate">
+                                                    {activeEvents[0].event_name}
+                                                </h3>
+                                                <div className="flex items-center text-gray-300 text-xs md:text-sm mb-2 md:mb-4">
+                                                    <span className="inline-block w-2 h-2 rounded-full bg-htb-green mr-2"></span>
+                                                    Live Now
+                                                </div>
+                                            </div>
+
+                                            {/* Hover overlay with action - simplified for mobile */}
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-b from-black/70 to-gray-900/80">
+                                                <a
+                                                    href={`/events/${activeEvents[0].event_name}`}
+                                                    className="relative"
+                                                >
+                                                    <button className="relative bg-htb-green hover:bg-white text-sm md:text-base font-bold py-2 md:py-3 px-6 md:px-8 rounded-full transition-all duration-300 text-black hover:text-htb-green border border-transparent hover:border-htb-green flex items-center">
+                                                        Register Now
+                                                        <svg
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            className="h-4 w-4 md:h-5 md:w-5 ml-2"
+                                                            viewBox="0 0 20 20"
+                                                            fill="currentColor"
+                                                        >
+                                                            <path
+                                                                fillRule="evenodd"
+                                                                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                                                clipRule="evenodd"
+                                                            />
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="absolute bottom-0 left-0 right-0 bg-gray-900 p-4 transform translate-y-full transition-transform duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 z-20 rounded-b-2xl flex justify-center items-center overflow-hidden">
-                                    <a href={`/events/${event.event_name}`}>
-                                        <button className="bg-htb-green border-2 border-hacker-grey hover:bg-white hover:text-htb-green font-bold py-2 px-4 rounded-full">
-                                            Register Now
-                                        </button>
-                                    </a>
-                                </div>
                             </div>
-                        );
-                    })}
+                        ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center border-htb-green/10 p-4 md:p-8">
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-htb-green/5 rounded-full blur-xl transform scale-90"></div>
+                                    <img
+                                        src="/eventscombo.png"
+                                        className="h-40 md:h-64  w-auto relative animate-pulse duration-3000"
+                                        alt="No Ongoing Events"
+                                    />
+                                </div>
+                                <p className="text-gray-400 text-center mt-4 md:mt-8 italic font-light text-lg md:text-2xl">
+                                    Check back soon for upcoming events
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Vertical Divider (Desktop) */}
+                <div className="relative hidden md:block mx-6 h-[580px] flex items-center">
+                    <div className="w-px bg-gradient-to-b from-emerald-400 via-htb-green to-teal-600 h-full relative mx-auto">
+                        <div className="absolute inset-0 w-1 left-1/2 transform -translate-x-1/2 opacity-50 h-full bg-htb-green blur-sm"></div>
+                    </div>
+                </div>
+
+                {/* Horizontal Divider (Mobile Only) */}
+                <div className="w-full block md:hidden my-6">
+                    <div className="relative h-px bg-gradient-to-r from-transparent via-htb-green to-transparent">
+                        <div className="absolute inset-0 h-1 top-1/2 transform -translate-y-1/2 opacity-50 w-full bg-htb-green blur-sm"></div>
+                    </div>
+                </div>
+
+                {/* Right Side: Past Events with Smooth Scrolling */}
+                <div className="w-full md:w-3/5 flex flex-col items-center">
+                    <div className="w-full max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-htb-green scrollbar-track-gray-800 scroll-smooth transform-gpu will-change-[scroll-position]">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10 pb-4">
+                            {pastEvents.map((event) => (
+                                <div
+                                    key={event.event_name}
+                                    className="relative group h-[220px] md:h-[280px] w-full max-w-[280px] mx-auto overflow-hidden rounded-xl shadow-md hover:shadow-htb-green/30 transition-all duration-300"
+                                >
+                                    <img
+                                        src={event.poster_url}
+                                        className="h-full w-full object-cover object-center"
+                                        alt={`HackTheBox SRMIST - ${event.event_name}`}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-300"></div>
+
+                                    {/* Event Name Overlay */}
+                                    <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-black/70 backdrop-blur-sm">
+                                        <h3 className="text-white text-sm font-medium truncate">
+                                            {event.event_name}
+                                        </h3>
+                                    </div>
+
+                                    {/* View Button Overlay */}
+                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                        <a href={`/events/${event.event_name}`}>
+                                            <button className="bg-gray-800/80 text-white hover:bg-htb-green border border-gray-600 hover:border-white px-4 py-2 rounded-lg text-sm backdrop-blur-sm">
+                                                View Details
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
         </>
@@ -145,8 +238,7 @@ export async function getServerSideProps(): Promise<
         const { data: events } = await (
             await fetch(`${url_root}/api/v1/events`)
         ).json();
-        const reversedEvents = events.reverse();
-        return { props: { events: reversedEvents } };
+        return { props: { events: events.reverse() } };
     } catch (error) {
         console.log(error);
         return { notFound: true };
