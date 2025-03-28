@@ -1,4 +1,4 @@
-Website Deployed [here](https://htbchennai.in) ..
+Website Deployed [here](https://htbchennai.in) ...
 
 # APIs
 
