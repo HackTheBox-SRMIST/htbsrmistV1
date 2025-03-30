@@ -125,8 +125,8 @@ img {
         --tw-scrollbar-thumb: #9fef00;
     }
 
-    .scrollbar-track-gray-800 {
-        --tw-scrollbar-track: #2d3748;
+    .scrollbar-track {
+        --tw-scrollbar-track: transparent;
     }
 
     .scroll-smooth {

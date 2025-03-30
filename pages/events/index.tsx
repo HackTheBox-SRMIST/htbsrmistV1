@@ -192,8 +192,8 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                     <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-6 text-htb-green">
                         Past Events
                     </h2>
-                    <div className="w-full max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-htb-green scrollbar-track-gray-800 scroll-smooth transform-gpu will-change-[scroll-position]">
-                    <div className="top-0 left-0 right-0 h-12 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none sticky"></div>
+                    <div className="w-full max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-htb-green scrollbar-track scroll-smooth transform-gpu will-change-[scroll-position]">
+                        <div className="top-0 left-0 right-0 h-12 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none sticky"></div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 pb-4">
                             {pastEvents.map((event) => (
                                 <div
