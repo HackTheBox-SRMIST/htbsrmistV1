@@ -13,11 +13,14 @@ module.exports = {
                 "htb-green": "#9FEF00",
                 "hacker-grey": "#A4B1CD",
                 "node-black": "#141D2B"
+                
             },
             fontFamily: {
                 "sans-serif": ["Montserrat", "sans-serif"],
                 "share-tech": ["Share Tech", "sans - serif"],
-                poppins: ["Poppins", "sans-serif"]
+                poppins: ["Poppins", "sans-serif"],
+                "do-hyeon": ["Do Hyeon", "sans-serif"],
+                "share-tech": ["Share Tech", "sans-serif"]
             },
             backgroundImage: {
                 hackerfooter: "url('/bg.jpeg.jpg')"

@@ -250,12 +250,360 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     return (
         <>
+
+<div className="suMain py-10">
+  <div className="mx-auto w-[90%] max-w-7xl font-share-tech px-6">
+    <div className="border-[2px] border-htb-green rounded-2xl flex flex-col md:flex-row">
+      <div className="md:w-1/2 w-full flex items-center justify-center p-4">
+        <div className="border-[2px] border-htb-green rounded-2xl p-2">
+          <img
+            src={event?.poster_url}
+            alt="Event Poster"
+            className="max-w-full max-h-[450px] object-contain"
+          />
+        </div>
+      </div>
+      <div className="md:w-1/2 w-full md:mr-16 text-white flex flex-col items-center justify-center p-6 space-y-5">
+        <h1 className="text-htb-green font-bold text-4xl md:text-5xl text-center">
+          {event?.event_name}
+        </h1>
+        <div className="loc bg-[#141D2B] text-white space-x-4 flex flex-row justify-start pl-5 pt-1 w-full md:w-96 h-[54px] rounded-xl">
+          <div className="lgo mt-1">
+            <img src="/locationLogo.svg" alt="Location Logo" />
+          </div>
+          <div className="txt">
+            <p className="ml-4 text-white text-xl md:text-2xl mt-[6px] font-semibold">
+              {event?.venue}
+            </p>
+          </div>
+        </div>
+        <div className="des bg-[#141D2B] text-white space-x-4 flex flex-row justify-start pl-5 pt-1 w-full md:w-96 h-[54px] rounded-xl">
+          <div className="lgo mt-1">
+            <img src="/desLogo.svg" alt="Description Logo" />
+          </div>
+          <div className="txt">
+            <p className="ml-4 text-white text-xl md:text-2xl mt-[6px] font-semibold">
+              {event?.cost === 0 ? "Free of Cost" : `${event?.cost}/-`}
+            </p>
+          </div>
+        </div>
+        <div className="date bg-[#141D2B] text-white space-x-4 flex flex-row justify-start pl-5 pt-1 w-full md:w-96 h-[54px] rounded-xl">
+          <div className="lgo mt-1">
+            <img src="/dateLogo.svg" alt="Date Logo" />
+          </div>
+          <div className="txt">
+            <p className="ml-4 text-white text-xl md:text-2xl mt-[6px] font-semibold">
+              {event?.event_date}
+            </p>
+          </div>
+        </div>
+        <button
+          className="bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl"
+          disabled={!event?.is_active}
+          onClick={handlerReg}
+        >
+          Register Now
+        </button>
+        <Modal
+                                            className="bg-htb-green"
+                                            closeButton
+                                            blur
+                                            aria-labelledby="modal-title"
+                                            open={visibleReg}
+                                            onClose={closeHandlerReg}
+                                        >
+                                            <Modal.Body className="flex justify-center items-center font-mono">
+                                                <ToastContainer />
+
+                                                <p className="text-3xl font-bold max-md:text-2xl">
+                                                    Registration Form
+                                                </p>
+                                                <p>Please enter your Details</p>
+                                                <form
+                                                    onSubmit={submitHandler}
+                                                    className=" gap-5 flex-col flex w-full"
+                                                >
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="name"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Name"
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="phn"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Phone Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="usn"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Registration Number"
+                                                        // onChange={
+                                                        //     changeUsnHandler
+                                                        // }
+                                                    />
+                                                    <Input
+                                                        required
+                                                        type="email"
+                                                        name="email"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                    />
+
+                                                    <Input
+                                                        required
+                                                        type="text"
+                                                        name="dept"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Department"
+                                                    />
+                                                    <Radio.Group
+                                                        isRequired
+                                                        value={checked}
+                                                        onChange={setChecked}
+                                                        name="isSrmite"
+                                                        orientation="horizontal"
+                                                    >
+                                                        <div className="flex justify-around">
+                                                            <Radio
+                                                                value="true"
+                                                                color="success"
+                                                            >
+                                                                SRMite
+                                                            </Radio>
+                                                            <Radio
+                                                                value="false"
+                                                                color="success"
+                                                            >
+                                                                Non-SRMite
+                                                            </Radio>
+                                                        </div>
+                                                    </Radio.Group>
+                                                    <p className="text-center font-extra-bold">
+                                                        Check us out on {""}
+                                                        <a
+                                                            href="https://www.meetup.com/chennai-in/"
+                                                            className=" text-black text-xl hover:text-[#F74160] font-bold"
+                                                        >
+                                                            MEETUP
+                                                        </a>
+                                                    </p>
+                                                    <button
+                                                        type="submit"
+                                                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg rounded-lg"
+                                                        disabled={loadingSubmit}
+                                                    >
+                                                        {loadingSubmit
+                                                            ? "Submitting..."
+                                                            : "SUBMIT"}{" "}
+                                                    </button>
+                                                </form>
+                                            </Modal.Body>
+                                        </Modal>
+
+
+
+        <button
+         className="bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl"
+         onClick={handler}
+         disabled={event?.is_active}
+         >
+          Get Certificate
+        </button>
+         {visible ? (
+                                            <div className="absolute top-0 left-0 w-screen h-screen text-white flex justify-center items-center backdrop-blur-xl">
+                                                <div className="w-[90%] lg:w-[500px] bg-white text-black z-50 p-7  rounded-3xl flex flex-col gap-5 relative ">
+                                                    <ToastContainer />
+                                                    <div
+                                                        className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-red-600"
+                                                        onClick={closeHandler}
+                                                    >
+                                                        <GiCrossMark className="w-full h-full" />
+                                                    </div>
+                                                    <p className="text-xl max-md:text-base">
+                                                        Please enter your
+                                                        registered E-Mail
+                                                    </p>
+                                                    <Input
+                                                        type="email"
+                                                        clearable
+                                                        bordered
+                                                        fullWidth
+                                                        color="primary"
+                                                        size="lg"
+                                                        placeholder="Email"
+                                                        onChange={(
+                                                            event: any
+                                                        ) =>
+                                                            setEmail(
+                                                                event.target
+                                                                    .value
+                                                            )
+                                                        }
+                                                    />
+
+                                                    {certificate ? (
+                                                        <a
+                                                            className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal rounded-full  p-8 text-xl text-center"
+                                                            href={certificate}
+                                                            download="Certificate.png"
+                                                        >
+                                                            Download Now
+                                                        </a>
+                                                    ) : (
+                                                        <div className="flex space-evenly justify-center">
+                                                            <button
+                                                                onClick={
+                                                                    fetchCertificate
+                                                                }
+                                                                disabled={
+                                                                    loadingCertificate ||
+                                                                    type ===
+                                                                        "Please Select..."
+                                                                }
+                                                                className={`w-1/2 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal p-8 text-xl max-md:text-sm ${
+                                                                    loadingCertificate
+                                                                        ? "opacity-50 cursor-not-allowed"
+                                                                        : ""
+                                                                }`}
+                                                            >
+                                                                {loadingCertificate
+                                                                    ? "Generating..."
+                                                                    : "Generate Certificate"}
+                                                            </button>
+                                                            <div className=" max-md:w-2/3 text-xl max-md:text-lg mt-0  border-l-[1px] border-l-black">
+                                                                <Select
+                                                                    autoFocus
+                                                                    hideSelectedOptions={
+                                                                        true
+                                                                    }
+                                                                    isClearable={
+                                                                        false
+                                                                    }
+                                                                    isSearchable={
+                                                                        false
+                                                                    }
+                                                                    placeholder={
+                                                                        type
+                                                                    }
+                                                                    theme={(
+                                                                        theme
+                                                                    ) => ({
+                                                                        ...theme,
+                                                                        colors: {
+                                                                            ...theme.colors,
+                                                                            neutral50:
+                                                                                "#000000" // Placeholder color
+                                                                        }
+                                                                    })}
+                                                                    tabSelectsValue={
+                                                                        false
+                                                                    }
+                                                                    name="preference1"
+                                                                    className="text-black w-full rounded-full"
+                                                                    options={
+                                                                        options
+                                                                    }
+                                                                    onChange={
+                                                                        changeType
+                                                                    }
+                                                                    styles={
+                                                                        styles
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ) : null}
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div className="eventText text-white px-4 sm:px-8 md:px-16 lg:px-64 text-2xl sm:text-3xl md:text-4xl font-medium font-share-tech">
+  {event?.event_description}
+</div>
+
+<div className="speaker mt-10 font-share-tech">
+    <p className="text-htb-green text-6xl font-bold text-center">Know Our Speakers</p>
+
+   <div className="spkr h-[40vh] flex flex-row">
+
+   </div>
+</div>
+
+<div className="prereq font-share-tech mb-10">
+  <p className="text-htb-green text-3xl sm:text-4xl md:text-5xl font-bold text-center my-6">
+    Pre-Requites
+  </p>
+  <p className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
+<ul className="list-disc list-inside">
+                            {(() => {
+                                let prereq_len: number = Number(
+                                    event?.prerequisites.length
+                                );
+                                let prereq = [];
+                                for (let i = 0; i < prereq_len; i++) {
+                                    prereq.push(
+                                        <li key={event?.prerequisites[i]}>
+                                            {event?.prerequisites[i]}
+                                        </li>
+                                    );
+                                }
+                                return prereq;
+                            })()}
+                        </ul>
+</p>
+</div>
+
+
+
+
+
+
+
+{ /*
+
+       
             <div className="flex-col px-4 lg:mx-20 mx-auto lg:px-10 items-center md:pr-0 font-mono">
                 <div className="md:h-screen flex flex-col md:flex-row items-center justify-center md:gap-14 lg:gap-24">
                     <div className="w-full md:w-1/2">
                         <div className="mb-4 text-center md:text-left">
-                            <h1 className="text-white text-3xl underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
-                                {event?.event_name}
+                            <h1 className="text-white text-3xl font-do-hyeon underline underline-offset-8 decoration-double sm:no-underline justify-self-auto ml-6 lg:ml-0 md:mt-[350px] lg:mt-0 sm:text-5xl  font-semibold ">
+                                {event?.event_name} 
                             </h1>
 
                             <p className="text-white sm:text-xl mt-6 text-justify md:ml-10 lg:ml-0 md:text-left text-sm ">
@@ -570,14 +918,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             </div>
                         </div>
                     </div>
-                    {/* z-10 sm:w-3/4 lg:w-2/4 w-full relative lg:mx-0 mx-auto transform px-2 */}
+                  
                     <div className="md:mb-14 sm:ml-0 sm:mb-0 lg:w-2/4 w-full mt-16 lg:mx-0 mx-auto pl-2 md:pl-8 flex justify-center">
-                        {/* ml-8 mt-12 mb-8 md:w-7/12 lg:w-5/12 */}
+                        
                         <figure className="mb-32 sm:mb-0 ">
                             <img
                                 src={event?.poster_url}
                                 alt="HackTheBox Meetup: Chennai, IN - Revealed Post"
-                                // className="w-full m-auto md:pr-0"
+                                
                             />
                         </figure>
                     </div>
@@ -672,6 +1020,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </Slider>
                 </div>
             </div>
+            */ }
         </>
     );
 };
