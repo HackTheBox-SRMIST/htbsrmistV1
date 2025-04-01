@@ -20,6 +20,7 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
         <div className="flex flex-col min-h-screen max-w-screen font-[share-tech]">
             <div className="flex justify-center items-center">
                 <img src="./blogs.svg" className="h-8 md:h-16"></img>
+                
             </div>
 
             <div className="grid grid-cols-1 p-9 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center">
