@@ -121,6 +121,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
     const [loadingCertificate, setLoadingCertificate] = useState(false);
+    const [nameError, setNameError] = React.useState(false);
 
     const [loadingSubmit, setLoadingSubmit] = useState(false);
 
@@ -222,6 +223,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         events.preventDefault();
 
         try {
+            const name = events.target.name.value;
+            if (name.length > 20) {
+                Toast(false, "Name cannot exceed 20 characters");
+                return;
+            }
+
             const body = {
                 usn: events.target.usn.value,
                 phn: events.target.phn.value,
@@ -712,6 +719,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         color="primary"
                                                         size="lg"
                                                         placeholder="Name"
+                                                        maxLength={21}
+                                                        // helperText="Name cannot exceed 20 characters"
+                                                        helperColor="error"
+                                                        status={nameError ? "error" : "default"}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value;
+                                                            if (value.length > 20) {
+                                                                setNameError(true);
+                                                                Toast(false, "Name cannot exceed 20 characters");
+                                                            } else {
+                                                                setNameError(false);
+                                                            }
+                                                        }}
                                                     />
                                                     <Input
                                                         required
