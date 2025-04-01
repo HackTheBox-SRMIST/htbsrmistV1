@@ -61,59 +61,64 @@ const ContactUs = () => {
     };
 
     return (
-        <div>
+        <div className="min-h-screen flex flex-col">
             <Head>
                 <title>Contact Us | HTBSRMIST</title>
                 <link rel="icon" href="/favicon.svg" />
             </Head>
 
-            <ToastContainer />
-            <section className="mx-6 md:w-9/12 lg:w-6/12 text-center md:mx-auto flex flex-col space-y-6 p-4 md:p-12 border-htb-green/50 border-2 border-solid rounded-3xl md:mb-12 backdrop-blur-3xl  ">
-                <div className="flex justify-center items-center">
-                    <img src="./contact us.svg" className="h-8 md:h-16"></img>
-                </div>
+            <div className="flex justify-center items-center my-4 md:my-6 lg:my-8">
+                <img
+                    src="./contact us.svg"
+                    className="h-8 md:h-12 lg:h-16"
+                    alt="Contact Us"
+                />
+            </div>
 
-                {/* <p className="text-htb-green/50 text-lg">
-                    Hey, wanna have some chit chat with us. Feel free to reach
-                    out. New ideas, event collaborations, feedbacks, want to
-                    offer Bagel (so sweet of you) anything. We up for it. ;)
-                    (wink wink).
-                </p> */}
+            <ToastContainer />
+
+            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 lg:p-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-8 md:mb-12 shadow-lg">
                 <form
                     onSubmit={submitHandler}
-                    className="flex-col gap-y-5 flex"
+                    className="flex flex-col gap-3 sm:gap-4 md:gap-5"
                 >
-                    <div className="flex justify-between">
-                        <input
-                            id="firstName"
-                            name="name"
-                            type="text"
-                            autoComplete="name"
-                            required
-                            placeholder="First Name"
-                            className="w-[48%] p-3 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none"
-                        />
-                        <input
-                            id="lastName"
-                            name="name"
-                            type="text"
-                            autoComplete="name"
-                            required
-                            placeholder="Last Name"
-                            className="w-[48%] p-4 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none"
-                        />
+                    <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
+                        <div className="w-full sm:w-1/2 relative">
+                            <input
+                                id="firstName"
+                                name="firstName"
+                                type="text"
+                                autoComplete="given-name"
+                                required
+                                placeholder="First Name"
+                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            />
+                        </div>
+                        <div className="w-full sm:w-1/2 relative">
+                            <input
+                                id="lastName"
+                                name="lastName"
+                                type="text"
+                                autoComplete="family-name"
+                                required
+                                placeholder="Last Name"
+                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            />
+                        </div>
                     </div>
-                    <div className="">
+
+                    <div>
                         <input
                             id="email"
                             name="email"
-                            type="text"
+                            type="email"
                             autoComplete="email"
                             placeholder="Email"
                             required
-                            className="w-full p-4 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none"
+                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
+
                     <div className="flex flex-row">
                         <input
                             disabled
@@ -123,7 +128,7 @@ const ContactUs = () => {
                             defaultValue="+91"
                             autoComplete="countryCode"
                             placeholder="+91"
-                            className="flex-shrink md:w-16 w-12 pl-2 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
+                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
                         />
                         <input
                             id="number"
@@ -132,7 +137,7 @@ const ContactUs = () => {
                             required
                             autoComplete="phone"
                             placeholder="Contact Number"
-                            className="w-full p-4 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none"
+                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -143,16 +148,19 @@ const ContactUs = () => {
                             autoComplete="message"
                             required
                             placeholder="Message"
-                            className="w-full p-4 bg-[#131313] required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none"
+                            className="w-full p-4 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
                             rows={10}
                         ></textarea>
                     </div>
-                    <button
-                        type="submit"
-                        className="w-full bg-htb-green/50 hover:bg-htb-green py-2 font-normal text-lg"
-                    >
-                        SEND MESSAGE
-                    </button>
+
+                    <div className="flex justify-center mt-2 md:mt-4">
+                        <button
+                            type="submit"
+                            className="w-full sm:w-auto sm:min-w-[12rem] md:min-w-[16rem] px-4 py-2 md:py-3 bg-htb-green/50 hover:bg-htb-green transition-colors duration-300 font-medium text-base md:text-lg rounded-xl"
+                        >
+                            SEND MESSAGE
+                        </button>
+                    </div>
                 </form>
             </section>
         </div>
