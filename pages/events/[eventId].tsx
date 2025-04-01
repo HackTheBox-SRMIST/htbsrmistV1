@@ -539,7 +539,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             </div>
             <div className="speaker mt-10 font-share-tech text-center">
                 <p className="text-htb-green text-3xl md:text-6xl font-bold">
-                    Know Our Speakers
+                    Know Our Guest
                 </p>
 
                 <div
