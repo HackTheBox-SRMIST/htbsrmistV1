@@ -83,24 +83,28 @@ const ContactUs = () => {
                     className="flex flex-col gap-3 sm:gap-4 md:gap-5"
                 >
                     <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
-                        <input
-                            id="firstName"
-                            name="name"
-                            type="text"
-                            autoComplete="name"
-                            required
-                            placeholder="First Name"
-                            className="w-full sm:w-[48%] p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
-                        />
-                        <input
-                            id="lastName"
-                            name="name"
-                            type="text"
-                            autoComplete="name"
-                            required
-                            placeholder="Last Name"
-                            className="w-full sm:w-[48%] p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
-                        />
+                        <div className="w-full sm:w-1/2 relative">
+                            <input
+                                id="firstName"
+                                name="firstName"
+                                type="text"
+                                autoComplete="given-name"
+                                required
+                                placeholder="First Name"
+                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            />
+                        </div>
+                        <div className="w-full sm:w-1/2 relative">
+                            <input
+                                id="lastName"
+                                name="lastName"
+                                type="text"
+                                autoComplete="family-name"
+                                required
+                                placeholder="Last Name"
+                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            />
+                        </div>
                     </div>
 
                     <div>
@@ -111,7 +115,7 @@ const ContactUs = () => {
                             autoComplete="email"
                             placeholder="Email"
                             required
-                            className="w-full p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -124,7 +128,7 @@ const ContactUs = () => {
                             defaultValue="+91"
                             autoComplete="countryCode"
                             placeholder="+91"
-                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
+                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
                         />
                         <input
                             id="number"
@@ -133,7 +137,7 @@ const ContactUs = () => {
                             required
                             autoComplete="phone"
                             placeholder="Contact Number"
-                            className="w-full p-3 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
                         />
                     </div>
 
@@ -144,7 +148,7 @@ const ContactUs = () => {
                             autoComplete="message"
                             required
                             placeholder="Message"
-                            className="w-full p-4 bg-white/10 backdrop-blur-lg required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
+                            className="w-full p-4 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
                             rows={10}
                         ></textarea>
                     </div>
