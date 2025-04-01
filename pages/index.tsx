@@ -12,6 +12,7 @@ import homeArrow from "../public/homeArrow.png";
 import Logo from "../public/logo.png";
 import HowWeWork from "../components/HowWeWork";
 import Life from "../components/life";
+
 const Index: NextPage = () => {
     const posts = [""];
     return (
@@ -70,12 +71,30 @@ const Index: NextPage = () => {
                 </div>
             </div>
 
-            <HowWeWork />
+            <div className="work font-poopins flex flex-col">
+  <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-htb-green text-center">
+    How We Work
+  </p>
+
+  
+  <img
+    src="./work.svg"
+    className="hidden lg:block"
+  />
+  <img
+    src="./workmobile.svg"  
+    className="block lg:hidden"
+  />
+</div>
+
+
+
+           {/*  <HowWeWork />
             <br />
             <br />
             <br />
             <br />
-            <Life />
+            <Life /> */}
         </div>
     );
 };

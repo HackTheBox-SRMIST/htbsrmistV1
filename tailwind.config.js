@@ -24,7 +24,7 @@ module.exports = {
                 "share-tech": ["Share Tech", "sans-serif"]
             },
             backgroundImage: {
-                hackerfooter: "url('/bg.png')"
+                hackerfooter: "url('/bgblue.svg')"
             }
         }
     },

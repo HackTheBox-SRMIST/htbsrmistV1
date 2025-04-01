@@ -35,7 +35,7 @@ const HowWeWork: React.FC = () => {
           <Image src={DevImage} alt="Development" className="w-16 h-16" />
           <h3 className="text-lime-400 text-xl font-bold tracking-wide">
             &lt; Development / &gt;
-          </h3>
+          </h3> 
           <div className="border border-lime-400 text-sm p-4 rounded-lg max-w-[200px] text-white text-center font-semibold">
             Secure Coding, Red Team Tools, Cyber Apps
           </div>
