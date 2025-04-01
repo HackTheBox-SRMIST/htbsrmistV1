@@ -253,7 +253,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         <>
             <div className="suMain py-10">
                 <div className="mx-auto w-[90%] max-w-7xl font-share-tech px-6">
-                    <div className="border-[2px] border-htb-green rounded-2xl flex flex-col md:flex-row">
+                    <div className=" rounded-2xl flex flex-col md:flex-row">
                         <div className="md:w-1/2 w-full flex items-center justify-center p-4">
                             <div className="border-[2px] border-htb-green rounded-2xl p-2">
                                 <img
@@ -542,7 +542,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     Know Our Speakers
                 </p>
 
-                <div className="spkr mt-8 px-4 md:px-16 lg:px-32 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div
+                    className={`spkr mt-8 px-4 md:px-16 lg:px-32 grid gap-6 ${
+                        (event?.speakers_details?.length ?? 0) <= 2
+                            ? "grid-cols-1 sm:grid-cols-2 justify-center"
+                            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                    }`}
+                >
                     {event?.speakers_details?.map((guest, index) => (
                         <div
                             key={index}
@@ -553,7 +559,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             {guest.image && (
                                 <div className="w-full h-48 rounded-xl overflow-hidden flex items-center justify-center">
                                     <Image
-                                        src={guest.image || "/RecruitmentPoster.png"}
+                                        src={
+                                            guest.image
+                                        }
                                         alt={guest.name}
                                         width={250}
                                         height={250}
