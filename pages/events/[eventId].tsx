@@ -350,6 +350,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Name"
+                                            maxLength={21}
+                                            // helperText="Name cannot exceed 20 characters"
+                                            helperColor="error"
+                                            status={nameError ? "error" : "default"}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                if (value.length > 20) {
+                                                    setNameError(true);
+                                                    Toast(false, "Name cannot exceed 20 characters");
+                                                } else {
+                                                    setNameError(false);
+                                                }
+                                            }}
                                         />
                                         <Input
                                             required
