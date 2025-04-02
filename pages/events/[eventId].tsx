@@ -121,6 +121,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [type, setType] = useState("Please Select...");
     const [visible, setVisible] = React.useState(false);
     const [loadingCertificate, setLoadingCertificate] = useState(false);
+    const [nameError, setNameError] = React.useState(false);
+    const [emailError, setEmailError] = React.useState(false);
+    const [phoneError, setPhoneError] = React.useState(false);
 
     const [loadingSubmit, setLoadingSubmit] = useState(false);
 
@@ -222,6 +225,23 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         events.preventDefault();
 
         try {
+            const name = events.target.name.value;
+            if (name.length > 20) {
+                Toast(false, "Name cannot exceed 20 characters");
+                return;
+            }
+            const email = events.target.email.value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                Toast(false, "Invalid email");
+                return;
+            }
+            const phone = events.target.phn.value;
+            const phoneRegex = /^\d{10}$/;
+            if (!phoneRegex.test(phone)) {
+                Toast(false, "Invalid phone number");
+                return;
+            }
             const body = {
                 usn: events.target.usn.value,
                 phn: events.target.phn.value,
@@ -343,10 +363,23 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Name"
+                                            maxLength={21}
+                                            // helperText="Name cannot exceed 20 characters"
+                                            helperColor="error"
+                                            status={nameError ? "error" : "default"}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                if (value.length > 20) {
+                                                    setNameError(true);
+                                                    Toast(false, "Name cannot exceed 20 characters");
+                                                } else {
+                                                    setNameError(false);
+                                                }
+                                            }}
                                         />
                                         <Input
                                             required
-                                            type="text"
+                                            type="number"
                                             name="phn"
                                             clearable
                                             bordered
@@ -354,9 +387,17 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Phone Number"
-                                            // onChange={
-                                            //     changeUsnHandler
-                                            // }
+                                            helperColor="error"
+                                            status={phoneError ? "error" : "default"}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                if (value.length > 10) {
+                                                    setPhoneError(true);
+                                                    Toast(false, "Phone Number cannot exceed 10 digits");
+                                                } else {
+                                                    setPhoneError(false);
+                                                }
+                                            }}
                                         />
                                         <Input
                                             required
@@ -382,6 +423,17 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Email"
+                                            helperColor="error"
+                                            status={emailError ? "error" : "default"}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                                if (!emailRegex.test(value)) {
+                                                    setEmailError(true);
+                                                } else {
+                                                    setEmailError(false);
+                                                }
+                                            }}
                                         />
 
                                         <Input
@@ -584,7 +636,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
             <div className="prereq font-share-tech mb-10">
                 <p className="text-htb-green text-3xl sm:text-4xl md:text-5xl font-bold text-center my-6">
-                    Pre-Requites
+                    Pre-Requisites
                 </p>
                 <p className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
                     <ul className="list-disc list-inside">
@@ -712,6 +764,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                         color="primary"
                                                         size="lg"
                                                         placeholder="Name"
+                                                        maxLength={21}
+                                                        // helperText="Name cannot exceed 20 characters"
+                                                        helperColor="error"
+                                                        status={nameError ? "error" : "default"}
+                                                        onChange={(e) => {
+                                                            const value = e.target.value;
+                                                            if (value.length > 20) {
+                                                                setNameError(true);
+                                                                Toast(false, "Name cannot exceed 20 characters");
+                                                            } else {
+                                                                setNameError(false);
+                                                            }
+                                                        }}
                                                     />
                                                     <Input
                                                         required
