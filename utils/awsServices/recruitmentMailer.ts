@@ -241,7 +241,7 @@ export const sendRecruitmentMail = async (
                                                                                                                     </a>
                                                                                                                 </td>
                                                                                                                 <td align="center" valign="top" style="padding  :  0; margin  :  0; padding-right  :  20px;">
-                                                                                                                    <a target="_blank" href="https://x.com/htbsrmist" style="text-decoration :  underline; font-size :  16px; color :  rgb(60, 9, 108);">
+                                                                                                                    <a target="_blank" href="https://x.com/htbchennai" style="text-decoration :  underline; font-size :  16px; color :  rgb(60, 9, 108);">
                                                                                                                         <img src="https://eeevnci.stripocdn.email/content/assets/img/social-icons/circle-colored/x-circle-colored.png" alt="X" title="X.com" width="24" height="24" style="display :  block; border :  0px; outline :  none; text-decoration :  none;">
                                                                                                                     </a>
                                                                                                                 </td>
