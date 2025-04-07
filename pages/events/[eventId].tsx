@@ -391,11 +391,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             status={phoneError ? "error" : "default"}
                                             onChange={(e) => {
                                                 const value = e.target.value;
-                                                if (value.length > 10) {
-                                                    setPhoneError(true);
+                                                if (value.length > 11) {
+                                                    e.target.value = value.slice(0, 11);
+                                                }
+                                                setPhoneError(value.length !== 10);
+                                                if (value.length === 11) {
                                                     Toast(false, "Phone Number cannot exceed 10 digits");
-                                                } else {
-                                                    setPhoneError(false);
                                                 }
                                             }}
                                         />
