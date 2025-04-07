@@ -49,4 +49,3 @@ yarn-error.log*
 .flaskenv*
 !.env.project
 !.env.vault
-deploy-trigger.txt
