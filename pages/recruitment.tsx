@@ -153,7 +153,7 @@ const Recruitment: NextPage = () => {
                     <div className="mt-8 max-w-lg text-2xl">
                         <div>
                             <p className="text-htb-green max-md:text-center text2xl md:text-4xl font-black">
-                                RECRUITMENT '24
+                                RECRUITMENT '25
                             </p>
                             <p className="">
                                 <br />
@@ -179,7 +179,7 @@ const Recruitment: NextPage = () => {
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 //disabled={!event?.is_active}
                                 onClick={handlerReg}
-                                disabled
+                                // disabled
                             >
                                 REGISTER NOW
                             </button>
@@ -447,7 +447,7 @@ const Recruitment: NextPage = () => {
                 </div>
                 <div className="">
                     <img
-                        src="https://ik.imagekit.io/htbsrmist/Recruitments/Recruitment24v2.png?updatedAt=1727076535436"
+                        src="https://ik.imagekit.io/htbsrmist/Recruitments/Rec_25-26.png?updatedAt=1755971078244"
                         alt="Recruitments Poster"
                         className="h-[700px] max-md:h-[500px]"
                     />

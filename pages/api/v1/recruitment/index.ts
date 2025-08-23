@@ -32,14 +32,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             // Database instance and recruitment collection
             const dbInstance = await DBInstance.getInstance();
-            const recruitment24Collection = await dbInstance.getCollection(
-                "recruitment24v2"
+            const recruitment25Collection = await dbInstance.getCollection(
+                "recruitment25v2"
             );
 
+
             // Check for existing participant
-            const existingParticipant = await recruitment24Collection.findOne({
-                usn: usn
-            });
+            const existingParticipant = await recruitment25Collection.findOne({ usn: usn });
 
             if (existingParticipant) {
                 return res.status(201).json({
@@ -68,9 +67,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 ...additionalData
             };
 
-            const data = await recruitment24Collection.insertOne(
-                insertedParticipant
-            );
+            const data = await recruitment25Collection.insertOne(insertedParticipant);
 
             // Send confirmation email
             try {
@@ -93,19 +90,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             // Send a message to Discord via Webhook
             try {
                 const discordMessage = {
-                    content: `📢 **New Recruitment Registration**\n\n- **Name**: ${
-                        name ?? ""
-                    }\n- **USN**: ${usn ?? ""}\n- **Email**: ${
-                        email ?? ""
-                    }\n- **Phone**: ${phone ?? ""}\n- **Domain1**: ${
-                        domain1 ?? ""
-                    }\n- **Domain2**: ${domain2 ?? ""}\n- **LinkedIn**: ${
-                        linkedin ?? ""
-                    }\n- **Additional Link**: ${
-                        additionalLink ? additionalLink : "No additional link"
-                    }\n- **Resume**: [Link](${
-                        resume ? resume : "No resume provided"
-                    })`
+                    content: `📢 **New Recruitment Registration**\n\n- **Name**: ${name ?? ""
+                        }\n- **USN**: ${usn ?? ""}\n- **Email**: ${email ?? ""
+                        }\n- **Phone**: ${phone ?? ""}\n- **Domain1**: ${domain1 ?? ""
+                        }\n- **Domain2**: ${domain2 ?? ""}\n- **LinkedIn**: ${linkedin ?? ""
+                        }\n- **Additional Link**: ${additionalLink ? additionalLink : "No additional link"
+                        }\n- **Resume**: [Link](${resume ? resume : "No resume provided"
+                        })`
                 };
 
                 if (DISCORD_WEBHOOK) {
