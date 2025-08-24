@@ -54,8 +54,8 @@ const Recruitment: NextPage = () => {
                 if (value.length !== 15) {
                     return "Registration Number should be 15 characters long.";
                 }
-                if (!/^RA(23|24)/.test(value)) {
-                    return "Registration Number should start with RA23 or RA24.";
+                if (!/^RA(24|25)/.test(value)) {
+                    return "Registration Number should start with RA24 or RA25.";
                 }
                 break;
             case "email":
