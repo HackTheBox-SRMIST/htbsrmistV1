@@ -12,6 +12,7 @@ import homeArrow from "../public/homeArrow.png";
 import Logo from "../public/logo.png";
 import HowWeWork from "../components/HowWeWork";
 import Life from "../components/life";
+import Link from "next/link";
 
 const Index: NextPage = () => {
     const posts = [""];
@@ -29,11 +30,13 @@ const Index: NextPage = () => {
                             <p>Meetup: Chennai, IN</p>
                             <p>Supported by: SRMIST</p>
                         </p>
-                        <button className="text-[#141D2B] bg-htb-green px-5 py-1 inline-flex items-center justify-center mt-8 rounded-2xl hover:bg-htb-green opacity-100 hover:opacity-70 font-dm-sans">
-                            <p className="my-1.5 font-bold px-4 text-xl">
-                                Join Us
-                            </p>
-                        </button>
+                        <Link href="/recruitment">
+                            <button className="text-[#141D2B] bg-htb-green px-5 py-1 inline-flex items-center justify-center mt-8 rounded-2xl hover:bg-htb-green opacity-100 hover:opacity-70 font-dm-sans">
+                                <p className="my-1.5 font-bold px-4 text-xl">
+                                    Join Us
+                                </p>
+                            </button>
+                        </Link>
                     </div>
                 </div>
                 <div className="md:block hidden w-[400px]">
@@ -72,24 +75,24 @@ const Index: NextPage = () => {
             </div>
 
             <div className="work font-poopins flex flex-col">
-  <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-htb-green text-center">
-    How We Work
-  </p>
-
-  
-  <img
-    src="./work.svg"
-    className="hidden lg:block"
-  />
-  <img
-    src="./workmobile.svg"  
-    className="block lg:hidden"
-  />
-</div>
+                <p className="text-4xl md:text-5xl lg:text-6xl font-bold text-htb-green text-center">
+                    How We Work
+                </p>
 
 
+                <img
+                    src="./work.svg"
+                    className="hidden lg:block"
+                />
+                <img
+                    src="./workmobile.svg"
+                    className="block lg:hidden"
+                />
+            </div>
 
-           {/*  <HowWeWork />
+
+
+            {/*  <HowWeWork />
             <br />
             <br />
             <br />
