@@ -30,6 +30,7 @@ const Index: NextPage = () => {
                             <p>Meetup: Chennai, IN</p>
                             <p>Supported by: SRMIST</p>
                         </p>
+                        
                         <Link href="/recruitment">
                             <button className="text-[#141D2B] bg-htb-green px-5 py-1 inline-flex items-center justify-center mt-8 rounded-2xl hover:bg-htb-green opacity-100 hover:opacity-70 font-dm-sans">
                                 <p className="my-1.5 font-bold px-4 text-xl">
@@ -103,3 +104,4 @@ const Index: NextPage = () => {
 };
 
 export default Index;
+
