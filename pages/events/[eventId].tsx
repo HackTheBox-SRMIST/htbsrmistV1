@@ -115,6 +115,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
     const slug = event?.slug;
+    const registrationUrl = event?.registration_url?.trim();
+    const hasExternalRegistration = Boolean(registrationUrl);
+    const isRegistrationActive = Boolean(event?.is_active);
 
     const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState(null);
@@ -327,13 +330,33 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </p>
                                 </div>
                             </div>
-                            <button
-                                className="bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl"
-                                disabled={!event?.is_active}
-                                onClick={handlerReg}
-                            >
-                                Register Now
-                            </button>
+                            {hasExternalRegistration ? (
+                                <a
+                                    href={registrationUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-disabled={!isRegistrationActive}
+                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${
+                                        !isRegistrationActive
+                                            ? "pointer-events-none opacity-60"
+                                            : ""
+                                    }`}
+                                >
+                                    Register Now
+                                </a>
+                            ) : (
+                                <button
+                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${
+                                        !isRegistrationActive
+                                            ? "opacity-60"
+                                            : ""
+                                    }`}
+                                    disabled={!isRegistrationActive}
+                                    onClick={handlerReg}
+                                >
+                                    Register Now
+                                </button>
+                            )}
                             <Modal
                                 className="bg-htb-green"
                                 closeButton
@@ -366,12 +389,17 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             maxLength={21}
                                             // helperText="Name cannot exceed 20 characters"
                                             helperColor="error"
-                                            status={nameError ? "error" : "default"}
+                                            status={
+                                                nameError ? "error" : "default"
+                                            }
                                             onChange={(e) => {
                                                 const value = e.target.value;
                                                 if (value.length > 20) {
                                                     setNameError(true);
-                                                    Toast(false, "Name cannot exceed 20 characters");
+                                                    Toast(
+                                                        false,
+                                                        "Name cannot exceed 20 characters"
+                                                    );
                                                 } else {
                                                     setNameError(false);
                                                 }
@@ -388,15 +416,23 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             size="lg"
                                             placeholder="Phone Number"
                                             helperColor="error"
-                                            status={phoneError ? "error" : "default"}
+                                            status={
+                                                phoneError ? "error" : "default"
+                                            }
                                             onChange={(e) => {
                                                 const value = e.target.value;
                                                 if (value.length > 11) {
-                                                    e.target.value = value.slice(0, 11);
+                                                    e.target.value =
+                                                        value.slice(0, 11);
                                                 }
-                                                setPhoneError(value.length !== 10);
+                                                setPhoneError(
+                                                    value.length !== 10
+                                                );
                                                 if (value.length === 11) {
-                                                    Toast(false, "Phone Number cannot exceed 10 digits");
+                                                    Toast(
+                                                        false,
+                                                        "Phone Number cannot exceed 10 digits"
+                                                    );
                                                 }
                                             }}
                                         />
@@ -425,10 +461,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             size="lg"
                                             placeholder="Email"
                                             helperColor="error"
-                                            status={emailError ? "error" : "default"}
+                                            status={
+                                                emailError ? "error" : "default"
+                                            }
                                             onChange={(e) => {
                                                 const value = e.target.value;
-                                                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                                                const emailRegex =
+                                                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                                                 if (!emailRegex.test(value)) {
                                                     setEmailError(true);
                                                 } else {
@@ -612,9 +651,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             {guest.image && (
                                 <div className="w-full h-48 rounded-xl overflow-hidden flex items-center justify-center">
                                     <Image
-                                        src={
-                                            guest.image
-                                        }
+                                        src={guest.image}
                                         alt={guest.name}
                                         width={250}
                                         height={250}
