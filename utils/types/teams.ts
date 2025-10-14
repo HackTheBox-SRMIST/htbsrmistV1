@@ -4,9 +4,11 @@ export interface teamsDBSchema {
     index: number;
     name: string;
     domain: string;
-    position: string;
+    status: {
+        position: string;
+        joined: number;
+    }[];
     caption: string;
-    joined: number;
     pictureUrl: string;
     isCurrent: boolean;
     socials: {

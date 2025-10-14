@@ -7,6 +7,7 @@ import { useState } from "react";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
 import fs from "fs";
 import path from "path";
+import { DBInstance } from "../utils/db.connect";
 
 interface MemberProps {
     pictureUrl: string | undefined;
@@ -22,6 +23,7 @@ interface MemberProps {
         twitter: string | "";
         website: string | "";
     };
+    status: { position: string; joined: number }[];
 }
 
 interface TeamPageProps {
@@ -42,25 +44,50 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         "Development" | "Creatives" | "Corporate" | "Security"
     >("Development");
 
-    const [activeFilter, setActiveFilter] = useState<
-        "Current" | "2022" | "2021"
-    >("Current");
+    // compute available years from the full status arrays
+    const allYears: number[] = Array.from(
+        new Set(
+            members.flatMap((m) =>
+                Array.isArray(m.status) ? m.status.map((s) => s.joined) : []
+            )
+        )
+    ).sort((a, b) => b - a);
 
-    const [sortedMembers, setSortedMembers] = useState<MemberProps[]>(members);
+    const currentYear = new Date().getFullYear();
+    const maxYear =
+        allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
+    const yearsToShow = [maxYear, maxYear - 1];
 
-    const Creatives = sortedMembers.filter(
+    const [activeYear, setActiveYear] = useState<number>(maxYear);
+
+    // derive members for the currently selected year
+    const yearMembers: MemberProps[] = members
+        .map((m) => {
+            const statusEntry = Array.isArray(m.status)
+                ? m.status.find((s) => s.joined === activeYear)
+                : undefined;
+            if (!statusEntry) return null;
+            return {
+                ...m,
+                position: statusEntry.position,
+                joined: statusEntry.joined
+            } as MemberProps;
+        })
+        .filter(Boolean) as MemberProps[];
+
+    const Creatives = yearMembers.filter(
         (el) => el.domain === "Creatives" && el.position !== "Root"
     );
 
-    const Development = sortedMembers.filter(
+    const Development = yearMembers.filter(
         (el) => el.domain === "Development" && el.position !== "Root"
     );
 
-    const Corporate = sortedMembers.filter(
+    const Corporate = yearMembers.filter(
         (el) => el.domain === "Corporate" && el.position !== "Root"
     );
 
-    const Security = sortedMembers.filter(
+    const Security = yearMembers.filter(
         (el) => el.domain === "Cyber Security" && el.position !== "Root"
     );
 
@@ -99,26 +126,23 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         changeDomain(next);
     };
 
-    const sortMembersByYear = (year: number) => {
-        const filteredAndSorted = members
-            .filter((member) => member.joined === year)
-            .sort((a, b) => a.name.localeCompare(b.name));
-        setSortedMembers(filteredAndSorted);
-    };
-
-    const sortCurrentMembers = () => {
-        const filteredAndSorted = members
-            .filter((member) => member.isCurrent)
-            .sort((a, b) => a.name.localeCompare(b.name));
-        setSortedMembers(filteredAndSorted);
+    // helper to set active year (used by the year buttons)
+    const selectYear = (year: number) => {
+        setActiveYear(year);
     };
 
     /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
     // Combine Faculty Convenor and Co-Organizers into "Founders"
-    const founders = members.filter(
-        (mem) => mem.position === "Mainframe" || mem.position === "Kernel"
-    );
+    // check the full status array so founders remain constant across years
+    const founders = members.filter((mem) => {
+        if (Array.isArray(mem.status) && mem.status.length > 0) {
+            return mem.status.some(
+                (s) => s.position === "Mainframe" || s.position === "Kernel"
+            );
+        }
+        return mem.position === "Mainframe" || mem.position === "Kernel";
+    });
 
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
@@ -179,9 +203,28 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     </div>
                 </div>
 
-                {/* Admins and Other Roles */}
+                {/* Year selection buttons (show current max year and previous year) */}
+                <div className="flex justify-center items-center py-8 w-full">
+                    <div className="grid grid-cols-2 gap-10 w-full max-w-2xl">
+                        {yearsToShow.map((yr) => (
+                            <button
+                                key={yr}
+                                onClick={() => selectYear(yr)}
+                                className={`w-full py-2 md:py-3 px-4 ${
+                                    activeYear === yr
+                                        ? "bg-htb-green"
+                                        : "bg-htb-green/50 hover:bg-htb-green"
+                                } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                            >
+                                {yr}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Admins and Other Roles (use year-specific positions) */}
                 {hierarchy.map((el) => {
-                    const domainMembers = sortedMembers.filter(
+                    const domainMembers = yearMembers.filter(
                         (mem) => mem.position === el.name
                     );
                     return (
@@ -203,36 +246,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         </div>
                     );
                 })}
-                <div className="flex justify-center items-center py-8 w-full">
-                    <div className="grid grid-cols-3 gap-10 w-full max-w-2xl">
-                        <button
-                            onClick={() => {
-                                sortCurrentMembers();
-                                setActiveFilter("Current");
-                            }}
-                            className={`w-full py-2 md:py-3 px-4 ${
-                                activeFilter === "Current"
-                                    ? "bg-htb-green"
-                                    : "bg-htb-green/50 hover:bg-htb-green"
-                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
-                        >
-                            Current Team
-                        </button>
-                        <button
-                            disabled
-                            className="w-full py-2 md:py-3 px-4 bg-gray-500/50 text-gray-400 cursor-not-allowed font-medium text-sm sm:text-base md:text-lg rounded-full"
-                        >
-                            2022
-                        </button>
-                        <button
-                            disabled
-                            className="w-full py-2 md:py-3 px-4 bg-gray-500/50 text-gray-400 cursor-not-allowed font-medium text-sm sm:text-base md:text-lg rounded-full"
-                        >
-                            2021
-                        </button>
-                    </div>
-                </div>
-
                 <div className="flex justify-around items-start text-3xl text-htb-green gap-7 py-10 ">
                     <button
                         onClick={prevDomainChangeHandler}
@@ -343,11 +356,59 @@ export async function getServerSideProps(): Promise<
     GetServerSidePropsResult<TeamPageProps>
 > {
     try {
-        const data = await axios.get(`${url_root}/api/v1/teams/?current=true`);
-        const members: MemberProps[] = data.data.data;
+        // Connect to MongoDB and read the `teams` collection from `htb` database
+        const dbInstance = await DBInstance.getInstance();
+        const coll = await dbInstance.getCollection("teams", "htb");
+
+        const rawMembers = await coll.find({}).toArray();
+
+        // Map DB documents to MemberProps expected by the page
+        const members: MemberProps[] = rawMembers.map((m: any) => {
+            // pick the latest status entry (highest joined year)
+            let latest = { joined: 0, position: "" };
+            if (Array.isArray(m.status) && m.status.length > 0) {
+                // normalize joined values to numbers before reducing
+                const normalized = m.status.map((s: any) => ({
+                    position: s.position,
+                    joined: Number(s.joined)
+                }));
+                latest = normalized.reduce((prev: any, cur: any) => {
+                    return cur.joined > prev.joined ? cur : prev;
+                }, normalized[0]);
+            } else if (m.status && typeof m.status === "object") {
+                latest = {
+                    joined: Number(m.status.joined) || 0,
+                    position: m.status.position || ""
+                };
+            }
+
+            return {
+                pictureUrl: m.pictureUrl,
+                name: m.name,
+                isCurrent: Boolean(m.isCurrent),
+                joined: latest.joined || 0,
+                caption: m.caption || "",
+                position: latest.position || "",
+                domain: m.domain || "",
+                socials: {
+                    linkedin: (m.socials && m.socials.linkedin) || "",
+                    github: (m.socials && m.socials.github) || "",
+                    twitter: (m.socials && m.socials.twitter) || "",
+                    website: (m.socials && m.socials.website) || ""
+                },
+                status: Array.isArray(m.status)
+                    ? m.status.map((s: any) => ({
+                          position: s.position,
+                          joined: Number(s.joined)
+                      }))
+                    : []
+            } as MemberProps;
+        });
+
+        // production: no debug logs
+
         return { props: { members } };
     } catch (error) {
-        console.log(error);
         return { notFound: true };
     }
 }
