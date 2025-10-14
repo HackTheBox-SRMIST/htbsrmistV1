@@ -31,7 +31,7 @@ const Recruitment: NextPage = () => {
     const [additionalLink, setAdditionalLink] = useState<string>("");
     const [resume, setResume] = useState<string>("");
 
-    const [submitting, setSubmitting] = useState<boolean>(false); // Submitting state
+    const [submitting, setSubmitting] = useState<boolean>(false);
 
     const [errors, setErrors] = useState<{
         usn: string;
@@ -51,25 +51,34 @@ const Recruitment: NextPage = () => {
     const validateField = (name: string, value: string): string => {
         switch (name) {
             case "usn":
+                if (!value.trim()) {
+                    return "Registration Number is required.";
+                }
                 if (value.length !== 15) {
                     return "Registration Number should be 15 characters long.";
                 }
-                if (!/^RA(23|24)/.test(value)) {
-                    return "Registration Number should start with RA23 or RA24.";
+                if (!/^RA(24|25)/.test(value)) {
+                    return "Registration Number should start with RA24 or RA25.";
                 }
                 break;
             case "email":
+                if (!value.trim()) {
+                    return "Email is required.";
+                }
                 if (!value.endsWith("@srmist.edu.in")) {
                     return "Please enter a valid SRM mail ID (@srmist.edu.in).";
                 }
                 break;
             case "phone":
+                if (!value.trim()) {
+                    return "Phone number is required.";
+                }
                 if (!/^\d{10}$/.test(value)) {
                     return "Phone number should be 10 digits.";
                 }
                 break;
             case "domain":
-                if (domain1 === domain2) {
+                if (domain1 && domain2 && domain1 === domain2) {
                     return "First and second domain preferences cannot be the same.";
                 }
                 break;
@@ -83,41 +92,101 @@ const Recruitment: NextPage = () => {
         const { name, value } = e.target;
         const error = validateField(name, value);
         setErrors((prev) => ({ ...prev, [name]: error }));
-        if (error) {
-            Toast(false, error);
+        // Don't show toast on blur, only on submit
+    };
+
+    // Validate domain selection separately
+    const validateDomains = (): string => {
+        if (!domain1.trim()) {
+            return "Please select your first domain preference.";
         }
+        if (domain1 && domain2 && domain1 === domain2) {
+            return "First and second domain preferences cannot be the same.";
+        }
+        return "";
+    };
+
+    const validateAllFields = (): boolean => {
+        const usnError = validateField("usn", usn);
+        const emailError = validateField("email", email);
+        const phoneError = validateField("phone", phone);
+        const domainError = validateDomains();
+        
+        // Check for required fields
+        let nameError = "";
+        let linkedinError = "";
+        
+        if (!name.trim()) {
+            nameError = "Name is required.";
+        }
+        
+        if (!linkedin.trim()) {
+            linkedinError = "LinkedIn profile is required.";
+        }
+
+        const newErrors = {
+            usn: usnError,
+            email: emailError,
+            phone: phoneError,
+            domain: domainError
+        };
+
+        setErrors(newErrors);
+
+        // Show specific error messages
+        if (usnError) Toast(false, usnError);
+        if (nameError) Toast(false, nameError);
+        if (emailError) Toast(false, emailError);
+        if (phoneError) Toast(false, phoneError);
+        if (domainError) Toast(false, domainError);
+        if (linkedinError) Toast(false, linkedinError);
+
+        return !usnError && !nameError && !emailError && !phoneError && !domainError && !linkedinError;
+    };
+
+    const resetForm = () => {
+        setUsn("");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setDomain1("");
+        setDomain2("");
+        setLinkedin("");
+        setAdditionalLink("");
+        setResume("");
+        setErrors({
+            usn: "",
+            email: "",
+            phone: "",
+            domain: ""
+        });
     };
 
     const submitHandler = async (events: React.FormEvent<HTMLFormElement>) => {
         events.preventDefault();
+        
+        // Prevent multiple submissions
+        if (submitting) return;
+        
         setSubmitting(true);
 
         try {
-            const usnError = validateField("usn", usn);
-            const emailError = validateField("email", email);
-            const phoneError = validateField("phone", phone);
-            const domainError = validateField("domain", domain1);
-
-            if (usnError || emailError || phoneError || domainError) {
-                setErrors({
-                    usn: usnError,
-                    email: emailError,
-                    phone: phoneError,
-                    domain: domainError
-                });
-                // throw new Error("Please correct the errors before submitting.");
+            // Validate all fields before submission
+            if (!validateAllFields()) {
+                setSubmitting(false);
+                return;
             }
 
             const body = {
-                usn,
-                name,
-                email: email.toLowerCase(),
-                phone,
-                domain1,
-                domain2,
-                linkedin,
-                additionalLink,
-                resume
+                usn: usn.trim(),
+                name: name.trim(),
+                email: email.toLowerCase().trim(),
+                phone: phone.trim(),
+                domain1: domain1.trim(),
+                domain2: domain2.trim(),
+                linkedin: linkedin.trim(),
+                additionalLink: additionalLink.trim(),
+                resume: resume.trim()
             };
 
             const response = await axios.post(`/api/v1/recruitment`, body);
@@ -125,21 +194,26 @@ const Recruitment: NextPage = () => {
 
             if (response.status === 200) {
                 Toast(true, result);
+                resetForm(); // Reset form on successful submission
+                closeHandlerReg(); // Close modal on success
             } else {
                 Toast(false, result);
             }
         } catch (err: any) {
-            let errorMessage = "An error occurred.";
+            let errorMessage = "An error occurred while submitting the form.";
 
-            if (err.message) {
+            if (err.response?.status === 201) {
+                // Handle duplicate entry specifically
+                errorMessage = err.response.data.message || "You have already registered for this recruitment.";
+            } else if (err.response?.data?.message) {
+                errorMessage = err.response.data.message;
+            } else if (err.message) {
                 errorMessage = err.message;
-            } else if (err.response) {
-                errorMessage = err.response.data.message || errorMessage;
             }
 
             Toast(false, errorMessage);
         } finally {
-            setSubmitting(false); // Reset submitting state
+            setSubmitting(false);
         }
     };
 
@@ -153,7 +227,7 @@ const Recruitment: NextPage = () => {
                     <div className="mt-8 max-w-lg text-2xl">
                         <div>
                             <p className="text-htb-green max-md:text-center text2xl md:text-4xl font-black">
-                                RECRUITMENT '24
+                                RECRUITMENT '25
                             </p>
                             <p className="">
                                 <br />
@@ -177,7 +251,6 @@ const Recruitment: NextPage = () => {
                         <div>
                             <button
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
-                                //disabled={!event?.is_active}
                                 onClick={handlerReg}
                                 disabled
                             >
@@ -206,6 +279,7 @@ const Recruitment: NextPage = () => {
                                             required
                                             type="text"
                                             name="usn"
+                                            value={usn}
                                             clearable
                                             bordered
                                             fullWidth
@@ -224,6 +298,7 @@ const Recruitment: NextPage = () => {
                                             required
                                             type="text"
                                             name="name"
+                                            value={name}
                                             clearable
                                             bordered
                                             fullWidth
@@ -238,6 +313,7 @@ const Recruitment: NextPage = () => {
                                             required
                                             type="email"
                                             name="email"
+                                            value={email}
                                             clearable
                                             bordered
                                             fullWidth
@@ -258,6 +334,7 @@ const Recruitment: NextPage = () => {
                                             required
                                             type="tel"
                                             name="phone"
+                                            value={phone}
                                             clearable
                                             bordered
                                             fullWidth
@@ -280,9 +357,13 @@ const Recruitment: NextPage = () => {
                                         <Radio.Group
                                             isRequired
                                             value={domain1}
-                                            onChange={(value) =>
-                                                setDomain1(value)
-                                            }
+                                            onChange={(value) => {
+                                                setDomain1(value);
+                                                // Clear domain error when selection is made
+                                                if (errors.domain) {
+                                                    setErrors(prev => ({...prev, domain: ""}));
+                                                }
+                                            }}
                                             name="domain1"
                                             orientation="horizontal"
                                         >
@@ -324,9 +405,13 @@ const Recruitment: NextPage = () => {
 
                                         <Radio.Group
                                             value={domain2}
-                                            onChange={(value) =>
-                                                setDomain2(value)
-                                            }
+                                            onChange={(value) => {
+                                                setDomain2(value);
+                                                // Clear domain error when selection changes
+                                                if (errors.domain) {
+                                                    setErrors(prev => ({...prev, domain: ""}));
+                                                }
+                                            }}
                                             name="domain2"
                                             orientation="horizontal"
                                         >
@@ -366,6 +451,7 @@ const Recruitment: NextPage = () => {
                                             required
                                             type="text"
                                             name="linkedin"
+                                            value={linkedin}
                                             clearable
                                             bordered
                                             fullWidth
@@ -376,24 +462,10 @@ const Recruitment: NextPage = () => {
                                                 setLinkedin(e.target.value)
                                             }
                                         />
-                                        {/* <Input
-                                            required
-                                            type="text"
-                                            name="htbProfile"
-                                            clearable
-                                            bordered
-                                            fullWidth
-                                            color="primary"
-                                            size="lg"
-                                            placeholder="HackTheBox Profile"
-                                            onChange={(e) =>
-                                                setHtbProfile(e.target.value)
-                                            }
-                                        /> */}
                                         <Input
-                                            // required
                                             type="text"
                                             name="additionalLink"
+                                            value={additionalLink}
                                             clearable
                                             bordered
                                             fullWidth
@@ -407,9 +479,9 @@ const Recruitment: NextPage = () => {
                                             }
                                         />
                                         <Input
-                                            // required
                                             type="text"
                                             name="resume"
+                                            value={resume}
                                             clearable
                                             bordered
                                             fullWidth
@@ -432,7 +504,7 @@ const Recruitment: NextPage = () => {
 
                                         <button
                                             type="submit"
-                                            className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
+                                            className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 disabled:opacity-50 disabled:cursor-not-allowed"
                                             disabled={submitting}
                                         >
                                             {submitting
@@ -447,7 +519,7 @@ const Recruitment: NextPage = () => {
                 </div>
                 <div className="">
                     <img
-                        src="https://ik.imagekit.io/htbsrmist/Recruitments/Recruitment24v2.png?updatedAt=1727076535436"
+                        src="https://ik.imagekit.io/htbsrmist/Recruitments/Rec_25-26.png?updatedAt=1755971078244"
                         alt="Recruitments Poster"
                         className="h-[700px] max-md:h-[500px]"
                     />
