@@ -62,10 +62,17 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     // derive members for the currently selected year
     const yearMembers: MemberProps[] = members
+        .filter((m) => m.isCurrent !== false) // ✅ hide inactive members
         .map((m) => {
-            const statusEntry = Array.isArray(m.status)
-                ? m.status.find((s) => s.joined === activeYear)
-                : undefined;
+            let statusEntry = undefined;
+            if (Array.isArray(m.status) && m.status.length > 0) {
+                statusEntry = m.status.find(
+                    (s) => Number(s.joined) === Number(activeYear)
+                );
+            } else if (Number(m.joined) === Number(activeYear)) {
+                statusEntry = { position: m.position, joined: m.joined };
+            }
+
             if (!statusEntry) return null;
             return {
                 ...m,
@@ -135,14 +142,22 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     // Combine Faculty Convenor and Co-Organizers into "Founders"
     // check the full status array so founders remain constant across years
-    const founders = members.filter((mem) => {
-        if (Array.isArray(mem.status) && mem.status.length > 0) {
-            return mem.status.some(
-                (s) => s.position === "Mainframe" || s.position === "Kernel"
+    const founders = members
+        .filter((mem) => {
+            return (
+                mem.joined === 2022 &&
+                (mem.position === "Mainframe" || mem.position === "Kernel")
             );
-        }
-        return mem.position === "Mainframe" || mem.position === "Kernel";
-    });
+        })
+        .sort((a, b) => {
+            if (a.position === "Mainframe" && b.position !== "Mainframe") {
+                return -1;
+            }
+            if (a.position !== "Mainframe" && b.position === "Mainframe") {
+                return 1;
+            }
+            return 0;
+        });
 
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
@@ -178,54 +193,50 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 </div>
             </div>
 
+            {/* Founders Section (Always Visible Above Year Buttons) */}
+            <div className="flex flex-col justify-center items-center text-center py-12">
+                <Roles role="Founders" />
+                <div className="flex justify-center items-start flex-wrap gap-5">
+                    {founders.map((mem) => (
+                        <Member
+                            key={mem.name}
+                            name={mem.name}
+                            image={mem.pictureUrl}
+                            position={mem.position}
+                            caption={mem.caption}
+                            domain={mem.domain}
+                            socials={mem.socials}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            {/* Year selection buttons BELOW Founders */}
+            <div className="flex justify-center items-center py-8 w-full">
+                <div className="flex flex-wrap justify-center gap-2 w-full max-w-md mx-auto px-4">
+                    {yearsToShow.map((yr) => (
+                        <button
+                            key={yr}
+                            onClick={() => selectYear(yr)}
+                            className={`flex-grow py-2 md:py-3 px-4 ${
+                                activeYear === yr
+                                    ? "bg-htb-green"
+                                    : "bg-htb-green/50 hover:bg-htb-green"
+                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                        >
+                            {yr}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <div className="flex flex-col justify-center items-center text-center">
-                {/* Founders Section */}
-                <div className="py-12">
-                    <Roles role="Founders" />
-                    <div className="flex justify-center items-start flex-wrap gap-5">
-                        {members
-                            .filter(
-                                (mem) =>
-                                    mem.position === "Mainframe" ||
-                                    mem.position === "Kernel"
-                            )
-                            .map((mem) => (
-                                <Member
-                                    key={mem.name}
-                                    name={mem.name}
-                                    image={mem.pictureUrl}
-                                    position={mem.position}
-                                    caption={mem.caption}
-                                    domain={mem.domain}
-                                    socials={mem.socials}
-                                />
-                            ))}
-                    </div>
-                </div>
-
-                {/* Year selection buttons (show current max year and previous year) */}
-                <div className="flex justify-center items-center py-8 w-full">
-                    <div className="grid grid-cols-2 gap-10 w-full max-w-2xl">
-                        {yearsToShow.map((yr) => (
-                            <button
-                                key={yr}
-                                onClick={() => selectYear(yr)}
-                                className={`w-full py-2 md:py-3 px-4 ${
-                                    activeYear === yr
-                                        ? "bg-htb-green"
-                                        : "bg-htb-green/50 hover:bg-htb-green"
-                                } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
-                            >
-                                {yr}
-                            </button>
-                        ))}
-                    </div>
-                </div>
-
                 {/* Admins and Other Roles (use year-specific positions) */}
                 {hierarchy.map((el) => {
                     const domainMembers = yearMembers.filter(
-                        (mem) => mem.position === el.name
+                        (mem) =>
+                            mem.position === el.name &&
+                            mem.joined === activeYear
                     );
                     return (
                         <div key={el.role} className="py-10">
@@ -358,37 +369,46 @@ export async function getServerSideProps(): Promise<
     try {
         // Connect to MongoDB and read the `teams` collection from `htb` database
         const dbInstance = await DBInstance.getInstance();
-        const coll = await dbInstance.getCollection("teams", "htb");
+        const coll = await dbInstance.getCollection("teams", "htbsrmist");
 
         const rawMembers = await coll.find({}).toArray();
 
         // Map DB documents to MemberProps expected by the page
         const members: MemberProps[] = rawMembers.map((m: any) => {
             // pick the latest status entry (highest joined year)
-            let latest = { joined: 0, position: "" };
+            let memberJoined: number = Number(m.joined) || 0;
+            let memberPosition: string = m.position || "";
+            let memberStatus: { position: string; joined: number }[] = [];
             if (Array.isArray(m.status) && m.status.length > 0) {
-                // normalize joined values to numbers before reducing
-                const normalized = m.status.map((s: any) => ({
+                memberStatus = m.status.map((s: any) => ({
                     position: s.position,
                     joined: Number(s.joined)
                 }));
-                latest = normalized.reduce((prev: any, cur: any) => {
+                // Find the latest status entry to set top-level joined and position
+                const latestStatus = memberStatus.reduce((prev, cur) => {
                     return cur.joined > prev.joined ? cur : prev;
-                }, normalized[0]);
+                }, memberStatus[0]);
+                memberJoined = latestStatus.joined;
+                memberPosition = latestStatus.position;
             } else if (m.status && typeof m.status === "object") {
-                latest = {
-                    joined: Number(m.status.joined) || 0,
-                    position: m.status.position || ""
-                };
+                // If status is a single object, use it for top-level joined/position and create a status array with it
+                memberJoined = Number(m.status.joined) || 0;
+                memberPosition = m.status.position || "";
+                memberStatus = [
+                    { position: memberPosition, joined: memberJoined }
+                ];
             }
+            // If m.status is not present or not an array/object, memberJoined and memberPosition
+            // will already be set from m.joined and m.position at the beginning.
+            // memberStatus will remain empty, which is fine for founders.
 
             return {
                 pictureUrl: m.pictureUrl,
                 name: m.name,
                 isCurrent: Boolean(m.isCurrent),
-                joined: latest.joined || 0,
+                joined: memberJoined,
                 caption: m.caption || "",
-                position: latest.position || "",
+                position: memberPosition,
                 domain: m.domain || "",
                 socials: {
                     linkedin: (m.socials && m.socials.linkedin) || "",
@@ -396,12 +416,7 @@ export async function getServerSideProps(): Promise<
                     twitter: (m.socials && m.socials.twitter) || "",
                     website: (m.socials && m.socials.website) || ""
                 },
-                status: Array.isArray(m.status)
-                    ? m.status.map((s: any) => ({
-                          position: s.position,
-                          joined: Number(s.joined)
-                      }))
-                    : []
+                status: memberStatus
             } as MemberProps;
         });
 
