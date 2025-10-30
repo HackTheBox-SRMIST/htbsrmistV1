@@ -138,7 +138,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         setActiveYear(year);
     };
 
-    /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
+
 
     // Combine Faculty Convenor and Co-Organizers into "Founders"
     // check the full status array so founders remain constant across years
@@ -429,3 +429,4 @@ export async function getServerSideProps(): Promise<
 }
 
 export default Team;
+
