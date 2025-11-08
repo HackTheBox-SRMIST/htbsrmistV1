@@ -56,7 +56,11 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
+
     const yearsToShow = [maxYear, maxYear - 1, maxYear - 2]; // ✅ Added 2023 support
+
+    const yearsToShow = [maxYear, maxYear - 1];
+
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -137,8 +141,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const selectYear = (year: number) => {
         setActiveYear(year);
     };
-
-    /*mongodb+srv://dev:BauDVfvjLpSM6Dad@cluster0.vemef.mongodb.net/?retryWrites=true&w=majority*/
 
     // Combine Faculty Convenor and Co-Organizers into "Founders"
     // check the full status array so founders remain constant across years
@@ -231,6 +233,19 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             </button>
                         )
                     )}
+                    {yearsToShow.map((yr) => (
+                        <button
+                            key={yr}
+                            onClick={() => selectYear(yr)}
+                            className={`flex-grow py-2 md:py-3 px-4 ${
+                                activeYear === yr
+                                    ? "bg-htb-green"
+                                    : "bg-htb-green/50 hover:bg-htb-green"
+                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                        >
+                            {yr}
+                        </button>
+                    ))}
                 </div>
             </div>
 
