@@ -56,7 +56,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
-    const yearsToShow = [maxYear, maxYear - 1];
+    const yearsToShow = allYears;
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -429,3 +429,4 @@ export async function getServerSideProps(): Promise<
 }
 
 export default Team;
+
