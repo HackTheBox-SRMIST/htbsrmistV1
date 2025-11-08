@@ -56,7 +56,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
-    const yearsToShow = [maxYear, maxYear - 1];
+    const yearsToShow = [maxYear, maxYear - 1, maxYear - 2]; // ✅ Added 2023 support
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -214,19 +214,23 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             {/* Year selection buttons BELOW Founders */}
             <div className="flex justify-center items-center py-8 w-full">
                 <div className="flex flex-wrap justify-center gap-2 w-full max-w-md mx-auto px-4">
-                    {yearsToShow.map((yr) => (
-                        <button
-                            key={yr}
-                            onClick={() => selectYear(yr)}
-                            className={`flex-grow py-2 md:py-3 px-4 ${
-                                activeYear === yr
-                                    ? "bg-htb-green"
-                                    : "bg-htb-green/50 hover:bg-htb-green"
-                            } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
-                        >
-                            {yr}
-                        </button>
-                    ))}
+                    {yearsToShow.map(
+                        (
+                            yr // ✅ 2023 button automatically generated with same logic
+                        ) => (
+                            <button
+                                key={yr}
+                                onClick={() => selectYear(yr)}
+                                className={`flex-grow py-2 md:py-3 px-4 ${
+                                    activeYear === yr
+                                        ? "bg-htb-green"
+                                        : "bg-htb-green/50 hover:bg-htb-green"
+                                } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
+                            >
+                                {yr}
+                            </button>
+                        )
+                    )}
                 </div>
             </div>
 
