@@ -164,7 +164,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 <div
                     className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-90 transition-opacity duration-500 z-10"
                     style={{
-                        backgroundImage: "url('/team.JPG')"
+                        backgroundImage: "url('/team2026.JPG')"
                     }}
                 ></div>
                 <div className="relative opacity-100 group-hover:opacity-0 transform group-hover:scale-110 transition-all duration-500 z-30">
