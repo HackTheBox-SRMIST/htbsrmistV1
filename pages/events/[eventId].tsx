@@ -679,19 +679,26 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-export async function getServerSideProps(): Promise<
-    GetServerSidePropsResult<EventsPageProps>
-> {
-    try {
-        const { data: events } = await (
-            await fetch(`${url_root}/api/v1/events`)
-        ).json();
+export async function getServerSideProps() {
+  try {
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
 
-        return { props: { events } };
-    } catch (error) {
-        console.log(error);
-        return { notFound: true };
-    }
+    const res = await fetch(`${baseUrl}/api/v1/events`);
+    const { data: events } = await res.json();
+
+    return {
+      props: { events }
+    };
+
+  } catch (error) {
+    console.log(error);
+
+    return {
+      notFound: true
+    };
+  }
 }
 
 export default Event;
