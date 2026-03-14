@@ -152,12 +152,16 @@ const Toast = (success: any, message: any) => {
     });
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root =
+  process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
+    // const event = events.find((event) => event.slug === eventId);
     const slug = event?.slug;
     const registrationUrl = event?.registration_url?.trim();
     const hasExternalRegistration = Boolean(registrationUrl);
@@ -228,7 +232,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             const lowercaseEmail = email.toLowerCase();
             setLoadingCertificate(true);
             const values = { email: lowercaseEmail, type: type.toLowerCase(), event: slug };
-            const response = await axios.post(`/api/v1/certificates/`, values);
+            const response = await axios.post(`/api/v1/certificates`, values);
             setCertificate(response.data.certificate);
             Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
