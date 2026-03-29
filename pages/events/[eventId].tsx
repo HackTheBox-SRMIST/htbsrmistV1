@@ -1226,7 +1226,6 @@
 
 // export default Event;
 
-
 import type { NextPage, GetServerSidePropsResult } from "next";
 import React, { useState, useEffect, useRef } from "react";
 import { Modal, Input, Radio } from "@nextui-org/react";
@@ -1236,7 +1235,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GiCrossMark } from "react-icons/gi";
-import Image from "next/image";
 
 interface EventProps {
     event_name: string;
@@ -1280,7 +1278,6 @@ const styles = {
     option: (provided: any, state: any) => ({
         ...provided,
         fontWeight: state.isSelected ? "bold" : "normal",
-        color: "#0a0f1a",
         background: state.isFocused ? "#9FEF00" : "#1a2535",
         color: state.isFocused ? "#0a0f1a" : "#9FEF00",
         fontSize: state.selectProps.myFontSize,
@@ -1317,14 +1314,12 @@ const url_root =
         ? `https://${process.env.VERCEL_URL}`
         : "http://localhost:3000";
 
-// Animated glitch text component
 const GlitchText = ({ text, className }: { text: string; className?: string }) => (
     <span className={`glitch-text relative inline-block ${className || ""}`} data-text={text}>
         {text}
     </span>
 );
 
-// Hex grid background SVG
 const HexBackground = () => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -1339,7 +1334,6 @@ const HexBackground = () => (
     </div>
 );
 
-// Scan line effect
 const ScanLines = () => (
     <div className="pointer-events-none fixed inset-0 z-[1] opacity-[0.03]"
         style={{ backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.5) 2px, rgba(0,0,0,0.5) 4px)" }} />
@@ -1371,7 +1365,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     useEffect(() => {
         setMounted(true);
-        // Terminal typing effect
         const fullText = `> INITIALIZING EVENT_PORTAL...\n> LOADING ${event?.event_name?.toUpperCase() || "EVENT"}...\n> STATUS: ${isRegistrationActive ? "ACTIVE" : "ARCHIVED"}\n> ACCESS GRANTED ✓`;
         let i = 0;
         const interval = setInterval(() => {
@@ -1447,7 +1440,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             if (!emailRegex.test(email)) { Toast(false, "Invalid email"); return; }
             const phone = events.target.phn.value;
             if (!/^\d{10}$/.test(phone)) { Toast(false, "Invalid phone number"); return; }
-            const body = { usn: events.target.usn.value, phn: phone, name, email: email.toLowerCase(), dept: events.target.dept.value, isSrmite, event_name: event?.event_name };
+            const body = {
+                usn: events.target.usn.value,
+                phn: phone,
+                name,
+                email: email.toLowerCase(),
+                dept: events.target.dept.value,
+                isSrmite,
+                event_name: event?.event_name
+            };
             const response = await axios.post(`/api/v1/events/registration`, body);
             Toast(true, response.data.message);
         } catch (err: any) {
@@ -1740,22 +1741,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     100% { transform: scaleX(1); opacity: 0; }
                 }
 
-                .particle {
-                    position: absolute;
-                    width: 2px;
-                    height: 2px;
-                    background: var(--htb-green);
-                    border-radius: 50%;
-                    animation: float linear infinite;
-                    opacity: 0;
-                }
-                @keyframes float {
-                    0% { transform: translateY(0) translateX(0); opacity: 0; }
-                    10% { opacity: 0.6; }
-                    90% { opacity: 0.2; }
-                    100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
-                }
-
                 .fadeup {
                     animation: fadeUp 0.7s ease forwards;
                     opacity: 0;
@@ -1777,7 +1762,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             {/* Hero Section */}
             <section style={{ background: "var(--bg-deep)", position: "relative", overflow: "hidden", paddingTop: "60px", paddingBottom: "60px" }}>
                 <HexBackground />
-                {/* Ambient glow */}
                 <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(159,239,0,0.04) 0%, transparent 65%)", pointerEvents: "none" }} />
                 <div style={{ position: "absolute", bottom: "0", left: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(0,255,255,0.03) 0%, transparent 65%)", pointerEvents: "none" }} />
 
@@ -1802,14 +1786,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         <div className="fadeup delay-1">
                             <div className="poster-frame" style={{ display: "inline-block", width: "100%" }}>
                                 <div style={{ background: "var(--bg-card)", border: "1px solid rgba(159,239,0,0.2)", overflow: "hidden", position: "relative" }}>
-                                    {/* Top scan bar */}
                                     <div className="progress-bar" />
                                     <img
                                         src={event?.poster_url}
                                         alt={event?.event_name}
                                         style={{ width: "100%", maxHeight: "520px", objectFit: "contain", display: "block", filter: "contrast(1.05) saturate(1.1)" }}
                                     />
-                                    {/* Corner decorators */}
                                     <div style={{ position: "absolute", top: "12px", right: "12px", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#9FEF00", opacity: 0.5 }}>
                                         {`[${event?.event_name?.slice(0, 6).toUpperCase()}]`}
                                     </div>
@@ -1819,7 +1801,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
                         {/* Right: Info */}
                         <div className="fadeup delay-2" style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-                            {/* Event title */}
                             <div>
                                 <div className="section-label">Event</div>
                                 <h1 style={{ fontFamily: "'Orbitron', monospace", fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#9FEF00", lineHeight: 1.1, margin: 0, letterSpacing: "0.02em" }}>
@@ -1829,7 +1810,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
                             {/* Stats grid */}
                             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "8px" }}>
-                                {/* Venue */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1842,7 +1822,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                 </div>
 
-                                {/* Date */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1855,7 +1834,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                 </div>
 
-                                {/* Cost */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1937,7 +1915,18 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 <div key={index} className="speaker-card">
                                     {guest.image && (
                                         <div style={{ height: "200px", overflow: "hidden", position: "relative" }}>
-                                            <Image src={guest.image} alt={guest.name} width={400} height={200} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(20%)" }} />
+                                            {/* ✅ Plain img tag — avoids next/image style prop type error */}
+                                            <img
+                                                src={guest.image}
+                                                alt={guest.name}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                    filter: "grayscale(20%)",
+                                                    display: "block"
+                                                }}
+                                            />
                                             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(14,20,32,0.9) 0%, transparent 60%)" }} />
                                             <div style={{ position: "absolute", top: "10px", right: "10px", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#9FEF00", opacity: 0.6 }}>
                                                 {`[SYS_${(index + 1).toString().padStart(2, "0")}]`}
@@ -1975,6 +1964,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                     </div>
                 </section>
             )}
+
             {/* Gallery Section */}
             {(event?.gallery?.length ?? 0) > 0 && (
                 <section style={{ background: "var(--bg-deep)", padding: "80px 0", borderTop: "1px solid var(--border-subtle)", position: "relative", overflow: "hidden" }}>
@@ -1996,7 +1986,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             {event?.gallery?.map((imgUrl, index) => (
                                 <div
                                     key={index}
-                                    className="group"
                                     style={{
                                         position: "relative",
                                         overflow: "hidden",
@@ -2008,7 +1997,6 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     onMouseOut={(e) => (e.currentTarget.style.borderColor = "var(--border-subtle)")}
                                     onClick={() => window.open(imgUrl, "_blank")}
                                 >
-                                    {/* Corner tag */}
                                     <div style={{
                                         position: "absolute", top: "8px", left: "8px", zIndex: 2,
                                         fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem",
@@ -2039,15 +2027,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         }}
                                     />
 
-                                    {/* Hover overlay */}
                                     <div style={{
                                         position: "absolute", inset: 0,
                                         background: "linear-gradient(to top, rgba(10,15,26,0.7) 0%, transparent 60%)",
-                                        opacity: 0, transition: "opacity 0.3s"
-                                    }}
-                                        onMouseOver={(e) => (e.currentTarget.style.opacity = "1")}
-                                        onMouseOut={(e) => (e.currentTarget.style.opacity = "0")}
-                                    />
+                                        opacity: 0, transition: "opacity 0.3s",
+                                        pointerEvents: "none"
+                                    }} />
                                 </div>
                             ))}
                         </div>
@@ -2059,9 +2044,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             {visible && (
                 <div className="cert-modal-overlay">
                     <div className="cert-modal">
-                        <button onClick={closeHandler} style={{ position: "absolute", top: "16px", right: "16px", background: "none", border: "none", color: "#4a5568", cursor: "pointer", padding: "4px", display: "flex", transition: "color 0.2s" }}
+                        <button
+                            onClick={closeHandler}
+                            style={{ position: "absolute", top: "16px", right: "16px", background: "none", border: "none", color: "#4a5568", cursor: "pointer", padding: "4px", display: "flex", transition: "color 0.2s" }}
                             onMouseOver={(e) => (e.currentTarget.style.color = "#ff4444")}
-                            onMouseOut={(e) => (e.currentTarget.style.color = "#4a5568")}>
+                            onMouseOut={(e) => (e.currentTarget.style.color = "#4a5568")}
+                        >
                             <GiCrossMark size={20} />
                         </button>
 
@@ -2087,11 +2075,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     onClick={fetchCertificate}
                                     disabled={loadingCertificate || type === "Please Select..."}
                                     style={{
-                                        flex: 1, background: type !== "Please Select..." ? "#9FEF00" : "rgba(159,239,0,0.2)",
+                                        flex: 1,
+                                        background: type !== "Please Select..." ? "#9FEF00" : "rgba(159,239,0,0.2)",
                                         color: type !== "Please Select..." ? "#0a0f1a" : "#4a5568",
                                         border: "none", padding: "14px 20px",
                                         fontFamily: "'Orbitron', monospace", fontWeight: 700, fontSize: "0.8rem",
-                                        letterSpacing: "0.08em", textTransform: "uppercase", cursor: type !== "Please Select..." ? "pointer" : "not-allowed",
+                                        letterSpacing: "0.08em", textTransform: "uppercase",
+                                        cursor: type !== "Please Select..." ? "pointer" : "not-allowed",
                                         transition: "all 0.2s"
                                     }}
                                 >
@@ -2099,7 +2089,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 </button>
                                 <div style={{ borderLeft: "1px solid var(--border-subtle)" }}>
                                     <Select
-                                        hideSelectedOptions isClearable={false} isSearchable={false}
+                                        hideSelectedOptions
+                                        isClearable={false}
+                                        isSearchable={false}
                                         placeholder="Type"
                                         options={options}
                                         onChange={changeType}
@@ -2134,7 +2126,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 { name: "email", type: "email", placeholder: "Email Address", onChange: (e: any) => setEmailError(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)) },
                                 { name: "dept", type: "text", placeholder: "Department" },
                             ].map((field) => (
-                                <input key={field.name} required type={field.type} name={field.name} placeholder={field.placeholder} onChange={field.onChange} className="reg-input" />
+                                <input
+                                    key={field.name}
+                                    required
+                                    type={field.type}
+                                    name={field.name}
+                                    placeholder={field.placeholder}
+                                    onChange={field.onChange}
+                                    className="reg-input"
+                                />
                             ))}
 
                             <Radio.Group isRequired value={checked} onChange={setChecked} name="isSrmite" orientation="horizontal">
@@ -2160,27 +2160,15 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-// export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
-//     try {
-//         const { data: events } = await (await fetch(`${url_root}/api/v1/events`)).json();
-//         return { props: { events } };
-//     } catch (error) {
-//         console.log(error);
-//         return { notFound: true };
-//     }
-// }
-
-// pages/events/[eventId].tsx
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
     try {
         const response = await fetch(`${url_root}/api/v1/events`);
         const json = await response.json();
-        const events = json?.data ?? []; // ✅ fallback to empty array, never undefined
-
+        const events = Array.isArray(json?.data) ? json.data : [];
         return { props: { events } };
     } catch (error) {
         console.log(error);
-        return { props: { events: [] } }; // ✅ don't return notFound, return empty state
+        return { props: { events: [] } };
     }
 }
 
