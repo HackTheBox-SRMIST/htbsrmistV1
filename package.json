@@ -16,6 +16,8 @@
         "@typeform/embed-react": "^1.19.0",
         "animejs": "^3.2.2",
         "axios": "^1.2.3",
+        "baseline-browser-mapping": "^2.10.12",
+        "caniuse-lite": "^1.0.30001781",
         "dotenv": "^16.4.7",
         "dotenv-vault-core": "^0.7.0",
         "jimp-compact": "^0.16.1-2",
