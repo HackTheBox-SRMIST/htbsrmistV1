@@ -16,6 +16,40 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GiCrossMark } from "react-icons/gi";
 import Image from "next/image";
+// interface EventProps {
+//     event_name: string;
+//     event_description: string;
+//     poster_url: string;
+//     speakers_details: [
+//         {
+//             name: string;
+//             designation: string;
+//             details: string;
+//             image: string;
+//         }
+//     ];
+//     event_date: Date;
+//     is_active: boolean;
+//     venue: string;
+//     sponsors_details: [
+//         {
+//             name: string;
+//             place: string;
+//             details: string;
+//         }
+//     ];
+//     duration: Number;
+//     prerequisites: string[];
+//     cost: number;
+//     gallery: [
+//         "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
+//     ];
+//     registration_url: string;
+//     database: string;
+//     slug: string;
+// }
+
+
 interface EventProps {
     event_name: string;
     event_description: string;
@@ -39,7 +73,7 @@ interface EventProps {
         }
     ];
     duration: Number;
-    prerequisites: string;
+    prerequisites: string[];
     cost: number;
     gallery: [
         "https://ik.imagekit.io/htbsrmist/Events/zero_day.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1674281897886"
@@ -47,17 +81,27 @@ interface EventProps {
     registration_url: string;
     database: string;
     slug: string;
+
+    // ADD THIS
+    certificate: {
+        [key: string]: string | undefined;
+    };
 }
 
 interface EventsPageProps {
     events: EventProps[];
 }
 
-const options = [
-    { value: "participants", label: "Participant" },
-    { value: "volunteers", label: "Volunteer" },
-    { value: "organizers", label: "Organizer" }
-];
+// No need
+// const options = [
+//     { value: "participants", label: "Participant" },
+//     { value: "volunteers", label: "Volunteer" },
+//     { value: "organizers", label: "Organizer" },
+//     { value: "crypto", label: "Crypto" },
+//     { value: "forensics", label: "Forensics" },
+//     { value: "web-expl", label: "Web Exploitation" },
+//     { value: "reverse-engineering", label: "Reverse Engineering" },
+// ];
 
 const styles = {
     // control: (base: any, state: any) => ({
@@ -108,12 +152,16 @@ const Toast = (success: any, message: any) => {
     });
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root =
+  process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const eventId = router.query.eventId as string;
     const event = events.find((event) => event.event_name === eventId);
+    // const event = events.find((event) => event.slug === eventId);
     const slug = event?.slug;
     const registrationUrl = event?.registration_url?.trim();
     const hasExternalRegistration = Boolean(registrationUrl);
@@ -140,17 +188,54 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         });
     };
 
+    const options = event?.certificate
+    ? Object.entries(event.certificate)
+        .filter(([_, url]) => url && url.trim() !== "")
+        .map(([key]) => ({
+            value: key,
+            label: key
+                .split("-")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ")
+        }))
+    : [];
+
+    // Old 
+
+    // const fetchCertificate = async () => {
+    //     try {
+    //         const lowercaseEmail = email.toLowerCase();
+    //         setLoadingCertificate(true);
+    //         const values = { email: lowercaseEmail, type, event: slug };
+    //         // console.log(values);
+    //         const response = await axios.post(`/api/v1/certificates`, values);
+    //         setCertificate(response.data.certificate);
+    //         Toast(true, "Certificate Generated Successfully");
+    //     } catch (err: any) {
+    //         // Access the correct error response field
+    //         Toast(false, `${err.response?.data?.error || "An error occurred"}`);
+    //     } finally {
+    //         setLoadingCertificate(false);
+    //     }
+    // };
+
     const fetchCertificate = async () => {
+        if (!email) {
+            Toast(false, "Please enter your registered email");
+            return;
+        }
+        if (type === "Please Select...") {
+            Toast(false, "Please select a certificate type");
+            return;
+        }
         try {
             const lowercaseEmail = email.toLowerCase();
             setLoadingCertificate(true);
-            const values = { email: lowercaseEmail, type, event: slug };
-            // console.log(values);
+            const values = { email: lowercaseEmail, type: type.toLowerCase(), event: slug };
             const response = await axios.post(`/api/v1/certificates`, values);
             setCertificate(response.data.certificate);
             Toast(true, "Certificate Generated Successfully");
         } catch (err: any) {
-            // Access the correct error response field
             Toast(false, `${err.response?.data?.error || "An error occurred"}`);
         } finally {
             setLoadingCertificate(false);
@@ -336,21 +421,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     aria-disabled={!isRegistrationActive}
-                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${
-                                        !isRegistrationActive
-                                            ? "pointer-events-none opacity-60"
-                                            : ""
-                                    }`}
+                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${!isRegistrationActive
+                                        ? "pointer-events-none opacity-60"
+                                        : ""
+                                        }`}
                                 >
                                     Register Now
                                 </a>
                             ) : (
                                 <button
-                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${
-                                        !isRegistrationActive
-                                            ? "opacity-60"
-                                            : ""
-                                    }`}
+                                    className={`bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl ${!isRegistrationActive
+                                        ? "opacity-60"
+                                        : ""
+                                        }`}
                                     disabled={!isRegistrationActive}
                                     onClick={handlerReg}
                                 >
@@ -446,9 +529,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                             color="primary"
                                             size="lg"
                                             placeholder="Registration Number"
-                                            // onChange={
-                                            //     changeUsnHandler
-                                            // }
+                                        // onChange={
+                                        //     changeUsnHandler
+                                        // }
                                         />
                                         <Input
                                             required
@@ -579,13 +662,12 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                                     disabled={
                                                         loadingCertificate ||
                                                         type ===
-                                                            "Please Select..."
+                                                        "Please Select..."
                                                     }
-                                                    className={`w-1/2 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal p-8 text-xl max-md:text-sm ${
-                                                        loadingCertificate
-                                                            ? "opacity-50 cursor-not-allowed"
-                                                            : ""
-                                                    }`}
+                                                    className={`w-1/2 bg-htb-green hover:bg-htb-green/50 py-1 rounded-l-[20px] font-normal p-8 text-xl max-md:text-sm ${loadingCertificate
+                                                        ? "opacity-50 cursor-not-allowed"
+                                                        : ""
+                                                        }`}
                                                 >
                                                     {loadingCertificate
                                                         ? "Generating..."
@@ -635,18 +717,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </p>
 
                 <div
-                    className={`spkr mt-8 px-4 md:px-16 lg:px-32 grid gap-6 ${
-                        (event?.speakers_details?.length ?? 0) <= 2
-                            ? "grid-cols-1 sm:grid-cols-2 justify-center"
-                            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    }`}
+                    className={`spkr mt-8 px-4 md:px-16 lg:px-32 grid gap-6 ${(event?.speakers_details?.length ?? 0) <= 2
+                        ? "grid-cols-1 sm:grid-cols-2 justify-center"
+                        : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                        }`}
                 >
                     {event?.speakers_details?.map((guest, index) => (
                         <div
                             key={index}
-                            className={`flex flex-col items-center bg-[#141D2B] hover:bg-[#1f2c42] rounded-xl border-2 border-htb-green p-6 shadow-lg w-full max-w-xs mx-auto ${
-                                !guest.image ? "justify-center h-full" : ""
-                            }`}
+                            className={`flex flex-col items-center bg-[#141D2B] hover:bg-[#1f2c42] rounded-xl border-2 border-htb-green p-6 shadow-lg w-full max-w-xs mx-auto ${!guest.image ? "justify-center h-full" : ""
+                                }`}
                         >
                             {guest.image && (
                                 <div className="w-full h-48 rounded-xl overflow-hidden flex items-center justify-center">
@@ -676,24 +756,14 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 <p className="text-htb-green text-3xl sm:text-4xl md:text-5xl font-bold text-center my-6">
                     Pre-Requisites
                 </p>
-                <p className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
+
+                <div className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
                     <ul className="list-disc list-inside">
-                        {(() => {
-                            let prereq_len: number = Number(
-                                event?.prerequisites.length
-                            );
-                            let prereq = [];
-                            for (let i = 0; i < prereq_len; i++) {
-                                prereq.push(
-                                    <li key={event?.prerequisites[i]}>
-                                        {event?.prerequisites[i]}
-                                    </li>
-                                );
-                            }
-                            return prereq;
-                        })()}
+                        {event?.prerequisites?.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
                     </ul>
-                </p>
+                </div>
             </div>
 
             {/*
