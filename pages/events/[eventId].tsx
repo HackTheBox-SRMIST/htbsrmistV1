@@ -1224,43 +1224,46 @@
 //     }
 // }
 
-// export default Event;import type { NextPage, GetServerSidePropsResult } from "next";
+// export default Event;
+
+
 import type { NextPage, GetServerSidePropsResult } from "next";
 import React, { useState, useEffect, useRef } from "react";
-import { Modal, Radio } from "@nextui-org/react";
-import Select, { SingleValue, StylesConfig, GroupBase } from "react-select";
+import { Modal, Input, Radio } from "@nextui-org/react";
+import Select from "react-select";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GiCrossMark } from "react-icons/gi";
-
-interface SpeakerDetail {
-    name: string;
-    designation: string;
-    details: string;
-    image: string;
-}
-
-interface SponsorDetail {
-    name: string;
-    place: string;
-    details: string;
-}
+import Image from "next/image";
 
 interface EventProps {
     event_name: string;
     event_description: string;
     poster_url: string;
-    speakers_details: SpeakerDetail[];
-    event_date: string;
+    speakers_details: [
+        {
+            name: string;
+            designation: string;
+            details: string;
+            image: string;
+        }
+    ];
+    event_date: Date;
     is_active: boolean;
     venue: string;
-    sponsors_details: SponsorDetail[];
-    duration: number;
+    sponsors_details: [
+        {
+            name: string;
+            place: string;
+            details: string;
+        }
+    ];
+    duration: Number;
     prerequisites: string[];
     cost: number;
-    gallery: string[];
+    gallery: [string];
     registration_url: string;
     database: string;
     slug: string;
@@ -1273,19 +1276,16 @@ interface EventsPageProps {
     events: EventProps[];
 }
 
-interface SelectOption {
-    value: string;
-    label: string;
-}
-
-const styles: StylesConfig<SelectOption, false, GroupBase<SelectOption>> = {
-    option: (provided, state) => ({
+const styles = {
+    option: (provided: any, state: any) => ({
         ...provided,
         fontWeight: state.isSelected ? "bold" : "normal",
+        // color: "#0a0f1a",
         background: state.isFocused ? "#9FEF00" : "#1a2535",
         color: state.isFocused ? "#0a0f1a" : "#9FEF00",
+        fontSize: state.selectProps.myFontSize,
     }),
-    control: (base) => ({
+    control: (base: any, state: any) => ({
         ...base,
         background: "#9FEF00",
         fontWeight: "bold",
@@ -1296,11 +1296,11 @@ const styles: StylesConfig<SelectOption, false, GroupBase<SelectOption>> = {
         boxShadow: "none",
         "&:hover": { borderColor: "#9FEF00" }
     }),
-    singleValue: (base) => ({ ...base, color: "#0a0f1a" }),
-    menu: (base) => ({ ...base, background: "#1a2535", border: "1px solid #9FEF00" }),
+    singleValue: (base: any) => ({ ...base, color: "#0a0f1a" }),
+    menu: (base: any) => ({ ...base, background: "#1a2535", border: "1px solid #9FEF00" }),
 };
 
-const Toast = (success: boolean, message: string) => {
+const Toast = (success: any, message: any) => {
     toast[success ? "success" : "error"](message, {
         position: "top-center",
         autoClose: 5000,
@@ -1319,7 +1319,7 @@ const url_root =
 
 // Animated glitch text component
 const GlitchText = ({ text, className }: { text: string; className?: string }) => (
-    <span className={`glitch-text relative inline-block ${className ?? ""}`} data-text={text}>
+    <span className={`glitch-text relative inline-block ${className || ""}`} data-text={text}>
         {text}
     </span>
 );
@@ -1348,27 +1348,31 @@ const ScanLines = () => (
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
     const eventId = router.query.eventId as string;
-    const event = events.find((e) => e.event_name === eventId);
+    const event = events.find((event) => event.event_name === eventId);
     const slug = event?.slug;
     const registrationUrl = event?.registration_url?.trim();
     const hasExternalRegistration = Boolean(registrationUrl);
     const isRegistrationActive = Boolean(event?.is_active);
 
     const [email, setEmail] = useState("");
-    const [certificate, setCertificate] = useState<string | null>(null);
+    const [certificate, setCertificate] = useState(null);
     const [type, setType] = useState("Please Select...");
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible] = React.useState(false);
     const [loadingCertificate, setLoadingCertificate] = useState(false);
+    const [nameError, setNameError] = React.useState(false);
+    const [emailError, setEmailError] = React.useState(false);
+    const [phoneError, setPhoneError] = React.useState(false);
     const [loadingSubmit, setLoadingSubmit] = useState(false);
-    const [visibleReg, setVisibleReg] = useState(false);
-    const [checked, setChecked] = useState("");
+    const [visibleReg, setVisibleReg] = React.useState(false);
+    const [checked, setChecked] = React.useState("");
     const [mounted, setMounted] = useState(false);
     const [terminalText, setTerminalText] = useState("");
     const terminalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setMounted(true);
-        const fullText = `> INITIALIZING EVENT_PORTAL...\n> LOADING ${event?.event_name?.toUpperCase() ?? "EVENT"}...\n> STATUS: ${isRegistrationActive ? "ACTIVE" : "ARCHIVED"}\n> ACCESS GRANTED ✓`;
+        // Terminal typing effect
+        const fullText = `> INITIALIZING EVENT_PORTAL...\n> LOADING ${event?.event_name?.toUpperCase() || "EVENT"}...\n> STATUS: ${isRegistrationActive ? "ACTIVE" : "ARCHIVED"}\n> ACCESS GRANTED ✓`;
         let i = 0;
         const interval = setInterval(() => {
             if (i < fullText.length) {
@@ -1381,9 +1385,9 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
         return () => clearInterval(interval);
     }, [event?.event_name, isRegistrationActive]);
 
-    const options: SelectOption[] = event?.certificate
+    const options = event?.certificate
         ? Object.entries(event.certificate)
-            .filter(([, url]) => url && url.trim() !== "")
+            .filter(([_, url]) => url && url.trim() !== "")
             .map(([key]) => ({
                 value: key,
                 label: key.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ")
@@ -1397,22 +1401,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             setLoadingCertificate(true);
             const values = { email: email.toLowerCase(), type: type.toLowerCase(), event: slug };
             const response = await axios.post(`/api/v1/certificates`, values);
-            setCertificate(response.data.certificate as string);
+            setCertificate(response.data.certificate);
             Toast(true, "Certificate Generated Successfully");
-        } catch (err: unknown) {
-            if (axios.isAxiosError(err)) {
-                Toast(false, `${err.response?.data?.error ?? "An error occurred"}`);
-            } else {
-                Toast(false, "An error occurred");
-            }
+        } catch (err: any) {
+            Toast(false, `${err.response?.data?.error || "An error occurred"}`);
         } finally {
             setLoadingCertificate(false);
         }
     };
 
-    const changeType = (e: SingleValue<SelectOption>) => {
-        if (e) setType(e.value);
-    };
+    const changeType = (e: any) => setType(e.value);
 
     const closeHandler = () => {
         setVisible(false);
@@ -1431,47 +1429,33 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const handlerReg = () => setVisibleReg(true);
     const closeHandlerReg = () => setVisibleReg(false);
 
-    const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-
-        const str2bool = (value: string): boolean | string => {
+    const submitHandler = async (events: React.ChangeEvent<any>) => {
+        const str2bool = (value: string) => {
             if (value && typeof value === "string") {
                 if (value.toLowerCase() === "true") return true;
                 if (value.toLowerCase() === "false") return false;
             }
             return value;
         };
-
-        const isSrmite = str2bool((form.elements.namedItem("isSrmite") as HTMLInputElement)?.value ?? "");
-        const name = (form.elements.namedItem("name") as HTMLInputElement)?.value ?? "";
-        const emailVal = (form.elements.namedItem("email") as HTMLInputElement)?.value ?? "";
-        const phone = (form.elements.namedItem("phn") as HTMLInputElement)?.value ?? "";
-        const usn = (form.elements.namedItem("usn") as HTMLInputElement)?.value ?? "";
-        const dept = (form.elements.namedItem("dept") as HTMLInputElement)?.value ?? "";
-
+        const isSrmite = str2bool(events.target.isSrmite.value);
+        events.preventDefault();
         try {
+            const name = events.target.name.value;
             if (name.length > 20) { Toast(false, "Name cannot exceed 20 characters"); return; }
+            const email = events.target.email.value;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(emailVal)) { Toast(false, "Invalid email"); return; }
+            if (!emailRegex.test(email)) { Toast(false, "Invalid email"); return; }
+            const phone = events.target.phn.value;
             if (!/^\d{10}$/.test(phone)) { Toast(false, "Invalid phone number"); return; }
-
-            const body = { usn, phn: phone, name, email: emailVal.toLowerCase(), dept, isSrmite, event_name: event?.event_name };
+            const body = { usn: events.target.usn.value, phn: phone, name, email: email.toLowerCase(), dept: events.target.dept.value, isSrmite, event_name: event?.event_name };
             const response = await axios.post(`/api/v1/events/registration`, body);
-            Toast(true, response.data.message as string);
-        } catch (err: unknown) {
-            if (axios.isAxiosError(err)) {
-                Toast(false, `${err.response?.data?.message ?? "An error occurred"}`);
-            } else {
-                Toast(false, "An error occurred");
-            }
+            Toast(true, response.data.message);
+        } catch (err: any) {
+            Toast(false, `${err.response.data.message}`);
         } finally {
             setLoadingSubmit(false);
         }
     };
-
-    // suppress unused ref warning
-    void terminalRef;
 
     if (!mounted) return null;
 
@@ -1793,6 +1777,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
             {/* Hero Section */}
             <section style={{ background: "var(--bg-deep)", position: "relative", overflow: "hidden", paddingTop: "60px", paddingBottom: "60px" }}>
                 <HexBackground />
+                {/* Ambient glow */}
                 <div style={{ position: "absolute", top: "-20%", right: "-10%", width: "600px", height: "600px", background: "radial-gradient(circle, rgba(159,239,0,0.04) 0%, transparent 65%)", pointerEvents: "none" }} />
                 <div style={{ position: "absolute", bottom: "0", left: "-5%", width: "400px", height: "400px", background: "radial-gradient(circle, rgba(0,255,255,0.03) 0%, transparent 65%)", pointerEvents: "none" }} />
 
@@ -1817,14 +1802,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         <div className="fadeup delay-1">
                             <div className="poster-frame" style={{ display: "inline-block", width: "100%" }}>
                                 <div style={{ background: "var(--bg-card)", border: "1px solid rgba(159,239,0,0.2)", overflow: "hidden", position: "relative" }}>
+                                    {/* Top scan bar */}
                                     <div className="progress-bar" />
                                     <img
                                         src={event?.poster_url}
                                         alt={event?.event_name}
                                         style={{ width: "100%", maxHeight: "520px", objectFit: "contain", display: "block", filter: "contrast(1.05) saturate(1.1)" }}
                                     />
+                                    {/* Corner decorators */}
                                     <div style={{ position: "absolute", top: "12px", right: "12px", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#9FEF00", opacity: 0.5 }}>
-                                        {`[${event?.event_name?.slice(0, 6).toUpperCase() ?? ""}]`}
+                                        {`[${event?.event_name?.slice(0, 6).toUpperCase()}]`}
                                     </div>
                                 </div>
                             </div>
@@ -1832,15 +1819,17 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
                         {/* Right: Info */}
                         <div className="fadeup delay-2" style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+                            {/* Event title */}
                             <div>
                                 <div className="section-label">Event</div>
                                 <h1 style={{ fontFamily: "'Orbitron', monospace", fontWeight: 900, fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "#9FEF00", lineHeight: 1.1, margin: 0, letterSpacing: "0.02em" }}>
-                                    <GlitchText text={event?.event_name ?? ""} />
+                                    <GlitchText text={event?.event_name || ""} />
                                 </h1>
                             </div>
 
                             {/* Stats grid */}
                             <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "8px" }}>
+                                {/* Venue */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1853,6 +1842,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                 </div>
 
+                                {/* Date */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1861,10 +1851,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     </div>
                                     <div>
                                         <div className="section-label" style={{ marginBottom: "2px" }}>Date</div>
-                                        <div style={{ color: "#e2e8f0", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.95rem" }}>{event?.event_date}</div>
+                                        <div style={{ color: "#e2e8f0", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.95rem" }}>{event?.event_date as any}</div>
                                     </div>
                                 </div>
 
+                                {/* Cost */}
                                 <div className="stat-card">
                                     <div className="stat-icon">
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9FEF00" strokeWidth="1.5">
@@ -1946,8 +1937,16 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                 <div key={index} className="speaker-card">
                                     {guest.image && (
                                         <div style={{ height: "200px", overflow: "hidden", position: "relative" }}>
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={guest.image} alt={guest.name} width={400} height={200} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(20%)" }} />
+                                            <img
+                                                src={guest.image}
+                                                alt={guest.name}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "200px",
+                                                    objectFit: "cover",
+                                                    filter: "grayscale(20%)"
+                                                }}
+                                            />
                                             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(14,20,32,0.9) 0%, transparent 60%)" }} />
                                             <div style={{ position: "absolute", top: "10px", right: "10px", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem", color: "#9FEF00", opacity: 0.6 }}>
                                                 {`[SYS_${(index + 1).toString().padStart(2, "0")}]`}
@@ -2007,6 +2006,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             {event?.gallery?.map((imgUrl, index) => (
                                 <div
                                     key={index}
+                                    className="group"
                                     style={{
                                         position: "relative",
                                         overflow: "hidden",
@@ -2018,6 +2018,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     onMouseOut={(e) => (e.currentTarget.style.borderColor = "var(--border-subtle)")}
                                     onClick={() => window.open(imgUrl, "_blank")}
                                 >
+                                    {/* Corner tag */}
                                     <div style={{
                                         position: "absolute", top: "8px", left: "8px", zIndex: 2,
                                         fontFamily: "'Share Tech Mono', monospace", fontSize: "0.6rem",
@@ -2029,7 +2030,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
                                     <img
                                         src={imgUrl}
-                                        alt={`${event?.event_name ?? "Event"} gallery ${index + 1}`}
+                                        alt={`${event?.event_name} gallery ${index + 1}`}
                                         style={{
                                             width: "100%",
                                             height: "220px",
@@ -2048,6 +2049,7 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                         }}
                                     />
 
+                                    {/* Hover overlay */}
                                     <div style={{
                                         position: "absolute", inset: 0,
                                         background: "linear-gradient(to top, rgba(10,15,26,0.7) 0%, transparent 60%)",
@@ -2106,10 +2108,8 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                                     {loadingCertificate ? "Generating..." : "Generate"}
                                 </button>
                                 <div style={{ borderLeft: "1px solid var(--border-subtle)" }}>
-                                    <Select<SelectOption>
-                                        hideSelectedOptions
-                                        isClearable={false}
-                                        isSearchable={false}
+                                    <Select
+                                        hideSelectedOptions isClearable={false} isSearchable={false}
                                         placeholder="Type"
                                         options={options}
                                         onChange={changeType}
@@ -2137,13 +2137,13 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                         <h3 style={{ fontFamily: "'Orbitron', monospace", color: "#9FEF00", fontSize: "1.2rem", margin: "4px 0 24px" }}>Join the Event</h3>
 
                         <form onSubmit={submitHandler} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                            {([
-                                { name: "name", type: "text", placeholder: "Full Name", onChange: (e: React.ChangeEvent<HTMLInputElement>) => { if (e.target.value.length > 20) Toast(false, "Name cannot exceed 20 characters"); } },
-                                { name: "phn", type: "number", placeholder: "Phone Number", onChange: (e: React.ChangeEvent<HTMLInputElement>) => { const v = e.target.value; if (v.length > 10) e.target.value = v.slice(0, 10); } },
-                                { name: "usn", type: "text", placeholder: "Registration Number", onChange: undefined },
-                                { name: "email", type: "email", placeholder: "Email Address", onChange: undefined },
-                                { name: "dept", type: "text", placeholder: "Department", onChange: undefined },
-                            ] as { name: string; type: string; placeholder: string; onChange?: React.ChangeEventHandler<HTMLInputElement> }[]).map((field) => (
+                            {[
+                                { name: "name", type: "text", placeholder: "Full Name", onChange: (e: any) => { setNameError(e.target.value.length > 20); if (e.target.value.length > 20) Toast(false, "Name cannot exceed 20 characters"); } },
+                                { name: "phn", type: "number", placeholder: "Phone Number", onChange: (e: any) => { const v = e.target.value; if (v.length > 10) e.target.value = v.slice(0, 10); setPhoneError(v.length !== 10); } },
+                                { name: "usn", type: "text", placeholder: "Registration Number" },
+                                { name: "email", type: "email", placeholder: "Email Address", onChange: (e: any) => setEmailError(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value)) },
+                                { name: "dept", type: "text", placeholder: "Department" },
+                            ].map((field) => (
                                 <input key={field.name} required type={field.type} name={field.name} placeholder={field.placeholder} onChange={field.onChange} className="reg-input" />
                             ))}
 
@@ -2170,15 +2170,27 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
+// export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
+//     try {
+//         const { data: events } = await (await fetch(`${url_root}/api/v1/events`)).json();
+//         return { props: { events } };
+//     } catch (error) {
+//         console.log(error);
+//         return { notFound: true };
+//     }
+// }
+
+// pages/events/[eventId].tsx
 export async function getServerSideProps(): Promise<GetServerSidePropsResult<EventsPageProps>> {
     try {
         const response = await fetch(`${url_root}/api/v1/events`);
-        const json = await response.json() as { data?: EventProps[] };
-        const events: EventProps[] = json?.data ?? [];
+        const json = await response.json();
+        const events = json?.data ?? []; // ✅ fallback to empty array, never undefined
+
         return { props: { events } };
     } catch (error) {
         console.log(error);
-        return { props: { events: [] } };
+        return { props: { events: [] } }; // ✅ don't return notFound, return empty state
     }
 }
 
