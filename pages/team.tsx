@@ -56,7 +56,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
-    const yearsToShow = [maxYear, maxYear - 1, maxYear - 2]; // ✅ Added 2023 support
+    const yearsToShow = [maxYear, maxYear - 1, maxYear - 2, maxYear - 3]; // ✅ Added four year button support
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -164,7 +164,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 <div
                     className="absolute inset-0 w-full h-full bg-cover bg-center opacity-0 group-hover:opacity-90 transition-opacity duration-500 z-10"
                     style={{
-                        backgroundImage: "url('/team.JPG')"
+                        backgroundImage: "url('/team2025-26.jpg')"
                     }}
                 ></div>
                 <div className="relative opacity-100 group-hover:opacity-0 transform group-hover:scale-110 transition-all duration-500 z-30">
