@@ -21,6 +21,11 @@ const Member = (props: any) => {
                 {props.name}
             </span>
             <span className="text-xl text-htb-green">{props.domain}</span>
+            {props.servedSince && (
+                <span className="text-sm px-3 py-1 bg-transparent text-zinc-300 border border-zinc-300/40 rounded-full mt-2 font-mono font-semibold shadow-[0_0_8px_#8bef00/25]">
+                    {props.servedSince}
+                </span>
+            )}
             <span className="text-center break-words w-64">
                 {props.caption}
             </span>
