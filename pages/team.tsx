@@ -44,19 +44,23 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         "Development" | "Creatives" | "Corporate" | "Security"
     >("Development");
 
-    // compute available years from the full status arrays
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    // compute available years from the full status arrays and joined properties
     const allYears: number[] = Array.from(
-        new Set(
-            members.flatMap((m) =>
+        new Set([
+            ...members.map((m) => m.joined),
+            ...members.flatMap((m) =>
                 Array.isArray(m.status) ? m.status.map((s) => s.joined) : []
             )
-        )
-    ).sort((a, b) => b - a);
+        ])
+    )
+        .filter((y) => typeof y === "number" && y >= 2023 && y <= 2026)
+        .sort((a, b) => b - a);
 
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
-    const yearsToShow = [maxYear, maxYear - 1, maxYear - 2, maxYear - 3]; // ✅ Added four year button support
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -210,27 +214,63 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 </div>
             </div>
 
-            {/* Year selection buttons BELOW Founders */}
-            <div className="flex justify-center items-center py-8 w-full">
-                <div className="flex flex-wrap justify-center gap-2 w-full max-w-md mx-auto px-4">
-                    {yearsToShow.map(
-                        (
-                            yr // ✅ 2023 button automatically generated with same logic
-                        ) => (
-                            <button
-                                key={yr}
-                                onClick={() => selectYear(yr)}
-                                className={`flex-grow py-2 md:py-3 px-4 ${
-                                    activeYear === yr
-                                        ? "bg-htb-green"
-                                        : "bg-htb-green/50 hover:bg-htb-green"
-                                } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
-                            >
-                                {yr}
-                            </button>
-                        )
-                    )}
-                </div>
+            {/* Year selection dropdown & grid BELOW Founders */}
+            <div className="relative flex flex-col justify-center items-center py-8 w-full z-40">
+                <button
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    className="group relative flex items-center justify-between gap-3 bg-black/40 hover:bg-black/60 border border-htb-green/50 hover:border-htb-green px-8 py-3 rounded-full text-htb-green font-semibold text-lg md:text-xl transition-all duration-300 shadow-md hover:shadow-htb-green/20 focus:outline-none"
+                >
+                    <span className="tracking-wider">Active Year: {activeYear}</span>
+                    <svg
+                        className={`w-5 h-5 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : "rotate-0"
+                            }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 9l-7 7-7-7"
+                        ></path>
+                    </svg>
+                </button>
+
+                {isDropdownOpen && (
+                    <>
+                        {/* Semi-transparent overlay to handle clicks outside */}
+                        <div
+                            className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300"
+                            onClick={() => setIsDropdownOpen(false)}
+                        />
+
+                        {/* Glassmorphism DOB Grid Dropdown */}
+                        <div className="absolute top-full mt-3 z-50 w-72 md:w-80 bg-black/80 backdrop-blur-lg border border-htb-green/30 shadow-[0_15px_30px_rgba(151,253,30,0.15)] rounded-2xl p-4 transition-all duration-300 transform scale-100 animate-in fade-in slide-in-from-top-2">
+                            <div className="text-center text-xs text-white/60 mb-3 font-semibold uppercase tracking-widest border-b border-white/10 pb-2">
+                                Select Session Year
+                            </div>
+                            <div className="grid grid-cols-3 gap-2.5">
+                                {allYears.map((yr) => (
+                                    <button
+                                        key={yr}
+                                        onClick={() => {
+                                            selectYear(yr);
+                                            setIsDropdownOpen(false);
+                                        }}
+                                        className={`py-2 px-3 text-center rounded-xl font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${activeYear === yr
+                                                ? "bg-htb-green text-black font-bold shadow-[0_0_15px_rgba(151,253,30,0.4)]"
+                                                : "bg-[#111] hover:bg-htb-green/20 text-white/80 hover:text-htb-green border border-white/5 hover:border-htb-green/30"
+                                            }`}
+                                    >
+                                        {yr}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
 
             <div className="flex flex-col justify-center items-center text-center">
@@ -280,7 +320,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Leads" name="Sudoer" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterSudoers).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterSudoers)
                                 .map((mem: MemberProps) => {
@@ -307,7 +347,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Associates" name="Sticky Bit" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterStickyBits).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterStickyBits)
                                 .map((mem: MemberProps) => {
@@ -334,7 +374,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Members" name="Binary" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterBinaries).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterBinaries)
                                 .map((mem: MemberProps) => {
