@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaGithub, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Social from "./social";
 
 const socialIcons = {
@@ -49,7 +49,7 @@ const Member = (props: any) => {
                 {(props.socials.website) ?(props.socials.website.length>6)? (
                     <Social
                         link={props.socials.website}
-                        logo={socialIcons.website}
+                        logo={props.socials.website.toLowerCase().includes("instagram.com") ? <FaInstagram /> : socialIcons.website}
                     />
                 ) : (
                     ""
