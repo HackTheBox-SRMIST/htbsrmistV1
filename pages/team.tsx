@@ -46,21 +46,26 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-    // compute available years from the full status arrays and joined properties
+    // compute available years from the full status arrays, starting from 2023
     const allYears: number[] = Array.from(
-        new Set([
-            ...members.map((m) => m.joined),
-            ...members.flatMap((m) =>
+        new Set(
+            members.flatMap((m) =>
                 Array.isArray(m.status) ? m.status.map((s) => s.joined) : []
             )
-        ])
+        )
     )
-        .filter((y) => typeof y === "number" && y >= 2023 && y <= 2026)
+        .filter((yr) => yr >= 2023)
         .sort((a, b) => b - a);
 
     const currentYear = new Date().getFullYear();
     const maxYear =
         allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
+
+    // Dynamic yearsToShow starting from maxYear down to 2023
+    const yearsToShow: number[] = [];
+    for (let yr = maxYear; yr >= 2023; yr--) {
+        yearsToShow.push(yr);
+    }
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -216,11 +221,13 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
             {/* Year selection dropdown & grid BELOW Founders */}
             <div className="relative flex flex-col justify-center items-center py-8 w-full z-40">
-                <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="group relative flex items-center justify-between gap-3 bg-black/40 hover:bg-black/60 border border-htb-green/50 hover:border-htb-green px-8 py-3 rounded-full text-htb-green font-semibold text-lg md:text-xl transition-all duration-300 shadow-md hover:shadow-htb-green/20 focus:outline-none"
-                >
-                    <span className="tracking-wider">Active Year: {activeYear}</span>
+                <div className="relative">
+                    <div className="absolute inset-0 rounded-full border-2 border-htb-green shadow-[0_0_15px_rgba(159,239,0,0.35)] animate-pulse pointer-events-none"></div>
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="relative flex items-center justify-between gap-3 bg-black/40 hover:bg-black/60 border-2 border-htb-green/0 px-8 py-3 rounded-full text-htb-green font-[750] text-lg md:text-xl focus:outline-none"
+                    >
+                    <span className="tracking-wider">Year: {activeYear}</span>
                     <svg
                         className={`w-5 h-5 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : "rotate-0"
                             }`}
@@ -237,6 +244,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         ></path>
                     </svg>
                 </button>
+                </div>
 
                 {isDropdownOpen && (
                     <>
@@ -249,10 +257,10 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         {/* Glassmorphism DOB Grid Dropdown */}
                         <div className="absolute top-full mt-3 z-50 w-72 md:w-80 bg-black/80 backdrop-blur-lg border border-htb-green/30 shadow-[0_15px_30px_rgba(151,253,30,0.15)] rounded-2xl p-4 transition-all duration-300 transform scale-100 animate-in fade-in slide-in-from-top-2">
                             <div className="text-center text-xs text-white/60 mb-3 font-semibold uppercase tracking-widest border-b border-white/10 pb-2">
-                                Select Session Year
+                                Select Year
                             </div>
                             <div className="grid grid-cols-3 gap-2.5">
-                                {allYears.map((yr) => (
+                                {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
                                     <button
                                         key={yr}
                                         onClick={() => {
