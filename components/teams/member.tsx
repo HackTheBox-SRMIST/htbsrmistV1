@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FaGithub, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Social from "./social";
 
 const socialIcons = {
@@ -21,6 +21,11 @@ const Member = (props: any) => {
                 {props.name}
             </span>
             <span className="text-xl text-htb-green">{props.domain}</span>
+            {props.servedSince && (
+                <span className="text-sm px-3 py-1 bg-transparent text-zinc-300 border border-zinc-300/40 rounded-full mt-2 font-mono font-semibold shadow-[0_0_8px_#8bef00/25]">
+                    {props.servedSince}
+                </span>
+            )}
             <span className="text-center break-words w-64">
                 {props.caption}
             </span>
@@ -44,7 +49,7 @@ const Member = (props: any) => {
                 {(props.socials.website) ?(props.socials.website.length>6)? (
                     <Social
                         link={props.socials.website}
-                        logo={socialIcons.website}
+                        logo={props.socials.website.toLowerCase().includes("instagram.com") ? <FaInstagram /> : socialIcons.website}
                     />
                 ) : (
                     ""

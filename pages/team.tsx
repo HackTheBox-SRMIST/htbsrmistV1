@@ -24,6 +24,7 @@ interface MemberProps {
         website: string | "";
     };
     status: { position: string; joined: number }[];
+    servedSince?: string;
 }
 
 interface TeamPageProps {
@@ -44,19 +45,28 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         "Development" | "Creatives" | "Corporate" | "Security"
     >("Development");
 
-    // compute available years from the full status arrays
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    // compute available years from the full status arrays, starting from 2023
     const allYears: number[] = Array.from(
         new Set(
             members.flatMap((m) =>
                 Array.isArray(m.status) ? m.status.map((s) => s.joined) : []
             )
         )
-    ).sort((a, b) => b - a);
+    )
+        .filter((yr) => yr >= 2023)
+        .sort((a, b) => b - a);
 
     const currentYear = new Date().getFullYear();
-    const maxYear =
-        allYears.length > 0 ? Math.min(allYears[0], currentYear) : currentYear;
-    const yearsToShow = [maxYear, maxYear - 1, maxYear - 2, maxYear - 3]; // ✅ Added four year button support
+    const latestJoinedYearInDb = allYears.length > 0 ? allYears[0] : 0;
+    const maxYear = Math.max(latestJoinedYearInDb, currentYear);
+
+    // Dynamic yearsToShow starting from maxYear down to 2023
+    const yearsToShow: number[] = [];
+    for (let yr = maxYear; yr >= 2023; yr--) {
+        yearsToShow.push(yr);
+    }
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -138,14 +148,42 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         setActiveYear(year);
     };
 
+    const facultyConvenors = members
+        .filter(
+            (mem) => mem.position === "Mainframe" && mem.domain === "Faculty Convenor"
+        )
+        .map((mem) => {
+            let years: number[] = [];
+            if (Array.isArray(mem.status) && mem.status.length > 0) {
+                years = Array.from(new Set(mem.status.map(s => s.joined))).sort((a, b) => a - b);
+            } else if (mem.joined) {
+                years = [mem.joined];
+            }
 
-    // Combine Faculty Convenor and Co-Organizers into "Founders"
-    // check the full status array so founders remain constant across years
+            const minYear = years.length > 0 ? years[0] : 0;
+            const maxYear = years.length > 0 ? years[years.length - 1] : 0;
+
+            return {
+                ...mem,
+                caption: "",
+                minYear,
+                maxYear
+            };
+        })
+        .sort((a, b) => b.maxYear - a.maxYear)
+        .map((mem, idx, arr) => ({
+            ...mem,
+            servedSince: idx === 0
+                ? `Since ${mem.minYear}`
+                : `${mem.minYear} - ${arr[idx - 1].minYear - 1}`
+        }));
+
+    // Combine Faculty Convenors with original Founders
     const founders = members
         .filter((mem) => {
             return (
-                mem.joined === 2022 &&
-                (mem.position === "Mainframe" || mem.position === "Kernel")
+                (mem.joined === 2022 && mem.position === "Mainframe") ||
+                (mem.position === "Kernel" && (mem.joined === 2019 || mem.joined === 2022))
             );
         })
         .sort((a, b) => {
@@ -157,6 +195,11 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             }
             return 0;
         });
+
+    const allFounders = [
+        ...facultyConvenors,
+        ...founders.filter(f => !facultyConvenors.some(fc => fc.name === f.name))
+    ];
 
     return (
         <section className="w-full min-h-fit bg-none flex flex-col justify-center items-center">
@@ -194,9 +237,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
             {/* Founders Section (Always Visible Above Year Buttons) */}
             <div className="flex flex-col justify-center items-center text-center py-12">
-                <Roles role="Founders" />
+                <div className="text-[2rem] sm:text-4xl text-htb-green flex justify-center items-center font-bold text-center px-4">Founders &amp; Convenors</div>
                 <div className="flex justify-center items-start flex-wrap gap-5">
-                    {founders.map((mem) => (
+                    {allFounders.map((mem) => (
                         <Member
                             key={mem.name}
                             name={mem.name}
@@ -205,32 +248,71 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             caption={mem.caption}
                             domain={mem.domain}
                             socials={mem.socials}
+                            servedSince={mem.servedSince}
                         />
                     ))}
                 </div>
             </div>
-
-            {/* Year selection buttons BELOW Founders */}
-            <div className="flex justify-center items-center py-8 w-full">
-                <div className="flex flex-wrap justify-center gap-2 w-full max-w-md mx-auto px-4">
-                    {yearsToShow.map(
-                        (
-                            yr // ✅ 2023 button automatically generated with same logic
-                        ) => (
-                            <button
-                                key={yr}
-                                onClick={() => selectYear(yr)}
-                                className={`flex-grow py-2 md:py-3 px-4 ${
-                                    activeYear === yr
-                                        ? "bg-htb-green"
-                                        : "bg-htb-green/50 hover:bg-htb-green"
-                                } transition-colors duration-300 font-medium text-sm sm:text-base md:text-lg rounded-full`}
-                            >
-                                {yr}
-                            </button>
-                        )
-                    )}
+            {/* Year selection dropdown & grid BELOW Founders */}
+            <div className="relative flex flex-col justify-center items-center py-8 w-full z-40">
+                <div className="relative">
+                    <div className="absolute inset-0 rounded-full border-2 border-htb-green shadow-[0_0_15px_rgba(159,239,0,0.35)] animate-pulse pointer-events-none"></div>
+                    <button
+                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                        className="relative flex items-center justify-between gap-3 bg-black/40 hover:bg-black/60 border-2 border-htb-green/0 px-8 py-3 rounded-full text-htb-green font-[750] text-lg md:text-xl focus:outline-none"
+                    >
+                    <span className="tracking-wider">Year: {activeYear}</span>
+                    <svg
+                        className={`w-5 h-5 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : "rotate-0"
+                            }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M19 9l-7 7-7-7"
+                        ></path>
+                    </svg>
+                </button>
                 </div>
+
+                {isDropdownOpen && (
+                    <>
+                        {/* Semi-transparent overlay to handle clicks outside */}
+                        <div
+                            className="fixed inset-0 z-40 bg-black/25 backdrop-blur-[2px] transition-opacity duration-300"
+                            onClick={() => setIsDropdownOpen(false)}
+                        />
+
+                        {/* Glassmorphism DOB Grid Dropdown */}
+                        <div className="absolute top-full mt-3 z-50 w-72 md:w-80 bg-black/80 backdrop-blur-lg border border-htb-green/30 shadow-[0_15px_30px_rgba(151,253,30,0.15)] rounded-2xl p-4 transition-all duration-300 transform scale-100 animate-in fade-in slide-in-from-top-2">
+                            <div className="text-center text-xs text-white/60 mb-3 font-semibold uppercase tracking-widest border-b border-white/10 pb-2">
+                                Select Year
+                            </div>
+                            <div className="grid grid-cols-3 gap-2.5">
+                                {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
+                                    <button
+                                        key={yr}
+                                        onClick={() => {
+                                            selectYear(yr);
+                                            setIsDropdownOpen(false);
+                                        }}
+                                        className={`py-2 px-3 text-center rounded-xl font-medium transition-all duration-300 hover:scale-105 active:scale-95 ${activeYear === yr
+                                                ? "bg-htb-green text-black font-bold shadow-[0_0_15px_rgba(151,253,30,0.4)]"
+                                                : "bg-[#111] hover:bg-htb-green/20 text-white/80 hover:text-htb-green border border-white/5 hover:border-htb-green/30"
+                                            }`}
+                                    >
+                                        {yr}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
 
             <div className="flex flex-col justify-center items-center text-center">
@@ -280,7 +362,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Leads" name="Sudoer" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterSudoers).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterSudoers)
                                 .map((mem: MemberProps) => {
@@ -307,7 +389,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Associates" name="Sticky Bit" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterStickyBits).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterStickyBits)
                                 .map((mem: MemberProps) => {
@@ -334,7 +416,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     <Roles role="Members" name="Binary" />
                     <div className="flex flex-wrap justify-center items-start">
                         {crew[activeDomain].filter(filterBinaries).length !==
-                        0 ? (
+                            0 ? (
                             crew[activeDomain]
                                 .filter(filterBinaries)
                                 .map((mem: MemberProps) => {
@@ -374,7 +456,7 @@ export async function getServerSideProps(): Promise<
         const dbInstance = await DBInstance.getInstance();
         const coll = await dbInstance.getCollection("teams", "htbsrmist");
 
-        const rawMembers = await coll.find({}).toArray();
+        const rawMembers = await coll.find({}).sort({ index: 1 }).toArray();
 
         // Map DB documents to MemberProps expected by the page
         const members: MemberProps[] = rawMembers.map((m: any) => {
