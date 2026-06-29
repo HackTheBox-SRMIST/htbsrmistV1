@@ -37,7 +37,7 @@ const Footer = () => {
                                     <FaInstagram></FaInstagram>
                                 </a>
                                 <a
-                                    href="https://twitter.com/htbsrmist"
+                                    href="https://x.com/htbchennai"
                                     className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
                                     <RxTwitterLogo></RxTwitterLogo>
