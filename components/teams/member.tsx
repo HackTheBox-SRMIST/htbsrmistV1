@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { FaGithub, FaInstagram, FaLink, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLink, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import Social from "./social";
 
 const socialIcons = {
     github: <FaGithub />,
     linkedin: <FaLinkedin />,
-    twitter: <FaTwitter />,
+    twitter: <FaXTwitter />,
     website: <FaLink />
 };
 
