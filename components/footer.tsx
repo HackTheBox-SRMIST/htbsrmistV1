@@ -2,7 +2,7 @@ import Logo from "../utils/icons/htblogo";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FaInstagram } from "react-icons/fa";
-import { RxTwitterLogo } from "react-icons/rx";
+import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
@@ -40,7 +40,7 @@ const Footer = () => {
                                     href="https://x.com/htbchennai"
                                     className=" hover:bg-htb-green hover:text-black ease-linear duration-150 rounded-full p-1"
                                 >
-                                    <RxTwitterLogo></RxTwitterLogo>
+                                    <FaXTwitter></FaXTwitter>
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/company/htbsrmist/"
