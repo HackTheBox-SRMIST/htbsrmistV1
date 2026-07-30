@@ -35,10 +35,13 @@ export const yupContactUsSchema = yup
         countryCode: yup
             .string()
             .trim()
-            .matches(countryCodeRegex, "Invalid Country Code!"),
+            .transform((value) => (value === "" ? null : value))
+            .matches(countryCodeRegex, "Invalid Country Code!")
+            .nullable(),
         contactNo: yup
             .string()
             .trim()
+            .transform((value) => (value === "" ? null : value))
             .matches(phoneRegExp, "Mobile Number is not valid!")
             .max(25)
             .nullable()

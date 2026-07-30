@@ -12,14 +12,18 @@ export const ContactUs = async (
             const db = await (
                 await DBInstance.getInstance()
             ).getCollection("contactus");
-            db.insertOne({
+            await db.insertOne({
                 name: value.name,
                 email: value.email,
                 question: value.question,
                 countryCode: value.countryCode,
                 contactNo: value.contactNo
             });
-            await snsPublisher(value);
+            try {
+                await snsPublisher(value);
+            } catch (snsErr) {
+                console.error("SNS publish failed (non-fatal):", snsErr);
+            }
         });
     // console.log(contactUsData);
 };
