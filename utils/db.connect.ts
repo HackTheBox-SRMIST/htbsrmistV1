@@ -60,7 +60,19 @@
 // }
 
 import { Db, Collection, MongoClient, MongoError } from "mongodb";
+import dns from "dns";
 require("dotenv-vault-core").config();
+
+// ✅ Scope DNS fallback strictly to development (prevents overriding VPC/Cloud DNS in production)
+if (process.env.NODE_ENV === "development") {
+    try {
+        dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
+    } catch (e) {
+        // Ignore if environment overrides DNS configuration
+    }
+}
+
+
 
 export class DBInstance {
     private static instance: DBInstance;

@@ -3,28 +3,43 @@ import Nav from "../components/navbar";
 import Footer from "../components/footer";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import PhoneInputWithCountrySelect from "react-phone-number-input";
 import { useState } from "react";
-const base_url = process.env.BASE_URL_PREVIEW;
+
 const ContactUs = () => {
-    const [value, setValue] = useState("+91");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [messageText, setMessageText] = useState("");
 
-    const submitHandler = async (event: React.ChangeEvent<any>) => {
+    const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const sendBody = JSON.stringify({
-            name:
-                event.target.firstName.value +
-                " " +
-                event.target.lastName.value,
-            email: event.target.email.value,
-            contactNo: event.target.number.value,
-            question: event.target.message.value,
-            countryCode: event.target.countryCode.value
-        });
-        try {
-            // console.log(base_url);
-            // console.log(sendBody);
+        const form = event.currentTarget;
+        const target = form.elements as any;
 
+        const firstName = target.firstName.value.trim();
+        const lastName = target.lastName.value.trim();
+        const email = target.email.value.trim();
+        const number = target.number.value.trim();
+        const message = target.message.value.trim();
+        const countryCode = target.countryCode.value.trim() || "+91";
+
+        if (message.length < 30) {
+            toast.error("Message must be at least 30 characters long.", {
+                position: "top-center",
+                autoClose: 5000
+            });
+            return;
+        }
+
+        const sendBody = JSON.stringify({
+            name: `${firstName} ${lastName}`.trim(),
+            email: email,
+            contactNo: number,
+            question: message,
+            countryCode: countryCode
+        });
+
+        setIsSubmitting(true);
+
+        try {
             const res = await fetch(`/api/v1/contactus`, {
                 body: sendBody,
                 headers: {
@@ -33,30 +48,36 @@ const ContactUs = () => {
                 method: "POST"
             });
             const result = await res.json();
-            console.log(result.success);
+
             if (result.success) {
-                toast.success(result.message, {
+                toast.success(result.message || "Message sent successfully!", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined
+                    draggable: true
                 });
+                form.reset();
+                setMessageText("");
             } else {
-                toast.error(result.message, {
+                toast.error(result.message || "Failed to submit query.", {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
                     closeOnClick: true,
                     pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined
+                    draggable: true
                 });
             }
         } catch (error) {
-            console.log("Server Error");
+            console.error("Submission Error:", error);
+            toast.error("Server connection error. Please try again later.", {
+                position: "top-center",
+                autoClose: 5000
+            });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -141,24 +162,37 @@ const ContactUs = () => {
                         />
                     </div>
 
-                    <div className="">
+                    <div className="flex flex-col text-left">
                         <textarea
                             id="message"
                             name="message"
                             autoComplete="message"
                             required
-                            placeholder="Message"
-                            className="w-full p-4 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
-                            rows={10}
+                            minLength={30}
+                            maxLength={1000}
+                            value={messageText}
+                            onChange={(e) => setMessageText(e.target.value)}
+                            placeholder="Message (Minimum 30 characters)"
+                            className="w-full p-4 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
+                            rows={8}
                         ></textarea>
+                        <div className="flex justify-between items-center text-xs text-htb-green/70 mt-1 px-1">
+                            <span>
+                                {messageText.length < 30
+                                    ? `At least ${30 - messageText.length} more character(s) required`
+                                    : "Minimum character limit met"}
+                            </span>
+                            <span>{messageText.length}/1000</span>
+                        </div>
                     </div>
 
                     <div className="flex justify-center mt-2 md:mt-4">
                         <button
                             type="submit"
-                            className="w-full sm:w-auto sm:min-w-[12rem] md:min-w-[16rem] px-4 py-2 md:py-3 bg-htb-green/50 hover:bg-htb-green transition-colors duration-300 font-medium text-base md:text-lg rounded-xl"
+                            disabled={isSubmitting || messageText.trim().length < 30}
+                            className="w-full sm:w-auto sm:min-w-[12rem] md:min-w-[16rem] px-4 py-2 md:py-3 bg-htb-green/50 hover:bg-htb-green disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 font-medium text-base md:text-lg rounded-xl text-white"
                         >
-                            SEND MESSAGE
+                            {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                         </button>
                     </div>
                 </form>
@@ -168,3 +202,4 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
+
