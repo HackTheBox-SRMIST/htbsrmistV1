@@ -1,30 +1,61 @@
 import { NextApiResponse } from "next";
-import { errors, logTime } from "./errorConstants";
+import { errors } from "./errorConstants";
 
 export default function (
-    err: { errors: string[]; name: string; message: string },
+    err: any,
     res: NextApiResponse,
     TYPE: string
 ) {
-    if (err.name === "ValidationError") {
+    const timestamp = new Date().toISOString();
+    
+    // Check if error is a Yup ValidationError
+    if (err && (err.name === "ValidationError" || Array.isArray(err.errors))) {
         let message: string = "";
-        err.errors?.forEach((e: string) => {
-            message += `${e}. `;
-        });
+        if (Array.isArray(err.errors) && err.errors.length > 0) {
+            message = err.errors.join(". ");
+        } else {
+            message = err.message || "Validation failed";
+        }
+
         console.error(
-            `${logTime.dateTime} 👉 ValidationError: \n  🟠 ${message}`
+            `[${timestamp}] 👉 ValidationError: \n  🟠 ${message}`
         );
-        res.status(422).json({
+        return res.status(422).json({
             success: false,
             message: message
         });
-    } else {
+    }
+
+    // Check if error is a MongoDB Connection/DNS failure
+    const isMongoConnError =
+        err?.code === "ECONNREFUSED" ||
+        err?.syscall === "querySrv" ||
+        err?.name === "MongoNetworkError" ||
+        err?.name === "MongoServerSelectionError" ||
+        err?.message?.includes("querySrv") ||
+        err?.message?.includes("ECONNREFUSED");
+
+    if (isMongoConnError) {
         console.error(
-            `${logTime.dateTime} 👉 ${err.name || err.message} \n  📢 ${err}`
+            `[${timestamp}] 👉 Database Connection Error: \n  🔴 ${err?.message || err}`
         );
-        res.status(errors[TYPE as keyof typeof errors].httpStatus).json({
+        return res.status(errors.MONGODB_CONNECT_ERROR.httpStatus).json({
             success: false,
-            message: errors[TYPE as keyof typeof errors].message
+            message: errors.MONGODB_CONNECT_ERROR.message
         });
     }
+
+    // Default error handling
+    const errorName = err?.name || err?.message || (typeof err === "string" ? err : "Unknown Error");
+    console.error(
+        `[${timestamp}] 👉 ${errorName} \n  📢 ${err?.stack || err}`
+    );
+
+    const errorConfig = errors[TYPE as keyof typeof errors] || errors.INTERNAL_SERVER_ERROR;
+    return res.status(errorConfig.httpStatus).json({
+        success: false,
+        message: errorConfig.message
+    });
 }
+
+

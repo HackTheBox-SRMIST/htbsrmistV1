@@ -4,20 +4,23 @@ import errorHandler from "../../../utils/error/errorHandler";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        if (req.method == "POST") {
+        if (req.method === "POST") {
+            console.log("📥 Incoming Contact Us Request Body:", JSON.stringify(req.body, null, 2));
             await ContactUs(req.body);
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: "✅ Successfully sent the message!"
             });
         } else {
-            console.log("🚫", req.method, "was called and got error!!");
-            res.status(405).json({
+            console.log("🚫 HTTP Method Not Allowed:", req.method);
+            return res.status(405).json({
                 success: false,
-                message: "🚫 HTTP Method not Allowed"
+                message: "🚫 HTTP Method Not Allowed"
             });
         }
     } catch (err: any) {
-        errorHandler(err, res, "INTERNAL_SERVER_ERROR");
+        console.error("❌ Contact Us Handler Error:", err);
+        return errorHandler(err, res, "INTERNAL_SERVER_ERROR");
     }
 };
+
