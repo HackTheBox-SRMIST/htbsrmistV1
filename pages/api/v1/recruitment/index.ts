@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import errorHandler from "../../../../utils/error/errorHandler";
 import { DBInstance } from "../../../../utils/db.connect";
-import { sendRecruitmentMail } from "../../../../utils/awsServices/recruitmentMailer";
+// import { sendRecruitmentMail } from "../../../../utils/awsServices/recruitmentMailer"; // temporarily disabled
 import axios from "axios";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -32,13 +32,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             // Database instance and recruitment collection
             const dbInstance = await DBInstance.getInstance();
-            const recruitment25Collection = await dbInstance.getCollection(
-                "recruitment25v2"
+            const recruitment26Collection = await dbInstance.getCollection(
+                "recruitment26",
+                "htbsrmist"
             );
 
 
             // Check for existing participant
-            const existingParticipant = await recruitment25Collection.findOne({ usn: usn });
+            const existingParticipant = await recruitment26Collection.findOne({ usn: usn });
 
             if (existingParticipant) {
                 return res.status(201).json({
@@ -67,25 +68,31 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 ...additionalData
             };
 
-            const data = await recruitment25Collection.insertOne(insertedParticipant);
+            const data = await recruitment26Collection.insertOne(insertedParticipant);
 
-            // Send confirmation email
-            try {
-                await sendRecruitmentMail(insertedParticipant);
-                res.status(200).json({
-                    success: true,
-                    message: `✅ Successfully Registered ${name}`,
-                    data: data
-                });
-            } catch (emailError: any) {
-                console.error("Error sending confirmation email:", emailError);
-                res.status(500).json({
-                    success: false,
-                    message:
-                        "❌ Registration successful, but failed to send confirmation email",
-                    data: data
-                });
-            }
+            // Send confirmation email (temporarily disabled)
+            // try {
+            //     await sendRecruitmentMail(insertedParticipant);
+            //     res.status(200).json({
+            //         success: true,
+            //         message: `✅ Successfully Registered ${name}`,
+            //         data: data
+            //     });
+            // } catch (emailError: any) {
+            //     console.error("Error sending confirmation email:", emailError);
+            //     res.status(500).json({
+            //         success: false,
+            //         message:
+            //             "❌ Registration successful, but failed to send confirmation email",
+            //         data: data
+            //     });
+            // }
+
+            res.status(200).json({
+                success: true,
+                message: `✅ Successfully Registered ${name}`,
+                data: data
+            });
 
             // Send a message to Discord via Webhook
             try {

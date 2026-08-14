@@ -2,6 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/* HTB-themed scrollbar */
+.htb-scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+.htb-scrollbar::-webkit-scrollbar-track {
+    background: #0d1117;
+    border-radius: 10px;
+}
+.htb-scrollbar::-webkit-scrollbar-thumb {
+    background: #9FEF00;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+.htb-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #b8f520;
+}
+/* Firefox */
+.htb-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #9FEF00 #0d1117;
+}
+
 html,
 body,
 #__next {
@@ -75,12 +97,56 @@ body {
     display: block;
 }
 
-button:disabled {
+/* NextUI v1 Modal — force HTB dark theme */
+/* Modal backdrop */
+.nextui-modal-wrapper {
+    z-index: 9999 !important;
+}
+
+/* Modal container */
+.nextui-modal {
+    background: #141D2B !important;
+    border: 1px solid rgba(159, 239, 0, 0.35) !important;
+    box-shadow: 0 0 40px rgba(159, 239, 0, 0.12), 0 25px 60px rgba(0, 0, 0, 0.8) !important;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+
+/* Modal close button */
+.nextui-modal-close-button {
+    color: #A4B1CD !important;
+    top: 12px !important;
+    right: 12px !important;
+}
+.nextui-modal-close-button:hover {
+    color: #9FEF00 !important;
+    background: transparent !important;
+}
+
+/* Modal body */
+.nextui-modal-body {
+    background: transparent !important;
+    color: #fff !important;
+    padding: 24px !important;
+}
+
+/* Any nested nextui elements that might go white */
+.nextui-modal * {
+    color: inherit;
+}
+
+/* Backdrop overlay */
+.nextui-modal-overlay {
+    background: rgba(0, 0, 0, 0.75) !important;
+    backdrop-filter: blur(6px) !important;
+}
+
+/* Fix global button:disabled — only apply to non-custom buttons */
+button:disabled:not([class]) {
     cursor: not-allowed;
     background-color: #cccccc;
 }
-
-button:disabled:hover {
+button:disabled:not([class]):hover {
     background-color: #cccccc;
     color: white;
 }
