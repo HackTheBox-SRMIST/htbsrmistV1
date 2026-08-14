@@ -317,13 +317,13 @@ const Recruitment: NextPage = () => {
 
             {/* ── Hero ── */}
             <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-0 pb-10 md:pb-14">
-                <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-10 md:gap-16">
+                <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-5 md:gap-16">
 
                     {/* Left: Copy */}
-                    <div className="flex-1 flex flex-col items-start max-md:items-center">
+                    <div id="apply-section" className="flex-1 flex flex-col items-start max-md:items-center mt-4 md:mt-0 scroll-mt-24">
 
                         {/* Main heading */}
-                        <h1 className="font-share-tech font-bold leading-[1.05] max-md:text-center text-5xl sm:text-6xl lg:text-7xl">
+                        <h1 className="font-share-tech font-bold leading-[1.05] max-md:text-center text-5xl sm:text-6xl lg:text-7xl mt-[-10px] md:mt-0">
                             <span className="text-htb-green" style={{ textShadow: "0 0 18px rgba(159,239,0,0.35)" }}>&gt;&nbsp;</span>
                             <span className="text-white">We&apos;re </span>
                             <span className="text-htb-green" style={{ textShadow: "0 0 24px rgba(159,239,0,0.45)" }}>hiring!</span>
@@ -382,6 +382,7 @@ const Recruitment: NextPage = () => {
                         </div>
 
                         <button
+                            id="apply-btn"
                             onClick={() => setOpen(true)}
                             className="mt-8 group relative px-8 py-3.5 font-poppins font-bold text-base tracking-[0.1em] uppercase text-htb-green bg-transparent border-2 border-htb-green active:scale-95 transition-all duration-300 overflow-hidden rounded-md"
                             style={{ boxShadow: "0 0 15px rgba(159,239,0,0.25)" }}
@@ -400,11 +401,16 @@ const Recruitment: NextPage = () => {
                     </div>
 
                     {/* Right: Poster */}
-                    <div className="flex-shrink-0 flex justify-center">
+                    <div className="flex-shrink-0 flex justify-center mt-[-15px] md:mt-0">
                         <img
-                            src="https://ik.imagekit.io/htbsrmist/Recruitments/Rec_25-26.png?updatedAt=1755971078244"
+                            src="https://ik.imagekit.io/htbsrmist/Recruitments/recruitment26.png"
                             alt="Recruitment Poster"
-                            className="h-[480px] md:h-[560px] w-auto object-contain rounded-xl"
+                            onClick={() => {
+                                if (window.innerWidth < 768) {
+                                    document.getElementById('apply-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                }
+                            }}
+                            className="h-[400px] sm:h-[480px] md:h-[560px] w-auto object-contain rounded-2xl drop-shadow-[0_0_8px_rgba(159,239,0,0.25)] md:cursor-default cursor-pointer md:hover:drop-shadow-[0_0_8px_rgba(159,239,0,0.25)] hover:drop-shadow-[0_0_12px_rgba(159,239,0,0.4)] transition-all"
                         />
                     </div>
 
