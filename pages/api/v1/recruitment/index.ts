@@ -32,13 +32,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
             // Database instance and recruitment collection
             const dbInstance = await DBInstance.getInstance();
-            const recruitment25Collection = await dbInstance.getCollection(
-                "recruitment25v2"
+            const recruitment26Collection = await dbInstance.getCollection(
+                "recruitment26",
+                "htbsrmist"
             );
 
 
             // Check for existing participant
-            const existingParticipant = await recruitment25Collection.findOne({ usn: usn });
+            const existingParticipant = await recruitment26Collection.findOne({ usn: usn });
 
             if (existingParticipant) {
                 return res.status(201).json({
@@ -67,7 +68,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 ...additionalData
             };
 
-            const data = await recruitment25Collection.insertOne(insertedParticipant);
+            const data = await recruitment26Collection.insertOne(insertedParticipant);
 
             // Send confirmation email
             try {

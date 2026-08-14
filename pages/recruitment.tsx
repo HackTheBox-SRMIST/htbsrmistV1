@@ -57,8 +57,8 @@ const Recruitment: NextPage = () => {
                 if (value.length !== 15) {
                     return "Registration Number should be 15 characters long.";
                 }
-                if (!/^RA(24|25)/.test(value)) {
-                    return "Registration Number should start with RA24 or RA25.";
+                if (!/^RA(25|26)/.test(value)) {
+                    return "Registration Number should start with RA25 or RA26.";
                 }
                 break;
             case "email":
@@ -227,7 +227,7 @@ const Recruitment: NextPage = () => {
                     <div className="mt-8 max-w-lg text-2xl">
                         <div>
                             <p className="text-htb-green max-md:text-center text2xl md:text-4xl font-black">
-                                RECRUITMENT '25
+                                RECRUITMENT '26
                             </p>
                             <p className="">
                                 <br />
@@ -252,7 +252,6 @@ const Recruitment: NextPage = () => {
                             <button
                                 className="bg-htb-green text-black  px-3 py-3 font-semibold rounded-md inline-block mt-6 "
                                 onClick={handlerReg}
-                                disabled
                             >
                                 REGISTER NOW
                             </button>
