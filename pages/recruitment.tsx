@@ -254,14 +254,13 @@ const Recruitment: NextPage = () => {
             ? "Both domains cannot be the same."
             : "";
         const nameErr = !name.trim() ? "Name is required." : "";
-        const linkedinErr = !linkedin.trim() ? "LinkedIn profile is required." : "";
 
         setErrors({ usn: usnErr, email: emailErr, phone: phoneErr, domain: domainErr });
 
-        const firstError = usnErr || nameErr || emailErr || phoneErr || domainErr || linkedinErr;
+        const firstError = usnErr || nameErr || emailErr || phoneErr || domainErr;
         if (firstError) Toast(false, firstError);
 
-        return !usnErr && !nameErr && !emailErr && !phoneErr && !domainErr && !linkedinErr;
+        return !usnErr && !nameErr && !emailErr && !phoneErr && !domainErr;
     };
 
     const reset = () => {
@@ -486,11 +485,10 @@ const Recruitment: NextPage = () => {
                         onChange={(v) => { setDomain2(v); setErrors(p => ({ ...p, domain: "" })); }}
                     />
 
-                    <Field label="LinkedIn Profile" required>
+                    <Field label="LinkedIn Profile (Optional)">
                         <input
                             name="linkedin"
                             type="text"
-                            required
                             value={linkedin}
                             placeholder="linkedin.com/in/yourprofile"
                             onChange={(e) => setLinkedin(e.target.value)}

@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             } = req.body;
 
             // Validate required fields
-            if (!usn || !name || !email || !phone || !domain1 || !linkedin) {
+            if (!usn || !name || !email || !phone || !domain1) {
                 return res.status(406).json({
                     success: false,
                     message: "❌ Provide all the required request details",
