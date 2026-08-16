@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
+import confetti from "canvas-confetti";
 
 const Toast = (success: boolean, message: React.ReactNode) => {
     toast[success ? "success" : "error"](message, {
@@ -179,7 +180,7 @@ const Recruitment: NextPage = () => {
     const [additionalLink, setAdditionalLink] = useState("");
     const [resume, setResume] = useState("");
     const [submitting, setSubmitting] = useState(false);
-    const [errors, setErrors] = useState({ usn: "", email: "", phone: "", domain: "" });
+    const [errors, setErrors] = useState({ usn: "", email: "", phone: "", domain: "", linkedin: "", additionalLink: "", resume: "" });
 
     const [typedText, setTypedText] = useState("");
 
@@ -236,6 +237,10 @@ const Recruitment: NextPage = () => {
             if (!value.trim()) return "Phone number is required.";
             if (!/^\d{10}$/.test(value)) return "Must be a 10-digit number.";
         }
+        if (["linkedin", "additionalLink", "resume"].includes(fieldName)) {
+            const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w \.-]*)*\/?$/;
+            if (value.trim() && !urlRegex.test(value.trim())) return "Please enter a valid URL.";
+        }
         return "";
     };
 
@@ -254,20 +259,31 @@ const Recruitment: NextPage = () => {
             ? "Both domains cannot be the same."
             : "";
         const nameErr = !name.trim() ? "Name is required." : "";
+        
+        const linkedinErr = validate("linkedin", linkedin);
+        const additionalLinkErr = validate("additionalLink", additionalLink);
+        const resumeErr = validate("resume", resume);
 
-        setErrors({ usn: usnErr, email: emailErr, phone: phoneErr, domain: domainErr });
+        setErrors({ 
+            usn: usnErr, email: emailErr, phone: phoneErr, 
+            domain: domainErr, linkedin: linkedinErr, 
+            additionalLink: additionalLinkErr, resume: resumeErr 
+        });
 
-        const firstError = usnErr || nameErr || emailErr || phoneErr || domainErr;
-        if (firstError) Toast(false, firstError);
+        const firstError = usnErr || nameErr || emailErr || phoneErr || domainErr || linkedinErr || additionalLinkErr || resumeErr;
+        if (firstError) {
+            Toast(false, firstError);
+            return false;
+        }
 
-        return !usnErr && !nameErr && !emailErr && !phoneErr && !domainErr;
+        return true;
     };
 
     const reset = () => {
         setUsn(""); setName(""); setEmail(""); setPhone("");
         setDomain1(""); setDomain2(""); setLinkedin("");
         setAdditionalLink(""); setResume("");
-        setErrors({ usn: "", email: "", phone: "", domain: "" });
+        setErrors({ usn: "", email: "", phone: "", domain: "", linkedin: "", additionalLink: "", resume: "" });
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -276,17 +292,30 @@ const Recruitment: NextPage = () => {
         setSubmitting(true);
 
         try {
-            if (!validateAll()) { setSubmitting(false); return; }
+            if (!validateAll()) { 
+                setSubmitting(false); 
+                return; 
+            }
+
+            const fixUrl = (u: string) => (u.trim() && !/^https?:\/\//i.test(u.trim()) ? `https://${u.trim()}` : u.trim());
 
             const response = await axios.post("/api/v1/recruitment", {
                 usn: usn.trim(), name: name.trim(),
                 email: email.toLowerCase().trim(), phone: phone.trim(),
                 domain1: domain1.trim(), domain2: domain2.trim(),
-                linkedin: linkedin.trim(), additionalLink: additionalLink.trim(),
-                resume: resume.trim(),
+                linkedin: fixUrl(linkedin), 
+                additionalLink: fixUrl(additionalLink),
+                resume: fixUrl(resume),
             });
 
             if (response.status === 200) {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#9FEF00', '#ffffff', '#21262d'],
+                    zIndex: 99999
+                });
                 Toast(true, (
                     <div className="flex flex-col gap-1 font-share-tech tracking-wide mt-1">
                         <span className="text-[#9FEF00] font-bold text-base mb-1">[+] Registration successful!</span>
@@ -427,7 +456,10 @@ const Recruitment: NextPage = () => {
                             required
                             value={usn}
                             placeholder="RAXXXXXXXXXXXXX"
-                            onChange={(e) => setUsn(e.target.value)}
+                            onFocus={() => {
+                                if (!usn) setUsn("RA");
+                            }}
+                            onChange={(e) => setUsn(e.target.value.toUpperCase())}
                             onBlur={handleBlur}
                             className={inputClass(!!errors.usn)}
                         />
@@ -440,7 +472,13 @@ const Recruitment: NextPage = () => {
                             required
                             value={name}
                             placeholder="Your full name"
-                            onChange={(e) => setName(e.target.value)}
+                            onChange={(e) => {
+                                const titleCaseName = e.target.value
+                                    .split(' ')
+                                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                                    .join(' ');
+                                setName(titleCaseName);
+                            }}
                             className={inputClass()}
                         />
                     </Field>
@@ -452,7 +490,15 @@ const Recruitment: NextPage = () => {
                             required
                             value={email}
                             placeholder="netid@srmist.edu.in"
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => {
+                                const raw = e.target.value;
+                                if (/\s/.test(raw)) {
+                                    setErrors(p => ({ ...p, email: "Spaces are not allowed." }));
+                                } else {
+                                    setErrors(p => ({ ...p, email: "" }));
+                                }
+                                setEmail(raw.replace(/\s/g, '').toLowerCase());
+                            }}
                             onBlur={handleBlur}
                             className={inputClass(!!errors.email)}
                         />
@@ -464,8 +510,18 @@ const Recruitment: NextPage = () => {
                             type="tel"
                             required
                             value={phone}
+                            maxLength={10}
                             placeholder="10-digit mobile number"
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={(e) => {
+                                const raw = e.target.value;
+                                const onlyNums = raw.replace(/\D/g, '');
+                                if (raw !== onlyNums) {
+                                    setErrors(p => ({ ...p, phone: "Only digits are allowed." }));
+                                } else {
+                                    setErrors(p => ({ ...p, phone: "" }));
+                                }
+                                setPhone(onlyNums);
+                            }}
                             onBlur={handleBlur}
                             className={inputClass(!!errors.phone)}
                         />
@@ -485,36 +541,39 @@ const Recruitment: NextPage = () => {
                         onChange={(v) => { setDomain2(v); setErrors(p => ({ ...p, domain: "" })); }}
                     />
 
-                    <Field label="LinkedIn Profile (Optional)">
+                    <Field label="LinkedIn Profile (Optional)" error={errors.linkedin}>
                         <input
                             name="linkedin"
                             type="text"
                             value={linkedin}
                             placeholder="linkedin.com/in/yourprofile"
                             onChange={(e) => setLinkedin(e.target.value)}
-                            className={inputClass()}
+                            onBlur={handleBlur}
+                            className={inputClass(!!errors.linkedin)}
                         />
                     </Field>
 
-                    <Field label="Portfolio / Additional Link (Optional)">
+                    <Field label="Portfolio / Additional Link (Optional)" error={errors.additionalLink}>
                         <input
                             name="additionalLink"
                             type="text"
                             value={additionalLink}
                             placeholder="portfolio site / github / hackthebox / behance"
                             onChange={(e) => setAdditionalLink(e.target.value)}
-                            className={inputClass()}
+                            onBlur={handleBlur}
+                            className={inputClass(!!errors.additionalLink)}
                         />
                     </Field>
 
-                    <Field label="Resume Link (Optional)">
+                    <Field label="Resume Link (Optional)" error={errors.resume}>
                         <input
                             name="resume"
                             type="text"
                             value={resume}
                             placeholder="drive.google.com/..."
                             onChange={(e) => setResume(e.target.value)}
-                            className={inputClass()}
+                            onBlur={handleBlur}
+                            className={inputClass(!!errors.resume)}
                         />
                     </Field>
 
