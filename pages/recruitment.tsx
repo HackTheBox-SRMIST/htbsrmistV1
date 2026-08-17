@@ -321,6 +321,9 @@ const Recruitment: NextPage = () => {
                 ));
                 reset();
                 setOpen(false);
+            } else if (response.status === 201) {
+                setErrors(p => ({ ...p, usn: "Already registered." }));
+                Toast(false, "Already registered.");
             } else {
                 Toast(false, response.data.message);
             }
@@ -337,7 +340,7 @@ const Recruitment: NextPage = () => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer style={{ zIndex: 99999 }} />
 
             {/* ── Hero ── */}
             <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-0 pb-10 md:pb-14">
