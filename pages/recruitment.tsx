@@ -237,10 +237,6 @@ const Recruitment: NextPage = () => {
             if (!value.trim()) return "Phone number is required.";
             if (!/^\d{10}$/.test(value)) return "Must be a 10-digit number.";
         }
-        if (["linkedin", "additionalLink", "resume"].includes(fieldName)) {
-            const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}([\/\w \.-]*)*\/?$/;
-            if (value.trim() && !urlRegex.test(value.trim())) return "Please enter a valid URL.";
-        }
         return "";
     };
 
@@ -325,6 +321,9 @@ const Recruitment: NextPage = () => {
                 ));
                 reset();
                 setOpen(false);
+            } else if (response.status === 201) {
+                setErrors(p => ({ ...p, usn: "Already registered." }));
+                Toast(false, "Already registered.");
             } else {
                 Toast(false, response.data.message);
             }
@@ -341,7 +340,7 @@ const Recruitment: NextPage = () => {
 
     return (
         <>
-            <ToastContainer />
+            <ToastContainer style={{ zIndex: 99999 }} />
 
             {/* ── Hero ── */}
             <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-0 pb-10 md:pb-14">
@@ -531,14 +530,29 @@ const Recruitment: NextPage = () => {
                         label="First Domain Preference"
                         required
                         value={domain1}
-                        onChange={(v) => { setDomain1(v); setErrors(p => ({ ...p, domain: "" })); }}
-                        error={errors.domain}
+                        onChange={(v) => { 
+                            if (v && v === domain2) {
+                                setErrors(p => ({ ...p, domain: "Both domains cannot be the same." }));
+                            } else {
+                                setDomain1(v); 
+                                setErrors(p => ({ ...p, domain: "" })); 
+                            }
+                        }}
+                        error={errors.domain === "Please select your first domain." ? errors.domain : ""}
                     />
 
                     <DomainPicker
                         label="Second Domain (Optional)"
                         value={domain2}
-                        onChange={(v) => { setDomain2(v); setErrors(p => ({ ...p, domain: "" })); }}
+                        onChange={(v) => { 
+                            if (v && v === domain1) {
+                                setErrors(p => ({ ...p, domain: "Both domains cannot be the same." }));
+                            } else {
+                                setDomain2(v); 
+                                setErrors(p => ({ ...p, domain: "" })); 
+                            }
+                        }}
+                        error={errors.domain === "Both domains cannot be the same." ? errors.domain : ""}
                     />
 
                     <Field label="LinkedIn Profile (Optional)" error={errors.linkedin}>
@@ -581,9 +595,20 @@ const Recruitment: NextPage = () => {
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full py-2.5 bg-[#9FEF00] text-[#0d1117] text-sm font-semibold rounded-md hover:bg-[#b8f520] transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="relative w-full py-2.5 bg-[#9FEF00] text-[#0d1117] text-sm font-semibold rounded-md hover:bg-[#b8f520] transition-all duration-300 disabled:opacity-80 disabled:cursor-wait flex items-center justify-center gap-2 overflow-hidden"
                         >
-                            {submitting ? "Submitting..." : "Submit Application"}
+                            {submitting ? (
+                                <>
+                                    <div className="absolute inset-0 bg-black/10 animate-pulse"></div>
+                                    <svg className="animate-spin h-4 w-4 text-[#0d1117] relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    <span className="relative z-10 font-bold tracking-wider">Submitting...</span>
+                                </>
+                            ) : (
+                                "Submit Application"
+                            )}
                         </button>
                         <p className="text-xs text-center text-[#6e7681]">
                             Fields marked with <span className="text-[#9FEF00]">*</span> are required.
