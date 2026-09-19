@@ -1,65 +1,6 @@
 import Head from "next/head";
-import Nav from "../components/navbar";
-import Footer from "../components/footer";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import PhoneInputWithCountrySelect from "react-phone-number-input";
-import { useState } from "react";
-const base_url = process.env.BASE_URL_PREVIEW;
+
 const ContactUs = () => {
-    const [value, setValue] = useState("+91");
-
-    const submitHandler = async (event: React.ChangeEvent<any>) => {
-        event.preventDefault();
-        const sendBody = JSON.stringify({
-            name:
-                event.target.firstName.value +
-                " " +
-                event.target.lastName.value,
-            email: event.target.email.value,
-            contactNo: event.target.number.value,
-            question: event.target.message.value,
-            countryCode: event.target.countryCode.value
-        });
-        try {
-            // console.log(base_url);
-            // console.log(sendBody);
-
-            const res = await fetch(`/api/v1/contactus`, {
-                body: sendBody,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                method: "POST"
-            });
-            const result = await res.json();
-            console.log(result.success);
-            if (result.success) {
-                toast.success(result.message, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined
-                });
-            } else {
-                toast.error(result.message, {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined
-                });
-            }
-        } catch (error) {
-            console.log("Server Error");
-        }
-    };
-
     return (
         <div className="min-h-screen flex flex-col">
             <Head>
@@ -75,96 +16,61 @@ const ContactUs = () => {
                 />
             </div>
 
-            <ToastContainer />
+            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col items-center space-y-6 md:space-y-8 p-6 sm:p-8 md:p-10 lg:p-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-8 md:mb-12 shadow-lg">
+                <div className="flex flex-col items-center space-y-3">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-12 w-12 md:h-16 md:w-16 text-htb-green"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                        />
+                    </svg>
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-htb-green font-poppins">
+                        Get In Touch
+                    </h2>
+                </div>
 
-            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col space-y-4 md:space-y-6 p-4 sm:p-6 md:p-8 lg:p-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-8 md:mb-12 shadow-lg">
-                <form
-                    onSubmit={submitHandler}
-                    className="flex flex-col gap-3 sm:gap-4 md:gap-5"
+                <p className="text-hacker-grey text-sm md:text-base lg:text-lg max-w-md font-poppins">
+                    Have a question, suggestion, or just want to say hello?
+                    Reach out to us via email and we&apos;ll get back to you as
+                    soon as possible.
+                </p>
+
+                <a
+                    href="mailto:community@htbchennai.in"
+                    className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-htb-green/20 hover:bg-htb-green/40 border border-htb-green/50 hover:border-htb-green transition-all duration-300 rounded-xl text-htb-green text-base md:text-lg lg:text-xl font-medium font-poppins group"
                 >
-                    <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4">
-                        <div className="w-full sm:w-1/2 relative">
-                            <input
-                                id="firstName"
-                                name="firstName"
-                                type="text"
-                                autoComplete="given-name"
-                                required
-                                placeholder="First Name"
-                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
-                            />
-                        </div>
-                        <div className="w-full sm:w-1/2 relative">
-                            <input
-                                id="lastName"
-                                name="lastName"
-                                type="text"
-                                autoComplete="family-name"
-                                required
-                                placeholder="Last Name"
-                                className="w-full p-3 bg-white/10 required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
-                            placeholder="Email"
-                            required
-                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 md:h-6 md:w-6 group-hover:scale-110 transition-transform duration-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                         />
-                    </div>
+                    </svg>
+                    community@htbchennai.in
+                </a>
 
-                    <div className="flex flex-row">
-                        <input
-                            disabled
-                            id="countryCode"
-                            name="countryCode"
-                            required
-                            defaultValue="+91"
-                            autoComplete="countryCode"
-                            placeholder="+91"
-                            className="flex-shrink-0 w-12 sm:w-14 md:w-16 pl-2 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-l-lg text-htb-green focus:outline-none"
-                        />
-                        <input
-                            id="number"
-                            name="number"
-                            type="tel"
-                            required
-                            autoComplete="phone"
-                            placeholder="Contact Number"
-                            className="w-full p-3 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-r-lg text-htb-green focus:outline-none focus:ring-1 focus:ring-htb-green/50"
-                        />
-                    </div>
-
-                    <div className="">
-                        <textarea
-                            id="message"
-                            name="message"
-                            autoComplete="message"
-                            required
-                            placeholder="Message"
-                            className="w-full p-4 bg-white/10  required:border-red-500 placeholder-htb-green/50 rounded-lg text-htb-green focus:outline-none focus:ring-htb-green/50"
-                            rows={10}
-                        ></textarea>
-                    </div>
-
-                    <div className="flex justify-center mt-2 md:mt-4">
-                        <button
-                            type="submit"
-                            className="w-full sm:w-auto sm:min-w-[12rem] md:min-w-[16rem] px-4 py-2 md:py-3 bg-htb-green/50 hover:bg-htb-green transition-colors duration-300 font-medium text-base md:text-lg rounded-xl"
-                        >
-                            SEND MESSAGE
-                        </button>
-                    </div>
-                </form>
+                <p className="text-hacker-grey/60 text-xs md:text-sm font-poppins">
+                    We typically respond within 24–48 hours.
+                </p>
             </section>
         </div>
     );
 };
 
 export default ContactUs;
+
