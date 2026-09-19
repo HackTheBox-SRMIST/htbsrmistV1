@@ -19,6 +19,7 @@ interface BlogsProps {
 
 const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
     const [imgError, setImgError] = useState(false);
+    const [isOpening, setIsOpening] = useState(false);
     const hasImage = Boolean(blog.img) && !imgError;
 
     return (
@@ -50,7 +51,7 @@ const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
                 <div>
                     {/* Title */}
                     <Link href={`/blogs/${blog.slug}`}>
-                        <a className="block">
+                        <a onClick={() => setIsOpening(true)} className="block">
                             <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-htb-green transition-colors duration-200 line-clamp-2 leading-snug mb-2 font-mono">
                                 {blog.title}
                             </h3>
@@ -68,11 +69,27 @@ const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
                 {/* Bottom Bar: Read Writeup & Publish Date */}
                 <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between gap-3">
                     <Link href={`/blogs/${blog.slug}`}>
-                        <a className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-htb-green/15 hover:bg-htb-green text-htb-green hover:text-black border border-htb-green/40 hover:border-htb-green font-mono text-xs font-bold transition-all duration-200 group/btn shadow-sm active:scale-95">
-                            <span>Read Writeup</span>
-                            <svg className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12" />
-                                <polyline points="12 5 19 12 12 19" />
+                        <a
+                            onClick={() => setIsOpening(true)}
+                            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold transition-all duration-200 group/btn shadow-sm active:scale-95 ${
+                                isOpening
+                                    ? "bg-htb-green text-black border-htb-green opacity-90 cursor-wait"
+                                    : "bg-htb-green/15 hover:bg-htb-green text-htb-green hover:text-black border-htb-green/40 hover:border-htb-green"
+                            }`}
+                        >
+                            <span>{isOpening ? "Opening..." : "Read Writeup"}</span>
+                            <svg className={`w-3.5 h-3.5 transition-transform ${isOpening ? "animate-spin" : "group-hover/btn:translate-x-1"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                                {isOpening ? (
+                                    <>
+                                        <circle cx="12" cy="12" r="9" strokeOpacity="0.3" />
+                                        <path d="M12 3a9 9 0 0 1 9 9" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                    </>
+                                )}
                             </svg>
                         </a>
                     </Link>
@@ -111,8 +128,25 @@ const Blogs: React.FC<BlogsProps> = ({ blogs }) => {
     );
 };
 
-export async function getServerSideProps() {
+let cachedBlogsIndex: BlogData[] = [];
+let lastFetchTimeIndex = 0;
+const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache
+
+export async function getServerSideProps({ res }: { res: any }) {
     try {
+        if (res && res.setHeader) {
+            res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=1200");
+        }
+
+        const now = Date.now();
+        if (cachedBlogsIndex.length > 0 && now - lastFetchTimeIndex < CACHE_TTL_MS) {
+            return {
+                props: {
+                    blogs: cachedBlogsIndex
+                }
+            };
+        }
+
         const response = await fetch(
             "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@htbsrmist"
         );
@@ -153,6 +187,9 @@ export async function getServerSideProps() {
             };
         });
 
+        cachedBlogsIndex = formattedBlogs;
+        lastFetchTimeIndex = now;
+
         return {
             props: {
                 blogs: formattedBlogs
@@ -162,7 +199,7 @@ export async function getServerSideProps() {
         console.error("Error fetching blogs:", error);
         return {
             props: {
-                blogs: []
+                blogs: cachedBlogsIndex.length > 0 ? cachedBlogsIndex : []
             }
         };
     }

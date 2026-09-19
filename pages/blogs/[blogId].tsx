@@ -129,8 +129,25 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+let cachedBlogsDetail: BlogProps[] = [];
+let lastFetchTimeDetail = 0;
+const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes cache
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({ res }) => {
     try {
+        if (res && res.setHeader) {
+            res.setHeader("Cache-Control", "public, s-maxage=600, stale-while-revalidate=1200");
+        }
+
+        const now = Date.now();
+        if (cachedBlogsDetail.length > 0 && now - lastFetchTimeDetail < CACHE_TTL_MS) {
+            return {
+                props: {
+                    blogData: cachedBlogsDetail
+                }
+            };
+        }
+
         const response = await fetch(
             "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@htbsrmist"
         );
@@ -156,6 +173,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
             };
         });
 
+        cachedBlogsDetail = formattedBlogs;
+        lastFetchTimeDetail = now;
+
         return {
             props: {
                 blogData: formattedBlogs
@@ -165,7 +185,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
         console.error("Error fetching blogs:", error);
         return {
             props: {
-                blogData: []
+                blogData: cachedBlogsDetail.length > 0 ? cachedBlogsDetail : []
             }
         };
     }
