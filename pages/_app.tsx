@@ -71,6 +71,8 @@ const RouteProgressBar = () => {
 };
 
 function MyApp({ Component, pageProps }: AppProps) {
+    const router = useRouter();
+
     return (
         <>
             <RouteProgressBar />
@@ -129,7 +131,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
 
             <Nav />
-            <Component {...pageProps} />
+            <div key={router.asPath} className="page-transition">
+                <Component {...pageProps} />
+            </div>
             <ScrollToTopButton />
             <Footer />
         </>
