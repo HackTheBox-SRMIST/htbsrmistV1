@@ -1,4 +1,8 @@
-import type { NextPage, GetServerSidePropsResult } from "next";
+import type {
+    NextPage,
+    GetServerSidePropsContext,
+    GetServerSidePropsResult
+} from "next";
 import Link from "next/link";
 import Head from "next/head";
 import { Modal, Input, Radio } from "@nextui-org/react";
@@ -229,16 +233,39 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
-export async function getServerSideProps(): Promise<
-    GetServerSidePropsResult<EventsPageProps>
-> {
+// In-memory cache for ultra-fast response
+let cachedEvents: EventProps[] = [];
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 30 * 1000; // 30 seconds
+
+export async function getServerSideProps(
+    context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<EventsPageProps>> {
     try {
-        const { data: events } = await (
-            await fetch(`${url_root}/api/v1/events`)
-        ).json();
-        return { props: { events: events.reverse() } };
+        // Edge CDN and browser cache header
+        context.res.setHeader(
+            "Cache-Control",
+            "public, s-maxage=30, stale-while-revalidate=60"
+        );
+
+        const now = Date.now();
+        if (cachedEvents.length > 0 && now - lastFetchTime < CACHE_TTL_MS) {
+            return { props: { events: cachedEvents } };
+        }
+
+        const res = await fetch(`${url_root}/api/v1/events`);
+        const { data: events } = await res.json();
+        const formattedEvents: EventProps[] = (events || []).reverse();
+
+        cachedEvents = formattedEvents;
+        lastFetchTime = now;
+
+        return { props: { events: formattedEvents } };
     } catch (error) {
         console.log(error);
+        if (cachedEvents.length > 0) {
+            return { props: { events: cachedEvents } };
+        }
         return { notFound: true };
     }
 }
