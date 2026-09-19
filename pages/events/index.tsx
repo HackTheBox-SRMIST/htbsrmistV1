@@ -110,6 +110,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         <div className="w-full h-full overflow-hidden">
                                             <img
                                                 src={activeEvents[0].poster_url}
+                                                decoding="async"
                                                 className="w-full h-full object-cover object-center transition-all duration-700 group-hover:opacity-60"
                                                 alt={`HackTheBox SRMIST - ${activeEvents[0].event_name}`}
                                             />
@@ -202,6 +203,8 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                 >
                                     <img
                                         src={event.poster_url}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="h-full w-full object-cover object-center"
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
