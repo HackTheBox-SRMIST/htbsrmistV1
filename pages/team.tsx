@@ -79,11 +79,17 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     const openPhotoModal = () => {
         setPhotoIndex(0); // Always default to the latest photo (team2025-26.jpg)
         setIsPhotoModalOpen(true);
+        if (typeof window !== "undefined" && window.document) {
+            document.body.style.overflow = "hidden";
+        }
     };
 
     const closePhotoModal = () => {
         setIsPhotoModalOpen(false);
         setPhotoIndex(0);
+        if (typeof window !== "undefined" && window.document) {
+            document.body.style.overflow = "unset";
+        }
     };
 
     const prevPhotoHandler = (e?: React.MouseEvent | React.TouchEvent) => {
@@ -785,6 +791,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             {isPhotoModalOpen && (
                 <div
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-4 md:p-6"
+                    onClick={() => closePhotoModal()}
                 >
                     <div
                         className="relative w-fit max-w-[96vw] sm:max-w-[92vw] max-h-[92vh] bg-[#0b111a]/95 border-2 border-htb-green/60 rounded-2xl sm:rounded-3xl shadow-[0_0_40px_rgba(159,239,0,0.3)] overflow-hidden flex flex-col cursor-default animate-in fade-in zoom-in-95 duration-200"

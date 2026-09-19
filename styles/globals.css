@@ -338,28 +338,5 @@ img {
     margin-bottom: 0.4rem;
 }
 
-/* Micro Page Transition Animation */
-@keyframes pageEnter {
-    from {
-        opacity: 0;
-        transform: translateY(6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page-transition {
-    animation: pageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: opacity, transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .page-transition {
-        animation: none !important;
-        transform: none !important;
-    }
-}
 
 
