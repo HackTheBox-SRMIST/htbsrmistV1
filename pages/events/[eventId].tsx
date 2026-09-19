@@ -3,7 +3,7 @@ import type {
     GetServerSidePropsContext,
     GetServerSidePropsResult
 } from "next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -39,14 +39,14 @@ interface EventProps {
             name: string;
             place: string;
             details: string;
+            image: string;
         }
     ];
-    duration: Number;
-    prerequisites: string[];
+    duration: number;
+    prerequisites: [string];
     cost: number;
-    gallery: string[];
-    registration_url: string;
-    database: string;
+    gallery?: string[];
+    registration_url?: string;
     slug: string;
     certificate: {
         [key: string]: string | undefined;
@@ -75,12 +75,19 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
     const [visible, setVisible] = useState(false);
     const [visibleReg, setVisibleReg] = useState(false);
 
+    // Preload modal JS bundles in background after mount so clicking them opens instantly
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            import("../../components/events/CertificateModal");
+            import("../../components/events/EventRegistrationModal");
+        }
+    }, []);
+
     const handler = () => {
         setVisible(true);
         if (typeof window !== "undefined" && window.document) {
             document.body.style.overflow = "hidden";
         }
-        window.scrollTo({ top: 0 });
     };
 
     const closeHandler = () => {
@@ -186,8 +193,11 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                             )}
 
                             <button
-                                className="bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl"
+                                className="bg-htb-green w-full md:w-80 text-node-black font-bold text-center py-3 text-2xl rounded-2xl cursor-pointer hover:bg-htb-green/80 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                 onClick={handler}
+                                onMouseEnter={() =>
+                                    import("../../components/events/CertificateModal")
+                                }
                                 disabled={event?.is_active}
                             >
                                 Get Certificate
