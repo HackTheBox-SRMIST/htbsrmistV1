@@ -5,7 +5,7 @@ export const Events = async (): Promise<eventsDBSchema[]> => {
     try {
         const db = await (
             await DBInstance.getInstance()
-        ).getCollection("events");
+        ).getCollection("events", "htbsrmist");
 
         const eventItems = await db.find<eventsDBSchema>({}).toArray();
         return eventItems;

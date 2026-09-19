@@ -231,7 +231,11 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root =
+    process.env.BASE_URL_PREVIEW ||
+    (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : `http://localhost:${process.env.PORT || 3000}`);
 
 // In-memory cache for ultra-fast response
 let cachedEvents: EventProps[] = [];

@@ -865,8 +865,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     );
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
-
 // In-memory cache for ultra-fast response
 let cachedMembers: MemberProps[] = [];
 let lastFetchTime = 0;

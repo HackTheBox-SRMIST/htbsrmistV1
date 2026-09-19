@@ -58,9 +58,10 @@ interface EventsPageProps {
 }
 
 const url_root =
-    process.env.VERCEL_URL
+    process.env.BASE_URL_PREVIEW ||
+    (process.env.VERCEL_URL
         ? `https://${process.env.VERCEL_URL}`
-        : "http://localhost:3000";
+        : `http://localhost:${process.env.PORT || 3000}`);
 
 const Event: NextPage<EventsPageProps> = ({ events }) => {
     const router = useRouter();
