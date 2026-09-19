@@ -199,3 +199,27 @@ img {
         scroll-behavior: smooth;
     }
 }
+
+/* Moving Team Photo Animation (Mainly top part shown, panning across whole team) */
+@keyframes teamPhotoPan {
+    0% {
+        transform: scale(1.24) translate(10%, -5%);
+    }
+    25% {
+        transform: scale(1.24) translate(0%, -4%);
+    }
+    50% {
+        transform: scale(1.24) translate(-10%, -5%);
+    }
+    75% {
+        transform: scale(1.24) translate(0%, -4%);
+    }
+    100% {
+        transform: scale(1.24) translate(10%, -5%);
+    }
+}
+
+.animate-team-pan {
+    animation: teamPhotoPan 18s ease-in-out infinite;
+    will-change: transform;
+}
