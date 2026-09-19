@@ -13,7 +13,11 @@ const Footer = () => {
             <div className="py-2 text-center lg:text-left">
                 <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
                     <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
-                        <Logo />
+                        <Link href="/">
+                            <a className="cursor-pointer">
+                                <Logo />
+                            </a>
+                        </Link>
                     </div>
                     <div className="lg:col-span-3 flex flex-col justify-around">
                         <div>
@@ -74,36 +78,32 @@ const Footer = () => {
                           lg:justify-start"
                         >
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Home
-                                </a>
+                                <Link href="/">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Home
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/team"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Team
-                                </a>
+                                <Link href="/team">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Team
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/events"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Event
-                                </a>
+                                <Link href="/events">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Event
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:px-32 lg:mb-1.5">
-                                <a
-                                    href="/contact-us"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Contact Us
-                                </a>
+                                <Link href="/contact-us">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Contact Us
+                                    </a>
+                                </Link>
                             </p>
                         </div>
                     </div>

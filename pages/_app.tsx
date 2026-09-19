@@ -3,11 +3,77 @@ import type { AppProps } from "next/app";
 import Nav from "../components/navbar";
 import Head from "next/head";
 import Footer from "../components/footer";
-import ScrollToTopButton from "../components/scrlbtn"
+import ScrollToTopButton from "../components/scrlbtn";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+const RouteProgressBar = () => {
+    const router = useRouter();
+    const [progress, setProgress] = useState(0);
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        let progressInterval: NodeJS.Timeout;
+
+        const handleStart = (url: string) => {
+            if (url === router.asPath) return;
+            setVisible(true);
+            setProgress(25);
+
+            clearInterval(progressInterval);
+            progressInterval = setInterval(() => {
+                setProgress((prev) => {
+                    if (prev >= 85) {
+                        clearInterval(progressInterval);
+                        return 85;
+                    }
+                    return prev + (85 - prev) * 0.25;
+                });
+            }, 120);
+        };
+
+        const handleComplete = () => {
+            clearInterval(progressInterval);
+            setProgress(100);
+            timer = setTimeout(() => {
+                setVisible(false);
+                setProgress(0);
+            }, 250);
+        };
+
+        router.events.on("routeChangeStart", handleStart);
+        router.events.on("routeChangeComplete", handleComplete);
+        router.events.on("routeChangeError", handleComplete);
+
+        return () => {
+            clearInterval(progressInterval);
+            clearTimeout(timer);
+            router.events.off("routeChangeStart", handleStart);
+            router.events.off("routeChangeComplete", handleComplete);
+            router.events.off("routeChangeError", handleComplete);
+        };
+    }, [router]);
+
+    if (!visible && progress === 0) return null;
+
+    return (
+        <div
+            className="fixed top-0 left-0 right-0 h-[2.5px] z-[99999] pointer-events-none transition-opacity duration-300"
+            style={{ opacity: visible ? 1 : 0 }}
+        >
+            <div
+                className="h-full bg-gradient-to-r from-htb-green via-[#b8f520] to-htb-green shadow-[0_0_10px_#9FEF00,0_0_20px_#9FEF00] transition-all duration-200 ease-out"
+                style={{ width: `${progress}%` }}
+            />
+        </div>
+    );
+};
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
+            <RouteProgressBar />
             <Head>
                 <title>HackTheBox Chennai</title>
                 <meta name="title" content="HackTheBox Chennai" />
@@ -54,16 +120,12 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <link
                     rel="preconnect"
                     href="https://fonts.gstatic.com"
-                    // crossorigin
+                    crossOrigin="anonymous"
                 />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Share+Tech&display=swap"
                     rel="stylesheet"
                 />
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-                    rel="stylesheet"
-                ></link>
             </Head>
 
             <Nav />
