@@ -1,4 +1,8 @@
-import type { NextPage, GetServerSidePropsResult } from "next";
+import type {
+    NextPage,
+    GetServerSidePropsContext,
+    GetServerSidePropsResult
+} from "next";
 import axios, { isCancel, AxiosError } from "axios";
 import Member from "../components/teams/member";
 import Roles from "../components/teams/roles";
@@ -863,10 +867,26 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
 const url_root = process.env.BASE_URL_PREVIEW;
 
-export async function getServerSideProps(): Promise<
-    GetServerSidePropsResult<TeamPageProps>
-> {
+// In-memory cache for ultra-fast response
+let cachedMembers: MemberProps[] = [];
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 30 * 1000; // 30 seconds
+
+export async function getServerSideProps(
+    context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<TeamPageProps>> {
     try {
+        // Edge CDN and browser cache header
+        context.res.setHeader(
+            "Cache-Control",
+            "public, s-maxage=30, stale-while-revalidate=60"
+        );
+
+        const now = Date.now();
+        if (cachedMembers.length > 0 && now - lastFetchTime < CACHE_TTL_MS) {
+            return { props: { members: cachedMembers } };
+        }
+
         // Connect to MongoDB and read the teams collection from htb database
         const dbInstance = await DBInstance.getInstance();
         const coll = await dbInstance.getCollection("teams", "htbsrmist");
@@ -914,8 +934,14 @@ export async function getServerSideProps(): Promise<
             } as MemberProps;
         });
 
+        cachedMembers = members;
+        lastFetchTime = now;
+
         return { props: { members } };
     } catch (error) {
+        if (cachedMembers.length > 0) {
+            return { props: { members: cachedMembers } };
+        }
         return { notFound: true };
     }
 }
