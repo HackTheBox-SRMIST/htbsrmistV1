@@ -50,7 +50,7 @@ const Member = (props: any) => {
                 {/* Top Section: Photo, Name, Domain, ServedSince, Caption */}
                 <div className="w-full flex flex-col items-center">
                     {/* Square Photo with Rounded Corners (centralized via ImageKit + object-center) */}
-                    <div className="w-full aspect-square rounded-xl overflow-hidden mb-1.5 sm:mb-2 bg-[#060a12] shrink-0 border border-white/10">
+                    <div className="w-full aspect-square rounded-xl overflow-hidden mb-1 sm:mb-1.5 bg-[#060a12] shrink-0 border border-white/10">
                         {imageUrl ? (
                             <img
                                 src={imageUrl}
@@ -67,16 +67,16 @@ const Member = (props: any) => {
                     </div>
 
                     {/* Member Name */}
-                    <div className="min-h-[2rem] sm:min-h-[2.5rem] flex items-center justify-center w-full px-1">
-                        <span className="text-sm min-[380px]:text-[15px] sm:text-base md:text-[17px] text-htb-green font-bold text-center leading-tight break-words line-clamp-2">
+                    <div className="min-h-[1.85rem] sm:min-h-[2.2rem] flex items-center justify-center w-full px-1">
+                        <span className="text-[15px] min-[380px]:text-base sm:text-[17px] md:text-[18px] text-htb-green font-bold text-center leading-tight break-words line-clamp-2">
                             {props.name}
                         </span>
                     </div>
 
                     {/* Domain Badge */}
-                    <div className="min-h-[1.5rem] flex items-center justify-center w-full mt-0.5">
+                    <div className="min-h-[1.4rem] sm:min-h-[1.5rem] flex items-center justify-center w-full mt-0.5">
                         {props.domain && (
-                            <span className="inline-block text-[11px] sm:text-[12.5px] font-mono font-bold uppercase tracking-wider text-htb-green bg-htb-green/10 border border-htb-green/30 px-2 sm:px-2.5 py-0.5 rounded-full shadow-[0_0_8px_rgba(159,239,0,0.2)] truncate max-w-[95%]">
+                            <span className="inline-block text-xs sm:text-[13.5px] font-mono font-bold uppercase tracking-wider text-htb-green bg-htb-green/10 border border-htb-green/30 px-2 sm:px-2.5 py-0.5 rounded-full shadow-[0_0_8px_rgba(159,239,0,0.2)] truncate max-w-[95%]">
                                 {props.domain}
                             </span>
                         )}
@@ -84,15 +84,15 @@ const Member = (props: any) => {
 
                     {/* Served Since (for Founders & Convenors) */}
                     {props.servedSince && (
-                        <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-transparent text-zinc-300 border border-zinc-300/40 rounded-full mt-1 font-mono font-semibold shadow-[0_0_8px_rgba(139,239,0,0.25)]">
+                        <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-transparent text-zinc-300 border border-zinc-300/40 rounded-full mt-0.5 font-mono font-semibold shadow-[0_0_8px_rgba(139,239,0,0.25)]">
                             {props.servedSince}
                         </span>
                     )}
 
-                    {/* Caption / Quote with consistent min-height */}
-                    <div className="min-h-[2rem] sm:min-h-[2.25rem] flex items-center justify-center w-full mt-1 px-1">
+                    {/* Caption / Tag Line (given 3-line capacity) */}
+                    <div className="min-h-[2.5rem] sm:min-h-[2.8rem] flex items-center justify-center w-full mt-0.5 sm:mt-1 px-1">
                         {props.caption ? (
-                            <span className="text-center text-[11px] sm:text-xs text-zinc-400 break-words leading-snug italic line-clamp-2">
+                            <span className="text-center text-[11px] sm:text-xs font-semibold text-zinc-200 break-words leading-tight italic line-clamp-3">
                                 &ldquo;{props.caption}&rdquo;
                             </span>
                         ) : null}
