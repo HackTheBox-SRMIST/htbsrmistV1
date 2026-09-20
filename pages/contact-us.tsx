@@ -2,7 +2,7 @@ import Head from "next/head";
 
 const ContactUs = () => {
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="flex flex-col">
             <Head>
                 <title>Contact Us | HTBSRMIST</title>
                 <link rel="icon" href="/favicon.svg" />
@@ -16,7 +16,7 @@ const ContactUs = () => {
                 />
             </div>
 
-            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col items-center space-y-6 md:space-y-8 p-6 sm:p-8 md:p-10 lg:p-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-8 md:mb-12 shadow-lg">
+            <section className="mx-auto w-[90%] sm:w-[85%] md:w-9/12 lg:w-6/12 text-center flex flex-col items-center space-y-6 md:space-y-8 p-6 sm:p-8 md:p-10 lg:p-14 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl md:rounded-3xl mb-3 md:mb-5 shadow-lg">
                 <div className="flex flex-col items-center space-y-3">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

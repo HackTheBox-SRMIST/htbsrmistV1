@@ -452,11 +452,11 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                         {/* Year selection dropdown (page-centered) */}
                         {isYearDropdownOpen && (
-                            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-black/95 backdrop-blur-lg border border-htb-green/50 shadow-[0_15px_30px_rgba(151,253,30,0.25)] rounded-2xl p-4 sm:p-4 transition-all duration-300">
+                            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[300px] max-w-[calc(100vw-24px)] sm:w-[380px] md:w-[440px] lg:w-[520px] bg-black/95 backdrop-blur-lg border border-htb-green/50 shadow-[0_15px_30px_rgba(151,253,30,0.25)] rounded-2xl p-4 sm:p-5 transition-all duration-300">
                                 <div className="text-center text-xs sm:text-sm text-white/60 mb-2.5 font-semibold uppercase tracking-widest border-b border-white/10 pb-2">
                                     Select Year
                                 </div>
-                                <div className="grid grid-cols-4 gap-2">
+                                <div className="grid grid-cols-4 gap-2 sm:gap-3">
                                     {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
                                         <button
                                             key={yr}

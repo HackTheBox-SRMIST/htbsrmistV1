@@ -11,7 +11,7 @@ const Footer = () => {
     return (
         <footer className="text-center text-htb-green lg:text-left bg-black/70  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
             <div className="py-2 text-center lg:text-left">
-                <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
                     <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
                         <Link href="/">
                             <a className="cursor-pointer">
@@ -26,7 +26,7 @@ const Footer = () => {
                                 beyond.
                             </h6>
                         </div>
-                        <div className="socials flex place-items-center flex-col justify-items-center items-center mb-1 ml-6">
+                        <div className="socials flex place-items-center flex-col justify-items-center items-center mb-1 lg:ml-6">
                             <div className="text-3xl flex flex-row gap-5 sm:gap-10 pb-4">
                                 <a
                                     href="https://htbsrmist.medium.com"
@@ -69,7 +69,7 @@ const Footer = () => {
                     </div>
 
                     <div className="lg:col-span-2 items-center  justify-center">
-                        <h6 className="uppercase font-semibold mb-4 lg:mt-4  px-32 ">
+                        <h6 className="uppercase font-semibold mb-4 lg:mt-4 lg:px-32 ">
                             Explore
                         </h6>
 
@@ -108,7 +108,7 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col m-auto">
+                    <div className="m-auto flex flex-col">
                         <h6 className="uppercase font-semibold mb-5 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 lg:ml-0 ">
                             Contact
                         </h6>
