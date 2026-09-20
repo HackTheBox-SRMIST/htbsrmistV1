@@ -63,7 +63,7 @@ const Nav = () => {
                 <Link href="/">
                     <a
                         onClick={triggerShine}
-                        className="flex items-center gap-1.5 sm:gap-3 md:gap-3.5 cursor-pointer group select-none shrink-0"
+                        className="flex items-center gap-1.5 sm:gap-3 md:gap-3.5 cursor-pointer group select-none"
                     >
                         {/* 1. logo.png */}
                         <img
@@ -87,7 +87,7 @@ const Nav = () => {
                             />
 
                             {/* Divider 2: desktop only */}
-                            <div className="hidden lg:block lg:h-8 w-px bg-white/25 shrink-0 mx-1" />
+                            <div className="md:hidden lg:block h-5 sm:h-7 lg:h-8 w-px bg-white/25 shrink-0 mx-1" />
 
                             {/* 3. heroDesc.png */}
                             <img
@@ -98,7 +98,7 @@ const Nav = () => {
                                         ? "brightness(1) invert(0)"
                                         : "brightness(0) invert(1)"
                                 }}
-                                className="hidden lg:block lg:h-9 w-auto object-contain min-w-0 transition-all duration-300"
+                                className="hidden min-[360px]:block h-[15px] sm:h-5 md:hidden lg:block lg:h-9 w-auto object-contain min-w-0 transition-all duration-300"
                             />
                     </div>
                     </a>
