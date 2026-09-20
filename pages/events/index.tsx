@@ -1,8 +1,10 @@
-import type { NextPage, GetServerSidePropsResult } from "next";
+import type {
+    NextPage,
+    GetServerSidePropsContext,
+    GetServerSidePropsResult
+} from "next";
 import Link from "next/link";
 import Head from "next/head";
-import Nav from "../../components/navbar";
-import Footer from "../../components/footer";
 import { Modal, Input, Radio } from "@nextui-org/react";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -110,6 +112,7 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                         <div className="w-full h-full overflow-hidden">
                                             <img
                                                 src={activeEvents[0].poster_url}
+                                                decoding="async"
                                                 className="w-full h-full object-cover object-center transition-all duration-700 group-hover:opacity-60"
                                                 alt={`HackTheBox SRMIST - ${activeEvents[0].event_name}`}
                                             />
@@ -130,26 +133,25 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
                                             {/* Hover overlay with action - simplified for mobile */}
                                             <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-b from-black/70 to-gray-900/80">
-                                                <a
-                                                    href={`/events/${activeEvents[0].event_name}`}
-                                                    className="relative"
-                                                >
-                                                    <button className="relative bg-htb-green hover:bg-white text-sm md:text-base font-bold py-2 md:py-3 px-6 md:px-8 rounded-full transition-all duration-300 text-black hover:text-htb-green border border-transparent hover:border-htb-green flex items-center">
-                                                        Register Now
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            className="h-4 w-4 md:h-5 md:w-5 ml-2"
-                                                            viewBox="0 0 20 20"
-                                                            fill="currentColor"
-                                                        >
-                                                            <path
-                                                                fillRule="evenodd"
-                                                                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                                                                clipRule="evenodd"
-                                                            />
-                                                        </svg>
-                                                    </button>
-                                                </a>
+                                                <Link href={`/events/${encodeURIComponent(activeEvents[0].event_name)}`}>
+                                                    <a className="relative cursor-pointer">
+                                                        <button className="relative bg-htb-green hover:bg-white text-sm md:text-base font-bold py-2 md:py-3 px-6 md:px-8 rounded-full transition-all duration-300 text-black hover:text-htb-green border border-transparent hover:border-htb-green flex items-center cursor-pointer">
+                                                            Register Now
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                className="h-4 w-4 md:h-5 md:w-5 ml-2"
+                                                                viewBox="0 0 20 20"
+                                                                fill="currentColor"
+                                                            >
+                                                                <path
+                                                                    fillRule="evenodd"
+                                                                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                                                    clipRule="evenodd"
+                                                                />
+                                                            </svg>
+                                                        </button>
+                                                    </a>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -202,6 +204,8 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
                                 >
                                     <img
                                         src={event.poster_url}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="h-full w-full object-cover object-center"
                                         alt={`HackTheBox SRMIST - ${event.event_name}`}
                                     />
@@ -209,11 +213,13 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
 
                                     {/* Event Name Overlay */}
                                     <div className="absolute bottom-0 left-0 right-0 p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-htb-green backdrop-blur-sm">
-                                        <a href={`/events/${event.event_name}`}>
-                                            <h3 className="text-lg md:text-xl font-semibold text-center">
-                                                Get Certificate
-                                            </h3>
-                                        </a>
+                                        <Link href={`/events/${encodeURIComponent(event.event_name)}`}>
+                                            <a className="block cursor-pointer">
+                                                <h3 className="text-lg md:text-xl font-semibold text-center">
+                                                    Get Certificate
+                                                </h3>
+                                            </a>
+                                        </Link>
                                     </div>
                                 </div>
                             ))}
@@ -225,18 +231,45 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
     );
 };
 
-const url_root = process.env.BASE_URL_PREVIEW;
+const url_root =
+    process.env.BASE_URL_PREVIEW ||
+    (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : `http://localhost:${process.env.PORT || 3000}`);
 
-export async function getServerSideProps(): Promise<
-    GetServerSidePropsResult<EventsPageProps>
-> {
+// In-memory cache for ultra-fast response
+let cachedEvents: EventProps[] = [];
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 30 * 1000; // 30 seconds
+
+export async function getServerSideProps(
+    context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<EventsPageProps>> {
     try {
-        const { data: events } = await (
-            await fetch(`${url_root}/api/v1/events`)
-        ).json();
-        return { props: { events: events.reverse() } };
+        // Edge CDN and browser cache header
+        context.res.setHeader(
+            "Cache-Control",
+            "public, s-maxage=30, stale-while-revalidate=60"
+        );
+
+        const now = Date.now();
+        if (cachedEvents.length > 0 && now - lastFetchTime < CACHE_TTL_MS) {
+            return { props: { events: cachedEvents } };
+        }
+
+        const res = await fetch(`${url_root}/api/v1/events`);
+        const { data: events } = await res.json();
+        const formattedEvents: EventProps[] = (events || []).reverse();
+
+        cachedEvents = formattedEvents;
+        lastFetchTime = now;
+
+        return { props: { events: formattedEvents } };
     } catch (error) {
         console.log(error);
+        if (cachedEvents.length > 0) {
+            return { props: { events: cachedEvents } };
+        }
         return { notFound: true };
     }
 }

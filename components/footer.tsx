@@ -9,11 +9,15 @@ import { FaGithub } from "react-icons/fa";
 import { SiMedium } from "react-icons/si";
 const Footer = () => {
     return (
-        <footer className="text-center text-htb-green lg:text-left bg-black/70  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
+        <footer className="w-full text-center text-htb-green lg:text-left bg-black mt-6 lg:mt-8 font-poppins border-t border-htb-green/20">
             <div className="py-2 text-center lg:text-left">
-                <div className="grid grid-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
+                <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
                     <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
-                        <Logo />
+                        <Link href="/">
+                            <a className="cursor-pointer">
+                                <Logo />
+                            </a>
+                        </Link>
                     </div>
                     <div className="lg:col-span-3 flex flex-col justify-around">
                         <div>
@@ -22,7 +26,7 @@ const Footer = () => {
                                 beyond.
                             </h6>
                         </div>
-                        <div className="socials flex place-items-center flex-col justify-items-center items-center mb-1 ml-6">
+                        <div className="socials flex place-items-center flex-col justify-items-center items-center mb-1 lg:ml-6">
                             <div className="text-3xl flex flex-row gap-5 sm:gap-10 pb-4">
                                 <a
                                     href="https://htbsrmist.medium.com"
@@ -65,7 +69,7 @@ const Footer = () => {
                     </div>
 
                     <div className="lg:col-span-2 items-center  justify-center">
-                        <h6 className="uppercase font-semibold mb-4 lg:mt-4  px-32 ">
+                        <h6 className="uppercase font-semibold mb-4 lg:mt-4 lg:px-32 ">
                             Explore
                         </h6>
 
@@ -74,41 +78,37 @@ const Footer = () => {
                           lg:justify-start"
                         >
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Home
-                                </a>
+                                <Link href="/">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Home
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/team"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Team
-                                </a>
+                                <Link href="/team">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Team
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:mb-1.5 lg:px-32">
-                                <a
-                                    href="/events"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Event
-                                </a>
+                                <Link href="/events">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Event
+                                    </a>
+                                </Link>
                             </p>
                             <p className="lg:px-32 lg:mb-1.5">
-                                <a
-                                    href="/contact-us"
-                                    className=" text-[#5B8E23] hover:text-htb-green"
-                                >
-                                    Contact Us
-                                </a>
+                                <Link href="/contact-us">
+                                    <a className=" text-[#5B8E23] hover:text-htb-green cursor-pointer">
+                                        Contact Us
+                                    </a>
+                                </Link>
                             </p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col m-auto">
+                    <div className="m-auto flex flex-col">
                         <h6 className="uppercase font-semibold mb-5 flex justify-center lg:justify-start lg:mx-4 lg:mt-4 lg:ml-0 ">
                             Contact
                         </h6>

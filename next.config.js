@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true
-};
-
-module.exports = {
+    reactStrictMode: true,
+    swcMinify: true,
     webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = {
@@ -19,7 +17,10 @@ module.exports = {
         domains: [
             "htbsrmist.s3.ap-south-1.amazonaws.com",
             "upload.wikimedia.org",
-            "i.ndtvimg.com"
+            "i.ndtvimg.com",
+            "ik.imagekit.io"
         ]
     }
 };
+
+module.exports = nextConfig;

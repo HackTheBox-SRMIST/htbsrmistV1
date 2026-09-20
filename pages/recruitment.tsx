@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import confetti from "canvas-confetti";
+import { FaInstagram } from "react-icons/fa";
 
 const Toast = (success: boolean, message: React.ReactNode) => {
     toast[success ? "success" : "error"](message, {
@@ -167,9 +168,94 @@ const Modal = ({
     );
 };
 
+/* ─── Instagram Popup ───────────────────────────────────────── */
+const InstagramPopup = ({
+    open,
+    onClose,
+}: {
+    open: boolean;
+    onClose: () => void;
+}) => {
+    useEffect(() => {
+        if (open) {
+            const handleKeyDown = (e: KeyboardEvent) => {
+                if (e.key === "Escape") onClose();
+            };
+            window.addEventListener("keydown", handleKeyDown);
+            return () => window.removeEventListener("keydown", handleKeyDown);
+        }
+    }, [open, onClose]);
+
+    if (!open) return null;
+
+    return (
+        <div
+            className="fixed inset-0 z-[8000] flex items-center justify-center p-4 bg-[rgba(1,4,9,0.85)] backdrop-blur-sm"
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+        >
+            <div
+                className="relative w-full max-w-sm rounded-xl overflow-hidden p-6 sm:p-7 flex flex-col items-center text-center transition-all duration-200"
+                style={{
+                    background: "#0d1117",
+                    border: "1px solid rgba(159,239,0,0.55)",
+                    boxShadow: "0 0 0 1px rgba(159,239,0,0.12), 0 0 25px rgba(159,239,0,0.2), 0 24px 64px rgba(0,0,0,0.7)",
+                }}
+            >
+                {/* Close Button */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-3 right-3 text-[#8b949e] hover:text-[#e6edf3] transition-colors text-2xl leading-none w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#21262d]"
+                    aria-label="Close"
+                >
+                    &times;
+                </button>
+
+                {/* Instagram Icon Tile */}
+                <a
+                    href="https://www.instagram.com/htbsrmist/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className="w-14 h-14 rounded-xl bg-[#161b22] border border-[#9FEF00]/40 hover:border-[#9FEF00] flex items-center justify-center text-[#9FEF00] text-2xl shadow-[0_0_15px_rgba(159,239,0,0.15)] hover:shadow-[0_0_20px_rgba(159,239,0,0.3)] transition-all mb-4 mt-1"
+                >
+                    <FaInstagram />
+                </a>
+
+                {/* Heading */}
+                <h3
+                    className="text-xl font-bold font-share-tech tracking-wide leading-snug"
+                    style={{ color: "#9FEF00", textShadow: "0 0 14px rgba(159,239,0,0.45)" }}
+                >
+                    Follow us on Instagram for future updates
+                </h3>
+
+                {/* Subtitle / Context */}
+                <p className="text-sm text-[#8b949e] mt-2 mb-5 font-poppins leading-relaxed">
+                    Stay tuned for tasks, shortlisted announcements &amp; future events
+                </p>
+
+                {/* Primary Action Button */}
+                <a
+                    href="https://www.instagram.com/htbsrmist/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className="w-full py-2.5 px-4 bg-[#9FEF00] text-[#0d1117] text-sm font-semibold rounded-md hover:bg-[#b8f520] transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(159,239,0,0.25)] font-poppins cursor-pointer"
+                >
+                    <FaInstagram className="text-base" />
+                    <span>Follow @htbsrmist</span>
+                </a>
+            </div>
+        </div>
+    );
+};
+
 /* ─── Page ──────────────────────────────────────────────────── */
 const Recruitment: NextPage = () => {
     const [open, setOpen] = useState(false);
+    const [showInstaModal, setShowInstaModal] = useState(false);
     const [usn, setUsn] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -321,6 +407,7 @@ const Recruitment: NextPage = () => {
                 ));
                 reset();
                 setOpen(false);
+                setShowInstaModal(true);
             } else if (response.status === 201) {
                 setErrors(p => ({ ...p, usn: "Already registered." }));
                 Toast(false, "Already registered.");
@@ -340,10 +427,15 @@ const Recruitment: NextPage = () => {
 
     return (
         <>
-            <ToastContainer style={{ zIndex: 99999 }} />
+            <ToastContainer style={{ zIndex: 100000 }} />
+
+            <InstagramPopup
+                open={showInstaModal}
+                onClose={() => setShowInstaModal(false)}
+            />
 
             {/* ── Hero ── */}
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-0 pb-10 md:pb-14">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-8 md:pt-0 pb-10 md:pb-14">
                 <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-5 md:gap-16">
 
                     {/* Left: Copy */}
