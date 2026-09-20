@@ -495,7 +495,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
             {/* Hierarchy / Rank Filter Bar (FOSS Style in HTB Cyber Theme) */}
             {!showFounders && (
-                <div className="w-full max-w-7xl mx-auto my-1 sm:my-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-white/15 bg-black/40 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 shadow-sm z-20">
+                <div className="w-full max-w-7xl mx-auto my-1 sm:my-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-htb-green/60 bg-black/40 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 shadow-[0_0_10px_rgba(159,239,0,0.10)] z-20">
                     <div className="flex items-center gap-0.5 sm:gap-1 overflow-x-auto scrollbar-none py-0.5 max-w-full">
                         <span className="text-xs sm:text-sm font-mono text-zinc-400 font-semibold uppercase tracking-tight sm:tracking-wider pr-0 sm:pr-1 select-none shrink-0">
                             Rank:

@@ -21,7 +21,8 @@ module.exports = {
                 "share-tech": ["Share Tech", "sans - serif"],
                 poppins: ["Poppins", "sans-serif"],
                 "do-hyeon": ["Do Hyeon", "sans-serif"],
-                "share-tech": ["Share Tech", "sans-serif"]
+                "share-tech": ["Share Tech", "sans-serif"],
+                "fira-sans": ["Fira Sans", "system-ui", "sans-serif"]
             },
             backgroundImage: {
                 hackerfooter: "url('/bgblue.svg')"

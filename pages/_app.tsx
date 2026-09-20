@@ -123,13 +123,13 @@ function MyApp({ Component, pageProps }: AppProps) {
                     crossOrigin="anonymous"
                 />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Share+Tech&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Share+Tech&display=swap&family=Fira+Sans:wght@400;500;600;700&display=swap"
                     rel="stylesheet"
                 />
             </Head>
 
             <Nav />
-            <div className="pt-[86px] sm:pt-[96px] md:pt-[100px]">
+            <div className="flex-1 pt-[86px] sm:pt-[96px] md:pt-[100px]">
                 <Component {...pageProps} />
             </div>
             <ScrollToTopButton />

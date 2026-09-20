@@ -41,7 +41,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
             {/* Top Navigation Bar */}
             <div className="max-w-4xl w-full mb-6 sm:mb-8 flex items-center justify-between gap-3">
                 <Link href="/blogs">
-                    <a className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-htb-green text-zinc-300 hover:text-black border border-htb-green/40 font-mono text-xs sm:text-sm font-bold transition-all duration-200 shadow-md active:scale-95">
+                    <a className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-htb-green text-zinc-300 hover:text-black border border-htb-green/40 font-fira-sans text-xs sm:text-sm font-bold transition-all duration-200 shadow-md active:scale-95">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <line x1="19" y1="12" x2="5" y2="12" />
                             <polyline points="12 19 5 12 12 5" />
@@ -55,7 +55,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                         href={blog.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-htb-green text-zinc-300 hover:text-black border border-htb-green/40 font-mono text-xs sm:text-sm font-bold transition-all duration-200 shadow-md active:scale-95"
+                        className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/70 hover:bg-htb-green text-zinc-300 hover:text-black border border-htb-green/40 font-fira-sans text-xs sm:text-sm font-bold transition-all duration-200 shadow-md active:scale-95"
                     >
                         <SiMedium className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         <span>Read on Medium</span>
@@ -72,11 +72,11 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
             <main className="max-w-4xl w-full bg-[#0d1218]/90 backdrop-blur-md rounded-2xl md:rounded-3xl border border-htb-green/25 p-4 sm:p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden">
                 {/* Article Header */}
                 <header className="mb-6 sm:mb-8 pb-5 sm:pb-6 border-b border-zinc-800">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-mono tracking-tight leading-tight mb-4">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white font-fira-sans tracking-tight leading-tight mb-4">
                         {blog.title}
                     </h1>
 
-                    <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-mono text-zinc-400">
+                    <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-fira-sans text-zinc-400">
                         <div className="flex items-center gap-2 text-htb-green">
                             <span className="w-2 h-2 rounded-full bg-htb-green shadow-[0_0_8px_rgba(159,239,0,0.8)]" />
                             <span className="text-zinc-200 font-semibold">HackTheBox SRMIST</span>
@@ -103,7 +103,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                 {/* Bottom Footer Actions */}
                 <footer className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <Link href="/blogs">
-                        <a className="inline-flex items-center gap-2 text-htb-green hover:underline font-mono text-xs sm:text-sm font-semibold">
+                        <a className="inline-flex items-center gap-2 text-htb-green hover:underline font-fira-sans text-xs sm:text-sm font-semibold">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                 <line x1="19" y1="12" x2="5" y2="12" />
                                 <polyline points="12 19 5 12 12 5" />
@@ -117,7 +117,7 @@ const BlogPage: NextPage<Props> = ({ blogData }) => {
                             href={blog.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-zinc-400 hover:text-htb-green transition-colors font-mono text-xs sm:text-sm"
+                            className="inline-flex items-center gap-2 text-zinc-400 hover:text-htb-green transition-colors font-fira-sans text-xs sm:text-sm"
                         >
                             <SiMedium className="w-4 h-4" />
                             <span>View original publication on Medium ↗</span>

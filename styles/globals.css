@@ -30,6 +30,12 @@ body,
     @apply m-0 p-0 w-full min-h-full;
 }
 
+#__next {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 body {
     @apply bg-hackerfooter bg-no-repeat bg-bottom bg-fixed bg-cover bg-black;
 }

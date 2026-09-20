@@ -52,7 +52,7 @@ const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
                     {/* Title */}
                     <Link href={`/blogs/${blog.slug}`}>
                         <a onClick={() => setIsOpening(true)} className="block">
-                            <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-htb-green transition-colors duration-200 line-clamp-2 leading-snug mb-2 font-mono">
+                            <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-htb-green transition-colors duration-200 line-clamp-2 leading-snug mb-2 font-fira-sans">
                                 {blog.title}
                             </h3>
                         </a>
@@ -71,7 +71,7 @@ const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
                     <Link href={`/blogs/${blog.slug}`}>
                         <a
                             onClick={() => setIsOpening(true)}
-                            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border font-mono text-xs font-bold transition-all duration-200 group/btn shadow-sm active:scale-95 ${
+                            className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border font-fira-sans text-xs font-bold transition-all duration-200 group/btn shadow-sm active:scale-95 ${
                                 isOpening
                                     ? "bg-htb-green text-black border-htb-green opacity-90 cursor-wait"
                                     : "bg-htb-green/15 hover:bg-htb-green text-htb-green hover:text-black border-htb-green/40 hover:border-htb-green"
@@ -95,7 +95,7 @@ const BlogCard: React.FC<{ blog: BlogData }> = ({ blog }) => {
                     </Link>
 
                     {blog.pubDate && (
-                        <span className="text-zinc-400 font-mono text-xs tracking-tight shrink-0">
+                        <span className="text-zinc-400 font-fira-sans text-xs tracking-tight shrink-0">
                             Publish Date: {blog.pubDate}
                         </span>
                     )}

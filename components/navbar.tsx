@@ -59,7 +59,7 @@ const Nav = () => {
 
     return (
         <nav className="fixed top-3 z-50 w-full flex justify-center px-2.5 sm:px-6">
-            <div className={`relative w-full max-w-[1200px] xl:max-w-[1340px] flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border border-white/15 ${navbarOpen ? "bg-[#10161f] md:bg-white/[0.07]" : "bg-[#10161f]/90 md:bg-white/[0.07]"} [-webkit-backdrop-filter:blur(24px)_saturate(150%)] [backdrop-filter:blur(24px)_saturate(150%)] shadow-lg shadow-black/40 font-poppins`}>
+            <div className={`relative w-full max-w-[1200px] xl:max-w-[1340px] flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl border border-htb-green/60 ${navbarOpen ? "bg-[#10161f] md:bg-white/[0.07]" : "bg-[#10161f]/90 md:bg-white/[0.07]"} [-webkit-backdrop-filter:blur(24px)_saturate(150%)] [backdrop-filter:blur(24px)_saturate(150%)] shadow-[0_0_12px_rgba(159,239,0,0.10),0_8px_24px_rgba(0,0,0,0.4)] font-poppins`}>
                 <Link href="/">
                     <a
                         onClick={triggerShine}
@@ -157,7 +157,7 @@ const Nav = () => {
                 {/* Mobile Dropdown Menu with glass bubble on active link */}
                 {navbarOpen && (
                     <div className="absolute right-2 top-full mt-2 z-50 md:hidden">
-                        <ul className="text-white bg-[#10161f]/90 [-webkit-backdrop-filter:blur(24px)] [backdrop-filter:blur(24px)] border border-white/15 rounded-2xl shadow-2xl shadow-black/50 py-2 px-2 overflow-hidden">
+                        <ul className="text-white bg-[#10161f]/90 [-webkit-backdrop-filter:blur(24px)] [backdrop-filter:blur(24px)] border border-htb-green/60 rounded-2xl shadow-[0_0_12px_rgba(159,239,0,0.10),0_8px_24px_rgba(0,0,0,0.4)] py-2 px-2 overflow-hidden">
                             {links.map((link) => (
                                 <Link key={link.href} href={link.href}>
                                     <li

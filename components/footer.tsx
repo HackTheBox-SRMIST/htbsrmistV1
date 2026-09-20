@@ -9,7 +9,7 @@ import { FaGithub } from "react-icons/fa";
 import { SiMedium } from "react-icons/si";
 const Footer = () => {
     return (
-        <footer className="text-center text-htb-green lg:text-left bg-black/70  mb-6 lg:mt-6 rounded-md relative bottom-0 font-poppins ">
+        <footer className="w-full text-center text-htb-green lg:text-left bg-black mt-6 lg:mt-8 font-poppins border-t border-htb-green/20">
             <div className="py-2 text-center lg:text-left">
                 <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 justify-items-center lg:justify-items-stretch">
                     <div className="mx-auto mr-1 mt-4 col-start-1 hidden lg:block pt-8">
