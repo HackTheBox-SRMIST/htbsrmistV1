@@ -36,7 +36,7 @@ interface TeamPageProps {
 
 const domainTabs: { key: "Development" | "Security" | "Corporate" | "Creatives"; label: string }[] = [
     { key: "Development", label: "Development" },
-    { key: "Security", label: "Cyber Security" },
+    { key: "Security", label: "CyberSecurity" },
     { key: "Corporate", label: "Corporate" },
     { key: "Creatives", label: "Creatives" }
 ];
@@ -108,7 +108,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         }
 
         // Loop: 2 seconds for 010101 binary intro, then 8 seconds for the full moving photo pan
-        const duration = isBannerRevealed ? 8000 : 2000;
+        const duration = isBannerRevealed ? 8000 : 1000;
         const timer = setTimeout(() => {
             setIsBannerRevealed((prev) => !prev);
         }, duration);
@@ -416,9 +416,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                 onClick={() => setIsYearDropdownOpen(false)}
                             />
                         )}
-
-                        {/* Year selection dropdown */}
-                        <div className="relative z-40">
+                        <div className="z-40">
                             <button
                                 onClick={() => setIsYearDropdownOpen(!isYearDropdownOpen)}
                                 className="relative flex items-center justify-between gap-1.5 sm:gap-2.5 bg-black/70 hover:bg-black/90 border-2 border-htb-green/50 hover:border-htb-green px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-htb-green font-extrabold text-xs sm:text-base focus:outline-none cursor-pointer transition-all shadow-[0_0_10px_rgba(159,239,0,0.15)]"
@@ -441,32 +439,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                     ></path>
                                 </svg>
                             </button>
-
-                            {isYearDropdownOpen && (
-                                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-60 sm:w-68 bg-black/95 backdrop-blur-lg border border-htb-green/50 shadow-[0_15px_30px_rgba(151,253,30,0.25)] rounded-2xl p-3 sm:p-4 transition-all duration-300">
-                                    <div className="text-center text-[11px] sm:text-xs text-white/60 mb-2 font-semibold uppercase tracking-widest border-b border-white/10 pb-1.5">
-                                        Select Year
-                                    </div>
-                                    <div className="grid grid-cols-3 gap-2">
-                                        {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
-                                            <button
-                                                key={yr}
-                                                onClick={() => {
-                                                    selectYear(yr);
-                                                    setIsYearDropdownOpen(false);
-                                                }}
-                                                className={`py-1.5 px-2 text-center rounded-xl font-medium text-xs sm:text-sm transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
-                                                    activeYear === yr
-                                                        ? "bg-htb-green text-black font-bold shadow-[0_0_12px_rgba(151,253,30,0.4)]"
-                                                        : "bg-[#111] hover:bg-htb-green/20 text-white/80 hover:text-htb-green border border-white/5 hover:border-htb-green/30"
-                                                }`}
-                                            >
-                                                {yr}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
                         </div>
 
                         {/* Button to Show Founders & Convenors */}
@@ -477,6 +449,33 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         >
                             Founders &amp; Convenors
                         </button>
+
+                        {/* Year selection dropdown (page-centered) */}
+                        {isYearDropdownOpen && (
+                            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 z-50 w-[300px] max-w-[calc(100vw-24px)] bg-black/95 backdrop-blur-lg border border-htb-green/50 shadow-[0_15px_30px_rgba(151,253,30,0.25)] rounded-2xl p-4 sm:p-4 transition-all duration-300">
+                                <div className="text-center text-xs sm:text-sm text-white/60 mb-2.5 font-semibold uppercase tracking-widest border-b border-white/10 pb-2">
+                                    Select Year
+                                </div>
+                                <div className="grid grid-cols-4 gap-2">
+                                    {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
+                                        <button
+                                            key={yr}
+                                            onClick={() => {
+                                                selectYear(yr);
+                                                setIsYearDropdownOpen(false);
+                                            }}
+                                            className={`py-2 px-1 text-center rounded-xl font-medium text-sm sm:text-base transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
+                                                activeYear === yr
+                                                    ? "bg-htb-green text-black font-bold shadow-[0_0_12px_rgba(151,253,30,0.4)]"
+                                                    : "bg-[#111] hover:bg-htb-green/20 text-white/80 hover:text-htb-green border border-white/5 hover:border-htb-green/30"
+                                            }`}
+                                        >
+                                            {yr}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </>
                 ) : (
                     /* Button to Return to Current Team */
@@ -498,7 +497,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             {!showFounders && (
                 <div className="w-full max-w-7xl mx-auto my-1 sm:my-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-white/15 bg-black/40 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 shadow-sm z-20">
                     <div className="flex items-center gap-0.5 sm:gap-1 overflow-x-auto scrollbar-none py-0.5 max-w-full">
-                        <span className="text-xs sm:text-sm font-mono text-zinc-400 font-semibold uppercase tracking-tight sm:tracking-wider pr-0.5 sm:pr-1 select-none shrink-0">
+                        <span className="text-xs sm:text-sm font-mono text-zinc-400 font-semibold uppercase tracking-tight sm:tracking-wider pr-0 sm:pr-1 select-none shrink-0">
                             Rank:
                         </span>
 
@@ -507,12 +506,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             return (
                                 <Fragment key={r.key}>
                                     {idx > 0 && (
-                                        <span className="text-htb-green font-bold text-xs sm:text-sm select-none px-0 sm:px-0.5 drop-shadow-[0_0_6px_rgba(159,239,0,0.7)]">&gt;</span>
+                                        <span className="text-htb-green font-bold text-[13px] sm:text-sm select-none px-0 sm:px-0.5 drop-shadow-[0_0_6px_rgba(159,239,0,0.7)]">&gt;</span>
                                     )}
                                     <button
                                         type="button"
                                         onClick={() => toggleRank(r.key)}
-                                        className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs sm:text-sm font-mono font-medium transition-all duration-200 cursor-pointer flex items-center gap-1 shrink-0 active:scale-95 ${
+                                        className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-[13px] sm:text-sm font-mono font-medium transition-all duration-200 cursor-pointer flex items-center gap-1 shrink-0 active:scale-95 ${
                                             isActive
                                                 ? "border border-htb-green text-black bg-htb-green font-semibold shadow-sm"
                                                 : "border border-white/15 text-zinc-300 bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/30"
@@ -543,12 +542,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 <div className="flex flex-col justify-center items-center text-center w-full max-w-7xl mx-auto">
                     {/* Domain Switcher Buttons when rank is specifically filtered */}
                     {activeRank !== "All" && (
-                        <div className="flex flex-nowrap justify-center items-center gap-1 sm:gap-2 py-1.5 sm:py-3.5 w-full max-w-full overflow-x-auto scrollbar-none px-1">
+                        <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-1.5 sm:gap-2 py-1.5 sm:py-3.5 w-full max-w-full px-0 sm:px-1">
                             {domainTabs.map((tab) => (
                                 <button
                                     key={tab.key}
                                     onClick={() => changeDomain((prev) => (prev === tab.key ? "Development" : tab.key))}
-                                    className={`px-2 min-[360px]:px-2.5 sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[10.5px] min-[360px]:text-[11.5px] sm:text-sm tracking-tight sm:tracking-normal whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
+                                    className={`${tab.label.length <= 9 ? "px-1.5" : "px-2.5"} sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[12.7px] min-[360px]:text-sm sm:text-sm tracking-tight sm:tracking-normal text-center leading-tight whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
                                         activeDomain === tab.key
                                             ? "bg-htb-green text-black shadow-[0_0_12px_rgba(159,239,0,0.4)]"
                                             : "border border-htb-green/40 text-htb-green/90 hover:border-htb-green hover:text-htb-green hover:bg-htb-green/10"
@@ -635,12 +634,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                     {/* Domain Switcher Buttons when activeRank === "All" */}
                     {activeRank === "All" && (
-                        <div className="flex flex-nowrap justify-center items-center gap-1 sm:gap-2 pt-1 pb-1 sm:py-3.5 w-full max-w-full overflow-x-auto scrollbar-none px-1">
+                        <div className="flex flex-wrap justify-center items-center gap-x-1 gap-y-1.5 sm:gap-2 pt-1 pb-1 sm:py-3.5 w-full max-w-full px-0 sm:px-1">
                             {domainTabs.map((tab) => (
                                 <button
                                     key={tab.key}
                                     onClick={() => changeDomain((prev) => (prev === tab.key ? "Development" : tab.key))}
-                                    className={`px-2 min-[360px]:px-2.5 sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[10.5px] min-[360px]:text-[11.5px] sm:text-sm tracking-tight sm:tracking-normal whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
+                                    className={`${tab.label.length <= 9 ? "px-1.5" : "px-2.5"} sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[12.7px] min-[360px]:text-sm sm:text-sm tracking-tight sm:tracking-normal text-center leading-tight whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
                                         activeDomain === tab.key
                                             ? "bg-htb-green text-black shadow-[0_0_12px_rgba(159,239,0,0.4)]"
                                             : "border border-htb-green/40 text-htb-green/90 hover:border-htb-green hover:text-htb-green hover:bg-htb-green/10"
@@ -747,7 +746,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             ) : (
                 /* ─── CASE B: FOUNDERS & CONVENORS VIEW (ONLY ON CLICK) ─────── */
                 <div className="flex flex-col justify-center items-center text-center py-2 sm:py-4 w-full max-w-7xl mx-auto">
-                    <Roles name="Founders &amp; Convenors" nameColor="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                    <Roles name="Founders &amp; Convenors" small hideHash nameColor="text-white whitespace-nowrap drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                     <div className={memberListClass}>
                         {allFounders.map((mem) => (
                             <div key={mem.name} className={memberItemClass}>

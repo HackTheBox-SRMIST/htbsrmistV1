@@ -435,7 +435,7 @@ const Recruitment: NextPage = () => {
             />
 
             {/* ── Hero ── */}
-            <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-0 pb-10 md:pb-14">
+            <div className="w-full max-w-6xl mx-auto px-6 md:px-16 pt-8 md:pt-0 pb-10 md:pb-14">
                 <div className="flex flex-col-reverse md:flex-row md:items-center md:justify-between gap-5 md:gap-16">
 
                     {/* Left: Copy */}

@@ -129,7 +129,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             </Head>
 
             <Nav />
-            <Component {...pageProps} />
+            <div className="pt-[86px] sm:pt-[96px] md:pt-[100px]">
+                <Component {...pageProps} />
+            </div>
             <ScrollToTopButton />
             <Footer />
         </>
