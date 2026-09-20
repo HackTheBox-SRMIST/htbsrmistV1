@@ -74,9 +74,10 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     const [showFounders, setShowFounders] = useState(false);
     const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState<number>(0);
-    const [isDescriptionMinimized, setIsDescriptionMinimized] = useState(false);
-    const [isMobileBannerActive, setIsMobileBannerActive] = useState(false);
+    const [isBannerRevealed, setIsBannerRevealed] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     const activeModalPhoto = TEAM_PHOTOS[photoIndex];
 
@@ -101,9 +102,25 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     };
 
     useEffect(() => {
+        // Pause the loop if either modal is open or desktop user is hovering over the banner
+        if (isPhotoModalOpen || isInfoModalOpen || isHovered) {
+            return;
+        }
+
+        // Loop: 2 seconds for 010101 binary intro, then 8 seconds for the full moving photo pan
+        const duration = isBannerRevealed ? 8000 : 2000;
+        const timer = setTimeout(() => {
+            setIsBannerRevealed((prev) => !prev);
+        }, duration);
+
+        return () => clearTimeout(timer);
+    }, [isBannerRevealed, isHovered, isPhotoModalOpen, isInfoModalOpen]);
+
+    useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 closePhotoModal();
+                setIsInfoModalOpen(false);
                 setIsYearDropdownOpen(false);
             } else if (e.key === "ArrowLeft") {
                 setPhotoIndex((prev) => (prev > 0 ? prev - 1 : TEAM_PHOTOS.length - 1));
@@ -273,28 +290,24 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     const activeDomainLabel = domainTabs.find(d => d.key === activeDomain)?.label || activeDomain;
 
-    const memberListClass = "flex flex-wrap justify-center items-stretch gap-x-2 sm:gap-x-3 lg:gap-x-3.5 gap-y-2.5 sm:gap-y-4 w-full my-1 sm:my-2";
+    const memberListClass = "flex flex-wrap justify-center items-stretch gap-x-2 sm:gap-x-3 lg:gap-x-3.5 gap-y-2 sm:gap-y-4 w-full mt-0.5 mb-1 sm:my-2";
     const memberItemClass = "w-[calc(50%-6px)] sm:w-[calc(33.333%-10px)] md:w-[calc(25%-10px)] lg:w-[calc(16.666%-12px)] max-w-[195px] sm:max-w-[210px] flex justify-center items-stretch shrink-0 self-stretch";
 
     return (
-        <section className="w-full min-h-screen bg-none flex flex-col justify-start items-center px-2 sm:px-6 pb-10 sm:pb-14">
+        <section className="w-full min-h-screen bg-none flex flex-col justify-start items-center px-2 sm:px-6 pb-6 sm:pb-14">
             {/* Hero Section Banner */}
             <div
                 onClick={() => {
-                    if (!isDescriptionMinimized) {
-                        setIsMobileBannerActive((prev) => !prev);
-                    } else {
-                        openPhotoModal();
-                    }
+                    setIsBannerRevealed((prev) => !prev);
                 }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 className="group relative w-full max-w-7xl mx-auto overflow-hidden flex items-center justify-center text-center font-bold min-h-[105px] sm:min-h-[160px] md:min-h-[195px] py-2 sm:py-5 md:py-7 text-base sm:text-2xl md:text-3xl text-htb-green bg-transparent rounded-2xl sm:rounded-3xl border-2 border-solid border-htb-green/50 mb-2 sm:mb-4 hover:border-htb-green transition-all duration-300 shadow-[0_0_20px_rgba(159,239,0,0.12)] cursor-pointer"
             >
                 {/* Moving Team Photo Background (mainly top part shown, smoothly panning left-to-right) */}
                 <div
                     className={`absolute inset-0 w-full h-full overflow-hidden transition-opacity duration-700 z-10 pointer-events-none ${
-                        isDescriptionMinimized || isMobileBannerActive
-                            ? "opacity-90"
-                            : "opacity-0 group-hover:opacity-90"
+                        isBannerRevealed ? "opacity-90" : "opacity-0"
                     }`}
                 >
                     <img
@@ -304,19 +317,17 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                     />
                 </div>
                 <div
-                    className={`relative transform transition-all duration-500 z-30 text-2xl min-[400px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wide select-none ${
-                        isDescriptionMinimized || isMobileBannerActive
-                            ? "opacity-0 scale-110"
-                            : "opacity-100 group-hover:opacity-0 group-hover:scale-110"
+                    className={`relative transform transition-all duration-500 z-30 text-[26px] min-[400px]:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wide select-none ${
+                        isBannerRevealed
+                            ? "opacity-0 scale-110 pointer-events-none"
+                            : "opacity-100"
                     }`}
                 >
                     Our Team
                 </div>
                 <div
                     className={`absolute inset-0 w-full h-full z-20 transition-opacity duration-500 ${
-                        isDescriptionMinimized || isMobileBannerActive
-                            ? "opacity-0"
-                            : "opacity-80 group-hover:opacity-0"
+                        isBannerRevealed ? "opacity-0 pointer-events-none" : "opacity-80"
                     }`}
                 >
                     <LetterGlitch
@@ -327,100 +338,70 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                         glitchColors={[]}
                     />
                 </div>
-                {/* Translucent Hover Description Box with Minimize (-) Button */}
+
+                {/* Banner Actions: About Us & Expand Photo (Only clickable when 010101 disappears and photo is revealed) */}
                 <div
-                    className={`absolute inset-0 flex items-center justify-center p-1 sm:p-3 md:p-5 transition-opacity duration-500 z-30 pointer-events-none ${
-                        isDescriptionMinimized || isMobileBannerActive
-                            ? "opacity-100"
-                            : "opacity-0 group-hover:opacity-100"
+                    className={`absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 z-40 flex items-center gap-1.5 sm:gap-2 transition-all duration-500 ${
+                        isBannerRevealed
+                            ? "opacity-100 pointer-events-auto visible"
+                            : "opacity-0 pointer-events-none invisible"
                     }`}
                 >
-                    {!isDescriptionMinimized ? (
-                        <div className="relative max-w-2xl w-[86%] min-[380px]:w-[82%] sm:w-[86%] md:w-[80%] py-1 px-1.5 sm:py-3 sm:px-4 md:p-5 rounded-lg sm:rounded-2xl bg-black/30 backdrop-blur-[4px] border border-htb-green/40 shadow-[0_8px_32px_0_rgba(0,0,0,0.6),inset_0_1px_1px_0_rgba(255,255,255,0.15)] pointer-events-auto transition-all">
-                            {/* Minus / Minimize Button with generous mobile touch target */}
-                            <button
-                                type="button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setIsDescriptionMinimized(true);
-                                    setIsMobileBannerActive(true);
-                                }}
-                                onTouchEnd={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setIsDescriptionMinimized(true);
-                                    setIsMobileBannerActive(true);
-                                }}
-                                title="Minimize text to view whole team"
-                                className="absolute top-0.5 right-0.5 sm:top-1.5 sm:right-1.5 w-6 h-6 rounded-md sm:rounded-lg bg-black/70 hover:bg-htb-green active:bg-htb-green text-zinc-200 hover:text-black active:text-black border border-htb-green/50 flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-90 z-50 pointer-events-auto touch-manipulation"
-                            >
-                                <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round">
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                            </button>
+                    {/* About Us Button -> Opens Info Glass Popup */}
+                    <button
+                        type="button"
+                        disabled={!isBannerRevealed}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!isBannerRevealed) return;
+                            setIsInfoModalOpen(true);
+                        }}
+                        onTouchEnd={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (!isBannerRevealed) return;
+                            setIsInfoModalOpen(true);
+                        }}
+                        title="About HackTheBox SRMIST"
+                        className={`px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-black/80 hover:bg-white active:bg-white text-zinc-300 hover:text-black active:text-black backdrop-blur-md border border-white/20 font-mono text-[11px] sm:text-xs font-medium flex items-center gap-1 sm:gap-1.5 shadow-[0_0_15px_rgba(0,0,0,0.8)] transition-all active:scale-95 z-50 touch-manipulation min-h-[30px] sm:min-h-[36px] ${
+                            isBannerRevealed ? "pointer-events-auto cursor-pointer" : "pointer-events-none cursor-default"
+                        }`}
+                    >
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        <span>About</span>
+                    </button>
 
-                            <p className="text-white font-mono text-[7.5px] min-[360px]:text-[8px] min-[400px]:text-[8.5px] sm:text-xs md:text-sm leading-[1.25] sm:leading-relaxed tracking-normal font-semibold text-center drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)] drop-shadow-[0_0_8px_rgba(0,0,0,0.9)] pr-5 pl-1 sm:px-3">
-                                HackTheBox SRMIST is a whole new community centered on
-                                the field of cyber security. We want a centralized hub
-                                where all interested students can learn more about the
-                                field of cyber security. Learners can interact with each
-                                other, exchange ideas, and enhance their capabilities.
-                                We will host hands-on workshops, training sessions and
-                                CTF (Capture The Flag) events.
-                            </p>
-                        </div>
-                    ) : (
-                        /* Options in Corner when Minimized: Expand Photo & Restore Description */
-                        <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 z-40 flex items-center gap-1.5 sm:gap-2 pointer-events-auto">
-                            {/* Expand Photo Button */}
-                            <button
-                                type="button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    openPhotoModal();
-                                }}
-                                onTouchEnd={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    openPhotoModal();
-                                }}
-                                title="View expanded full photo"
-                                className="px-3.5 py-2 sm:px-3 sm:py-1.5 rounded-xl bg-black/80 hover:bg-htb-green active:bg-htb-green text-htb-green hover:text-black active:text-black backdrop-blur-md border border-htb-green/60 font-mono text-xs font-bold flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,0,0,0.8)] cursor-pointer transition-all active:scale-95 pointer-events-auto z-50 touch-manipulation min-h-[36px]"
-                            >
-                                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="15 3 21 3 21 9" />
-                                    <polyline points="9 21 3 21 3 15" />
-                                    <line x1="21" y1="3" x2="14" y2="10" />
-                                    <line x1="3" y1="21" x2="10" y2="14" />
-                                </svg>
-                                <span>Expand Photo</span>
-                            </button>
-
-                            {/* Restore Description Button */}
-                            <button
-                                type="button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    setIsDescriptionMinimized(false);
-                                    setIsMobileBannerActive(true);
-                                }}
-                                onTouchEnd={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setIsDescriptionMinimized(false);
-                                    setIsMobileBannerActive(true);
-                                }}
-                                title="Restore description"
-                                className="px-3 py-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-black/80 hover:bg-white active:bg-white text-zinc-300 hover:text-black active:text-black backdrop-blur-md border border-white/20 font-mono text-xs font-medium flex items-center gap-1 shadow-[0_0_15px_rgba(0,0,0,0.8)] cursor-pointer transition-all active:scale-95 pointer-events-auto z-50 touch-manipulation min-h-[36px]"
-                            >
-                                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                                <span>About</span>
-                            </button>
-                        </div>
-                    )}
+                    {/* Expand Photo Button -> Opens Photo Modal */}
+                    <button
+                        type="button"
+                        disabled={!isBannerRevealed}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            if (!isBannerRevealed) return;
+                            openPhotoModal();
+                        }}
+                        onTouchEnd={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (!isBannerRevealed) return;
+                            openPhotoModal();
+                        }}
+                        title="View expanded full photo"
+                        className={`px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-xl bg-black/80 hover:bg-htb-green active:bg-htb-green text-htb-green hover:text-black active:text-black backdrop-blur-md border border-htb-green/60 font-mono text-[11px] sm:text-xs font-bold flex items-center gap-1 sm:gap-1.5 shadow-[0_0_15px_rgba(0,0,0,0.8)] transition-all active:scale-95 z-50 touch-manipulation min-h-[30px] sm:min-h-[36px] ${
+                            isBannerRevealed ? "pointer-events-auto cursor-pointer" : "pointer-events-none cursor-default"
+                        }`}
+                    >
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="15 3 21 3 21 9" />
+                            <polyline points="9 21 3 21 3 15" />
+                            <line x1="21" y1="3" x2="14" y2="10" />
+                            <line x1="3" y1="21" x2="10" y2="14" />
+                        </svg>
+                        <span>Expand Photo</span>
+                    </button>
                 </div>
             </div>
 
@@ -515,9 +496,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
             {/* Hierarchy / Rank Filter Bar (FOSS Style in HTB Cyber Theme) */}
             {!showFounders && (
-                <div className="w-full max-w-7xl mx-auto my-2 px-3 py-1.5 rounded-xl border border-white/15 bg-black/40 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm z-20">
+                <div className="w-full max-w-7xl mx-auto my-1 sm:my-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border border-white/15 bg-black/40 backdrop-blur-md flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 shadow-sm z-20">
                     <div className="flex items-center gap-0.5 sm:gap-1 overflow-x-auto scrollbar-none py-0.5 max-w-full">
-                        <span className="text-xs sm:text-sm font-mono text-zinc-400 font-medium uppercase tracking-wider pr-1 select-none">
+                        <span className="text-xs sm:text-sm font-mono text-zinc-400 font-semibold uppercase tracking-tight sm:tracking-wider pr-0.5 sm:pr-1 select-none shrink-0">
                             Rank:
                         </span>
 
@@ -526,12 +507,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                             return (
                                 <Fragment key={r.key}>
                                     {idx > 0 && (
-                                        <span className="text-htb-green font-bold text-xs sm:text-sm select-none px-0.5 drop-shadow-[0_0_6px_rgba(159,239,0,0.7)]">&gt;</span>
+                                        <span className="text-htb-green font-bold text-xs sm:text-sm select-none px-0 sm:px-0.5 drop-shadow-[0_0_6px_rgba(159,239,0,0.7)]">&gt;</span>
                                     )}
                                     <button
                                         type="button"
                                         onClick={() => toggleRank(r.key)}
-                                        className={`px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs sm:text-sm font-mono font-medium transition-all duration-200 cursor-pointer flex items-center gap-1 shrink-0 active:scale-95 ${
+                                        className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg text-xs sm:text-sm font-mono font-medium transition-all duration-200 cursor-pointer flex items-center gap-1 shrink-0 active:scale-95 ${
                                             isActive
                                                 ? "border border-htb-green text-black bg-htb-green font-semibold shadow-sm"
                                                 : "border border-white/15 text-zinc-300 bg-white/5 hover:bg-white/10 hover:text-white hover:border-white/30"
@@ -562,12 +543,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                 <div className="flex flex-col justify-center items-center text-center w-full max-w-7xl mx-auto">
                     {/* Domain Switcher Buttons when rank is specifically filtered */}
                     {activeRank !== "All" && (
-                        <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 py-2 sm:py-3.5 w-full">
+                        <div className="flex flex-nowrap justify-center items-center gap-1 sm:gap-2 py-1.5 sm:py-3.5 w-full max-w-full overflow-x-auto scrollbar-none px-1">
                             {domainTabs.map((tab) => (
                                 <button
                                     key={tab.key}
                                     onClick={() => changeDomain((prev) => (prev === tab.key ? "Development" : tab.key))}
-                                    className={`px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
+                                    className={`px-2 min-[360px]:px-2.5 sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[10.5px] min-[360px]:text-[11.5px] sm:text-sm tracking-tight sm:tracking-normal whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
                                         activeDomain === tab.key
                                             ? "bg-htb-green text-black shadow-[0_0_12px_rgba(159,239,0,0.4)]"
                                             : "border border-htb-green/40 text-htb-green/90 hover:border-htb-green hover:text-htb-green hover:bg-htb-green/10"
@@ -654,12 +635,12 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                     {/* Domain Switcher Buttons when activeRank === "All" */}
                     {activeRank === "All" && (
-                        <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 py-2 sm:py-3.5 w-full">
+                        <div className="flex flex-nowrap justify-center items-center gap-1 sm:gap-2 pt-1 pb-1 sm:py-3.5 w-full max-w-full overflow-x-auto scrollbar-none px-1">
                             {domainTabs.map((tab) => (
                                 <button
                                     key={tab.key}
                                     onClick={() => changeDomain((prev) => (prev === tab.key ? "Development" : tab.key))}
-                                    className={`px-3 sm:px-5 py-1 sm:py-1.5 rounded-full font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
+                                    className={`px-2 min-[360px]:px-2.5 sm:px-5 py-0.5 sm:py-1.5 rounded-full font-bold text-[10.5px] min-[360px]:text-[11.5px] sm:text-sm tracking-tight sm:tracking-normal whitespace-nowrap shrink-0 transition-all duration-200 cursor-pointer ${
                                         activeDomain === tab.key
                                             ? "bg-htb-green text-black shadow-[0_0_12px_rgba(159,239,0,0.4)]"
                                             : "border border-htb-green/40 text-htb-green/90 hover:border-htb-green hover:text-htb-green hover:bg-htb-green/10"
@@ -673,7 +654,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                     {/* Roles for Active Domain */}
                     {activeRank !== "Root" && (
-                        <div className="flex flex-col justify-center items-center w-full space-y-2 sm:space-y-4">
+                        <div className="flex flex-col justify-center items-center w-full space-y-1 sm:space-y-4">
                             {/* Leads [Sudoer] */}
                             {(activeRank === "All" || activeRank === "Sudoer") && (
                                 <div className="w-full">
@@ -766,7 +747,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             ) : (
                 /* ─── CASE B: FOUNDERS & CONVENORS VIEW (ONLY ON CLICK) ─────── */
                 <div className="flex flex-col justify-center items-center text-center py-2 sm:py-4 w-full max-w-7xl mx-auto">
-                    <Roles role="Founders &amp; Convenors" name="Pioneers" />
+                    <Roles name="Founders &amp; Convenors" nameColor="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                     <div className={memberListClass}>
                         {allFounders.map((mem) => (
                             <div key={mem.name} className={memberItemClass}>
@@ -858,6 +839,50 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                 className="max-h-[75vh] sm:max-h-[82vh] max-w-[92vw] sm:max-w-[88vw] w-auto h-auto object-contain rounded-xl select-none block transition-opacity duration-300"
                             />
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Community Info Glass Modal (Pop up in glass effect like earlier) */}
+            {isInfoModalOpen && (
+                <div
+                    className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/65 backdrop-blur-sm transition-opacity duration-300 select-none animate-fadeIn"
+                    onClick={() => setIsInfoModalOpen(false)}
+                >
+                    <div
+                        className="relative max-w-3xl lg:max-w-4xl w-[94%] sm:w-[90%] md:w-[85%] py-8 px-5 sm:py-10 sm:px-8 md:py-12 md:px-12 rounded-2xl sm:rounded-3xl bg-black/40 backdrop-blur-lg border-2 border-htb-green/50 shadow-[0_12px_40px_0_rgba(0,0,0,0.75),0_0_40px_rgba(159,239,0,0.25),inset_0_1px_1px_0_rgba(255,255,255,0.2)] flex flex-col items-center justify-center animate-in fade-in zoom-in-95 duration-200 pointer-events-auto transition-all"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close button in top-right corner with smooth touch & click */}
+                        <button
+                            type="button"
+                            onClick={() => setIsInfoModalOpen(false)}
+                            onTouchEnd={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setIsInfoModalOpen(false);
+                            }}
+                            title="Close"
+                            className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-5 md:right-5 w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-black/75 hover:bg-htb-green active:bg-htb-green text-zinc-200 hover:text-black active:text-black border border-htb-green/50 flex items-center justify-center transition-all cursor-pointer shadow-md active:scale-90 z-50 pointer-events-auto touch-manipulation"
+                        >
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
+                        </button>
+
+                        {/* Cyber Pill Header */}
+                        <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 mb-4 sm:mb-6 rounded-full bg-black/60 border border-htb-green/45 shadow-[0_0_15px_rgba(159,239,0,0.25)] select-none">
+                            <span className="w-2.5 h-2.5 rounded-full bg-htb-green shadow-[0_0_10px_#9fef00] animate-pulse"></span>
+                            <span className="font-mono text-xs sm:text-sm md:text-base font-bold text-htb-green tracking-wider uppercase">
+                                About HackTheBox SRMIST
+                            </span>
+                        </div>
+
+                        {/* Monospace Glowing Description Text - Big, clear, and spacious */}
+                        <p className="text-white font-mono text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed sm:leading-loose font-semibold text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)] drop-shadow-[0_0_10px_rgba(0,0,0,0.9)] max-w-2xl lg:max-w-3xl px-1 sm:px-4">
+                            HackTheBox SRMIST is a whole new community centered on the field of cyber security. We want a centralized hub where all interested students can learn more about the field of cyber security. Learners can interact with each other, exchange ideas, and enhance their capabilities. We will host hands-on workshops, training sessions and CTF (Capture The Flag) events.
+                        </p>
                     </div>
                 </div>
             )}
