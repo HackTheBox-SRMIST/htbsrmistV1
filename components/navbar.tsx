@@ -73,7 +73,7 @@ const Nav = () => {
                         />
 
                         {/* Brand Text Container: all 3 pngs side by side on every screen size */}
-                        <div className="flex items-center justify-center gap-0.5 sm:gap-3 md:gap-3.5 lg:gap-4 shrink-0">
+                        <div className="flex items-center justify-center gap-0.5 sm:gap-3 md:gap-3.5 lg:gap-4 min-w-0">
                             {/* 2. HACKTHEBOX.png */}
                             <img
                                 src="/HACKTHEBOX.png"
@@ -83,11 +83,11 @@ const Nav = () => {
                                         ? "brightness(1) invert(0)"
                                         : "brightness(0) invert(1)"
                                 }}
-                                className="h-4 sm:h-5 md:h-5 lg:h-6 w-auto object-contain transition-all duration-300 shrink-0"
+                                className="h-4 sm:h-5 md:h-5 lg:h-6 w-auto object-contain min-w-0 transition-all duration-300"
                             />
 
                             {/* Divider 2: desktop only */}
-                            <div className="md:hidden lg:block h-5 sm:h-7 lg:h-8 w-px bg-white/25 shrink-0 mx-1" />
+                            <div className="hidden lg:block lg:h-8 w-px bg-white/25 shrink-0 mx-1" />
 
                             {/* 3. heroDesc.png */}
                             <img
@@ -98,8 +98,8 @@ const Nav = () => {
                                         ? "brightness(1) invert(0)"
                                         : "brightness(0) invert(1)"
                                 }}
-className="h-5 sm:h-8 md:hidden lg:block lg:h-9 w-auto object-contain transition-all duration-300 shrink-0"
-                        />
+                                className="hidden lg:block lg:h-9 w-auto object-contain min-w-0 transition-all duration-300"
+                            />
                     </div>
                     </a>
                 </Link>
