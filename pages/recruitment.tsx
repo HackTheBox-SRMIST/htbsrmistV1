@@ -6,6 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import confetti from "canvas-confetti";
 import { FaInstagram } from "react-icons/fa";
 
+/* ─── Recruitment Toggle ────────────────────────────────────── */
+/* true = applications open (Apply Now) | false = closed (dull button + closed popup) */
+const RECRUITMENT_OPEN = false;
+
 const Toast = (success: boolean, message: React.ReactNode) => {
     toast[success ? "success" : "error"](message, {
         position: "top-center",
@@ -218,9 +222,12 @@ const InstagramPopup = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onClose}
-                    className="w-14 h-14 rounded-xl bg-[#161b22] border border-[#9FEF00]/40 hover:border-[#9FEF00] flex items-center justify-center text-[#9FEF00] text-2xl shadow-[0_0_15px_rgba(159,239,0,0.15)] hover:shadow-[0_0_20px_rgba(159,239,0,0.3)] transition-all mb-4 mt-1"
+                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-[#161b22] border border-[#9FEF00]/40 hover:border-[#9FEF00] text-[#9FEF00] shadow-[0_0_15px_rgba(159,239,0,0.15)] hover:shadow-[0_0_20px_rgba(159,239,0,0.3)] transition-all mb-4 mt-1"
                 >
-                    <FaInstagram />
+                    <span className="w-9 h-9 rounded-lg bg-[#0d1117] border border-[#9FEF00]/30 flex items-center justify-center text-xl shrink-0">
+                        <FaInstagram />
+                    </span>
+                    <span className="font-share-tech text-base sm:text-lg tracking-wide">Instagram</span>
                 </a>
 
                 {/* Heading */}
@@ -228,12 +235,16 @@ const InstagramPopup = ({
                     className="text-xl font-bold font-share-tech tracking-wide leading-snug"
                     style={{ color: "#9FEF00", textShadow: "0 0 14px rgba(159,239,0,0.45)" }}
                 >
-                    Follow us on Instagram for future updates
+                    {RECRUITMENT_OPEN
+                        ? "Follow us on Instagram for future updates"
+                        : "Registrations are currently closed"}
                 </h3>
 
                 {/* Subtitle / Context */}
                 <p className="text-sm text-[#8b949e] mt-2 mb-5 font-poppins leading-relaxed">
-                    Stay tuned for tasks, shortlisted announcements &amp; future events
+                    {RECRUITMENT_OPEN
+                        ? "Stay tuned for tasks, shortlisted announcements & future events"
+                        : "Applications are not open right now. Follow us on Instagram so you don't miss the next recruitment drive."}
                 </p>
 
                 {/* Primary Action Button */}
@@ -270,13 +281,18 @@ const Recruitment: NextPage = () => {
 
     const [typedText, setTypedText] = useState("");
 
+    /* Auto-show the "recruitment closed" popup when applications are disabled */
+    useEffect(() => {
+        if (!RECRUITMENT_OPEN) setShowInstaModal(true);
+    }, []);
+
     useEffect(() => {
         const phrases = [
             "> Register by clicking the Apply Now button.",
             "> Domains: Cyber Security, Development, Creatives, Corporate",
             "> HackTheBox SRMIST"
         ];
-        
+
         let i = 0;
         let isDeleting = false;
         let loopNum = 0;
@@ -284,7 +300,7 @@ const Recruitment: NextPage = () => {
 
         const type = () => {
             const currentPhrase = phrases[loopNum % phrases.length];
-            
+
             if (!isDeleting && i <= currentPhrase.length) {
                 setTypedText(currentPhrase.substring(0, i));
                 i++;
@@ -341,15 +357,15 @@ const Recruitment: NextPage = () => {
             ? "Both domains cannot be the same."
             : "";
         const nameErr = !name.trim() ? "Name is required." : "";
-        
+
         const linkedinErr = validate("linkedin", linkedin);
         const additionalLinkErr = validate("additionalLink", additionalLink);
         const resumeErr = validate("resume", resume);
 
-        setErrors({ 
-            usn: usnErr, email: emailErr, phone: phoneErr, 
-            domain: domainErr, linkedin: linkedinErr, 
-            additionalLink: additionalLinkErr, resume: resumeErr 
+        setErrors({
+            usn: usnErr, email: emailErr, phone: phoneErr,
+            domain: domainErr, linkedin: linkedinErr,
+            additionalLink: additionalLinkErr, resume: resumeErr
         });
 
         const firstError = usnErr || nameErr || emailErr || phoneErr || domainErr || linkedinErr || additionalLinkErr || resumeErr;
@@ -374,9 +390,9 @@ const Recruitment: NextPage = () => {
         setSubmitting(true);
 
         try {
-            if (!validateAll()) { 
-                setSubmitting(false); 
-                return; 
+            if (!validateAll()) {
+                setSubmitting(false);
+                return;
             }
 
             const fixUrl = (u: string) => (u.trim() && !/^https?:\/\//i.test(u.trim()) ? `https://${u.trim()}` : u.trim());
@@ -385,7 +401,7 @@ const Recruitment: NextPage = () => {
                 usn: usn.trim(), name: name.trim(),
                 email: email.toLowerCase().trim(), phone: phone.trim(),
                 domain1: domain1.trim(), domain2: domain2.trim(),
-                linkedin: fixUrl(linkedin), 
+                linkedin: fixUrl(linkedin),
                 additionalLink: fixUrl(additionalLink),
                 resume: fixUrl(resume),
             });
@@ -502,15 +518,17 @@ const Recruitment: NextPage = () => {
 
                         <button
                             id="apply-btn"
+                            type="button"
+                            disabled={!RECRUITMENT_OPEN}
                             onClick={() => setOpen(true)}
-                            className="mt-8 group relative px-8 py-3.5 font-poppins font-bold text-base tracking-[0.1em] uppercase text-htb-green bg-transparent border-2 border-htb-green active:scale-95 transition-all duration-300 overflow-hidden rounded-md"
+                            className="mt-8 group relative px-8 py-3.5 font-poppins font-bold text-base tracking-[0.1em] uppercase text-htb-green bg-transparent border-2 border-htb-green active:scale-95 transition-all duration-300 overflow-hidden rounded-md disabled:!opacity-40 disabled:!shadow-none disabled:cursor-not-allowed"
                             style={{ boxShadow: "0 0 15px rgba(159,239,0,0.25)" }}
                             onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 25px rgba(159,239,0,0.5)")}
                             onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 15px rgba(159,239,0,0.25)")}
                         >
                             {/* Filled background by default, slides down on hover */}
                             <div className="absolute inset-0 bg-htb-green translate-y-0 group-hover:translate-y-[100%] transition-transform duration-300 ease-in-out" />
-                            
+
                             <span className="relative z-10 flex items-center justify-center gap-2.5 text-black group-hover:text-htb-green transition-colors duration-300">
                                 <span className="font-share-tech font-bold text-[18px] opacity-80 group-hover:opacity-100 transition-opacity">&lt;</span>
                                 <span>Apply Now</span>
@@ -622,12 +640,12 @@ const Recruitment: NextPage = () => {
                         label="First Domain Preference"
                         required
                         value={domain1}
-                        onChange={(v) => { 
+                        onChange={(v) => {
                             if (v && v === domain2) {
                                 setErrors(p => ({ ...p, domain: "Both domains cannot be the same." }));
                             } else {
-                                setDomain1(v); 
-                                setErrors(p => ({ ...p, domain: "" })); 
+                                setDomain1(v);
+                                setErrors(p => ({ ...p, domain: "" }));
                             }
                         }}
                         error={errors.domain === "Please select your first domain." ? errors.domain : ""}
@@ -636,12 +654,12 @@ const Recruitment: NextPage = () => {
                     <DomainPicker
                         label="Second Domain (Optional)"
                         value={domain2}
-                        onChange={(v) => { 
+                        onChange={(v) => {
                             if (v && v === domain1) {
                                 setErrors(p => ({ ...p, domain: "Both domains cannot be the same." }));
                             } else {
-                                setDomain2(v); 
-                                setErrors(p => ({ ...p, domain: "" })); 
+                                setDomain2(v);
+                                setErrors(p => ({ ...p, domain: "" }));
                             }
                         }}
                         error={errors.domain === "Both domains cannot be the same." ? errors.domain : ""}

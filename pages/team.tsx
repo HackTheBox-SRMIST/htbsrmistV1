@@ -872,7 +872,6 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
                         {/* Cyber Pill Header */}
                         <div className="inline-flex items-center gap-2 sm:gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 mb-4 sm:mb-6 rounded-full bg-black/60 border border-htb-green/45 shadow-[0_0_15px_rgba(159,239,0,0.25)] select-none">
-                            <span className="w-2.5 h-2.5 rounded-full bg-htb-green shadow-[0_0_10px_#9fef00] animate-pulse"></span>
                             <span className="font-mono text-xs sm:text-sm md:text-base font-bold text-htb-green tracking-wider uppercase">
                                 About HackTheBox SRMIST
                             </span>
