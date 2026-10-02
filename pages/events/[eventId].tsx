@@ -63,11 +63,31 @@ const url_root =
         ? `https://${process.env.VERCEL_URL}`
         : `http://localhost:${process.env.PORT || 3000}`);
 
-const Event: NextPage<EventsPageProps> = ({ events }) => {
+const Event: NextPage<EventsPageProps> = ({ events = [] }) => {
     const router = useRouter();
-    const eventId = router.query.eventId as string;
-    const event = events.find((event) => event.event_name === eventId);
-    const slug = event?.slug;
+    const rawEventId = (router.query.eventId as string) || "";
+    const decodedEventId = (() => {
+        try {
+            return decodeURIComponent(rawEventId).trim().toLowerCase();
+        } catch {
+            return rawEventId.trim().toLowerCase();
+        }
+    })();
+
+    const event = (events || []).find((item) => {
+        if (!item) return false;
+        const itemName = (item.event_name || "").trim().toLowerCase();
+        const itemSlug = (item.slug || "").trim().toLowerCase();
+        const rawLower = rawEventId.trim().toLowerCase();
+        return (
+            itemName === decodedEventId ||
+            itemSlug === decodedEventId ||
+            itemName === rawLower ||
+            itemSlug === rawLower
+        );
+    });
+
+    const slug = event?.slug || event?.event_name;
     const registrationUrl = event?.registration_url?.trim();
     const hasExternalRegistration = Boolean(registrationUrl);
     const isRegistrationActive = Boolean(event?.is_active);
@@ -102,15 +122,55 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
 
     const options = event?.certificate
         ? Object.entries(event.certificate)
-              .filter(([_, url]) => url && url.trim() !== "")
+              .filter(
+                  ([key, url]) =>
+                      key !== "_id" &&
+                      Boolean(url) &&
+                      typeof url === "string" &&
+                      url.trim() !== ""
+              )
               .map(([key]) => ({
                   value: key,
                   label: key
-                      .split("-")
+                      .split(/[-_]/)
                       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                       .join(" ")
               }))
         : [];
+
+    const prerequisiteList: string[] = (() => {
+        if (Array.isArray(event?.prerequisites)) {
+            return (event?.prerequisites as any[]).filter(
+                (item): item is string => typeof item === "string" && item.trim().length > 0
+            );
+        }
+        if (typeof event?.prerequisites === "string" && (event?.prerequisites as string).trim().length > 0) {
+            return [(event?.prerequisites as string).trim()];
+        }
+        return [];
+    })();
+    const hasPrerequisites = prerequisiteList.length > 0;
+
+    const speakersList = Array.isArray(event?.speakers_details)
+        ? (event?.speakers_details as any[]).filter(
+              (guest) => guest && typeof guest === "object" && Boolean(guest.name?.trim())
+          )
+        : [];
+
+    const galleryList: string[] = (() => {
+        if (Array.isArray(event?.gallery)) {
+            return (event?.gallery as any[]).filter(
+                (url): url is string => typeof url === "string" && url.trim().length > 0
+            );
+        }
+        if (typeof event?.gallery === "string") {
+            return (event?.gallery as string)
+                .split(/[\s\n]+/)
+                .map((url) => url.trim())
+                .filter((url) => url.startsWith("http"));
+        }
+        return [];
+    })();
 
     return (
         <>
@@ -207,73 +267,77 @@ const Event: NextPage<EventsPageProps> = ({ events }) => {
                 </div>
             </div>
 
-            <div className="eventText text-white px-4 sm:px-8 md:px-16 lg:px-64 text-2xl sm:text-3xl md:text-4xl font-medium font-share-tech">
+            <div className="eventText text-white px-4 sm:px-8 md:px-16 lg:px-64 text-2xl sm:text-3xl md:text-4xl font-medium font-share-tech text-left whitespace-pre-line">
                 {event?.event_description}
             </div>
 
-            <div className="speaker mt-10 font-share-tech text-center">
-                <p className="text-htb-green text-3xl md:text-6xl font-bold">
-                    Know Our Guest
-                </p>
-                <div
-                    className={`spkr mt-8 px-4 md:px-16 lg:px-32 grid gap-6 ${
-                        (event?.speakers_details?.length ?? 0) <= 2
-                            ? "grid-cols-1 sm:grid-cols-2 justify-center"
-                            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    }`}
-                >
-                    {event?.speakers_details?.map((guest, index) => (
-                        <div
-                            key={index}
-                            className={`flex flex-col items-center bg-[#141D2B] hover:bg-[#1f2c42] rounded-xl border-2 border-htb-green p-6 shadow-lg w-full max-w-xs mx-auto ${
-                                !guest.image ? "justify-center h-full" : ""
-                            }`}
-                        >
-                            {guest.image && (
-                                <div className="w-full h-48 rounded-xl overflow-hidden flex items-center justify-center">
-                                    <Image
-                                        src={guest.image}
-                                        alt={guest.name}
-                                        width={250}
-                                        height={250}
-                                        className="object-cover rounded-xl"
-                                    />
+            {speakersList.length > 0 && (
+                <div className="speaker mt-10 font-share-tech text-center">
+                    <p className="text-htb-green text-3xl md:text-6xl font-bold">
+                        Know Our Guest
+                    </p>
+                    <div
+                        className={`spkr mt-8 px-4 md:px-16 lg:px-32 grid gap-6 ${
+                            speakersList.length <= 2
+                                ? "grid-cols-1 sm:grid-cols-2 justify-center"
+                                : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                        }`}
+                    >
+                        {speakersList.map((guest, index) => (
+                            <div
+                                key={index}
+                                className={`flex flex-col items-center bg-[#141D2B] hover:bg-[#1f2c42] rounded-xl border-2 border-htb-green p-6 shadow-lg w-full max-w-xs mx-auto ${
+                                    !guest.image ? "justify-center h-full" : ""
+                                }`}
+                            >
+                                {guest.image && (
+                                    <div className="w-full h-48 rounded-xl overflow-hidden flex items-center justify-center">
+                                        <Image
+                                            src={guest.image}
+                                            alt={guest.name}
+                                            width={250}
+                                            height={250}
+                                            className="object-cover rounded-xl"
+                                        />
+                                    </div>
+                                )}
+                                <div className="speakerInfo text-center mt-4">
+                                    <p className="text-lg md:text-xl font-bold text-htb-green">
+                                        {guest.name}
+                                    </p>
+                                    <p className="text-sm md:text-base text-white px-4">
+                                        {guest.designation}
+                                    </p>
                                 </div>
-                            )}
-                            <div className="speakerInfo text-center mt-4">
-                                <p className="text-lg md:text-xl font-bold text-htb-green">
-                                    {guest.name}
-                                </p>
-                                <p className="text-sm md:text-base text-white px-4">
-                                    {guest.designation}
-                                </p>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className="prereq font-share-tech mb-10">
-                <p className="text-htb-green text-3xl sm:text-4xl md:text-5xl font-bold text-center my-6">
-                    Pre-Requisites
-                </p>
-                <div className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
-                    <ul className="list-disc list-inside">
-                        {event?.prerequisites?.map((item, index) => (
-                            <li key={index}>{item}</li>
                         ))}
-                    </ul>
+                    </div>
                 </div>
-            </div>
+            )}
+
+            {hasPrerequisites && (
+                <div className="prereq font-share-tech mb-10">
+                    <p className="text-htb-green text-3xl sm:text-4xl md:text-5xl font-bold text-center my-6">
+                        Pre-Requisites
+                    </p>
+                    <div className="text-white px-4 sm:px-8 md:px-16 lg:px-64 text-xl sm:text-2xl md:text-3xl font-medium">
+                        <ul className="list-disc list-inside">
+                            {prerequisiteList.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )}
 
             {/* GALLERY SECTION */}
-            {(event?.gallery?.length ?? 0) > 0 && (
+            {galleryList.length > 0 && (
                 <div className="gallery-section font-share-tech mb-20">
                     <p className="text-htb-green text-4xl md:text-5xl font-bold text-center mb-10">
                         Event Gallery
                     </p>
                     <div className="px-6 md:px-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {event?.gallery?.map((img, i) => (
+                        {galleryList.map((img, i) => (
                             <div
                                 key={i}
                                 className="relative group overflow-hidden rounded-xl border-2 border-htb-green/50 hover:border-htb-green transition-all duration-300 bg-[#141D2B]"
@@ -320,11 +384,24 @@ export async function getServerSideProps(
         );
         const res = await fetch(`${url_root}/api/v1/events`);
         const { data: events } = await res.json();
-        return { props: { events } };
+        if (Array.isArray(events) && events.length > 0) {
+            return { props: { events } };
+        }
     } catch (error) {
-        console.log(error);
-        return { notFound: true };
+        console.log("Fetch failed in getServerSideProps, falling back to db:", error);
     }
+
+    try {
+        const { Events } = await import("../../utils/services/events.service");
+        const eventData = await Events();
+        if (Array.isArray(eventData) && eventData.length > 0) {
+            return { props: { events: JSON.parse(JSON.stringify(eventData)) } };
+        }
+    } catch (dbErr) {
+        console.error("DB fallback failed in getServerSideProps:", dbErr);
+    }
+
+    return { notFound: true };
 }
 
 export default Event;

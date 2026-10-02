@@ -197,12 +197,15 @@ img {
         --tw-scrollbar-thumb: #9fef00;
     }
 
-    .scrollbar-track {
-        --tw-scrollbar-track: transparent;
+    .scrollbar-none::-webkit-scrollbar,
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
     }
 
-    .scroll-smooth {
-        scroll-behavior: smooth;
+    .scrollbar-none,
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }
 

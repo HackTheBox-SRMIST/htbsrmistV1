@@ -45,16 +45,16 @@ const textOverlay = async (
         }
 
         const fontKey = `FONT_${font_size}_${color.toUpperCase()}`;
-        const fontSource =
+        let fontSource =
             BUILTIN_FONTS[fontKey] || (jimpOptions && jimpOptions[fontKey]);
 
         if (!fontSource) {
-            console.error("Invalid font options:", jimpOptions, fontKey);
-            return {
-                buffer: null,
-                error: true,
-                error_message: `Invalid font combination: ${fontKey}`
-            };
+            const fallbackKey = `FONT_64_${color.toUpperCase()}`;
+            fontSource =
+                BUILTIN_FONTS[fallbackKey] ||
+                (color.toUpperCase() === "WHITE"
+                    ? Jimp.FONT_SANS_64_WHITE
+                    : Jimp.FONT_SANS_64_BLACK);
         }
 
         // Check font cache first, or load and cache font

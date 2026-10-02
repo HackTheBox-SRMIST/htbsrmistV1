@@ -270,6 +270,18 @@ export async function getServerSideProps(
         if (cachedEvents.length > 0) {
             return { props: { events: cachedEvents } };
         }
+        try {
+            const { Events } = await import("../../utils/services/events.service");
+            const eventData = await Events();
+            if (Array.isArray(eventData)) {
+                const formattedEvents: EventProps[] = JSON.parse(
+                    JSON.stringify(eventData)
+                ).reverse();
+                return { props: { events: formattedEvents } };
+            }
+        } catch (dbErr) {
+            console.error(dbErr);
+        }
         return { notFound: true };
     }
 }

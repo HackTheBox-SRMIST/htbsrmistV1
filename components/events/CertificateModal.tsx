@@ -48,8 +48,23 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
 }) => {
     const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState<string | null>(null);
-    const [type, setType] = useState("Please Select...");
+    const [type, setType] = useState(
+        options && options.length > 0 ? options[0].value : "Please Select..."
+    );
     const [loadingCertificate, setLoadingCertificate] = useState(false);
+
+    React.useEffect(() => {
+        if (options && options.length > 0) {
+            setType((prev) => {
+                if (!prev || prev === "Please Select..." || !options.some((o) => o.value === prev)) {
+                    return options[0].value;
+                }
+                return prev;
+            });
+        } else {
+            setType("Please Select...");
+        }
+    }, [options, isOpen]);
 
     if (!isOpen) return null;
 
@@ -71,7 +86,7 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
             Toast(false, "Please enter your registered email");
             return;
         }
-        if (type === "Please Select...") {
+        if (!type || type === "Please Select...") {
             Toast(false, "Please select a certificate type");
             return;
         }
@@ -96,7 +111,7 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
     const handleClose = () => {
         setCertificate(null);
         setEmail("");
-        setType("Please Select...");
+        setType(options && options.length > 0 ? options[0].value : "Please Select...");
         onClose();
     };
 
@@ -177,6 +192,7 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
                                 isClearable={false}
                                 isSearchable={false}
                                 placeholder={type}
+                                value={options.find((opt) => opt.value === type) || null}
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {

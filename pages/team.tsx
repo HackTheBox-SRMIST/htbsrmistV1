@@ -157,7 +157,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     // derive members for the currently selected year
     const yearMembers: MemberProps[] = members
-        .filter((m) => m.isCurrent !== false) // ✅ hide inactive members
+        .filter((m) => m.isCurrent !== false) // hide inactive members
         .map((m) => {
             let statusEntry = undefined;
             if (Array.isArray(m.status) && m.status.length > 0) {
