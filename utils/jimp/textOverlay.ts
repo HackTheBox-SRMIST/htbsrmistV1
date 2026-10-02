@@ -6,16 +6,16 @@ const fontCache = new Map<string, any>();
 // In-memory cache for downloaded and pre-scaled base certificate templates
 const templateCache = new Map<string, any>();
 
-// Direct mappings to local built-in Jimp Open Sans fonts (avoids slow network downloads from ImageKit)
-const BUILTIN_FONTS: Record<string, string> = {
-    FONT_64_WHITE: Jimp.FONT_SANS_64_WHITE,
-    FONT_64_BLACK: Jimp.FONT_SANS_64_BLACK,
-    FONT_32_WHITE: Jimp.FONT_SANS_32_WHITE,
-    FONT_32_BLACK: Jimp.FONT_SANS_32_BLACK,
-    FONT_16_WHITE: Jimp.FONT_SANS_16_WHITE,
-    FONT_16_BLACK: Jimp.FONT_SANS_16_BLACK,
-    FONT_128_WHITE: Jimp.FONT_SANS_128_WHITE,
-    FONT_128_BLACK: Jimp.FONT_SANS_128_BLACK
+// Reliable ImageKit hosted bitmap fonts that work universally across local dev and Vercel serverless environments
+const DEFAULT_IMAGEKIT_FONTS: Record<string, string> = {
+    FONT_64_WHITE:
+        "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-white/open-sans-64-white.fnt?updatedAt=1726944338422",
+    FONT_64_BLACK:
+        "https://ik.imagekit.io/githubsrm/fonts/open-sans-64-black/open-sans-64-black.fnt?updatedAt=1726944338432",
+    FONT_32_WHITE:
+        "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-white/open-sans-32-white.fnt?updatedAt=1726944338436",
+    FONT_32_BLACK:
+        "https://ik.imagekit.io/githubsrm/fonts/open-sans-32-black/open-sans-32-black.fnt?updatedAt=1726944338420"
 };
 
 const textOverlay = async (
@@ -45,29 +45,46 @@ const textOverlay = async (
         }
 
         const fontKey = `FONT_${font_size}_${color.toUpperCase()}`;
-        let fontSource =
-            BUILTIN_FONTS[fontKey] || (jimpOptions && jimpOptions[fontKey]);
+        const fallbackUrl =
+            (color.toUpperCase() === "WHITE"
+                ? DEFAULT_IMAGEKIT_FONTS.FONT_64_WHITE
+                : DEFAULT_IMAGEKIT_FONTS.FONT_64_BLACK) ||
+            DEFAULT_IMAGEKIT_FONTS.FONT_64_BLACK;
 
-        if (!fontSource) {
-            const fallbackKey = `FONT_64_${color.toUpperCase()}`;
-            fontSource =
-                BUILTIN_FONTS[fallbackKey] ||
-                (color.toUpperCase() === "WHITE"
-                    ? Jimp.FONT_SANS_64_WHITE
-                    : Jimp.FONT_SANS_64_BLACK);
-        }
+        // Prioritize hosted ImageKit URL so it works in serverless environments (Vercel) without missing file errors
+        const fontSource =
+            (jimpOptions && jimpOptions[fontKey]) ||
+            DEFAULT_IMAGEKIT_FONTS[fontKey] ||
+            fallbackUrl;
 
         // Check font cache first, or load and cache font
         let font = fontCache.get(fontSource);
         if (!font) {
-            font = await Jimp.loadFont(fontSource);
+            try {
+                font = await Jimp.loadFont(fontSource);
+            } catch (loadErr: any) {
+                console.warn(
+                    `Failed to load font from ${fontSource}:`,
+                    loadErr.message
+                );
+                if (fontSource !== fallbackUrl) {
+                    try {
+                        font = await Jimp.loadFont(fallbackUrl);
+                    } catch (fallbackErr: any) {
+                        console.error(
+                            `Failed to load fallback font ${fallbackUrl}:`,
+                            fallbackErr.message
+                        );
+                    }
+                }
+            }
             if (font) {
                 fontCache.set(fontSource, font);
             }
         }
 
         if (!font) {
-            console.error("Failed to load font:", { color, font_size });
+            console.error("Failed to load font:", { color, font_size, fontSource });
             return {
                 buffer: null,
                 error: true,
