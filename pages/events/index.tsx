@@ -58,7 +58,7 @@ const Toast = (success: any, message: any) => {
     });
 };
 
-const EventS: NextPage<EventsPageProps> = ({ events }) => {
+const EventS: NextPage<EventsPageProps> = ({ events = [] }) => {
     const submitHandler = async (event: React.ChangeEvent<any>) => {
         event.preventDefault();
 
@@ -89,8 +89,9 @@ const EventS: NextPage<EventsPageProps> = ({ events }) => {
         }
     };
 
-    const activeEvents = events.filter((event) => event.is_active);
-    const pastEvents = events.filter((event) => !event.is_active);
+    const eventList = Array.isArray(events) ? events : [];
+    const activeEvents = eventList.filter((event) => event?.is_active);
+    const pastEvents = eventList.filter((event) => !event?.is_active);
 
     return (
         <>
@@ -257,33 +258,48 @@ export async function getServerSideProps(
             return { props: { events: cachedEvents } };
         }
 
-        const res = await fetch(`${url_root}/api/v1/events`);
-        const { data: events } = await res.json();
-        const formattedEvents: EventProps[] = (events || []).reverse();
+        const protocol = context.req.headers["x-forwarded-proto"] || "http";
+        const host =
+            context.req.headers.host ||
+            `localhost:${process.env.PORT || 3000}`;
+        const targetUrl = host
+            ? `${protocol}://${host}/api/v1/events`
+            : `${url_root}/api/v1/events`;
 
-        cachedEvents = formattedEvents;
-        lastFetchTime = now;
+        const res = await fetch(targetUrl);
+        const json = await res.json();
+        const eventsList: EventProps[] = Array.isArray(json?.data) ? json.data : [];
+        const formattedEvents: EventProps[] = (eventsList || []).reverse();
 
-        return { props: { events: formattedEvents } };
+        if (formattedEvents.length > 0) {
+            cachedEvents = formattedEvents;
+            lastFetchTime = now;
+            return { props: { events: formattedEvents } };
+        }
     } catch (error) {
-        console.log(error);
-        if (cachedEvents.length > 0) {
-            return { props: { events: cachedEvents } };
-        }
-        try {
-            const { Events } = await import("../../utils/services/events.service");
-            const eventData = await Events();
-            if (Array.isArray(eventData)) {
-                const formattedEvents: EventProps[] = JSON.parse(
-                    JSON.stringify(eventData)
-                ).reverse();
-                return { props: { events: formattedEvents } };
-            }
-        } catch (dbErr) {
-            console.error(dbErr);
-        }
-        return { notFound: true };
+        console.log("Fetch failed in getServerSideProps, trying direct DB:", error);
     }
+
+    try {
+        const { Events } = await import("../../utils/services/events.service");
+        const eventData = await Events();
+        if (Array.isArray(eventData) && eventData.length > 0) {
+            const formattedEvents: EventProps[] = JSON.parse(
+                JSON.stringify(eventData)
+            ).reverse();
+            cachedEvents = formattedEvents;
+            lastFetchTime = Date.now();
+            return { props: { events: formattedEvents } };
+        }
+    } catch (dbErr) {
+        console.error("DB fallback failed in getServerSideProps:", dbErr);
+    }
+
+    if (cachedEvents.length > 0) {
+        return { props: { events: cachedEvents } };
+    }
+
+    return { props: { events: [] } };
 }
 
 export default EventS;

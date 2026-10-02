@@ -734,6 +734,11 @@ const Event: NextPage<EventsPageProps> = ({ events = [] }) => {
     );
 };
 
+// In-memory cache for ultra-fast response
+let cachedEvents: EventProps[] = [];
+let lastFetchTime = 0;
+const CACHE_TTL_MS = 60 * 1000; // 60 seconds
+
 export async function getServerSideProps(
     context: GetServerSidePropsContext
 ): Promise<GetServerSidePropsResult<EventsPageProps>> {
@@ -742,26 +747,50 @@ export async function getServerSideProps(
             "Cache-Control",
             "public, s-maxage=60, stale-while-revalidate=300"
         );
-        const res = await fetch(`${url_root}/api/v1/events`);
-        const { data: events } = await res.json();
-        if (Array.isArray(events) && events.length > 0) {
-            return { props: { events } };
+
+        const now = Date.now();
+        if (cachedEvents.length > 0 && now - lastFetchTime < CACHE_TTL_MS) {
+            return { props: { events: cachedEvents } };
+        }
+
+        const protocol = context.req.headers["x-forwarded-proto"] || "http";
+        const host =
+            context.req.headers.host ||
+            `localhost:${process.env.PORT || 3000}`;
+        const targetUrl = host
+            ? `${protocol}://${host}/api/v1/events`
+            : `${url_root}/api/v1/events`;
+
+        const res = await fetch(targetUrl);
+        const json = await res.json();
+        const eventsList = Array.isArray(json?.data) ? json.data : [];
+        if (eventsList.length > 0) {
+            cachedEvents = eventsList;
+            lastFetchTime = now;
+            return { props: { events: eventsList } };
         }
     } catch (error) {
-        console.log("Fetch failed in getServerSideProps, falling back to db:", error);
+        console.log("Fetch failed in getServerSideProps, trying direct DB:", error);
     }
 
     try {
         const { Events } = await import("../../utils/services/events.service");
         const eventData = await Events();
         if (Array.isArray(eventData) && eventData.length > 0) {
-            return { props: { events: JSON.parse(JSON.stringify(eventData)) } };
+            const parsed = JSON.parse(JSON.stringify(eventData));
+            cachedEvents = parsed;
+            lastFetchTime = Date.now();
+            return { props: { events: parsed } };
         }
     } catch (dbErr) {
         console.error("DB fallback failed in getServerSideProps:", dbErr);
     }
 
-    return { notFound: true };
+    if (cachedEvents.length > 0) {
+        return { props: { events: cachedEvents } };
+    }
+
+    return { props: { events: [] } };
 }
 
 export default Event;
