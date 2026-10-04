@@ -75,7 +75,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             //     await sendRecruitmentMail(insertedParticipant);
             //     res.status(200).json({
             //         success: true,
-            //         message: `✅ Successfully Registered ${name}`,
+            //         message: `Successfully Registered ${name}`,
             //         data: data
             //     });
             // } catch (emailError: any) {
@@ -83,7 +83,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             //     res.status(500).json({
             //         success: false,
             //         message:
-            //             "❌ Registration successful, but failed to send confirmation email",
+            //             "Registration successful, but failed to send confirmation email",
             //         data: data
             //     });
             // }

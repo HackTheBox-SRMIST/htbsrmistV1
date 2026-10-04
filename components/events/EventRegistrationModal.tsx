@@ -21,6 +21,8 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
     const [checked, setChecked] = useState("");
     const [loadingSubmit, setLoadingSubmit] = useState(false);
 
+    if (!isOpen) return null;
+
     const Toast = (success: boolean, message: string) => {
         toast[success ? "success" : "error"](message, {
             position: "top-center",

@@ -75,13 +75,18 @@ export default async function handler(
                 "htbsrmist"
             );
             const eventData = (await eventCollection.findOne({
-                slug: event
+                $or: [
+                    { slug: event },
+                    { event_name: event },
+                    { slug: event.toLowerCase().replace(/\s+/g, "_") },
+                    { slug: event.toLowerCase().replace(/\s+/g, "-") }
+                ]
             })) as EventCertificateSchema | null;
 
             if (!eventData) {
                 return res.status(404).json({
                     success: false,
-                    error: `Event not found with slug: ${event}`
+                    error: `Event not found: ${event}`
                 });
             }
 
@@ -110,25 +115,44 @@ export default async function handler(
 
             const collectionName = eventData.collection[normalizedType];
 
-            const userCollection = await dbInstance.getCollection(
-                collectionName!,
-                eventData.database
-            );
+            const dbCandidates = [
+                eventData.database,
+                `prod_${eventData.database}`,
+                eventData.database ? eventData.database.replace(/^prod_/, "") : ""
+            ].filter((v, i, a): v is string => Boolean(v) && a.indexOf(v) === i);
 
-            // Match email (direct match first, case-insensitive regex fallback)
-            let userData = await userCollection.findOne({ email: cleanEmail });
-            if (!userData) {
-                userData = await userCollection.findOne({
-                    email: {
-                        $regex: new RegExp(
-                            `^${cleanEmail.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
-                            "i"
-                        )
+            let userData: any = null;
+            for (const dbName of dbCandidates) {
+                try {
+                    const userCollection = await dbInstance.getCollection(
+                        collectionName!,
+                        dbName
+                    );
+
+                    userData = await userCollection.findOne({ email: cleanEmail });
+                    if (!userData) {
+                        userData = await userCollection.findOne({
+                            email: {
+                                $regex: new RegExp(
+                                    `^${cleanEmail.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+                                    "i"
+                                )
+                            }
+                        });
                     }
-                });
+                    if (userData) break;
+                } catch (e) {
+                    console.warn(`Error searching in db ${dbName}:`, (e as Error).message);
+                }
             }
 
-            if (!userData || !userData.checkin) {
+            const isNotCheckedIn =
+                userData?.checkin === false ||
+                (typeof userData?.checkin === "object" &&
+                    userData.checkin !== null &&
+                    userData.checkin.status === false);
+
+            if (!userData || isNotCheckedIn) {
                 return res.status(404).json({
                     success: false,
                     error: `No certificate found for email: ${cleanEmail}`
