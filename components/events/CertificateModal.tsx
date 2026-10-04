@@ -37,6 +37,16 @@ const styles = {
             borderColor: state.isFocused ? "#000000" : "",
             borderWidth: state.isFocused ? "1.5px" : ""
         }
+    }),
+    placeholder: (base: any) => ({
+        ...base,
+        color: "#000000",
+        fontWeight: "normal"
+    }),
+    singleValue: (base: any) => ({
+        ...base,
+        color: "#000000",
+        fontWeight: "normal"
     })
 };
 
@@ -48,23 +58,16 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
 }) => {
     const [email, setEmail] = useState("");
     const [certificate, setCertificate] = useState<string | null>(null);
-    const [type, setType] = useState(
-        options && options.length > 0 ? options[0].value : "Please Select..."
-    );
+    const [type, setType] = useState("Please Select...");
     const [loadingCertificate, setLoadingCertificate] = useState(false);
 
     React.useEffect(() => {
-        if (options && options.length > 0) {
-            setType((prev) => {
-                if (!prev || prev === "Please Select..." || !options.some((o) => o.value === prev)) {
-                    return options[0].value;
-                }
-                return prev;
-            });
-        } else {
+        if (isOpen) {
             setType("Please Select...");
+            setEmail("");
+            setCertificate(null);
         }
-    }, [options, isOpen]);
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -111,14 +114,14 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
     const handleClose = () => {
         setCertificate(null);
         setEmail("");
-        setType(options && options.length > 0 ? options[0].value : "Please Select...");
+        setType("Please Select...");
         onClose();
     };
 
     return (
         <div className="fixed inset-0 z-[100] text-white flex justify-center items-center backdrop-blur-xl">
             <div className="w-[90%] lg:w-[500px] bg-white text-black p-7 rounded-3xl flex flex-col gap-5 relative ">
-                <ToastContainer />
+                <ToastContainer style={{ zIndex: 99999 }} />
                 <div
                     className="absolute top-5 right-5 w-7 hover:cursor-pointer hover:text-red-600"
                     onClick={handleClose}
@@ -185,14 +188,22 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
                                     : "Generate Certificate"}
                             </span>
                         </button>
-                        <div className=" max-md:w-2/3 text-xl max-md:text-lg mt-0 border-l-[1px] border-l-black">
+                        <div className="w-1/2 max-md:w-2/3 text-xl max-md:text-lg mt-0 border-l-[1px] border-l-black">
                             <Select
                                 autoFocus
                                 hideSelectedOptions={true}
                                 isClearable={false}
                                 isSearchable={false}
-                                placeholder={type}
-                                value={options.find((opt) => opt.value === type) || null}
+                                placeholder="Please Select..."
+                                value={
+                                    type && type !== "Please Select..."
+                                        ? options.find(
+                                              (opt) =>
+                                                  opt.value.toLowerCase() ===
+                                                  type.toLowerCase()
+                                          ) || null
+                                        : null
+                                }
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {
@@ -204,7 +215,9 @@ const CertificateModal: React.FC<CertificateModalProps> = ({
                                 name="preference1"
                                 className="text-black w-full rounded-full"
                                 options={options}
-                                onChange={(e: any) => setType(e.value)}
+                                onChange={(e: any) =>
+                                    setType(e ? e.value : "Please Select...")
+                                }
                                 styles={styles}
                             />
                         </div>
