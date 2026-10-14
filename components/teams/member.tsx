@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub, FaInstagram, FaLink, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import Social from "./social";
+import Social, { isValidSocialUrl } from "./social";
 
 const socialIcons = {
     github: <FaGithub />,
@@ -37,10 +37,10 @@ function getTransformedImageUrl(url?: string): string {
 const Member = (props: any) => {
     const imageUrl = getTransformedImageUrl(props.image);
     const hasSocials = Boolean(
-        (props.socials?.linkedin && props.socials.linkedin.length > 6) ||
-        (props.socials?.twitter && props.socials.twitter.length > 6) ||
-        (props.socials?.website && props.socials.website.length > 6) ||
-        (props.socials?.github && props.socials.github.length > 6)
+        (props.socials?.linkedin && isValidSocialUrl(props.socials.linkedin)) ||
+        (props.socials?.twitter && isValidSocialUrl(props.socials.twitter)) ||
+        (props.socials?.website && isValidSocialUrl(props.socials.website)) ||
+        (props.socials?.github && isValidSocialUrl(props.socials.github))
     );
 
     return (
@@ -82,18 +82,15 @@ const Member = (props: any) => {
                         )}
                     </div>
 
-                    {/* Served Since (for Founders & Convenors) */}
-                    {props.servedSince && (
-                        <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-transparent text-zinc-300 border border-zinc-300/40 rounded-full mt-0.5 font-mono font-semibold shadow-[0_0_8px_rgba(139,239,0,0.25)]">
-                            {props.servedSince}
-                        </span>
-                    )}
-
-                    {/* Caption / Tag Line (given 3-line capacity) */}
+                    {/* Caption / Tag Line or Served Since (fills slot for Faculty Convenors without caption) */}
                     <div className="min-h-[2.5rem] sm:min-h-[2.8rem] flex items-center justify-center w-full mt-0.5 sm:mt-1 px-1">
                         {props.caption ? (
                             <span className="text-center text-[11px] sm:text-xs font-semibold text-zinc-200 break-words leading-tight italic line-clamp-3">
                                 &ldquo;{props.caption}&rdquo;
+                            </span>
+                        ) : props.servedSince ? (
+                            <span className="text-[10px] sm:text-xs px-2.5 py-0.5 bg-zinc-900/60 text-zinc-300 border border-zinc-500/40 rounded-full font-mono font-semibold shadow-[0_0_8px_rgba(159,239,0,0.2)]">
+                                {props.servedSince}
                             </span>
                         ) : null}
                     </div>
@@ -103,19 +100,19 @@ const Member = (props: any) => {
                 <div className="w-full flex pt-1 sm:pt-1.5 gap-1.5 sm:gap-2 justify-center items-center min-h-[2rem] border-t border-white/5 mt-1">
                     {hasSocials ? (
                         <>
-                            {props.socials?.linkedin && props.socials.linkedin.length > 6 && (
+                            {props.socials?.linkedin && isValidSocialUrl(props.socials.linkedin) && (
                                 <Social
                                     link={props.socials.linkedin}
                                     logo={socialIcons.linkedin}
                                 />
                             )}
-                            {props.socials?.twitter && props.socials.twitter.length > 6 && (
+                            {props.socials?.twitter && isValidSocialUrl(props.socials.twitter) && (
                                 <Social
                                     link={props.socials.twitter}
                                     logo={socialIcons.twitter}
                                 />
                             )}
-                            {props.socials?.website && props.socials.website.length > 6 && (
+                            {props.socials?.website && isValidSocialUrl(props.socials.website) && (
                                 <Social
                                     link={props.socials.website}
                                     logo={
@@ -125,7 +122,7 @@ const Member = (props: any) => {
                                     }
                                 />
                             )}
-                            {props.socials?.github && props.socials.github.length > 6 && (
+                            {props.socials?.github && isValidSocialUrl(props.socials.github) && (
                                 <Social
                                     link={props.socials.github}
                                     logo={socialIcons.github}
