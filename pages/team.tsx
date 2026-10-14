@@ -60,6 +60,19 @@ export const formatTeamYear = (year: number | string): string => {
     return String(yr);
 };
 
+export const getMemberLatestYear = (m: MemberProps): number => {
+    let latest = Number(m.joined) || 0;
+    if (Array.isArray(m.status) && m.status.length > 0) {
+        for (const s of m.status) {
+            const yr = Number(s.joined);
+            if (yr > latest) {
+                latest = yr;
+            }
+        }
+    }
+    return latest;
+};
+
 const TEAM_PHOTOS = [
     {
         url: "https://ik.imagekit.io/htbsrmist/Group%20Photo/team2025-26.jpg",
@@ -178,7 +191,14 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
 
     // derive members for the currently selected year
     const yearMembers: MemberProps[] = members
-        .filter((m) => m.isCurrent !== false) // hide inactive members
+        .filter((m) => {
+            // If member is active, they can appear in all years they belong to
+            if (m.isCurrent !== false) return true;
+
+            // If member is inactive (isCurrent === false), hide them ONLY from their latest year
+            const latestYear = getMemberLatestYear(m);
+            return Number(activeYear) !== latestYear;
+        })
         .map((m) => {
             let statusEntry = undefined;
             if (Array.isArray(m.status) && m.status.length > 0) {
