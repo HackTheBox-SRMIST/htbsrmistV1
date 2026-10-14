@@ -50,6 +50,16 @@ const rankButtons: { key: "Root" | "Sudoer" | "Sticky Bit" | "Binary"; label: st
     { key: "Binary", label: "Members", fullTitle: "Members [Binary]" }
 ];
 
+export const formatTeamYear = (year: number | string): string => {
+    const yr = Number(year);
+    if (!yr || isNaN(yr)) return String(year || "");
+    if (yr >= 2026) {
+        const nextYearSuffix = String(yr + 1).slice(-2);
+        return `${yr}-${nextYearSuffix}`;
+    }
+    return String(yr);
+};
+
 const TEAM_PHOTOS = [
     {
         url: "https://ik.imagekit.io/htbsrmist/Group%20Photo/team2025-26.jpg",
@@ -132,12 +142,19 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
-    // compute available years from the full status arrays, starting from 2023
+    // compute available years from the full status arrays and joined, starting from 2023
     const allYears: number[] = Array.from(
         new Set(
-            members.flatMap((m) =>
-                Array.isArray(m.status) ? m.status.map((s) => s.joined) : []
-            )
+            members.flatMap((m) => {
+                const years: number[] = [];
+                if (Array.isArray(m.status)) {
+                    m.status.forEach((s) => {
+                        if (s.joined) years.push(Number(s.joined));
+                    });
+                }
+                if (m.joined) years.push(Number(m.joined));
+                return years;
+            })
         )
     )
         .filter((yr) => yr >= 2023)
@@ -152,6 +169,10 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
     for (let yr = maxYear; yr >= 2023; yr--) {
         yearsToShow.push(yr);
     }
+
+    const availableYears: number[] = Array.from(
+        new Set([...allYears, ...yearsToShow])
+    ).sort((a, b) => b - a);
 
     const [activeYear, setActiveYear] = useState<number>(maxYear);
 
@@ -421,7 +442,7 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                 onClick={() => setIsYearDropdownOpen(!isYearDropdownOpen)}
                                 className="relative flex items-center justify-between gap-1.5 sm:gap-2.5 bg-black/70 hover:bg-black/90 border-2 border-htb-green/50 hover:border-htb-green px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full text-htb-green font-extrabold text-xs sm:text-base focus:outline-none cursor-pointer transition-all shadow-[0_0_10px_rgba(159,239,0,0.15)]"
                             >
-                                <span className="tracking-wide">Year: {activeYear}</span>
+                                <span className="tracking-wide">Year: {formatTeamYear(activeYear)}</span>
                                 <svg
                                     className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 ${
                                         isYearDropdownOpen ? "rotate-180" : "rotate-0"
@@ -457,20 +478,20 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
                                     Select Year
                                 </div>
                                 <div className="grid grid-cols-4 gap-2 sm:gap-3">
-                                    {(allYears.length > 0 ? allYears : yearsToShow).map((yr) => (
+                                    {availableYears.map((yr) => (
                                         <button
                                             key={yr}
                                             onClick={() => {
                                                 selectYear(yr);
                                                 setIsYearDropdownOpen(false);
                                             }}
-                                            className={`py-2 px-1 text-center rounded-xl font-medium text-sm sm:text-base transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
+                                            className={`py-2 px-1 text-center rounded-xl font-medium text-xs sm:text-sm md:text-base whitespace-nowrap transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer ${
                                                 activeYear === yr
                                                     ? "bg-htb-green text-black font-bold shadow-[0_0_12px_rgba(151,253,30,0.4)]"
                                                     : "bg-[#111] hover:bg-htb-green/20 text-white/80 hover:text-htb-green border border-white/5 hover:border-htb-green/30"
                                             }`}
                                         >
-                                            {yr}
+                                            {formatTeamYear(yr)}
                                         </button>
                                     ))}
                                 </div>
