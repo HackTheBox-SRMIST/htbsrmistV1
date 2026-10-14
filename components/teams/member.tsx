@@ -1,7 +1,7 @@
 import React from "react";
 import { FaGithub, FaInstagram, FaLink, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import Social from "./social";
+import Social, { isValidSocialUrl } from "./social";
 
 const socialIcons = {
     github: <FaGithub />,
@@ -37,10 +37,10 @@ function getTransformedImageUrl(url?: string): string {
 const Member = (props: any) => {
     const imageUrl = getTransformedImageUrl(props.image);
     const hasSocials = Boolean(
-        (props.socials?.linkedin && props.socials.linkedin.length > 6) ||
-        (props.socials?.twitter && props.socials.twitter.length > 6) ||
-        (props.socials?.website && props.socials.website.length > 6) ||
-        (props.socials?.github && props.socials.github.length > 6)
+        (props.socials?.linkedin && isValidSocialUrl(props.socials.linkedin)) ||
+        (props.socials?.twitter && isValidSocialUrl(props.socials.twitter)) ||
+        (props.socials?.website && isValidSocialUrl(props.socials.website)) ||
+        (props.socials?.github && isValidSocialUrl(props.socials.github))
     );
 
     return (
@@ -103,19 +103,19 @@ const Member = (props: any) => {
                 <div className="w-full flex pt-1 sm:pt-1.5 gap-1.5 sm:gap-2 justify-center items-center min-h-[2rem] border-t border-white/5 mt-1">
                     {hasSocials ? (
                         <>
-                            {props.socials?.linkedin && props.socials.linkedin.length > 6 && (
+                            {props.socials?.linkedin && isValidSocialUrl(props.socials.linkedin) && (
                                 <Social
                                     link={props.socials.linkedin}
                                     logo={socialIcons.linkedin}
                                 />
                             )}
-                            {props.socials?.twitter && props.socials.twitter.length > 6 && (
+                            {props.socials?.twitter && isValidSocialUrl(props.socials.twitter) && (
                                 <Social
                                     link={props.socials.twitter}
                                     logo={socialIcons.twitter}
                                 />
                             )}
-                            {props.socials?.website && props.socials.website.length > 6 && (
+                            {props.socials?.website && isValidSocialUrl(props.socials.website) && (
                                 <Social
                                     link={props.socials.website}
                                     logo={
@@ -125,7 +125,7 @@ const Member = (props: any) => {
                                     }
                                 />
                             )}
-                            {props.socials?.github && props.socials.github.length > 6 && (
+                            {props.socials?.github && isValidSocialUrl(props.socials.github) && (
                                 <Social
                                     link={props.socials.github}
                                     logo={socialIcons.github}

@@ -57,8 +57,8 @@ const TEAM_PHOTOS = [
         label: "2025 - 2026"
     },
     {
-        url: "https://ik.imagekit.io/htbsrmist/Group%20Photo/team.JPG",
-        name: "team.JPG",
+        url: "https://ik.imagekit.io/htbsrmist/Group%20Photo/team.jpg?updatedAt=1792004958990",
+        name: "team.jpg",
         label: "2023 - 2024"
     }
 ];
