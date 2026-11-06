@@ -15,6 +15,7 @@ import { DBInstance } from "../utils/db.connect";
 interface MemberProps {
     pictureUrl: string | undefined;
     name: string;
+    index?: number | null;
     isCurrent: boolean;
     joined: number;
     caption: string;
@@ -71,6 +72,35 @@ export const getMemberLatestYear = (m: MemberProps): number => {
         }
     }
     return latest;
+};
+
+const toMemberIndex = (value: unknown): number | null => {
+    if (value === undefined || value === null || value === "") return null;
+    const num = Number(value);
+    return Number.isFinite(num) ? num : null;
+};
+
+const getMemberIndex = (m: MemberProps): number | undefined => {
+    const idx = toMemberIndex(m.index);
+    return idx === null ? undefined : idx;
+};
+
+// Display ordering rule:
+// - Members WITH an `index` are treated as priority and sorted by index (ascending).
+// - Members WITHOUT an `index` fall back to alphabetical order by name.
+export const compareTeamMembers = (a: MemberProps, b: MemberProps): number => {
+    const aIndex = getMemberIndex(a);
+    const bIndex = getMemberIndex(b);
+
+    if (aIndex !== undefined && bIndex !== undefined && aIndex !== bIndex) {
+        return aIndex - bIndex;
+    }
+    if (aIndex !== undefined && bIndex === undefined) return -1;
+    if (aIndex === undefined && bIndex !== undefined) return 1;
+
+    return (a.name || "").localeCompare(b.name || "", undefined, {
+        sensitivity: "base"
+    });
 };
 
 const TEAM_PHOTOS = [
@@ -217,6 +247,9 @@ const Team: NextPage<TeamPageProps> = ({ members }) => {
             } as MemberProps;
         })
         .filter(Boolean) as MemberProps[];
+
+    // Apply display ordering: indexed members by index, the rest alphabetically.
+    yearMembers.sort(compareTeamMembers);
 
     const Creatives = yearMembers.filter(
         (el) => el.domain === "Creatives" && el.position !== "Root"
@@ -981,6 +1014,7 @@ export async function getServerSideProps(
             return {
                 pictureUrl: m.pictureUrl,
                 name: m.name,
+                index: toMemberIndex(m.index),
                 isCurrent: Boolean(m.isCurrent),
                 joined: memberJoined,
                 caption: m.caption || "",
