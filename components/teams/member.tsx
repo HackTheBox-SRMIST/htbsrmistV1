@@ -85,8 +85,8 @@ const Member = (props: any) => {
                     {/* Caption / Tag Line or Served Since (fills slot for Faculty Convenors without caption) */}
                     <div className="min-h-[2.5rem] sm:min-h-[2.8rem] flex items-center justify-center w-full mt-0.5 sm:mt-1 px-1">
                         {props.caption ? (
-                            <span className="text-center text-[11px] sm:text-xs font-semibold text-zinc-200 break-words leading-tight italic line-clamp-3">
-                                &ldquo;{props.caption}&rdquo;
+                            <span className="text-center text-[11px] sm:text-xs font-semibold text-zinc-200 break-words leading-tight line-clamp-3">
+                                {props.caption}
                             </span>
                         ) : props.servedSince ? (
                             <span className="text-[10px] sm:text-xs px-2.5 py-0.5 bg-zinc-900/60 text-zinc-300 border border-zinc-500/40 rounded-full font-mono font-semibold shadow-[0_0_8px_rgba(159,239,0,0.2)]">
