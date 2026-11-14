@@ -128,13 +128,31 @@ const Event: NextPage<EventsPageProps> = ({ events = [] }) => {
                       typeof url === "string" &&
                       url.trim() !== ""
               )
-              .map(([key]) => ({
-                  value: key,
-                  label: key
-                      .split(/[-_]/)
-                      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                      .join(" ")
-              }))
+              .map(([key]) => {
+                  const prizeLabels: Record<string, string> = {
+                      first_prize: "1st Prize",
+                      sec_prize: "2nd Prize",
+                      second_prize: "2nd Prize",
+                      third_prize: "3rd Prize",
+                      first_place: "1st Place",
+                      second_place: "2nd Place",
+                      third_place: "3rd Place"
+                  };
+                  const normalized = key.toLowerCase().replace(/-/g, "_");
+                  return {
+                      value: key,
+                      label:
+                          prizeLabels[normalized] ||
+                          key
+                              .split(/[-_]/)
+                              .map(
+                                  (word) =>
+                                      word.charAt(0).toUpperCase() +
+                                      word.slice(1)
+                              )
+                              .join(" ")
+                  };
+              })
         : [];
 
     const prerequisiteList: string[] = (() => {

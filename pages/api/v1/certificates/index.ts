@@ -121,28 +121,46 @@ export default async function handler(
                 eventData.database ? eventData.database.replace(/^prod_/, "") : ""
             ].filter((v, i, a): v is string => Boolean(v) && a.indexOf(v) === i);
 
-            let userData: any = null;
-            for (const dbName of dbCandidates) {
-                try {
-                    const userCollection = await dbInstance.getCollection(
-                        collectionName!,
-                        dbName
-                    );
+            // Accept both singular and plural collection names
+            // (e.g. "first_prize" and "first_prizes") for every event.
+            const collectionCandidates = [
+                collectionName,
+                collectionName?.endsWith("s")
+                    ? collectionName.slice(0, -1)
+                    : `${collectionName}s`
+            ].filter(
+                (v, i, a): v is string => Boolean(v) && a.indexOf(v) === i
+            );
 
-                    userData = await userCollection.findOne({ email: cleanEmail });
-                    if (!userData) {
+            const emailRegex = new RegExp(
+                `^${cleanEmail.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
+                "i"
+            );
+
+            let userData: any = null;
+            outer: for (const dbName of dbCandidates) {
+                for (const colName of collectionCandidates) {
+                    try {
+                        const userCollection = await dbInstance.getCollection(
+                            colName,
+                            dbName
+                        );
+
                         userData = await userCollection.findOne({
-                            email: {
-                                $regex: new RegExp(
-                                    `^${cleanEmail.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`,
-                                    "i"
-                                )
-                            }
+                            email: cleanEmail
                         });
+                        if (!userData) {
+                            userData = await userCollection.findOne({
+                                email: { $regex: emailRegex }
+                            });
+                        }
+                        if (userData) break outer;
+                    } catch (e) {
+                        console.warn(
+                            `Error searching in ${dbName}.${colName}:`,
+                            (e as Error).message
+                        );
                     }
-                    if (userData) break;
-                } catch (e) {
-                    console.warn(`Error searching in db ${dbName}:`, (e as Error).message);
                 }
             }
 
