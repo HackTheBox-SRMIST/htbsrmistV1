@@ -37,6 +37,8 @@ interface EventCertificateSchema {
     };
     jimp_config: {
         yOffset: string;
+        xOffset?: string;
+        text_case?: string;
         color: string;
         font_size: string;
     };
@@ -200,7 +202,11 @@ export default async function handler(
                 color.toUpperCase(),
                 fontSize,
                 yOffset,
-                jimpOptions
+                jimpOptions,
+                {
+                    xOffset: eventData.jimp_config.xOffset,
+                    text_case: eventData.jimp_config.text_case
+                }
             );
 
             if (error) {
