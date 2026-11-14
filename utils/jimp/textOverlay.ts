@@ -24,7 +24,8 @@ const textOverlay = async (
     color: string,
     font_size: string,
     yOffset: string,
-    jimpOptions: any
+    jimpOptions: any,
+    extra?: { xOffset?: string; text_case?: string }
 ): Promise<{
     buffer: string | null;
     error: boolean;
@@ -103,17 +104,36 @@ const textOverlay = async (
         // Clone base image in memory so printing text doesn't mutate cached template
         const image = baseImage.clone();
 
+        // The CMS designer positions the name on a 1300x900 canvas (template is
+        // stretched to that size). Our template is scaled to 1300 wide with its
+        // own height, so convert the Y offset proportionally to keep placement identical.
+        const imgW = image.bitmap.width;
+        const imgH = image.bitmap.height;
+        const x = parseInt(extra?.xOffset ?? "0") || 0;
+        const y = Math.round(((parseInt(yOffset) || 0) * imgH) / 900);
+
+        let text = name;
+        if (extra?.text_case === "uppercase") {
+            text = name.toUpperCase();
+        } else if (extra?.text_case === "capitalize") {
+            text = name
+                .toLowerCase()
+                .split(" ")
+                .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                .join(" ");
+        }
+
         image.print(
             font,
-            0,
-            parseInt(yOffset) || 0,
+            x,
+            y,
             {
-                text: name,
+                text,
                 alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER,
                 alignmentY: Jimp.VERTICAL_ALIGN_MIDDLE
             },
-            1300,
-            900
+            imgW,
+            imgH
         );
 
         const bufferImage = await image.getBase64Async(Jimp.MIME_PNG);
